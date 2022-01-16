@@ -9,6 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.CoconutBlock;
+import samebutdifferent.ecologics.block.CoconutLeavesBlock;
 import samebutdifferent.ecologics.block.HangingCoconutBlock;
 import samebutdifferent.ecologics.block.CoconutSaplingBlock;
 
@@ -21,7 +22,7 @@ public class ModBlocks {
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_COCONUT_LOG = registerBlock("stripped_coconut_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));
     public static final RegistryObject<RotatedPillarBlock> COCONUT_WOOD = registerBlock("coconut_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_COCONUT_WOOD = registerBlock("stripped_coconut_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
-    public static final RegistryObject<LeavesBlock> COCONUT_LEAVES = registerBlock("coconut_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<LeavesBlock> COCONUT_LEAVES = registerBlock("coconut_leaves", CoconutLeavesBlock::new);
     public static final RegistryObject<Block> COCONUT_PLANKS = registerBlock("coconut_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
     public static final RegistryObject<SlabBlock> COCONUT_SLAB = registerBlock("coconut_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
     public static final RegistryObject<StairBlock> COCONUT_STAIRS = registerBlock("coconut_stairs", () -> new StairBlock(Blocks.OAK_PLANKS::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));

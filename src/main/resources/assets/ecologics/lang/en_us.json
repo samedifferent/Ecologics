@@ -17,7 +17,7 @@
   "item.ecologics.coconut_husk": "Coconut Husk",
   "block.ecologics.coconut_log": "Coconut Log",
   "block.ecologics.coconut": "Coconut",
-  "death.attack.coconut": "%1$s was squashed by a falling coconut",
-  "death.attack.coconut.player": "%1$s was squashed by a falling coconut whilst fighting %2$s",
+  "death.attack.coconut": "%1$s was bonked by a falling coconut",
+  "death.attack.coconut.player": "%1$s was bonked by a falling coconut whilst fighting %2$s",
   "ecologics.subtitles.block.coconut_smash": "Coconut smashes"
 }

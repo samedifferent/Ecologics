@@ -19,7 +19,7 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<TreeConfiguration, ?> COCONUT = Feature.TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(ModBlocks.COCONUT_LOG.get()),
             new SlantedTrunkPlacer(7, 4, 0),
-            BlockStateProvider.simple(Blocks.JUNGLE_LEAVES),
+            BlockStateProvider.simple(ModBlocks.COCONUT_LEAVES.get()),
             new CoconutFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
             new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 

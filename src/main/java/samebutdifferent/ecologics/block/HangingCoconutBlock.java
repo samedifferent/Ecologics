@@ -25,6 +25,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
@@ -42,7 +43,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState aboveState = pLevel.getBlockState(pPos.above());
-        return aboveState.is(Blocks.JUNGLE_LEAVES);
+        return aboveState.is(ModBlocks.COCONUT_LEAVES.get());
     }
 
     @Override
@@ -62,7 +63,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
         int age = pState.getValue(AGE);
-        if (pRandom.nextInt(2) == 0) {
+        if (pRandom.nextInt(3) == 0) {
             if (age < 2) {
                 pLevel.setBlock(pPos, pState.setValue(AGE, age + 1), 2);
             } else if (pPos.getY() >= pLevel.getMinBuildHeight()){
