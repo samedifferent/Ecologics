@@ -23,13 +23,6 @@
                       }
                     ]
                   }
-                },
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "ecologics:hanging_coconut",
-                  "properties": {
-                    "age": "2"
-                  }
                 }
               ],
               "name": "ecologics:coconut"
@@ -39,15 +32,6 @@
               "functions": [
                 {
                   "function": "minecraft:set_count",
-                  "conditions": [
-                    {
-                      "condition": "minecraft:block_state_property",
-                      "block": "ecologics:hanging_coconut",
-                      "properties": {
-                        "age": "2"
-                      }
-                    }
-                  ],
                   "count": 2.0,
                   "add": false
                 },
@@ -58,6 +42,15 @@
               "name": "ecologics:coconut_slice"
             }
           ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:hanging_coconut",
+          "properties": {
+            "age": "2"
+          }
         }
       ]
     }
