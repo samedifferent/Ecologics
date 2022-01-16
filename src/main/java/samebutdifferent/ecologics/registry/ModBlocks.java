@@ -1,18 +1,15 @@
 package samebutdifferent.ecologics.registry;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.common.PlantType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.CoconutBlock;
-import samebutdifferent.ecologics.block.grower.CoconutTreeGrower;
+import samebutdifferent.ecologics.block.CoconutSaplingBlock;
 
 import java.util.function.Supplier;
 
@@ -34,12 +31,7 @@ public class ModBlocks {
     public static final RegistryObject<WoodButtonBlock> COCONUT_BUTTON = registerBlock("coconut_button", () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
     public static final RegistryObject<PressurePlateBlock> COCONUT_PRESSURE_PLATE = registerBlock("coconut_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
     public static final RegistryObject<CoconutBlock> COCONUT = BLOCKS.register("coconut", CoconutBlock::new);
-    public static final RegistryObject<SaplingBlock> COCONUT_SAPLING = registerBlock("coconut_sapling", () -> new SaplingBlock(new CoconutTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)){
-        @Override
-        public PlantType getPlantType(BlockGetter world, BlockPos pos) {
-            return PlantType.BEACH;
-        }
-    });
+    public static final RegistryObject<SaplingBlock> COCONUT_HUSK = registerBlock("coconut_husk", CoconutSaplingBlock::new);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);
