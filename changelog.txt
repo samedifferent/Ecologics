@@ -1,0 +1,66 @@
+1.18.x Changelog
+39.0
+====
+ - 39.0.36 fix crowdin key
+ - 39.0.35 TeamCity change in 'MinecraftForge / MinecraftForge' project: project parameters were changed
+ - 39.0.34 TeamCity change in 'MinecraftForge / MinecraftForge' project: project parameters were changed
+ - 39.0.33 TeamCity change in 'MinecraftForge / MinecraftForge' project: project parameters were changed
+ - 39.0.32 fix secondary branches builds
+ - 39.0.31 TeamCity change in 'MinecraftForge / MinecraftForge' project: parameters of 'Build - Secondary Branches' build configuration were updated
+ - 39.0.30 TeamCity change in 'MinecraftForge / MinecraftForge' project: VCS roots of 'Build - Secondary Branches' build configuration were updated
+ - 39.0.29 TeamCity change in 'MinecraftForge / MinecraftForge' project: VCS roots of 'Build - Secondary Branches' build configuration were updated
+ - 39.0.28 TeamCity change in 'MinecraftForge / MinecraftForge' project: VCS roots of 'Build - Secondary Branches' build configuration were updated
+ - 39.0.27 TeamCity change in 'MinecraftForge / MinecraftForge' project: parameters of 'Build - Secondary Branches' build configuration were updated
+ - 39.0.26 TeamCity change in 'MinecraftForge / MinecraftForge' project: parameters of 'Build - Secondary Branches' build configuration were updated
+ - 39.0.25 TeamCity change in 'MinecraftForge / MinecraftForge' project: VCS roots of 'Build - Secondary Branches' build configuration were updated
+ - 39.0.24 Remove primary branches from building on secondary branch configuration and publish crowdin data. (#8397)
+           * Remove the normalized branch names also from the filter.
+           * Add the additional publishing arguments to get the crowdin information.
+           * TeamCity change in 'MinecraftForge / MinecraftForge' project: project parameters were changed
+           * Fix the configuration.
+           * Remove the required patch and use the base script.
+           * Make a note about the reference.
+           Co-authored-by: cpw <cpw@weeksfamily.ca>
+ - 39.0.23 TeamCity change in 'MinecraftForge / MinecraftForge' project: project parameters were changed
+ - 39.0.22 Correct the build configuration to support a setup. (#8395)
+           * Add a setup task and publish the correct versions.
+           * Reconfigure build task and disable the normal build and test cycle on everything but pull requests, run an assemble there.
+           * Fix the derp in the build configuration.
+ - 39.0.21 Enable the TeamCity CI pipeline (#8368)
+           * Setup the build.gradle
+           * Setup the teamcity toolchain.
+           * Revert the usage of the local build of GU.
+           * Automatically add it now, it will always exist and is added to maven automatically by GU.
+           * Implement the branch filter and move the constant for the minimal changelog tag to a constant in the extension.
+           * Adding the JDK and Gradle version to the build script.
+ - 39.0.20 Fix and improve Ingredient invalidation (#8361)
+ - 39.0.19 Rework world persistence hooks to fix the double registry injection when loading single player worlds. (#8234)
+ - 39.0.18 Update tags for new 1.17 and 1.18 content (#7891)
+ - 39.0.17 Fix TerrainParticle rendering black under certain conditions (#8378)
+ - 39.0.16 Allow modded tools to work on glow lichen (#8371)
+ - 39.0.15 Fix custom climbable blocks not sending a death message (#8372)
+           Fixes #8370
+ - 39.0.14 Provide access to the blockstate in BucketPickup#getPickupSound for multiply-logged blocks (#8357)
+ - 39.0.13 Fix clients being unable to deserialize tags for custom registries (#8352)
+ - 39.0.12 Fix particles going fullbright for a few frames when first spawning (#8291)
+ - 39.0.11 Also create parent directories when creating config files (#8364)
+ - 39.0.10 Fix crash with PermissionsAPI (#8330)
+           Fixes a crash in singleplayer, when the internal server didn't shut down correctly between world loads.
+ - 39.0.9  Re-add missing default spawn lists in features (#8285)
+           Fixes #8265
+           Fixes #8301
+ - 39.0.8  Fixed incorrect generic in PermissionAPI (#8317)
+ - 39.0.7  Redo of the whole PermissionAPI (#7780)
+           Co-authored-by: LexManos <LexManos@gmail.com>
+ - 39.0.6  Fix misplaced patch in SpreadingSnowyDirtBlock. 
+           Fixes #8308.
+ - 39.0.5  Add RenderArmEvent to make overriding just the arm rendering not require copying nearly as much vanilla code (#8254)
+ - 39.0.4  Add MobEffect tags (#8231)
+ - 39.0.3  Log missing or unsupported dependencies (#8218)
+ - 39.0.2  Fix datagen test for sounds definitions provider  (#8249)
+ - 39.0.1  Fix wrong stage being declared in transition to common (#8267)
+ - 39.0.0  Update to 1.18.1
+           Co-Authored by:
+           - Curle
+           _ Orion
+

@@ -1,0 +1,21 @@
+{
+  "itemGroup.ecologics": "Ecologics",
+  "block.ecologics.stripped_coconut_wood": "Stripped Coconut Wood",
+  "block.ecologics.coconut_button": "Coconut Button",
+  "block.ecologics.coconut_planks": "Coconut Planks",
+  "block.ecologics.coconut_fence_gate": "Coconut Fence Gate",
+  "block.ecologics.coconut_fence": "Coconut Fence",
+  "block.ecologics.stripped_coconut_log": "Stripped Coconut Log",
+  "block.ecologics.coconut_wood": "Coconut Wood",
+  "block.ecologics.coconut_door": "Coconut Door",
+  "block.ecologics.coconut_leaves": "Coconut Leaves",
+  "block.ecologics.coconut_trapdoor": "Coconut Trapdoor",
+  "block.ecologics.coconut_stairs": "Coconut Stairs",
+  "block.ecologics.coconut_slab": "Coconut Slab",
+  "block.ecologics.coconut_pressure_plate": "Coconut Pressure Plate",
+  "item.ecologics.coconut_slice": "Coconut Slice",
+  "block.ecologics.coconut_log": "Coconut Log",
+  "death.attack.coconut": "%1$s was squashed by a falling coconut",
+  "death.attack.coconut.player": "%1$s was squashed by a falling coconut whilst fighting %2$s",
+  "ecologics.subtitles.block.coconut_smash": "Coconut smashes"
+}
