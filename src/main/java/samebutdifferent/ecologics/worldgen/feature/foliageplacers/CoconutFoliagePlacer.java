@@ -70,8 +70,8 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
         // Place Coconuts
         pos.set(startingPos.below());
         pos.move(direction);
-        pBlockSetter.accept(pos, ModBlocks.COCONUT.get().defaultBlockState());
+        pBlockSetter.accept(pos, ModBlocks.HANGING_COCONUT.get().defaultBlockState());
         pos.move(direction.getCounterClockWise());
-        pBlockSetter.accept(pos, ModBlocks.COCONUT.get().defaultBlockState());
+        pBlockSetter.accept(pos, ModBlocks.HANGING_COCONUT.get().defaultBlockState());
     }
 }

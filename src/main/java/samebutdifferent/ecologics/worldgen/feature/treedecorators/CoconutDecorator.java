@@ -28,7 +28,7 @@ public class CoconutDecorator extends TreeDecorator {
             if (pRandom.nextInt(4) == 0) {
                 BlockPos blockpos = blockPos.below();
                 if (Feature.isAir(pLevel, blockpos)) {
-                    pBlockSetter.accept(blockPos, ModBlocks.COCONUT.get().defaultBlockState());;
+                    pBlockSetter.accept(blockPos, ModBlocks.HANGING_COCONUT.get().defaultBlockState());;
                 }
             }
         }));

@@ -2,7 +2,7 @@
 	"ambientocclusion": false,
 	"texture_size": [32, 32],
 	"textures": {
-		"particle": "ecologics:block/coconut_stage0",
+		"particle": "ecologics:block/coconut_stage2",
 		"coconut": "ecologics:block/coconut_stage2"
 	},
 	"elements": [
