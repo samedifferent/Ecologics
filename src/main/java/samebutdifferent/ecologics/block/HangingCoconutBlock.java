@@ -155,7 +155,6 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
             CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.get().create(pLevel);
             coconutCrab.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
             pLevel.addFreshEntity(coconutCrab);
-            pLevel.playSound(null, pPos, SoundEvents.SPIDER_AMBIENT, SoundSource.NEUTRAL, 1.0F, 1.0F);
         } else {
             ItemEntity itementity = new ItemEntity(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
             itementity.setDefaultPickUpDelay();

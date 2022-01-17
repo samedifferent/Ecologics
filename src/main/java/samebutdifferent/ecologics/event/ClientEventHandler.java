@@ -18,6 +18,8 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.COCONUT_HUSK.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.COCONUT_DOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.COCONUT_TRAPDOOR.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.COCONUT_LEAVES.get(), RenderType.cutoutMipped());
     }
 

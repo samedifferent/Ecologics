@@ -54,12 +54,11 @@ public class CoconutCrab extends Animal implements IAnimatable {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.3F));
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(3, new CoconutCrab.CrabAvoidGoal<>(this, Player.class, 8.0F, 2.0D, 2.0D));
-        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(2, new CoconutCrab.CrabAvoidGoal<>(this, Player.class, 8.0F, 2.0D, 2.0D));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new CoconutCrab.CrabNearestAttackableTargetGoal<>(this, Player.class, true, false));
     }
 

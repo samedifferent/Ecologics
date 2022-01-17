@@ -23,6 +23,5 @@
   "entity.ecologics.coconut_crab": "Coconut Crab",
   "ecologics.subtitles.entity.coconut_crab.ambient": "Coconut Crab hisses",
   "ecologics.subtitles.entity.coconut_crab.death": "Coconut Crab dies",
-  "ecologics.subtitles.entity.coconut_crab.hurt": "Coconut Crab hurts",
-  "ecologics.subtitles.entity.coconut_crab.shell_smash": "Shell smashes"
+  "ecologics.subtitles.entity.coconut_crab.hurt": "Coconut Crab hurts"
 }

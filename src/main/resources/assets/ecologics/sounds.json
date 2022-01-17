@@ -22,11 +22,5 @@
       "ecologics:coconut_crab_hurt"
     ],
     "subtitle": "ecologics.subtitles.entity.coconut_crab.hurt"
-  },
-  "entity.coconut_crab.shell_smash": {
-    "sounds": [
-      "ecologics:coconut_crab_shell_smash"
-    ],
-    "subtitle": "ecologics.subtitles.entity.coconut_crab.shell_smash"
   }
 }
