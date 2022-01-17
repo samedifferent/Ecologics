@@ -25,8 +25,6 @@ public class Ecologics {
         ModBlocks.BLOCKS.register(bus);
         ModItems.ITEMS.register(bus);
         ModSoundEvents.SOUND_EVENTS.register(bus);
-        ModFoliagePlacerTypes.FOLIAGE_PLACER_TYPES.register(bus);
-        ModTreeDecoratorTypes.TREE_DECORATOR_TYPES.register(bus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }

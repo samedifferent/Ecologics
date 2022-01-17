@@ -25,7 +25,7 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> type() {
-        return ModFoliagePlacerTypes.COCONUT_FOLIAGE_PLACER.get();
+        return ModFoliagePlacerTypes.COCONUT_FOLIAGE_PLACER;
     }
 
     @Override
