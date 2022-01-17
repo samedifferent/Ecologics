@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
-import samebutdifferent.ecologics.registry.ModItems;
 
 public class CoconutSliceItem extends Item {
     public CoconutSliceItem() {
@@ -17,7 +16,15 @@ public class CoconutSliceItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        ItemStack itemstack = super.finishUsingItem(pStack, pLevel, pLivingEntity);
-        return pLivingEntity instanceof Player && ((Player)pLivingEntity).getAbilities().instabuild ? itemstack : new ItemStack(ModBlocks.COCONUT_HUSK.get());
+        if (pLivingEntity instanceof Player player) {
+            ItemStack mainHandStack = player.getMainHandItem();
+            ItemStack coconutHuskStack = new ItemStack(ModBlocks.COCONUT_HUSK.get());
+            if (!mainHandStack.isEmpty()) {
+                if (!player.getInventory().add(coconutHuskStack.copy())) {
+                    player.drop(coconutHuskStack, false);
+                }
+            }
+        }
+        return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 }
