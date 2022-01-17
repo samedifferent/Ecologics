@@ -11,11 +11,11 @@ public class ModTrunkPlacerTypes {
 
     public static final TrunkPlacerType<SlantedTrunkPlacer> SLANTED_TRUNK_PLACER = new TrunkPlacerType<>(SlantedTrunkPlacer.CODEC);
 
-    private static <P extends TrunkPlacer> TrunkPlacerType<P> register(String pKey, TrunkPlacerType<P> pTrunkPlacerType) {
+    private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunkPlacerType(String pKey, TrunkPlacerType<P> pTrunkPlacerType) {
         return Registry.register(Registry.TRUNK_PLACER_TYPES, new ResourceLocation(Ecologics.MOD_ID, pKey), pTrunkPlacerType);
     }
 
     public static void register() {
-        register("slanted_trunk_placer", SLANTED_TRUNK_PLACER);
+        registerTrunkPlacerType("slanted_trunk_placer", SLANTED_TRUNK_PLACER);
     }
 }
