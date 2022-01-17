@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
@@ -25,7 +26,9 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
@@ -148,8 +151,15 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     @Override
     public void onBrokenAfterFall(Level pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
         pLevel.playSound(null, pPos, ModSoundEvents.COCONUT_SMASH.get(), SoundSource.BLOCKS, 0.2F, 1.0F);
-        ItemEntity itementity = new ItemEntity(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
-        itementity.setDefaultPickUpDelay();
-        pLevel.addFreshEntity(itementity);
+        if (pLevel.random.nextInt(3) == 0) {
+            CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.get().create(pLevel);
+            coconutCrab.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
+            pLevel.addFreshEntity(coconutCrab);
+            pLevel.playSound(null, pPos, SoundEvents.SPIDER_AMBIENT, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        } else {
+            ItemEntity itementity = new ItemEntity(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
+            itementity.setDefaultPickUpDelay();
+            pLevel.addFreshEntity(itementity);
+        }
     }
 }

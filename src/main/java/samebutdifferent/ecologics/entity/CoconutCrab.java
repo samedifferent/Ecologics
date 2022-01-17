@@ -1,9 +1,13 @@
 package samebutdifferent.ecologics.entity;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -18,8 +22,10 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModSoundEvents;
 
 import java.util.UUID;
 
@@ -73,6 +79,11 @@ public class CoconutCrab extends Animal implements NeutralMob {
     }
 
     @Override
+    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+        return false;
+    }
+
+    @Override
     public boolean canBeLeashed(Player pPlayer) {
         return false;
     }
@@ -113,5 +124,21 @@ public class CoconutCrab extends Animal implements NeutralMob {
     @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.COCONUT_CRAB_AMBIENT.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return ModSoundEvents.COCONUT_CRAB_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.COCONUT_CRAB_DEATH.get();
+    }
+
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+        this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
     }
 }

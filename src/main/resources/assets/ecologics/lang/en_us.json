@@ -14,10 +14,15 @@
   "block.ecologics.coconut_slab": "Coconut Slab",
   "block.ecologics.coconut_pressure_plate": "Coconut Pressure Plate",
   "item.ecologics.coconut_slice": "Coconut Slice",
-  "item.ecologics.coconut_husk": "Coconut Husk",
+  "block.ecologics.coconut_husk": "Coconut Husk",
   "block.ecologics.coconut_log": "Coconut Log",
   "block.ecologics.coconut": "Coconut",
   "death.attack.coconut": "%1$s was bonked by a falling coconut",
   "death.attack.coconut.player": "%1$s was bonked by a falling coconut whilst fighting %2$s",
-  "ecologics.subtitles.block.coconut_smash": "Coconut smashes"
+  "ecologics.subtitles.block.coconut.smash": "Coconut smashes",
+  "entity.ecologics.coconut_crab": "Coconut Crab",
+  "ecologics.subtitles.entity.coconut_crab.ambient": "Coconut Crab hisses",
+  "ecologics.subtitles.entity.coconut_crab.death": "Coconut Crab dies",
+  "ecologics.subtitles.entity.coconut_crab.hurt": "Coconut Crab hurts",
+  "ecologics.subtitles.entity.coconut_crab.shell_smash": "Shell smashes"
 }

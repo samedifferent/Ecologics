@@ -3,6 +3,30 @@
     "sounds": [
       "ecologics:coconut_smash"
     ],
-    "subtitle": "ecologics.subtitles.block.coconut_smash"
+    "subtitle": "ecologics.subtitles.block.coconut.smash"
+  },
+  "entity.coconut_crab.ambient": {
+    "sounds": [
+      "ecologics:coconut_crab_ambient"
+    ],
+    "subtitle": "ecologics.subtitles.entity.coconut_crab.ambient"
+  },
+  "entity.coconut_crab.death": {
+    "sounds": [
+      "ecologics:coconut_crab_death"
+    ],
+    "subtitle": "ecologics.subtitles.entity.coconut_crab.death"
+  },
+  "entity.coconut_crab.hurt": {
+    "sounds": [
+      "ecologics:coconut_crab_hurt"
+    ],
+    "subtitle": "ecologics.subtitles.entity.coconut_crab.hurt"
+  },
+  "entity.coconut_crab.shell_smash": {
+    "sounds": [
+      "ecologics:coconut_crab_shell_smash"
+    ],
+    "subtitle": "ecologics.subtitles.entity.coconut_crab.shell_smash"
   }
 }
