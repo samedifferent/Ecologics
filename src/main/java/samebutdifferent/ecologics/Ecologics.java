@@ -7,6 +7,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import samebutdifferent.ecologics.registry.*;
+import software.bernie.geckolib3.GeckoLib;
 
 @Mod(Ecologics.MOD_ID)
 public class Ecologics {
@@ -26,6 +27,7 @@ public class Ecologics {
         ModItems.ITEMS.register(bus);
         ModSoundEvents.SOUND_EVENTS.register(bus);
         ModEntityTypes.ENTITY_TYPES.register(bus);
+        GeckoLib.initialize();
 
         MinecraftForge.EVENT_BUS.register(this);
     }

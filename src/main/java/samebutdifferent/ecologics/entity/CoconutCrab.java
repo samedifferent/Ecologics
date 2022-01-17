@@ -26,10 +26,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.UUID;
 
-public class CoconutCrab extends Animal implements NeutralMob {
+public class CoconutCrab extends Animal implements NeutralMob, IAnimatable {
+    private final AnimationFactory factory = new AnimationFactory(this);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private int remainingPersistentAngerTime;
     @Nullable
@@ -140,5 +148,23 @@ public class CoconutCrab extends Animal implements NeutralMob {
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
+    }
+
+    private static  <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+        if (event.isMoving()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coconut_crab.walk", true));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+    }
+
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController<>(this, "controller", 20, CoconutCrab::predicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 }
