@@ -14,12 +14,14 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -74,11 +76,19 @@ public class CoconutCrab extends Animal implements IAnimatable {
     public void tick() {
         super.tick();
         if (this.getHealth() <= this.getMaxHealth() / 2 && this.hasCoconut()) {
-            this.setHasCoconut(false);
-            this.setTarget(null);
-            this.playCoconutSmashSound();
+            this.breakCoconut();
         }
     }
+
+    private void breakCoconut() {
+        this.setHasCoconut(false);
+        this.setTarget(null);
+        this.playCoconutSmashSound();
+        ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
+        itementity.setDefaultPickUpDelay();
+        this.level.addFreshEntity(itementity);
+    }
+
 
     @Override
     public boolean canBreatheUnderwater() {

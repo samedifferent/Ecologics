@@ -43,5 +43,8 @@ public class CoconutCrabModel extends AnimatedGeoModel<CoconutCrab> {
 		IBone head = this.getAnimationProcessor().getBone("head");
 		head.setRotationX(extraDataOfType.get(0).headPitch * Mth.DEG_TO_RAD);
 		head.setRotationY(extraDataOfType.get(0).netHeadYaw * Mth.DEG_TO_RAD);
+
+		IBone shell = this.getAnimationProcessor().getBone("shell");
+		shell.setHidden(!entity.hasCoconut());
 	}
 }
