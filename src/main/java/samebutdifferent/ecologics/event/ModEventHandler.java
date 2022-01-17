@@ -8,14 +8,13 @@ import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.registry.ModBlocks;
-import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
-import samebutdifferent.ecologics.registry.ModVegetationFeatures;
-import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
+import samebutdifferent.ecologics.entity.CoconutCrab;
+import samebutdifferent.ecologics.registry.*;
 
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventHandler {
@@ -42,5 +41,10 @@ public class ModEventHandler {
             BlockState blockstate = ((BlockItem)pStack.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, null, null, pTintIndex);
         }, ModBlocks.COCONUT_LEAVES.get());
+    }
+
+    @SubscribeEvent
+    public static void createAttributes(EntityAttributeCreationEvent event) {
+        event.put(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrab.createAttributes().build());
     }
 }
