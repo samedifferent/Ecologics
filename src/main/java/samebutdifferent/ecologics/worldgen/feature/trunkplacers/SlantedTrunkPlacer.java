@@ -34,19 +34,17 @@ public class SlantedTrunkPlacer extends TrunkPlacer {
     @Override
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, Random pRandom, int pFreeTreeHeight, BlockPos pPos, TreeConfiguration pConfig) {
         Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(pRandom);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = pPos.mutable();
-        placeLog(pLevel, pBlockSetter, pRandom, blockpos$mutableblockpos.relative(direction.getOpposite()), pConfig, (state) -> state.setValue(RotatedPillarBlock.AXIS, direction.getAxis()));
-        placeLog(pLevel, pBlockSetter, pRandom, blockpos$mutableblockpos.relative(pRandom.nextInt(2) == 0 ? direction.getClockWise() : direction.getCounterClockWise()), pConfig);
+        BlockPos.MutableBlockPos mutableBlockPos = pPos.mutable();
+        placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos.relative(direction.getOpposite()), pConfig, (state) -> state.setValue(RotatedPillarBlock.AXIS, direction.getAxis()));
+        placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos.relative(pRandom.nextInt(2) == 0 ? direction.getClockWise() : direction.getCounterClockWise()), pConfig);
         for (int i = 0; i < pFreeTreeHeight; i++) {
             if (i % 2 != 0 && i != 1) {
-                blockpos$mutableblockpos.move(direction);
+                mutableBlockPos.move(direction);
             }
-            if (TreeFeature.validTreePos(pLevel, blockpos$mutableblockpos)) {
-                placeLog(pLevel, pBlockSetter, pRandom, blockpos$mutableblockpos, pConfig);
-                blockpos$mutableblockpos.move(Direction.UP);
-            }
+            placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos, pConfig);
+            mutableBlockPos.move(Direction.UP);
         }
 
-        return ImmutableList.of(new FoliagePlacer.FoliageAttachment(blockpos$mutableblockpos, 0, false));
+        return ImmutableList.of(new FoliagePlacer.FoliageAttachment(mutableBlockPos, 0, false));
     }
 }

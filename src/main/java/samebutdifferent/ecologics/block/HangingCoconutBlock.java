@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -124,8 +122,8 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, Random pRand) {
-        if (pRand.nextInt(16) == 0) {
-            if (isFree(pLevel.getBlockState(pPos.above()))) {
+        if (pRand.nextInt(8) == 0) {
+            if (pState.getValue(AGE) == 2) {
                 double x = (double)pPos.getX() + pRand.nextDouble();
                 double y = (double)pPos.getY() - 0.05D;
                 double z = (double)pPos.getZ() + pRand.nextDouble();
@@ -136,7 +134,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     public int getDustColor(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.getMapColor(pLevel, pPos).col;
+        return 4794134;
     }
 
     @Override
