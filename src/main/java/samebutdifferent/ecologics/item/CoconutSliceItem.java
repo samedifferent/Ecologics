@@ -11,7 +11,7 @@ import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class CoconutSliceItem extends Item {
     public CoconutSliceItem() {
-        super(new Item.Properties().tab(Ecologics.TAB).food(Foods.APPLE));
+        super(new Item.Properties().tab(Ecologics.TAB).food(Foods.SWEET_BERRIES));
     }
 
     @Override
@@ -19,9 +19,11 @@ public class CoconutSliceItem extends Item {
         if (pLivingEntity instanceof Player player) {
             ItemStack mainHandStack = player.getMainHandItem();
             ItemStack coconutHuskStack = new ItemStack(ModBlocks.COCONUT_HUSK.get());
-            if (!mainHandStack.isEmpty()) {
-                if (!player.getInventory().add(coconutHuskStack.copy())) {
-                    player.drop(coconutHuskStack, false);
+            if (!player.getAbilities().instabuild) {
+                if (!mainHandStack.isEmpty()) {
+                    if (!player.getInventory().add(coconutHuskStack.copy())) {
+                        player.drop(coconutHuskStack, false);
+                    }
                 }
             }
         }
