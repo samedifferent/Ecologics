@@ -94,10 +94,9 @@ public class Squirrel extends Animal implements IAnimatable {
     private static  <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.squirrel.run", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.squirrel.idle", true));
+            return PlayState.CONTINUE;
         }
-        return PlayState.CONTINUE;
+        return PlayState.STOP;
     }
 
     @Override

@@ -14,7 +14,7 @@ public class SquirrelRenderer extends GeoEntityRenderer<Squirrel> {
 
     public SquirrelRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new SquirrelModel());
-        this.shadowRadius = 0.6F;
+        this.shadowRadius = 0.4F;
     }
 
     @Override
