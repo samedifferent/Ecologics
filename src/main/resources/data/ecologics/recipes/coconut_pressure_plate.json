@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "ecologics:coconut_planks"
+    }
+  },
+  "result": {
+    "item": "ecologics:coconut_pressure_plate"
+  }
+}
