@@ -22,5 +22,23 @@
       "ecologics:coconut_crab_hurt"
     ],
     "subtitle": "ecologics.subtitles.entity.coconut_crab.hurt"
+  },
+  "entity.squirrel.ambient": {
+    "sounds": [
+      "ecologics:squirrel_ambient"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.ambient"
+  },
+  "entity.squirrel.death": {
+    "sounds": [
+      "ecologics:squirrel_death"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.death"
+  },
+  "entity.squirrel.hurt": {
+    "sounds": [
+      "ecologics:squirrel_hurt"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.hurt"
   }
 }

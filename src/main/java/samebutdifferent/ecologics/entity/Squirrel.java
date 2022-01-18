@@ -2,12 +2,12 @@ package samebutdifferent.ecologics.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -20,6 +20,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModSoundEvents;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -48,7 +49,6 @@ public class Squirrel extends Animal implements IAnimatable {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.3D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(Items.HONEYCOMB), false));
-//        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new SquirrelGoToLeavesGoal(this, 0.75D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -69,6 +69,22 @@ public class Squirrel extends Animal implements IAnimatable {
         return false;
     }
 
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.SQUIRREL_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return ModSoundEvents.SQUIRREL_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.SQUIRREL_DEATH.get();
+    }
+
+
     private static  <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.squirrel.run", true));
@@ -80,7 +96,7 @@ public class Squirrel extends Animal implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 20, Squirrel::predicate));
+        data.addAnimationController(new AnimationController<>(this, "controller", 10, Squirrel::predicate));
     }
 
     @Override
@@ -96,12 +112,7 @@ public class Squirrel extends Animal implements IAnimatable {
 
         @Override
         public boolean canUse() {
-            return true;
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return true;
+            return this.findNearestBlock();
         }
 
         @Override
