@@ -31,18 +31,18 @@ public class LangGenerator extends LanguageProvider {
         add("death.attack.coconut", "%1$s was bonked by a falling coconut");
         add("death.attack.coconut.player", "%1$s was bonked by a falling coconut whilst fighting %2$s");
         addSoundEvent(ModSoundEvents.COCONUT_SMASH, "Coconut smashes");
-        addEntitySoundEvents(ModEntityTypes.COCONUT_CRAB, "Coconut Crab", "hisses");
-        addEntitySoundEvents(ModEntityTypes.SQUIRREL, "Squirrel", "sniffs");
+        addEntitySoundEvents("coconut_crab", "Coconut Crab", "hisses");
+        addEntitySoundEvents("squirrel", "Squirrel", "sniffs");
     }
 
     private String formatId(RegistryObject object) {
         return WordUtils.capitalize(object.getId().getPath().replace("_", " "));
     }
 
-    public void addEntitySoundEvents(Supplier<? extends EntityType<?>> key, String name, String ambientSoundWord) {
-        add(Ecologics.MOD_ID + ".subtitles." + key.get().getDescriptionId() + ".ambient", name + " " + ambientSoundWord);
-        add(Ecologics.MOD_ID + ".subtitles." + key.get().getDescriptionId() + ".death", name + " dies");
-        add(Ecologics.MOD_ID + ".subtitles." + key.get().getDescriptionId() + ".hurt", name + " hurts");
+    public void addEntitySoundEvents(String key, String name, String ambientSoundWord) {
+        add(Ecologics.MOD_ID + ".subtitles." + key + ".ambient", name + " " + ambientSoundWord);
+        add(Ecologics.MOD_ID + ".subtitles." + key + ".death", name + " dies");
+        add(Ecologics.MOD_ID + ".subtitles." + key + ".hurt", name + " hurts");
     }
 
     public void addSoundEvent(Supplier<? extends SoundEvent> key, String subtitle) {

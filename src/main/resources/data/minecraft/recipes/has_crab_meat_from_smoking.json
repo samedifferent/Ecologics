@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "ecologics:crab_claw"
+  },
+  "result": "ecologics:crab_meat",
+  "experience": 0.35,
+  "cookingtime": 100
+}

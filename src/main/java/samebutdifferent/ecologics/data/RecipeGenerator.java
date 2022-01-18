@@ -6,8 +6,12 @@ import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModTags;
 
 import java.util.function.Consumer;
@@ -21,7 +25,7 @@ public class RecipeGenerator extends RecipeProvider {
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         woodFromLogs(consumer, ModBlocks.COCONUT_WOOD.get(), ModBlocks.COCONUT_LOG.get());
         woodFromLogs(consumer, ModBlocks.STRIPPED_COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_LOG.get());
-        planksFromLogsTag(consumer, ModBlocks.COCONUT_PLANKS.get(), ModTags.Items.COCONUT_LOGS);
+/*        planksFromLogsTag(consumer, ModBlocks.COCONUT_PLANKS.get(), ModTags.Items.COCONUT_LOGS);
         slab(consumer, ModBlocks.COCONUT_SLAB.get(), ModBlocks.COCONUT_PLANKS.get());
         stair(consumer, ModBlocks.COCONUT_STAIRS.get(), ModBlocks.COCONUT_PLANKS.get());
         fence(consumer, ModBlocks.COCONUT_FENCE.get(), ModBlocks.COCONUT_PLANKS.get());
@@ -29,7 +33,19 @@ public class RecipeGenerator extends RecipeProvider {
         door(consumer, ModBlocks.COCONUT_DOOR.get(), ModBlocks.COCONUT_PLANKS.get());
         trapdoor(consumer, ModBlocks.COCONUT_TRAPDOOR.get(), ModBlocks.COCONUT_PLANKS.get());
         button(consumer, ModBlocks.COCONUT_BUTTON.get(), ModBlocks.COCONUT_PLANKS.get());
-        pressurePlate(consumer, ModBlocks.COCONUT_PRESSURE_PLATE.get(), ModBlocks.COCONUT_PLANKS.get());
+        pressurePlate(consumer, ModBlocks.COCONUT_PRESSURE_PLATE.get(), ModBlocks.COCONUT_PLANKS.get());*/
+        cookRecipes(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100);
+        cookRecipes(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600);
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.CRAB_CLAW.get()), ModItems.CRAB_MEAT.get(), 0.35F, 200).unlockedBy("has_crab_claw", has(ModItems.CRAB_CLAW.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(ModItems.TROPICAL_STEW.get()).requires(ModItems.COCONUT_SLICE.get()).requires(ModItems.CRAB_MEAT.get()).unlockedBy("has_cooked_claw", has(ModItems.CRAB_MEAT.get())).save(consumer);
+    }
+
+    private static void cookRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime) {
+        simpleCookingRecipe(pFinishedRecipeConsumer, pCookingMethod, pCookingSerializer, pCookingTime, ModItems.CRAB_CLAW.get(), ModItems.CRAB_MEAT.get(), 0.35F);
+    }
+
+    private static void simpleCookingRecipe(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime, ItemLike pIngredient, ItemLike pResult, float pExperience) {
+        SimpleCookingRecipeBuilder.cooking(Ingredient.of(pIngredient), pResult, pExperience, pCookingTime, pCookingSerializer).unlockedBy(getHasName(pIngredient), has(pIngredient)).save(pFinishedRecipeConsumer, getHasName(pResult) + "_from_" + pCookingMethod);
     }
 
     private static void planksFromLogsTag(Consumer<FinishedRecipe> consumer, ItemLike planks, Tag<Item> tag) {

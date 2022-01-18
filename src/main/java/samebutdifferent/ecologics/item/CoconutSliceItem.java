@@ -10,8 +10,8 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class CoconutSliceItem extends Item {
-    public CoconutSliceItem() {
-        super(new Item.Properties().tab(Ecologics.TAB).food(Foods.SWEET_BERRIES));
+    public CoconutSliceItem(Properties properties) {
+        super(properties);
     }
 
     @Override
