@@ -17,7 +17,7 @@ public class CommonEventHandler {
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
         ResourceLocation biomeName = event.getName();
         if (biomeName != null && biomeName.getPath().equals("beach")) {
-            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModVegetationFeatures.TREES_BEACH);
+            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModVegetationFeatures.TREES_BEACH).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModVegetationFeatures.SEASHELLS);
         }
     }
 }

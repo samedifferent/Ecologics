@@ -27,6 +27,7 @@ public class Ecologics {
         ModItems.ITEMS.register(bus);
         ModSoundEvents.SOUND_EVENTS.register(bus);
         ModEntityTypes.ENTITY_TYPES.register(bus);
+        ModFeatures.FEATURES.register(bus);
         GeckoLib.initialize();
 
         MinecraftForge.EVENT_BUS.register(this);
