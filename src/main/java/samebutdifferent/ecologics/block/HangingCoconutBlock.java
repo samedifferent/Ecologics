@@ -67,7 +67,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
         if (pRandom.nextInt(3) == 0) {
             if (age < 2) {
                 pLevel.setBlock(pPos, pState.setValue(AGE, age + 1), 2);
-            } else if (pPos.getY() >= pLevel.getMinBuildHeight()){
+            } else if (pPos.getY() >= pLevel.getMinBuildHeight() && isFree(pLevel.getBlockState(pPos.below()))){
                 FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, (double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, pLevel.getBlockState(pPos));
                 this.falling(fallingblockentity);
                 pLevel.addFreshEntity(fallingblockentity);
@@ -122,7 +122,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, Random pRand) {
-        if (pRand.nextInt(8) == 0) {
+        if (pRand.nextInt(16) == 0) {
             if (pState.getValue(AGE) == 2) {
                 double x = (double)pPos.getX() + pRand.nextDouble();
                 double y = (double)pPos.getY() - 0.05D;
@@ -134,12 +134,12 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     public int getDustColor(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return 4794134;
+        return 3873032;
     }
 
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRand) {
-        if ((pLevel.isEmptyBlock(pPos.above()) && pPos.getY() >= pLevel.getMinBuildHeight())) {
+        if ((pLevel.isEmptyBlock(pPos.above()) && pPos.getY() >= pLevel.getMinBuildHeight() && isFree(pLevel.getBlockState(pPos.below())))) {
             FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, (double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, pLevel.getBlockState(pPos));
             this.falling(fallingblockentity);
             pLevel.addFreshEntity(fallingblockentity);
@@ -149,7 +149,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     @Override
     public void onBrokenAfterFall(Level pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
         pLevel.playSound(null, pPos, ModSoundEvents.COCONUT_SMASH.get(), SoundSource.BLOCKS, 0.2F, 1.0F);
-        if (pLevel.random.nextInt(3) == 0) {
+        if (pLevel.random.nextInt(5) == 0) {
             CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.get().create(pLevel);
             coconutCrab.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
             pLevel.addFreshEntity(coconutCrab);

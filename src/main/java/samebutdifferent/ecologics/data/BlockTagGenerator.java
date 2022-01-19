@@ -5,6 +5,7 @@ import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.Ecologics;
@@ -18,13 +19,13 @@ public class BlockTagGenerator extends BlockTagsProvider {
 
     @Override
     protected void addTags() {
-        for (RegistryObject<Block> object : ModBlocks.BLOCKS.getEntries()) {
+/*        for (RegistryObject<Block> object : ModBlocks.BLOCKS.getEntries()) {
             Block block = object.get();
             if (block.getSoundType(block.defaultBlockState()) == SoundType.WOOD) {
                 this.tag(BlockTags.MINEABLE_WITH_AXE).add(block);
             }
         }
-/*        this.tag(BlockTags.MINEABLE_WITH_AXE)
+        this.tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(ModBlocks.COCONUT_LOG.get())
                 .add(ModBlocks.STRIPPED_COCONUT_LOG.get())
                 .add(ModBlocks.COCONUT_WOOD.get())
@@ -40,7 +41,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.COCONUT_PRESSURE_PLATE.get())
                 .add(ModBlocks.COCONUT_HUSK.get())
                 .add(ModBlocks.HANGING_COCONUT.get())
-                .add(ModBlocks.COCONUT.get());*/
+                .add(ModBlocks.COCONUT.get());
         this.tag(BlockTags.PLANKS).add(ModBlocks.COCONUT_PLANKS.get());
         this.tag(ModTags.Blocks.COCONUT_LOGS).add(ModBlocks.COCONUT_LOG.get()).add(ModBlocks.STRIPPED_COCONUT_LOG.get()).add(ModBlocks.COCONUT_WOOD.get()).add(ModBlocks.STRIPPED_COCONUT_WOOD.get());
         this.tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.COCONUT_LOGS);
@@ -52,6 +53,9 @@ public class BlockTagGenerator extends BlockTagsProvider {
         this.tag(BlockTags.WOODEN_FENCES).add(ModBlocks.COCONUT_FENCE.get());
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(ModBlocks.COCONUT_PRESSURE_PLATE.get());
         this.tag(BlockTags.FENCE_GATES).add(ModBlocks.COCONUT_FENCE_GATE.get());
-        this.tag(BlockTags.LEAVES).add(ModBlocks.COCONUT_LEAVES.get());
+        this.tag(BlockTags.LEAVES).add(ModBlocks.COCONUT_LEAVES.get());*/
+        this.tag(Tags.Blocks.FENCES_WOODEN).add(ModBlocks.COCONUT_FENCE.get());
+        this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(ModBlocks.COCONUT_FENCE_GATE.get());
+        this.tag(BlockTags.MINEABLE_WITH_HOE).add(ModBlocks.COCONUT_LEAVES.get());
     }
 }

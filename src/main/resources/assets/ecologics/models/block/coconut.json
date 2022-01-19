@@ -1,6 +1,5 @@
 {
 	"parent": "block/block",
-	"ambientocclusion": false,
 	"texture_size": [32, 32],
 	"textures": {
 		"particle": "ecologics:block/coconut_stage2",

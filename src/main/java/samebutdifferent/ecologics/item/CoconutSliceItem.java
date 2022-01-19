@@ -16,13 +16,16 @@ public class CoconutSliceItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        if (pLivingEntity instanceof Player player) {
-            ItemStack mainHandStack = player.getMainHandItem();
-            ItemStack coconutHuskStack = new ItemStack(ModBlocks.COCONUT_HUSK.get());
-            if (!player.getAbilities().instabuild) {
-                if (!mainHandStack.isEmpty()) {
-                    if (!player.getInventory().add(coconutHuskStack.copy())) {
-                        player.drop(coconutHuskStack, false);
+        if (!pLevel.isClientSide) {
+            if (pLivingEntity instanceof Player player) {
+                player.removeAllEffects();
+                ItemStack mainHandStack = player.getMainHandItem();
+                ItemStack coconutHuskStack = new ItemStack(ModBlocks.COCONUT_HUSK.get());
+                if (!player.getAbilities().instabuild) {
+                    if (!mainHandStack.isEmpty()) {
+                        if (!player.getInventory().add(coconutHuskStack.copy())) {
+                            player.drop(coconutHuskStack, false);
+                        }
                     }
                 }
             }
