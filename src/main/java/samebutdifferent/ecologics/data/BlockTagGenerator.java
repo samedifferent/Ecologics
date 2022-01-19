@@ -45,7 +45,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
         this.tag(ModTags.Blocks.COCONUT_LOGS).add(ModBlocks.COCONUT_LOG.get()).add(ModBlocks.STRIPPED_COCONUT_LOG.get()).add(ModBlocks.COCONUT_WOOD.get()).add(ModBlocks.STRIPPED_COCONUT_WOOD.get());
         this.tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.COCONUT_LOGS);
         this.tag(BlockTags.WOODEN_STAIRS).add(ModBlocks.COCONUT_STAIRS.get());
-        this.tag(BlockTags.WOODEN_SLABS).add(ModBlocks.COCONUT_STAIRS.get());
+        this.tag(BlockTags.WOODEN_SLABS).add(ModBlocks.COCONUT_SLAB.get());
         this.tag(BlockTags.WOODEN_DOORS).add(ModBlocks.COCONUT_DOOR.get());
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(ModBlocks.COCONUT_TRAPDOOR.get());
         this.tag(BlockTags.WOODEN_BUTTONS).add(ModBlocks.COCONUT_BUTTON.get());
