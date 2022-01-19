@@ -12,12 +12,8 @@
       ],
       "conditions": [
         {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "items": [
-              "minecraft:shears"
-            ]
-          }
+          "condition": "forge:can_tool_perform_action",
+          "action": "shears_dig"
         }
       ]
     }

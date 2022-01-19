@@ -52,5 +52,6 @@ public class BlockTagGenerator extends BlockTagsProvider {
         this.tag(BlockTags.WOODEN_FENCES).add(ModBlocks.COCONUT_FENCE.get());
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(ModBlocks.COCONUT_PRESSURE_PLATE.get());
         this.tag(BlockTags.FENCE_GATES).add(ModBlocks.COCONUT_FENCE_GATE.get());
+        this.tag(BlockTags.LEAVES).add(ModBlocks.COCONUT_LEAVES.get());
     }
 }
