@@ -25,7 +25,7 @@ public class SeashellBlock extends HorizontalDirectionalBlock {
     protected static final VoxelShape SHAPE_WEST = Shapes.or(Block.box(4, 0, 3, 14, 3, 13), Block.box(2, 0, 5, 4, 3, 11));
 
     public SeashellBlock() {
-        super(Properties.of(Material.DECORATION, MaterialColor.COLOR_BROWN).noOcclusion().strength(0.8F));
+        super(Properties.of(Material.DECORATION, MaterialColor.COLOR_BROWN).noOcclusion().strength(0.5F));
     }
 
     @Override
