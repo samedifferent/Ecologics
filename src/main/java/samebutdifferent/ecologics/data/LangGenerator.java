@@ -33,6 +33,8 @@ public class LangGenerator extends LanguageProvider {
         addSoundEvent(ModSoundEvents.COCONUT_SMASH, "Coconut smashes");
         addEntitySoundEvents("coconut_crab", "Coconut Crab", "hisses");
         addEntitySoundEvents("squirrel", "Squirrel", "sniffs");
+        add("advancements.husbandry.sandcastle.title", "Fortress of Sanditude");
+        add("advancements.husbandry.sandcastle.description", "Build a sandcastle to protect turtle eggs.");
     }
 
     private String formatId(RegistryObject object) {

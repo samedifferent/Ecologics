@@ -1,6 +1,8 @@
 package samebutdifferent.ecologics.item;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -30,6 +32,9 @@ public class SandcastleBlockItem extends BlockItem {
             level.playSound(pContext.getPlayer(), pos, SoundEvents.SAND_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.setBlockAndUpdate(pos, ModBlocks.SANDCASTLE.get().defaultBlockState().setValue(SandcastleBlock.FACING, pContext.getHorizontalDirection().getOpposite()).setValue(SandcastleBlock.EGGS_INSIDE, state.getValue(TurtleEggBlock.EGGS)).setValue(SandcastleBlock.HATCH, state.getValue(TurtleEggBlock.HATCH)));
             pContext.getItemInHand().shrink(1);
+            if (pContext.getPlayer() instanceof ServerPlayer player) {
+                CriteriaTriggers.PLACED_BLOCK.trigger(player, pos, pContext.getItemInHand());
+            }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
     }
