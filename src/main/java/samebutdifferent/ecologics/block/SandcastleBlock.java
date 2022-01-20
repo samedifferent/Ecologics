@@ -36,7 +36,7 @@ public class SandcastleBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty EGGS_INSIDE = IntegerProperty.create("eggs_inside", 0, 4);
 
     public SandcastleBlock() {
-        super(Properties.of(Material.DECORATION, MaterialColor.SAND).strength(0.7F).sound(SoundType.SAND).noOcclusion().randomTicks());
+        super(Properties.of(Material.SAND, MaterialColor.SAND).strength(0.7F).sound(SoundType.SAND).noOcclusion().randomTicks());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(EGGS_INSIDE, 0).setValue(HATCH, 0));
     }
 
