@@ -8,8 +8,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -27,7 +25,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
-import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
 import java.util.Random;
@@ -154,9 +151,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
             coconutCrab.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
             pLevel.addFreshEntity(coconutCrab);
         } else {
-            ItemEntity itementity = new ItemEntity(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
-            itementity.setDefaultPickUpDelay();
-            pLevel.addFreshEntity(itementity);
+            Block.dropResources(pFallingBlock.getBlockState(), pLevel, pPos);
         }
     }
 }

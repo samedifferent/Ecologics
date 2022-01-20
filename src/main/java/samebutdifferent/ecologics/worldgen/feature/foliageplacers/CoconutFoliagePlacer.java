@@ -33,7 +33,6 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
         BlockPos startingPos = pAttachment.pos();
 
         tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, startingPos);
-        tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, startingPos.above());
 
         createQuadrant(Direction.NORTH, startingPos, pLevel, pBlockSetter, pRandom, pConfig);
         createQuadrant(Direction.EAST, startingPos, pLevel, pBlockSetter, pRandom, pConfig);
@@ -53,25 +52,34 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
 
     private static void createQuadrant(Direction direction, BlockPos startingPos, LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, Random pRandom, TreeConfiguration pConfig) {
         BlockPos.MutableBlockPos pos = startingPos.mutable();
-        for (int i = 0; i < 3; i++) {
-            pos.move(direction);
-            tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
-        }
-        pos.move(Direction.DOWN).move(direction);
-        tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
-        pos.set(startingPos);
-        for (int i = 0; i < 2; i++) {
-            pos.move(direction).move(direction.getCounterClockWise());
-            tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
-        }
-        pos.move(Direction.DOWN).move(direction).move(direction.getCounterClockWise());
+        
+        pos.move(direction);
         tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
 
-        // Place Coconuts
-        pos.set(startingPos.below());
+        if (pRandom.nextInt(2) == 0) {
+            pBlockSetter.accept(pos.below(), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
+        }
+        if (pRandom.nextInt(2) == 0) {
+            pBlockSetter.accept(pos.below().relative(direction.getCounterClockWise()), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
+        }
+
+        for (int i = 0; i < 2; i++) {
+            pos.move(direction);
+            tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
+            pos.move(Direction.DOWN);
+            tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
+        }
+
+        pos.set(startingPos);
+        pos.move(direction).move(direction.getCounterClockWise());
+        tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
+        pos.move(Direction.DOWN).move(direction.getCounterClockWise());
+        tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
         pos.move(direction);
-        pBlockSetter.accept(pos, ModBlocks.HANGING_COCONUT.get().defaultBlockState());
-        pos.move(direction.getCounterClockWise());
-        pBlockSetter.accept(pos, ModBlocks.HANGING_COCONUT.get().defaultBlockState());
+        tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos.relative(direction.getClockWise()));
+        for (int i = 0; i < 3; i++) {
+            tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
+            pos.move(Direction.DOWN);
+        }
     }
 }
