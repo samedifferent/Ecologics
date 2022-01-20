@@ -9,10 +9,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.block.CoconutBlock;
-import samebutdifferent.ecologics.block.HangingCoconutBlock;
-import samebutdifferent.ecologics.block.CoconutSaplingBlock;
-import samebutdifferent.ecologics.block.SeashellBlock;
+import samebutdifferent.ecologics.block.*;
 
 import java.util.function.Supplier;
 
@@ -37,6 +34,7 @@ public class ModBlocks {
     public static final RegistryObject<CoconutBlock> COCONUT = registerBlock("coconut", CoconutBlock::new);
     public static final RegistryObject<SaplingBlock> COCONUT_HUSK = registerBlock("coconut_husk", CoconutSaplingBlock::new);
     public static final RegistryObject<SeashellBlock> SEASHELL = registerBlock("seashell", SeashellBlock::new);
+    public static final RegistryObject<SandcastleBlock> SANDCASTLE = registerBlock("sandcastle", SandcastleBlock::new);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);

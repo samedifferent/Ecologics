@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "ecologics:block/sandcastle",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "ecologics:block/sandcastle"
+    },
+    "facing=south": {
+      "model": "ecologics:block/sandcastle",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ecologics:block/sandcastle",
+      "y": 270
+    }
+  }
+}

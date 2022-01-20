@@ -23,9 +23,9 @@ public class RecipeGenerator extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-        woodFromLogs(consumer, ModBlocks.COCONUT_WOOD.get(), ModBlocks.COCONUT_LOG.get());
+       /* woodFromLogs(consumer, ModBlocks.COCONUT_WOOD.get(), ModBlocks.COCONUT_LOG.get());
         woodFromLogs(consumer, ModBlocks.STRIPPED_COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_LOG.get());
-/*        planksFromLogsTag(consumer, ModBlocks.COCONUT_PLANKS.get(), ModTags.Items.COCONUT_LOGS);
+        planksFromLogsTag(consumer, ModBlocks.COCONUT_PLANKS.get(), ModTags.Items.COCONUT_LOGS);
         slab(consumer, ModBlocks.COCONUT_SLAB.get(), ModBlocks.COCONUT_PLANKS.get());
         stair(consumer, ModBlocks.COCONUT_STAIRS.get(), ModBlocks.COCONUT_PLANKS.get());
         fence(consumer, ModBlocks.COCONUT_FENCE.get(), ModBlocks.COCONUT_PLANKS.get());
@@ -33,11 +33,13 @@ public class RecipeGenerator extends RecipeProvider {
         door(consumer, ModBlocks.COCONUT_DOOR.get(), ModBlocks.COCONUT_PLANKS.get());
         trapdoor(consumer, ModBlocks.COCONUT_TRAPDOOR.get(), ModBlocks.COCONUT_PLANKS.get());
         button(consumer, ModBlocks.COCONUT_BUTTON.get(), ModBlocks.COCONUT_PLANKS.get());
-        pressurePlate(consumer, ModBlocks.COCONUT_PRESSURE_PLATE.get(), ModBlocks.COCONUT_PLANKS.get());*/
+        pressurePlate(consumer, ModBlocks.COCONUT_PRESSURE_PLATE.get(), ModBlocks.COCONUT_PLANKS.get());
         cookRecipes(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100);
         cookRecipes(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600);
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.CRAB_CLAW.get()), ModItems.CRAB_MEAT.get(), 0.35F, 200).unlockedBy("has_crab_claw", has(ModItems.CRAB_CLAW.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ModItems.TROPICAL_STEW.get()).requires(ModItems.COCONUT_SLICE.get()).requires(ModItems.CRAB_MEAT.get()).unlockedBy("has_cooked_claw", has(ModItems.CRAB_MEAT.get())).save(consumer);
+*/
+        ShapedRecipeBuilder.shaped(ModBlocks.SANDCASTLE.get()).define('A', Blocks.SAND).define('B', ModBlocks.SEASHELL.get()).define('C', Items.STICK).pattern(" C ").pattern("ABA").pattern("AAA").unlockedBy(getHasName(ModBlocks.SEASHELL.get()), has(ModBlocks.SEASHELL.get())).save(consumer);
     }
 
     private static void cookRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime) {

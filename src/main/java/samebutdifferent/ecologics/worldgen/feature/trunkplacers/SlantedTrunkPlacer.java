@@ -38,7 +38,7 @@ public class SlantedTrunkPlacer extends TrunkPlacer {
         placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos.relative(direction.getOpposite()), pConfig, (state) -> state.setValue(RotatedPillarBlock.AXIS, direction.getAxis()));
         placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos.relative(pRandom.nextInt(2) == 0 ? direction.getClockWise() : direction.getCounterClockWise()), pConfig);
         for (int i = 0; i < pFreeTreeHeight; i++) {
-            if (i % 2 != 0 && i != 1) {
+            if (pRandom.nextFloat() < 0.4F && i > 2) {
                 mutableBlockPos.move(direction);
             }
             placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos, pConfig);
