@@ -9,18 +9,20 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -36,7 +38,7 @@ public class SandcastleBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty EGGS_INSIDE = IntegerProperty.create("eggs_inside", 0, 4);
 
     public SandcastleBlock() {
-        super(Properties.of(Material.DECORATION, MaterialColor.SAND).strength(0.6F).sound(SoundType.SAND).noOcclusion().randomTicks());
+        super(Properties.of(Material.DECORATION, MaterialColor.SAND).strength(0.7F).sound(SoundType.SAND).noOcclusion().randomTicks());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(EGGS_INSIDE, 0).setValue(HATCH, 0));
     }
 
@@ -116,7 +118,6 @@ public class SandcastleBlock extends HorizontalDirectionalBlock {
             } else {
                 pLevel.playSound(null, pPos, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + pRandom.nextFloat() * 0.2F);
                 pLevel.playSound(null, pPos, SoundEvents.SAND_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + pRandom.nextFloat() * 0.2F);
-                pLevel.setBlock(pPos, pState.setValue(EGGS_INSIDE, 0), 2);
                 pLevel.removeBlock(pPos, false);
 
                 for(int i = 0; i < pState.getValue(EGGS_INSIDE); ++i) {
@@ -137,16 +138,15 @@ public class SandcastleBlock extends HorizontalDirectionalBlock {
         if ((double)time < 0.69D && (double)time > 0.65D) {
             return true;
         } else {
-            return pLevel.random.nextInt(500) == 0;
+            return pLevel.random.nextInt(2) == 0;
         }
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        if (pState.getValue(EGGS_INSIDE) > 0 && !pNewState.is(ModBlocks.SANDCASTLE.get())) {
+    public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pBlockEntity, ItemStack pTool) {
+        super.playerDestroy(pLevel, pPlayer, pPos, pState, pBlockEntity, pTool);
+        if (pState.getValue(EGGS_INSIDE) > 0) {
             pLevel.setBlockAndUpdate(pPos, Blocks.TURTLE_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, pState.getValue(EGGS_INSIDE)).setValue(TurtleEggBlock.HATCH, pState.getValue(HATCH)));
-        } else {
-            super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
         }
     }
 }
