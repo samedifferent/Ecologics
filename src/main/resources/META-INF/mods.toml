@@ -1,12 +1,12 @@
 modLoader="javafml"
 loaderVersion="[39,)"
-license="All rights reserved"
+license="MIT License"
 
 [[mods]]
 modId="ecologics"
 version="1.0.0"
-displayName="Ecologics: Vanilla Biome Improvements"
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
+displayName="Ecologics"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/ecologics"
 logoFile="logo.png"
 authors="SameButDifferent, Foquito Azul, & Avila"
 description='''
