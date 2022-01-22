@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.renderer.entity.CoconutCrabRenderer;
-import samebutdifferent.ecologics.client.renderer.entity.SquirrelRenderer;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 
@@ -28,6 +27,5 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrabRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.SQUIRREL.get(), SquirrelRenderer::new);
     }
 }

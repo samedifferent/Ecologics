@@ -32,7 +32,6 @@ public class LangGenerator extends LanguageProvider {
         add("death.attack.coconut.player", "%1$s was bonked by a falling coconut whilst fighting %2$s");
         addSoundEvent(ModSoundEvents.COCONUT_SMASH, "Coconut smashes");
         addEntitySoundEvents("coconut_crab", "Coconut Crab", "hisses");
-        addEntitySoundEvents("squirrel", "Squirrel", "sniffs");
         add("advancements.husbandry.sandcastle.title", "Fortress of Sanditude");
         add("advancements.husbandry.sandcastle.description", "Build a sandcastle to protect turtle eggs.");
     }

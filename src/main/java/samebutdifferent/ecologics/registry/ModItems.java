@@ -21,6 +21,5 @@ public class ModItems {
     public static final RegistryObject<Item> TROPICAL_STEW = ITEMS.register("tropical_stew", () -> new CoconutSliceItem(new Item.Properties().stacksTo(1).tab(Ecologics.TAB).food(Foods.RABBIT_STEW)));
     public static final RegistryObject<Item> COCONUT_CRAB_SPAWN_EGG = ITEMS.register("coconut_crab_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModEntityTypes.COCONUT_CRAB.get(), 15686450, 5845811, new Item.Properties().tab(Ecologics.TAB)));
     public static final RegistryObject<Item> SANDCASTLE = ITEMS.register("sandcastle", SandcastleBlockItem::new);
-//    public static final RegistryObject<Item> SQUIRREL_SPAWN_EGG = ITEMS.register("squirrel_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModEntityTypes.SQUIRREL.get(), 10051392, 15720061, new Item.Properties().tab(Ecologics.TAB)));
     public static final RegistryObject<Item> MUSIC_DISC_COCONUT = ITEMS.register("music_disc_coconut", () -> new RecordItem(10, () -> ModSoundEvents.MUSIC_DISC_COCONUT.get(), new Item.Properties().stacksTo(1).tab(Ecologics.TAB).rarity(Rarity.RARE)));
 }

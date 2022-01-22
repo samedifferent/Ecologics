@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.CoconutCrab;
-import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.registry.*;
 
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -47,6 +46,5 @@ public class ModEventHandler {
     @SubscribeEvent
     public static void createAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrab.createAttributes().build());
-        event.put(ModEntityTypes.SQUIRREL.get(), Squirrel.createAttributes().build());
     }
 }
