@@ -40,5 +40,11 @@
       "ecologics:squirrel_hurt"
     ],
     "subtitle": "ecologics.subtitles.entity.squirrel.hurt"
+  },
+  "music_disc.coconut": {
+    "sounds": [
+      "ecologics:music_disc_coconut"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.hurt"
   }
 }

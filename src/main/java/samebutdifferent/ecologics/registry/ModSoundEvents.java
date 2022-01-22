@@ -17,4 +17,5 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> SQUIRREL_AMBIENT = SOUND_EVENTS.register("squirrel_ambient", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.ambient")));
     public static final RegistryObject<SoundEvent> SQUIRREL_DEATH = SOUND_EVENTS.register("squirrel_death", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.death")));
     public static final RegistryObject<SoundEvent> SQUIRREL_HURT = SOUND_EVENTS.register("squirrel_hurt", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.hurt")));
+    public static final RegistryObject<SoundEvent> MUSIC_DISC_COCONUT = SOUND_EVENTS.register("music_disc_coconut", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "music_disc.coconut")));
 }

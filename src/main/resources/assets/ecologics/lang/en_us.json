@@ -34,6 +34,8 @@
   "item.ecologics.crab_meat": "Crab Meat",
   "item.ecologics.squirrel_spawn_egg": "Squirrel Spawn Egg",
   "item.ecologics.tropical_stew": "Tropical Stew",
+  "item.ecologics.music_disc_coconut": "Music Disc",
+  "item.ecologics.music_disc_coconut.desc": "BooWho - coconut",
   "itemGroup.ecologics": "Ecologics",
   "advancements.husbandry.sandcastle.title": "Fortress of Sanditude",
   "advancements.husbandry.sandcastle.description": "Build a sandcastle to protect turtle eggs."
