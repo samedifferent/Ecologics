@@ -3,6 +3,7 @@ package samebutdifferent.ecologics.event;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -10,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.loot.AddItemModifier;
 import samebutdifferent.ecologics.registry.*;
@@ -19,6 +21,7 @@ public class ModEventHandler {
     @SubscribeEvent
     public static void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            WoodType.register(ModWoodType.COCONUT);
             ModTrunkPlacerTypes.register();
             ModFoliagePlacerTypes.register();
             ModVegetationFeatures.register();
