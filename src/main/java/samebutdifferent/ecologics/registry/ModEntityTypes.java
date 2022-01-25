@@ -7,10 +7,12 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.entity.Camel;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 
 public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Ecologics.MOD_ID);
 
     public static final RegistryObject<EntityType<CoconutCrab>> COCONUT_CRAB = ENTITY_TYPES.register("coconut_crab", () -> EntityType.Builder.of(CoconutCrab::new, MobCategory.CREATURE).sized(1.0F, 1.0F).clientTrackingRange(10).build(new ResourceLocation(Ecologics.MOD_ID, "coconut_crab").toString()));
+    public static final RegistryObject<EntityType<Camel>> CAMEL = ENTITY_TYPES.register("camel", () -> EntityType.Builder.of(Camel::new, MobCategory.CREATURE).sized(0.9F, 1.87F).clientTrackingRange(10).build(new ResourceLocation(Ecologics.MOD_ID, "camel").toString()));
 }
