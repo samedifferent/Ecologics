@@ -190,7 +190,7 @@ public class Camel extends AbstractChestedHorse {
         if (this.hasPassenger(pPassenger)) {
             float lengthwiseOffset = 0.0f;
             final double heightwiseOffset = this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset();
-            if (this.getPassengers().size() > 1) {
+            if (this.getPassengers().size() > 0) {
                 lengthwiseOffset = ((this.getPassengers().indexOf(pPassenger) == 0) ? 0.2f : -0.6f);
             }
             Vec3 vec = new Vec3(lengthwiseOffset, 0.0, 0.0).yRot(-this.getYRot() * 0.017453292f - 1.5707964f);
@@ -200,7 +200,7 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     public double getPassengersRidingOffset() {
-        return this.getBbHeight() * 0.6D;
+        return this.getBbHeight() * 0.75D;
     }
 
     // INVENTORY & CHESTS
