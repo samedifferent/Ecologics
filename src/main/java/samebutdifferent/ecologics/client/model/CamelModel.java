@@ -57,10 +57,10 @@ public class CamelModel<T extends AbstractChestedHorse> extends EntityModel<T> {
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
-        this.rightHindLeg.xRot = Mth.cos(pLimbSwing * 0.6662F) * 1.4F * pLimbSwingAmount;
-        this.leftHindLeg.xRot = Mth.cos(pLimbSwing * 0.6662F + (float)Math.PI) * 1.4F * pLimbSwingAmount;
-        this.rightFrontLeg.xRot = Mth.cos(pLimbSwing * 0.6662F + (float)Math.PI) * 1.4F * pLimbSwingAmount;
-        this.leftFrontLeg.xRot = Mth.cos(pLimbSwing * 0.6662F) * 1.4F * pLimbSwingAmount;
+        this.rightHindLeg.xRot = Mth.cos(pLimbSwing * 0.3331F) * pLimbSwingAmount;
+        this.leftHindLeg.xRot = Mth.cos(pLimbSwing * 0.3331F + (float)Math.PI) * pLimbSwingAmount;
+        this.rightFrontLeg.xRot = Mth.cos(pLimbSwing * 0.3331F + (float)Math.PI) * pLimbSwingAmount;
+        this.leftFrontLeg.xRot = Mth.cos(pLimbSwing * 0.3331F) * pLimbSwingAmount;
         boolean flag = !pEntity.isBaby() && pEntity.hasChest();
         this.rightChest.visible = flag;
         this.leftChest.visible = flag;
