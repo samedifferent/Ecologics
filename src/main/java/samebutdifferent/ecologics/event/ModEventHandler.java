@@ -3,6 +3,7 @@ package samebutdifferent.ecologics.event;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
@@ -29,6 +30,9 @@ public class ModEventHandler {
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(ModBlocks.COCONUT_LOG.get(), ModBlocks.STRIPPED_COCONUT_LOG.get())
                     .put(ModBlocks.COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_WOOD.get()).build();
+            ComposterBlock.COMPOSTABLES.put(ModItems.COCONUT_SLICE.get(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_HUSK.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_LEAVES.get().asItem(), 0.3F);
         });
     }
 
