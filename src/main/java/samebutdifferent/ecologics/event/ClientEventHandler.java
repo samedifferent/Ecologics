@@ -21,6 +21,7 @@ import samebutdifferent.ecologics.client.model.CamelModel;
 import samebutdifferent.ecologics.client.renderer.entity.CamelRenderer;
 import samebutdifferent.ecologics.client.renderer.entity.CoconutCrabRenderer;
 import samebutdifferent.ecologics.client.renderer.entity.ModBoatRenderer;
+import samebutdifferent.ecologics.client.renderer.entity.PenguinRenderer;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
@@ -57,6 +58,7 @@ public class ClientEventHandler {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrabRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.CAMEL.get(), CamelRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.PENGUIN.get(), PenguinRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.BOAT.get(), ModBoatRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN_BLOCK_ENTITY.get(), SignRenderer::new);
     }

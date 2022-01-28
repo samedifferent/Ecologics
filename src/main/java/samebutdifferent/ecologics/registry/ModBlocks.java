@@ -38,6 +38,7 @@ public class ModBlocks {
     public static final RegistryObject<SaplingBlock> COCONUT_HUSK = registerBlock("coconut_husk", CoconutSaplingBlock::new);
     public static final RegistryObject<SeashellBlock> SEASHELL = registerBlock("seashell", SeashellBlock::new);
     public static final RegistryObject<SandcastleBlock> SANDCASTLE = BLOCKS.register("sandcastle", SandcastleBlock::new);
+    public static final RegistryObject<ThinIceBlock> THIN_ICE = registerBlock("thin_ice", ThinIceBlock::new);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);
