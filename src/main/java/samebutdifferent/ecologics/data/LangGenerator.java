@@ -2,15 +2,11 @@ package samebutdifferent.ecologics.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.text.WordUtils;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.registry.ModEntityTypes;
-import samebutdifferent.ecologics.registry.ModItems;
-import samebutdifferent.ecologics.registry.ModSoundEvents;
+import samebutdifferent.ecologics.registry.ModBlocks;
 
 import java.util.function.Supplier;
 
@@ -21,7 +17,7 @@ public class LangGenerator extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        add("itemGroup." + Ecologics.MOD_ID, "Ecologics");
+/*        add("itemGroup." + Ecologics.MOD_ID, "Ecologics");
         for (RegistryObject<Item> item : ModItems.ITEMS.getEntries()) {
             addItem(item, formatId(item));
         }
@@ -33,7 +29,12 @@ public class LangGenerator extends LanguageProvider {
         addSoundEvent(ModSoundEvents.COCONUT_SMASH, "Coconut smashes");
         addEntitySoundEvents("coconut_crab", "Coconut Crab", "hisses");
         add("advancements.husbandry.sandcastle.title", "Fortress of Sanditude");
-        add("advancements.husbandry.sandcastle.description", "Build a sandcastle to protect turtle eggs.");
+        add("advancements.husbandry.sandcastle.description", "Build a sandcastle to protect turtle eggs.");*/
+        add(ModBlocks.SEASHELL_BLOCK.get(), formatId(ModBlocks.SEASHELL_BLOCK));
+        add(ModBlocks.SEASHELL_TILES.get(), formatId(ModBlocks.SEASHELL_TILES));
+        add(ModBlocks.SEASHELL_TILE_STAIRS.get(), formatId(ModBlocks.SEASHELL_TILE_STAIRS));
+        add(ModBlocks.SEASHELL_TILE_SLAB.get(), formatId(ModBlocks.SEASHELL_TILE_SLAB));
+        add(ModBlocks.SEASHELL_TILE_WALL.get(), formatId(ModBlocks.SEASHELL_TILE_WALL));
     }
 
     private String formatId(RegistryObject object) {

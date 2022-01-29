@@ -8,9 +8,9 @@ import samebutdifferent.ecologics.registry.ModBlocks;
 public class ModBlockLoot extends BlockLoot {
     @Override
     protected void addTables() {
-/*        for (RegistryObject<Block> block : ModBlocks.BLOCKS.getEntries()) {
+        for (RegistryObject<Block> block : ModBlocks.BLOCKS.getEntries()) {
             dropSelf(block.get());
-        }*/
+        }
     }
 
     @Override

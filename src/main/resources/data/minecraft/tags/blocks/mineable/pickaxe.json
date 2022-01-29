@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "ecologics:seashell_block",
+    "ecologics:seashell_tiles",
+    "ecologics:seashell_tile_stairs",
+    "ecologics:seashell_tile_slab",
+    "ecologics:seashell_tile_wall"
+  ]
+}

@@ -2,18 +2,18 @@ package samebutdifferent.ecologics.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModTags;
 
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class RecipeGenerator extends RecipeProvider {
@@ -39,7 +39,32 @@ public class RecipeGenerator extends RecipeProvider {
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.CRAB_CLAW.get()), ModItems.CRAB_MEAT.get(), 0.35F, 200).unlockedBy("has_crab_claw", has(ModItems.CRAB_CLAW.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ModItems.TROPICAL_STEW.get()).requires(ModItems.COCONUT_SLICE.get()).requires(ModItems.CRAB_MEAT.get()).unlockedBy("has_cooked_claw", has(ModItems.CRAB_MEAT.get())).save(consumer);
 */
-        ShapedRecipeBuilder.shaped(ModBlocks.SANDCASTLE.get()).define('A', Blocks.SAND).define('B', ModBlocks.SEASHELL.get()).define('C', Items.STICK).pattern(" C ").pattern("ABA").pattern("AAA").unlockedBy(getHasName(ModBlocks.SEASHELL.get()), has(ModBlocks.SEASHELL.get())).save(consumer);
+//        ShapedRecipeBuilder.shaped(ModBlocks.SANDCASTLE.get()).define('A', Blocks.SAND).define('B', ModBlocks.SEASHELL.get()).define('C', Items.STICK).pattern(" C ").pattern("ABA").pattern("AAA").unlockedBy(getHasName(ModBlocks.SEASHELL.get()), has(ModBlocks.SEASHELL.get())).save(consumer);
+        nineBlockStorageRecipes(consumer, ModBlocks.SEASHELL.get(), ModBlocks.SEASHELL_BLOCK.get());
+        polished(consumer, ModBlocks.SEASHELL_TILES.get(), ModBlocks.SEASHELL.get());
+        stair(consumer, ModBlocks.SEASHELL_TILE_STAIRS.get(), ModBlocks.SEASHELL_TILES.get());
+        stonecutting(consumer, ModBlocks.SEASHELL_TILE_STAIRS.get(), ModBlocks.SEASHELL_TILES.get());
+        slab(consumer, ModBlocks.SEASHELL_TILE_SLAB.get(), ModBlocks.SEASHELL_TILES.get());
+        stonecutting(consumer, ModBlocks.SEASHELL_TILE_SLAB.get(), ModBlocks.SEASHELL_TILES.get());
+        wall(consumer, ModBlocks.SEASHELL_TILE_WALL.get(), ModBlocks.SEASHELL_TILES.get());
+        stonecutting(consumer, ModBlocks.SEASHELL_TILE_WALL.get(), ModBlocks.SEASHELL_TILES.get());
+    }
+
+    private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked) {
+        nineBlockStorageRecipes(pFinishedRecipeConsumer, pUnpacked, pPacked, pPacked.asItem().getRegistryName().getPath(), null, pUnpacked.asItem().getRegistryName().getPath(), null);
+    }
+
+    private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked, String pPackingRecipeName, @Nullable String pPackingRecipeGroup, String pUnpackingRecipeName, @Nullable String pUnpackingRecipeGroup) {
+        ShapelessRecipeBuilder.shapeless(pUnpacked, 9).requires(pPacked).group(pUnpackingRecipeGroup).unlockedBy(getHasName(pPacked), has(pPacked)).save(pFinishedRecipeConsumer, new ResourceLocation(pUnpackingRecipeName));
+        ShapedRecipeBuilder.shaped(pPacked).define('#', pUnpacked).pattern("###").pattern("###").pattern("###").group(pPackingRecipeGroup).unlockedBy(getHasName(pUnpacked), has(pUnpacked)).save(pFinishedRecipeConsumer, new ResourceLocation(pPackingRecipeName));
+    }
+
+    private static void stonecutting(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pMaterial) {
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(pMaterial), pResult, 1).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, getConversionRecipeName(pResult, pMaterial) + "_stonecutting");
+    }
+
+    private static String getConversionRecipeName(ItemLike pResult, ItemLike pIngredient) {
+        return pResult.asItem().getRegistryName().getPath() + "_from_" + pIngredient.asItem().getRegistryName().getPath();
     }
 
     private static void cookRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime) {
