@@ -17,6 +17,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
+import samebutdifferent.ecologics.client.model.CamelModel;
+import samebutdifferent.ecologics.client.renderer.entity.CamelRenderer;
 import samebutdifferent.ecologics.client.renderer.entity.CoconutCrabRenderer;
 import samebutdifferent.ecologics.client.renderer.entity.ModBoatRenderer;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
@@ -54,12 +56,14 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrabRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.CAMEL.get(), CamelRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.BOAT.get(), ModBoatRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN_BLOCK_ENTITY.get(), SignRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
         event.registerLayerDefinition(ModBoatRenderer.COCONUT_LAYER_LOCATION, BoatModel::createBodyModel);
     }
 }

@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
+import samebutdifferent.ecologics.entity.Camel;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.loot.AddItemModifier;
 import samebutdifferent.ecologics.registry.*;
@@ -38,6 +39,7 @@ public class ModEventHandler {
     @SubscribeEvent
     public static void createAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrab.createAttributes().build());
+        event.put(ModEntityTypes.CAMEL.get(), Camel.createAttributes().build());
     }
 
     @SubscribeEvent
