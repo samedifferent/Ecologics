@@ -93,9 +93,7 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
 
     private void breakCoconut() {
         this.setHasCoconut(false);
-        this.setTarget(null);
-        this.setPersistentAngerTarget(null);
-        this.setRemainingPersistentAngerTime(0);
+        this.stopBeingAngry();
         this.playCoconutSmashSound();
         ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
         itementity.setDefaultPickUpDelay();
@@ -181,11 +179,7 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
 
     @Override
     public int getRemainingPersistentAngerTime() {
-        if (!this.hasCoconut()) {
-            return 0;
-        } else {
-            return this.remainingPersistentAngerTime;
-        }
+        return this.remainingPersistentAngerTime;
     }
 
     @Override
@@ -196,11 +190,7 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
     @Nullable
     @Override
     public UUID getPersistentAngerTarget() {
-        if (!this.hasCoconut()) {
-            return null;
-        } else {
-            return this.persistentAngerTarget;
-        }
+        return this.persistentAngerTarget;
     }
 
     @Override
