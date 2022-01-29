@@ -7,12 +7,16 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -31,8 +35,14 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class CoconutCrab extends Animal implements IAnimatable {
+import java.util.UUID;
+import java.util.function.Predicate;
+
+public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
     private static final EntityDataAccessor<Boolean> HAS_COCONUT = SynchedEntityData.defineId(CoconutCrab.class, EntityDataSerializers.BOOLEAN);
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private int remainingPersistentAngerTime;
+    @Nullable private UUID persistentAngerTarget;
     private final AnimationFactory factory = new AnimationFactory(this);
 
     public CoconutCrab(EntityType<? extends Animal> entityType, Level level) {
@@ -54,12 +64,14 @@ public class CoconutCrab extends Animal implements IAnimatable {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(2, new CoconutCrab.CrabAvoidGoal<>(this, Player.class, 8.0F, 2.0D, 2.0D));
+        this.goalSelector.addGoal(1, new CoconutCrab.CrabAvoidGoal<>(this, Player.class, 8.0F, 2.0D, 2.0D));
+        this.goalSelector.addGoal(2, new CoconutCrab.CrabMeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new CoconutCrab.CrabNearestAttackableTargetGoal<>(this, Player.class, true, false));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new CoconutCrab.CrabNearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, false));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -82,6 +94,8 @@ public class CoconutCrab extends Animal implements IAnimatable {
     private void breakCoconut() {
         this.setHasCoconut(false);
         this.setTarget(null);
+        this.setPersistentAngerTarget(null);
+        this.setRemainingPersistentAngerTime(0);
         this.playCoconutSmashSound();
         ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
         itementity.setDefaultPickUpDelay();
@@ -165,6 +179,70 @@ public class CoconutCrab extends Animal implements IAnimatable {
         return factory;
     }
 
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        if (!this.hasCoconut()) {
+            return 0;
+        } else {
+            return this.remainingPersistentAngerTime;
+        }
+    }
+
+    @Override
+    public void setRemainingPersistentAngerTime(int pTime) {
+        this.remainingPersistentAngerTime = pTime;
+    }
+
+    @Nullable
+    @Override
+    public UUID getPersistentAngerTarget() {
+        if (!this.hasCoconut()) {
+            return null;
+        } else {
+            return this.persistentAngerTarget;
+        }
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID pTarget) {
+        this.persistentAngerTarget = pTarget;
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+    }
+
+
+    static class CrabMeleeAttackGoal extends MeleeAttackGoal {
+        private final CoconutCrab crab;
+
+        public CrabMeleeAttackGoal(CoconutCrab pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+            super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
+            this.crab = pMob;
+        }
+
+        @Override
+        public boolean canUse() {
+            return crab.hasCoconut() && super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return crab.hasCoconut() && super.canContinueToUse();
+        }
+
+        @Override
+        public void start() {
+            if (!crab.hasCoconut()) {
+                crab.setAggressive(false);
+                this.stop();
+            } else {
+                super.start();
+            }
+        }
+    }
+
     static class CrabAvoidGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
         private final CoconutCrab crab;
 
@@ -182,8 +260,8 @@ public class CoconutCrab extends Animal implements IAnimatable {
     static class CrabNearestAttackableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
         private final CoconutCrab crab;
 
-        public CrabNearestAttackableTargetGoal(CoconutCrab pMob, Class<T> pTargetType, boolean pMustSee, boolean pMustReach) {
-            super(pMob, pTargetType, pMustSee, pMustReach);
+        public CrabNearestAttackableTargetGoal(CoconutCrab pMob, Class<T> pTargetType, int pRandomInterval, boolean pMustSee, boolean pMustReach, @Nullable Predicate<LivingEntity> pTargetPredicate) {
+            super(pMob, pTargetType, pRandomInterval, pMustSee, pMustReach, pTargetPredicate);
             this.crab = pMob;
         }
 
