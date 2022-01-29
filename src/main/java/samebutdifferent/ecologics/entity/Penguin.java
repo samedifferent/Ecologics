@@ -117,6 +117,9 @@ public class Penguin extends Animal implements IAnimatable {
         otherParent.resetLove();
         level.broadcastEntityEvent(this, (byte)18);
         this.setPregnant(true);
+        if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+            level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
+        }
     }
 
     @Override
@@ -140,9 +143,6 @@ public class Penguin extends Animal implements IAnimatable {
                     penguin.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
                     level.addFreshEntityWithPassengers(penguin);
                     level.broadcastEntityEvent(this, (byte) 18);
-                    if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-                        level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
-                    }
                 }
             }
         }

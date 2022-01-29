@@ -34,7 +34,7 @@ public class Camel extends AbstractChestedHorse {
     // ATTRIBUTES & BREEDING
 
     public static AttributeSupplier.Builder createAttributes() {
-        return createBaseChestedHorseAttributes().add(Attributes.MOVEMENT_SPEED, 0.25F);
+        return createBaseChestedHorseAttributes().add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
     @Nullable
@@ -45,7 +45,7 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.BROWN_MUSHROOM) || pStack.is(Items.BROWN_MUSHROOM_BLOCK);
+        return pStack.is(Items.RABBIT) || pStack.is(Items.COOKED_RABBIT);
     }
 
     @Override
@@ -205,7 +205,15 @@ public class Camel extends AbstractChestedHorse {
 
     // INVENTORY & CHESTS
 
+    @Override
+    public int getInventoryColumns() {
+        return 3;
+    }
 
+    @Override
+    protected int getInventorySize() {
+        return this.hasChest() ? 2 + 3 * this.getInventoryColumns() : super.getInventorySize();
+    }
 
     // SOUNDS
 
