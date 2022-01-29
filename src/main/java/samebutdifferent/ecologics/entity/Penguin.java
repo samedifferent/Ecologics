@@ -148,18 +148,11 @@ public class Penguin extends Animal implements IAnimatable {
         }
     }
 
-    private <E extends IAnimatable> PlayState swimming(AnimationEvent<E> event) {
-        if (isSwimming()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.swim", true));
-            return PlayState.CONTINUE;
-        }
-        event.getController().markNeedsReload();
-        return PlayState.STOP;
-    }
-
-    private <E extends IAnimatable> PlayState movement(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (event.isMoving()) {
-            if (this.level.getBlockState(this.blockPosition().below()).is(Blocks.ICE)) {
+            if (isUnderWater()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.swim", true));
+            } else if (this.level.getBlockState(this.blockPosition().below()).is(Blocks.ICE) && !this.isInLove() && !this.isPregnant()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.slide", true));
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.waddle", true));
@@ -172,9 +165,8 @@ public class Penguin extends Animal implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "swimming_controller", 0, this::swimming));
         data.setResetSpeedInTicks(5);
-        data.addAnimationController(new AnimationController<>(this, "movement_controller", 5, this::movement));
+        data.addAnimationController(new AnimationController<>(this, "controller", 5, this::predicate));
     }
 
     @Override
