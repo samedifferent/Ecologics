@@ -164,6 +164,7 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coconut_crab.walk", true));
             return PlayState.CONTINUE;
         }
+        event.getController().markNeedsReload();
         return PlayState.STOP;
     }
 

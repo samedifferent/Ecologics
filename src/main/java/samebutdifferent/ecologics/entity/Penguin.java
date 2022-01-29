@@ -123,7 +123,7 @@ public class Penguin extends Animal implements IAnimatable {
     protected void ageBoundaryReached() {
         super.ageBoundaryReached();
         if (!this.isBaby() && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            this.spawnAtLocation(Items.BROWN_WOOL, 1);
+            this.spawnAtLocation(Items.GRAY_WOOL, 1);
         }
     }
 
@@ -131,7 +131,7 @@ public class Penguin extends Animal implements IAnimatable {
     public void aiStep() {
         super.aiStep();
         if (this.isPregnant()) {
-            if (this.random.nextInt(500) == 0) {
+            if (this.random.nextInt(1500) == 0) {
                 if (!this.level.isClientSide) {
                     ServerLevel level = (ServerLevel) this.level;
                     this.setPregnant(false);
@@ -148,8 +148,25 @@ public class Penguin extends Animal implements IAnimatable {
         }
     }
 
+    private boolean babyIsNearAdult() {
+        if (this.isBaby()) {
+            for(Penguin penguin : Penguin.this.level.getEntitiesOfClass(Penguin.class, Penguin.this.getBoundingBox().inflate(2.0D, 5.0D, 2.0D))) {
+                return !penguin.isBaby();
+            }
+        }
+        return false;
+    }
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (event.isMoving()) {
+        if (this.isBaby()) {
+            if (this.babyIsNearAdult()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.huddle", true));
+            } else if (event.isMoving()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.waddle", true));
+            } else {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.idle", true));
+            }
+        } else if (event.isMoving()) {
             if (isUnderWater()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.swim", true));
             } else if (this.level.getBlockState(this.blockPosition().below()).is(Blocks.ICE) && !this.isInLove() && !this.isPregnant()) {

@@ -20,9 +20,6 @@ public class PenguinRenderer extends GeoEntityRenderer<Penguin> {
 
     @Override
     public void render(Penguin entity, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
-        if (entity.isBaby()) {
-            stack.scale(0.6F, 0.6F, 0.6F);
-        }
         if (entity.isOnGround() && entity.getFeetBlockState().is(Blocks.SNOW)) {
             stack.translate(0.0F, 0.126F, 0.0F);
         }

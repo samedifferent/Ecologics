@@ -18,17 +18,25 @@ import java.util.List;
 public class PenguinModel extends AnimatedGeoModel<Penguin> {
     
     @Override
-    public ResourceLocation getModelLocation(Penguin object) {
-        return new ResourceLocation(Ecologics.MOD_ID, "geo/penguin.geo.json");
+    public ResourceLocation getModelLocation(Penguin penguin) {
+        if (penguin.isBaby()) {
+            return new ResourceLocation(Ecologics.MOD_ID, "geo/baby_penguin.geo.json");
+        } else {
+            return new ResourceLocation(Ecologics.MOD_ID, "geo/penguin.geo.json");
+        }
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Penguin object) {
-        return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/penguin.png");
+    public ResourceLocation getTextureLocation(Penguin penguin) {
+        if (penguin.isBaby()) {
+            return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/baby_penguin.png");
+        } else {
+            return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/penguin.png");
+        }
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(Penguin animatable) {
+    public ResourceLocation getAnimationFileLocation(Penguin penguin) {
         return new ResourceLocation(Ecologics.MOD_ID, "animations/penguin.animation.json");
     }
 
@@ -44,7 +52,9 @@ public class PenguinModel extends AnimatedGeoModel<Penguin> {
         head.setRotationX(extraDataOfType.get(0).headPitch * Mth.DEG_TO_RAD);
         head.setRotationY(extraDataOfType.get(0).netHeadYaw * Mth.DEG_TO_RAD);
 
-        IBone egg = this.getAnimationProcessor().getBone("egg");
-        egg.setHidden(!entity.isPregnant());
+        if (!entity.isBaby()) {
+            IBone egg = this.getAnimationProcessor().getBone("egg");
+            egg.setHidden(!entity.isPregnant());
+        }
     }
 }
