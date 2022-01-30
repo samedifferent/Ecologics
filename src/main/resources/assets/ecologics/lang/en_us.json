@@ -28,6 +28,7 @@
   "death.attack.coconut": "%1$s was bonked by a falling coconut",
   "death.attack.coconut.player": "%1$s was bonked by a falling coconut whilst fighting %2$s",
   "ecologics.subtitles.block.coconut.smash": "Coconut smashes",
+  "ecologics.subtitles.block.thin_ice.crack": "Thin ice cracks",
   "ecologics.subtitles.entity.coconut_crab.ambient": "Coconut Crab hisses",
   "ecologics.subtitles.entity.coconut_crab.death": "Coconut Crab dies",
   "ecologics.subtitles.entity.coconut_crab.hurt": "Coconut Crab hurts",

@@ -15,4 +15,5 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> COCONUT_CRAB_DEATH = SOUND_EVENTS.register("coconut_crab_death", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.coconut_crab.death")));
     public static final RegistryObject<SoundEvent> COCONUT_CRAB_HURT = SOUND_EVENTS.register("coconut_crab_hurt", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.coconut_crab.hurt")));
     public static final RegistryObject<SoundEvent> MUSIC_DISC_COCONUT = SOUND_EVENTS.register("music_disc_coconut", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "music_disc.coconut")));
+    public static final RegistryObject<SoundEvent> THIN_ICE_CRACK = SOUND_EVENTS.register("thin_ice_crack", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "block.thin_ice.crack")));
 }

@@ -7,7 +7,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.registry.ModVegetationFeatures;
+import samebutdifferent.ecologics.registry.ModConfiguredFeatures;
 
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class CommonEventHandler {
@@ -16,8 +16,13 @@ public class CommonEventHandler {
     public static void onBiomeLoad(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
         ResourceLocation biomeName = event.getName();
-        if (biomeName != null && biomeName.getPath().equals("beach")) {
-            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModVegetationFeatures.TREES_BEACH).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModVegetationFeatures.SEASHELLS);
+        if (biomeName != null) {
+            if (biomeName.getPath().equals("beach")) {
+                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.TREES_BEACH).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SEASHELLS);
+            }
+            if (biomeName.getPath().equals("frozen_river") || biomeName.getPath().equals("frozen_ocean")) {
+                builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModConfiguredFeatures.PLACED_THIN_ICE_PATCH);
+            }
         }
     }
 }
