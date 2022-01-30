@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
+import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
 public class ThinIceBlock extends Block {
@@ -27,8 +28,30 @@ public class ThinIceBlock extends Block {
     }
 
     @Override
-    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
+    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
         if (pEntity instanceof Player) {
+            pLevel.playSound(null, pPos, ModSoundEvents.THIN_ICE_CRACK.get(), SoundSource.BLOCKS, 0.7F, 0.9F + pLevel.random.nextFloat() * 0.2F);
+            replaceIfThinIce(pPos, 3, pLevel);
+            replaceIfThinIce(pPos.north(), 2, pLevel);
+            replaceIfThinIce(pPos.east(), 2, pLevel);
+            replaceIfThinIce(pPos.south(), 2, pLevel);
+            replaceIfThinIce(pPos.west(), 2, pLevel);
+            replaceIfThinIce(pPos.north().west(), 1, pLevel);
+            replaceIfThinIce(pPos.north().east(), 1, pLevel);
+            replaceIfThinIce(pPos.south().west(), 1, pLevel);
+            replaceIfThinIce(pPos.south().east(), 1, pLevel);
+        }
+    }
+
+    private void replaceIfThinIce(BlockPos pPos, int age, Level pLevel) {
+        if (pLevel.getBlockState(pPos).is(ModBlocks.THIN_ICE.get())) {
+            pLevel.setBlock(pPos, ModBlocks.THIN_ICE.get().defaultBlockState().setValue(AGE, age), 2);
+        }
+    }
+
+    @Override
+    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
+        if (pEntity instanceof Player && pState.getValue(AGE) > 0) {
             this.crack(pState, pLevel, pPos);
         }
     }
