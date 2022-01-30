@@ -35,7 +35,7 @@ public class ThinIceBlock extends Block {
 
     private boolean crack(BlockState pState, Level pLevel, BlockPos pPos) {
         int age = pState.getValue(AGE);
-        if (age < 2) {
+        if (age < 3) {
             pLevel.setBlock(pPos, pState.setValue(AGE, age + 1), 2);
             pLevel.playSound(null, pPos, ModSoundEvents.THIN_ICE_CRACK.get(), SoundSource.BLOCKS, 0.7F, 0.9F + pLevel.random.nextFloat() * 0.2F);
             return false;
