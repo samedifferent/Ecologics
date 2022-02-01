@@ -1,12 +1,16 @@
 package samebutdifferent.ecologics.registry;
 
+import ca.weblite.objc.Proxy;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.item.AgaveItem;
 import samebutdifferent.ecologics.item.CoconutSliceItem;
 import samebutdifferent.ecologics.item.ModBoatItem;
 import samebutdifferent.ecologics.item.SandcastleBlockItem;
@@ -24,5 +28,6 @@ public class ModItems {
     public static final RegistryObject<Item> SANDCASTLE = ITEMS.register("sandcastle", SandcastleBlockItem::new);
     public static final RegistryObject<Item> MUSIC_DISC_COCONUT = ITEMS.register("music_disc_coconut", () -> new RecordItem(10, () -> ModSoundEvents.MUSIC_DISC_COCONUT.get(), new Item.Properties().stacksTo(1).tab(Ecologics.TAB).rarity(Rarity.RARE)));
     public static final RegistryObject<Item> COCONUT_SIGN = ITEMS.register("coconut_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(Ecologics.TAB), ModBlocks.COCONUT_SIGN.get(), ModBlocks.COCONUT_WALL_SIGN.get()));
-    public static final RegistryObject<Item> COCONUT_BOAT = ITEMS.register("coconut_boat", () -> new ModBoatItem("coconut", new Item.Properties().stacksTo(1).tab(Ecologics.TAB)));
+    public static final RegistryObject<Item> COCONUT_BOAT = ITEMS.register("cocon.ut_boat", () -> new ModBoatItem("coconut", new Item.Properties().stacksTo(1).tab(Ecologics.TAB)));
+    public static final RegistryObject<Item> AGAVE = ITEMS.register("agave", AgaveItem::new);
 }

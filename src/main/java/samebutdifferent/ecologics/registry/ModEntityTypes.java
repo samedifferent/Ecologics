@@ -16,7 +16,7 @@ public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Ecologics.MOD_ID);
 
     public static final RegistryObject<EntityType<CoconutCrab>> COCONUT_CRAB = ENTITY_TYPES.register("coconut_crab", () -> EntityType.Builder.of(CoconutCrab::new, MobCategory.CREATURE).sized(1.0F, 1.0F).clientTrackingRange(10).build(new ResourceLocation(Ecologics.MOD_ID, "coconut_crab").toString()));
-    public static final RegistryObject<EntityType<Camel>> CAMEL = ENTITY_TYPES.register("camel", () -> EntityType.Builder.of(Camel::new, MobCategory.CREATURE).sized(0.9F, 1.87F).clientTrackingRange(10).build(new ResourceLocation(Ecologics.MOD_ID, "camel").toString()));
+    public static final RegistryObject<EntityType<Camel>> CAMEL = ENTITY_TYPES.register("camel", () -> EntityType.Builder.of(Camel::new, MobCategory.CREATURE).sized(1.6F, 2.1F).clientTrackingRange(10).build(new ResourceLocation(Ecologics.MOD_ID, "camel").toString()));
     public static final RegistryObject<EntityType<ModBoat>> BOAT = ENTITY_TYPES.register("boat", () -> EntityType.Builder.<ModBoat>of(ModBoat::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10).build(new ResourceLocation(Ecologics.MOD_ID, "boat").toString()));
     public static final RegistryObject<EntityType<Penguin>> PENGUIN = ENTITY_TYPES.register("penguin", () -> EntityType.Builder.of(Penguin::new, MobCategory.CREATURE).sized(1.0F, 1.0F).clientTrackingRange(10).build(new ResourceLocation(Ecologics.MOD_ID, "penguin").toString()));
 }

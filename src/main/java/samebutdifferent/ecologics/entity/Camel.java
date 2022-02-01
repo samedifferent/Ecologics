@@ -200,7 +200,7 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     public double getPassengersRidingOffset() {
-        return this.getBbHeight() * 0.75D;
+        return this.getBbHeight() * 0.8D;
     }
 
     // INVENTORY & CHESTS
