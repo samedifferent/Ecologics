@@ -45,7 +45,7 @@ public class ModBlocks {
     public static final RegistryObject<SlabBlock> SEASHELL_TILE_SLAB = registerBlock("seashell_tile_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(SEASHELL_BLOCK.get())));
     public static final RegistryObject<WallBlock> SEASHELL_TILE_WALL = registerBlock("seashell_tile_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(SEASHELL_BLOCK.get())));
     public static final RegistryObject<ThinIceBlock> THIN_ICE = registerBlock("thin_ice", ThinIceBlock::new);
-    public static final RegistryObject<AgaveBlock> AGAVE = BLOCKS.register("agave", () -> new AgaveBlock(BlockBehaviour.Properties.copy(Blocks.CARROTS)));
+    public static final RegistryObject<AgaveBlock> AGAVE = BLOCKS.register("agave", AgaveBlock::new);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);

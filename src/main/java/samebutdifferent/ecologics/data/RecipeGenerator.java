@@ -76,7 +76,7 @@ public class RecipeGenerator extends RecipeProvider {
     }
 
     private static void planksFromLogsTag(Consumer<FinishedRecipe> consumer, ItemLike planks, Tag<Item> tag) {
-        ShapelessRecipeBuilder.shapeless(planks, 4).requires(tag).group("planks").unlockedBy("has_log", has(ModTags.Items.COCONUT_LOGS)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(planks, 4).requires(tag).group("planks").unlockedBy("has_log", has(ModTags.ModItemTags.COCONUT_LOGS)).save(consumer);
     }
 
     private static void woodFromLogs(Consumer<FinishedRecipe> consumer, ItemLike wood, ItemLike log) {
