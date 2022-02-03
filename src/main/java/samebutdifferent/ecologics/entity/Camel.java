@@ -45,7 +45,7 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.RABBIT) || pStack.is(Items.COOKED_RABBIT);
+        return pStack.is(Items.DEAD_BUSH) || pStack.is(Items.CACTUS);
     }
 
     @Override
