@@ -123,7 +123,7 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     public float getSpeed() {
-        return this.isVehicle() ? 0.175F : 0.25F;
+        return this.getPassengers().size() < 2 ? 0.175F : 0.16F;
     }
 
     @Override
