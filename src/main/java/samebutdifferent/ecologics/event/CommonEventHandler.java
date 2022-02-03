@@ -1,18 +1,23 @@
 package samebutdifferent.ecologics.event;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModConfiguredFeatures;
+import samebutdifferent.ecologics.registry.ModEntityTypes;
 
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class CommonEventHandler {
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onBiomeLoad(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
         ResourceLocation biomeName = event.getName();
@@ -23,6 +28,9 @@ public class CommonEventHandler {
             if (biomeName.getPath().equals("frozen_river") || biomeName.getPath().equals("frozen_ocean")) {
                 builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModConfiguredFeatures.PLACED_THIN_ICE_PATCH);
             }
+        }
+        if (event.getCategory() == Biome.BiomeCategory.DESERT) {
+            event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), 4, 3, 3));
         }
     }
 }
