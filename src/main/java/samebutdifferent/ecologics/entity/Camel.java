@@ -71,11 +71,11 @@ public class Camel extends AbstractChestedHorse {
         int increaseTemperAmount = 0;
         float healAmount = 0.0F;
         boolean willEat = false;
-        if (pStack.is(Items.RABBIT)) {
+        if (pStack.is(Items.DEAD_BUSH)) {
             increaseAgeAmount = 10;
             increaseTemperAmount = 3;
             healAmount = 2.0F;
-        } else if (pStack.is(Items.COOKED_RABBIT)) {
+        } else if (pStack.is(Items.CACTUS)) {
             increaseAgeAmount = 90;
             increaseTemperAmount = 6;
             healAmount = 10.0F;
