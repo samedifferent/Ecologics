@@ -50,7 +50,7 @@ public class CommonEventHandler {
         BlockState state = event.getState();
         if (state.is(Blocks.CACTUS)) {
             if (level.getBlockState(pos.above()).is(Blocks.CACTUS) && level.getBlockState(pos.below()).is(Blocks.CACTUS)) {
-                if (level.isEmptyBlock(pos.above(2))) {
+                if (level.isEmptyBlock(pos.above(2)) && level.getRandom().nextInt(2) == 0) {
                     level.setBlock(pos.above(2), ModBlocks.PRICKLY_PEAR.get().defaultBlockState(), 2);
                     level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
