@@ -25,6 +25,8 @@
   "block.ecologics.stripped_coconut_wood": "Stripped Coconut Wood",
   "block.ecologics.coconut_sign": "Coconut Sign",
   "block.ecologics.coconut_wall_sign": "Coconut Wall Sign",
+  "block.ecologics.prickly_pear": "Prickly Pear",
+  "item.ecologics.prickly_pear": "Prickly Pear",
   "death.attack.coconut": "%1$s was bonked by a falling coconut",
   "death.attack.coconut.player": "%1$s was bonked by a falling coconut whilst fighting %2$s",
   "ecologics.subtitles.block.coconut.smash": "Coconut smashes",

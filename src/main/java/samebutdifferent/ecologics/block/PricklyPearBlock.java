@@ -8,23 +8,25 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.registry.ModItems;
 
 import java.util.Random;
 
-public class AgaveBlock extends CropBlock {
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
+public class PricklyPearBlock extends CropBlock {
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D)};
 
-    public AgaveBlock() {
-        super(BlockBehaviour.Properties.copy(Blocks.CARROTS));
+    public PricklyPearBlock() {
+        super(BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.HONEY_BLOCK));
     }
 
     @Override
@@ -34,12 +36,12 @@ public class AgaveBlock extends CropBlock {
 
     @Override
     public int getMaxAge() {
-        return 2;
+        return 3;
     }
 
     @Override
     protected ItemLike getBaseSeedId() {
-        return ModItems.AGAVE.get();
+        return ModItems.PRICKLY_PEAR.get();
     }
 
     @Override
@@ -67,6 +69,6 @@ public class AgaveBlock extends CropBlock {
 
     @Override
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(Blocks.SAND) || pState.is(Blocks.RED_SAND);
+        return pState.is(Blocks.CACTUS);
     }
 }
