@@ -3,7 +3,7 @@ package samebutdifferent.ecologics.item;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -11,7 +11,7 @@ import samebutdifferent.ecologics.Ecologics;
 
 public class PricklyPearItem extends Item {
     public PricklyPearItem() {
-        super(new Properties().tab(Ecologics.TAB).food(new FoodProperties.Builder().alwaysEat().nutrition(4).saturationMod(0.3F).build()));
+        super(new Properties().tab(Ecologics.TAB).fireResistant().food(Foods.APPLE));
     }
 
     @Override
