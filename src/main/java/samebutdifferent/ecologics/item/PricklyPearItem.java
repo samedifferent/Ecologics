@@ -1,5 +1,6 @@
 package samebutdifferent.ecologics.item;
 
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -16,8 +17,11 @@ public class PricklyPearItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
-        if (livingEntity instanceof Player player && player.hasEffect(MobEffects.WITHER)) {
-            player.removeEffect(MobEffects.WITHER);
+        if (livingEntity instanceof Player player) {
+            if (player.hasEffect(MobEffects.WITHER)) {
+                player.removeEffect(MobEffects.WITHER);
+            }
+            player.hurt(DamageSource.CACTUS, 1.0F);
         }
         return super.finishUsingItem(stack, level, livingEntity);
     }
