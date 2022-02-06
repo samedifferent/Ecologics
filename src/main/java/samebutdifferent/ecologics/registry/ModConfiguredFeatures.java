@@ -37,27 +37,14 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<DiskConfiguration, ?> THIN_ICE_PATCH = ModFeatures.THIN_ICE.get().configured(new DiskConfiguration(ModBlocks.THIN_ICE.get().defaultBlockState(), UniformInt.of(2, 3), 1, List.of(Blocks.ICE.defaultBlockState())));
     public static final ConfiguredFeature<?, ?> PRICKLY_PEAR = Feature.SIMPLE_BLOCK.configured(new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 0), 2).add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 1), 2).add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 2), 1).add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 3), 1).build())));
 
-    public static final PlacedFeature TREES_BEACH = COCONUT.placed(PlacementUtils.countExtra(0, 0.5F, 1), InSquarePlacement.spread(), SurfaceWaterDepthFilter.forMaxDepth(0), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.COCONUT_HUSK.get().defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome());
-    public static final PlacedFeature SEASHELLS = SEASHELL.placed(VegetationPlacements.worldSurfaceSquaredWithCount(4));
-    public static final PlacedFeature THIN_ICE_PATCHES = THIN_ICE_PATCH.placed(CountPlacement.of(15), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-    public static final PlacedFeature PRICKLY_PEARS = PRICKLY_PEAR.placed(CountPlacement.of(512), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-
     public static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> registerConfiguredFeature(String pKey, ConfiguredFeature<FC, ?> pConfiguredFeature) {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Ecologics.MOD_ID, pKey), pConfiguredFeature);
     }
 
-    public static PlacedFeature registerPlacedFeature(String pKey, PlacedFeature pPlacedFeature) {
-        return Registry.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(Ecologics.MOD_ID, pKey), pPlacedFeature);
-    }
-
     public static void register() {
         registerConfiguredFeature("coconut", COCONUT);
-        registerPlacedFeature("trees_beach", TREES_BEACH);
         registerConfiguredFeature("seashell", SEASHELL);
-        registerPlacedFeature("seashells", SEASHELLS);
         registerConfiguredFeature("thin_ice_patch", THIN_ICE_PATCH);
-        registerPlacedFeature("thin_ice_patches", THIN_ICE_PATCHES);
         registerConfiguredFeature("prickly_pear", PRICKLY_PEAR);
-        registerPlacedFeature("prickly_pears", PRICKLY_PEARS);
     }
 }

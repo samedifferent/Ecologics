@@ -19,8 +19,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
-import samebutdifferent.ecologics.registry.ModConfiguredFeatures;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModPlacedFeatures;
 
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class CommonEventHandler {
@@ -31,7 +31,7 @@ public class CommonEventHandler {
         ResourceLocation biomeName = event.getName();
         if (biomeName != null) {
             if (biomeName.getPath().equals("beach")) {
-                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.TREES_BEACH).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SEASHELLS);
+                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.TREES_BEACH).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SEASHELL);
             }
 /*            if (biomeName.getPath().equals("frozen_river") || biomeName.getPath().equals("frozen_ocean")) {
                 builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModConfiguredFeatures.THIN_ICE_PATCHES);
@@ -39,7 +39,7 @@ public class CommonEventHandler {
         }
         if (event.getCategory() == Biome.BiomeCategory.DESERT) {
             event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), 1, 3, 3));
-            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.PRICKLY_PEARS);
+            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.PRICKLY_PEAR);
         }
     }
 
