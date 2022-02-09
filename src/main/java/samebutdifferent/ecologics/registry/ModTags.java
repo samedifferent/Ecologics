@@ -17,6 +17,9 @@ public class ModTags {
         public static final Tags.IOptionalNamedTag<Block> COCONUT_LOGS =
                 createTag("coconut_logs");
 
+        public static final Tags.IOptionalNamedTag<Block> POTS =
+                createTag("pots");
+
         private static Tags.IOptionalNamedTag<Block> createTag(String name) {
             return BlockTags.createOptional(new ResourceLocation(Ecologics.MOD_ID, name));
         }
@@ -25,6 +28,9 @@ public class ModTags {
     public static class ModItemTags {
         public static final Tags.IOptionalNamedTag<Item> COCONUT_LOGS =
                 createTag("coconut_logs");
+
+        public static final Tags.IOptionalNamedTag<Item> POTS =
+                createTag("pots");
 
         private static Tags.IOptionalNamedTag<Item> createTag(String name) {
             return ItemTags.createOptional(new ResourceLocation(Ecologics.MOD_ID, name));

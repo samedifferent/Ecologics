@@ -1,12 +1,15 @@
 package samebutdifferent.ecologics.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModItems;
 
 public class ItemModelGenerator extends ItemModelProvider {
     public ItemModelGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper) {
@@ -15,10 +18,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        ofBlock(ModBlocks.SEASHELL_BLOCK);
-        ofBlock(ModBlocks.SEASHELL_TILES);
-        ofBlock(ModBlocks.SEASHELL_TILE_STAIRS);
-        ofBlock(ModBlocks.SEASHELL_TILE_SLAB);
+
     }
 
     private void ofBlock(RegistryObject block) {

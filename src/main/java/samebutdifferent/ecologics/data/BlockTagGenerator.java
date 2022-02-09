@@ -3,9 +3,13 @@ package samebutdifferent.ecologics.data;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModTags;
 
 public class BlockTagGenerator extends BlockTagsProvider {
     public BlockTagGenerator(DataGenerator gen, ExistingFileHelper exFileHelper) {
@@ -52,7 +56,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
 /*        this.tag(Tags.Blocks.FENCES_WOODEN).add(ModBlocks.COCONUT_FENCE.get());
         this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(ModBlocks.COCONUT_FENCE_GATE.get());
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(ModBlocks.COCONUT_LEAVES.get());*/
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+/*        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.SEASHELL_BLOCK.get())
                 .add(ModBlocks.SEASHELL_TILES.get())
                 .add(ModBlocks.SEASHELL_TILE_STAIRS.get())
@@ -60,6 +64,11 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.SEASHELL_TILE_WALL.get());
         this.tag(BlockTags.STAIRS).add(ModBlocks.SEASHELL_TILE_STAIRS.get());
         this.tag(BlockTags.SLABS).add(ModBlocks.SEASHELL_TILE_SLAB.get());
-        this.tag(BlockTags.WALLS).add(ModBlocks.SEASHELL_TILE_WALL.get());
+        this.tag(BlockTags.WALLS).add(ModBlocks.SEASHELL_TILE_WALL.get());*/
+        for (RegistryObject<Block> object : ModBlocks.BLOCKS.getEntries()) {
+            if (object.getId().getPath().contains("pot")) {
+                this.tag(ModTags.ModBlockTags.POTS).add(object.get());
+            }
+        }
     }
 }

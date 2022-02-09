@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "ecologics:block/pot_none"
+      "model": "ecologics:block/pot"
     }
   }
 }
