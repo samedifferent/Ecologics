@@ -1,22 +1,6 @@
 {
   "replace": false,
   "values": [
-    "ecologics:pot",
-    "ecologics:white_pot",
-    "ecologics:orange_pot",
-    "ecologics:magenta_pot",
-    "ecologics:light_blue_pot",
-    "ecologics:yellow_pot",
-    "ecologics:lime_pot",
-    "ecologics:pink_pot",
-    "ecologics:gray_pot",
-    "ecologics:light_gray_pot",
-    "ecologics:cyan_pot",
-    "ecologics:purple_pot",
-    "ecologics:blue_pot",
-    "ecologics:brown_pot",
-    "ecologics:green_pot",
-    "ecologics:red_pot",
-    "ecologics:black_pot"
+    "ecologics:pot"
   ]
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "ecologics:block/template_pot",
-  "textures": {
-    "pot": "ecologics:block/brown_pot"
-  }
-}

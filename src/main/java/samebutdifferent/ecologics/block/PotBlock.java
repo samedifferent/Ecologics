@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 
 public class PotBlock extends BaseEntityBlock {
-    protected static final VoxelShape SHAPE = Shapes.or(Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12), Block.box(3, 13, 3, 13, 15, 13));
+    protected static final VoxelShape SHAPE = Shapes.or(Block.box(3, 13, 3, 13, 15, 13), Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12));
 
     public PotBlock(Properties properties) {
         super(properties);

@@ -47,22 +47,7 @@ public class ModBlocks {
     public static final RegistryObject<ThinIceBlock> THIN_ICE = BLOCKS.register("thin_ice", ThinIceBlock::new);
     public static final RegistryObject<PricklyPearBlock> PRICKLY_PEAR = BLOCKS.register("prickly_pear", PricklyPearBlock::new);
     public static final RegistryObject<PotBlock> POT = registerBlock("pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> WHITE_POT = registerBlock("white_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> ORANGE_POT = registerBlock("orange_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_ORANGE).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> MAGENTA_POT = registerBlock("magenta_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_MAGENTA).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> LIGHT_BLUE_POT = registerBlock("light_blue_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_LIGHT_BLUE).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> YELLOW_POT = registerBlock("yellow_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_YELLOW).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> LIME_POT = registerBlock("lime_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_LIGHT_GREEN).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> PINK_POT = registerBlock("pink_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_PINK).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> GRAY_POT = registerBlock("gray_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_GRAY).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> LIGHT_GRAY_POT = registerBlock("light_gray_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_LIGHT_GRAY).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> CYAN_POT = registerBlock("cyan_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_CYAN).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> PURPLE_POT = registerBlock("purple_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_PURPLE).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> BLUE_POT = registerBlock("blue_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> BROWN_POT = registerBlock("brown_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> GREEN_POT = registerBlock("green_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_GREEN).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> RED_POT = registerBlock("red_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_RED).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<PotBlock> BLACK_POT = registerBlock("black_pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BLACK).requiresCorrectToolForDrops().strength(1.0F)));
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(Ecologics.TAB)));
