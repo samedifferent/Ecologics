@@ -38,7 +38,7 @@ import java.util.Random;
 
 public class PotBlock extends BaseEntityBlock {
     protected static final VoxelShape SHAPE = Shapes.or(Block.box(3, 13, 3, 13, 15, 13), Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12));
-    public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 2);
+    public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 11);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public PotBlock(Properties properties) {
@@ -71,22 +71,15 @@ public class PotBlock extends BaseEntityBlock {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof PotBlockEntity potBlockEntity) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
-            if (!pLevel.isClientSide && potBlockEntity.addItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack)) {
-                pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_PLACE, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F);
-                return InteractionResult.SUCCESS;
-            }
+            if (!itemstack.isEmpty()) {
+                if (!pLevel.isClientSide && potBlockEntity.addItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack)) {
+                    pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_PLACE, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F);
+                    return InteractionResult.SUCCESS;
+                }
                 return InteractionResult.CONSUME;
             }
-        return InteractionResult.PASS;
-    }
-
-    public static BlockState cycleChisels(BlockState state) {
-        int chisel = state.getValue(CHISEL);
-        if (chisel < 2) {
-            return state.setValue(CHISEL, chisel + 1);
-        } else {
-            return state.setValue(CHISEL, 0);
         }
+        return InteractionResult.PASS;
     }
 
     public static void signalItemAdded(Level pLevel, BlockPos pPos, BlockState pState) {
