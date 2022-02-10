@@ -3,19 +3,19 @@
     "chisel=0": {
       "model": "ecologics:block/pot"
     },
-    "chisel=2": {
+    "chisel=1": {
       "model": "ecologics:block/pot_chiseled_1"
     },
-    "chisel=4": {
+    "chisel=2": {
       "model": "ecologics:block/pot_chiseled_2"
     },
-    "chisel=6": {
+    "chisel=3": {
       "model": "ecologics:block/pot_chiseled_3"
     },
-    "chisel=8": {
+    "chisel=4": {
       "model": "ecologics:block/pot_chiseled_4"
     },
-    "chisel=10": {
+    "chisel=5": {
       "model": "ecologics:block/pot_chiseled_5"
     }
   }

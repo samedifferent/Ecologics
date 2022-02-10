@@ -38,7 +38,7 @@ import java.util.Random;
 
 public class PotBlock extends BaseEntityBlock {
     protected static final VoxelShape SHAPE = Shapes.or(Block.box(3, 13, 3, 13, 15, 13), Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12));
-    public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 11);
+    public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 5);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public PotBlock(Properties properties) {

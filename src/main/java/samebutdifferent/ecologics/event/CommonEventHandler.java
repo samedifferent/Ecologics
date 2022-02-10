@@ -69,11 +69,11 @@ public class CommonEventHandler {
         Level level = event.getWorld();
         Player player = event.getPlayer();
         BlockState state = level.getBlockState(event.getPos());
-        if (player.getMainHandItem().getItem() instanceof PickaxeItem && state.is(ModBlocks.POT.get()) && player.isCrouching()) {
+        if (player.getMainHandItem().getItem() instanceof PickaxeItem && state.is(ModBlocks.POT.get()) && player.isCrouching() && event.getHand().equals(InteractionHand.MAIN_HAND)) {
             level.setBlockAndUpdate(event.getPos(), state.cycle(PotBlock.CHISEL));
             level.playSound(null, event.getPos(), SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
             player.swing(InteractionHand.MAIN_HAND);
-            player.getMainHandItem().hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+            player.getMainHandItem().hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(InteractionHand.MAIN_HAND));
         }
     }
 }
