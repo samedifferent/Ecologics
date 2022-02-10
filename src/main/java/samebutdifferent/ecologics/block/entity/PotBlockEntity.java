@@ -8,6 +8,7 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 
 public class PotBlockEntity extends BlockEntity implements Clearable {
@@ -27,6 +28,7 @@ public class PotBlockEntity extends BlockEntity implements Clearable {
             if (itemstack.isEmpty()) {
                 this.items.set(i, pStack.split(1));
                 this.markUpdated();
+                PotBlock.signalItemAdded(this.getLevel(), this.getBlockPos(), this.getBlockState());
                 return true;
             }
         }
@@ -59,5 +61,15 @@ public class PotBlockEntity extends BlockEntity implements Clearable {
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
         ContainerHelper.saveAllItems(pTag, this.items);
+    }
+
+    public int getRedstoneSignal() {
+        int signal = 0;
+        for (ItemStack stack : this.items) {
+            if (!stack.isEmpty()) {
+                signal = signal + 1;
+            }
+        }
+        return signal;
     }
 }
