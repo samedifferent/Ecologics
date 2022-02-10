@@ -162,15 +162,15 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
     private static  <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coconut_crab.walk", true));
-            return PlayState.CONTINUE;
+        } else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coconut_crab.idle", true));
         }
-        event.getController().markNeedsReload();
-        return PlayState.STOP;
+        return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 20, CoconutCrab::predicate));
+        data.addAnimationController(new AnimationController<>(this, "controller", 5, CoconutCrab::predicate));
     }
 
     @Override
