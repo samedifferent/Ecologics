@@ -72,7 +72,7 @@ public class PotBlock extends BaseEntityBlock {
         if (blockEntity instanceof PotBlockEntity potBlockEntity) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
             if (!pLevel.isClientSide && potBlockEntity.addItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack)) {
-                pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_PLACE, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F + 0.8F);
+                pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_PLACE, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F);
                 return InteractionResult.SUCCESS;
             }
                 return InteractionResult.CONSUME;
