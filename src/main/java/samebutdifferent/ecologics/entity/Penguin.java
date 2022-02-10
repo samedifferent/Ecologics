@@ -242,18 +242,14 @@ public class Penguin extends Animal implements IAnimatable {
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (this.isBaby()) {
             if (event.isMoving()) {
-                if (isInWater()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.swim", true));
-                } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.waddle", true));
-                }
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.waddle", true));
             } else if (this.babyIsNearAdult()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.huddle", true));
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.idle", true));
             }
         } else if (event.isMoving()) {
-            if (isInWater()) {
+            if (this.isInWater()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.swim", true));
             } else if (this.level.getBlockState(this.blockPosition().below()).is(Blocks.ICE) && !this.isInLove() && !this.isPregnant()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.slide", true));

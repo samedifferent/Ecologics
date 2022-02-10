@@ -1,7 +1,13 @@
 {
   "variants": {
-    "": {
+    "chisel=0": {
       "model": "ecologics:block/pot"
+    },
+    "chisel=1": {
+      "model": "ecologics:block/pot_chiseled_1"
+    },
+    "chisel=2": {
+      "model": "ecologics:block/pot_chiseled_2"
     }
   }
 }

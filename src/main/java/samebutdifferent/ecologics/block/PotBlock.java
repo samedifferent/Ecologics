@@ -18,6 +18,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -28,9 +30,11 @@ import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 
 public class PotBlock extends BaseEntityBlock {
     protected static final VoxelShape SHAPE = Shapes.or(Block.box(3, 13, 3, 13, 15, 13), Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12));
+    public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 2);
 
     public PotBlock(Properties properties) {
         super(properties);
+        this.stateDefinition.any().setValue(CHISEL, 0);
     }
 
     @Override
@@ -67,6 +71,15 @@ public class PotBlock extends BaseEntityBlock {
         return InteractionResult.PASS;
     }
 
+    public static BlockState cycleChisels(BlockState state) {
+        int chisel = state.getValue(CHISEL);
+        if (chisel < 2) {
+            return state.setValue(CHISEL, chisel + 1);
+        } else {
+            return state.setValue(CHISEL, 0);
+        }
+    }
+
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
@@ -89,5 +102,10 @@ public class PotBlock extends BaseEntityBlock {
     @Override
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(CHISEL);
     }
 }

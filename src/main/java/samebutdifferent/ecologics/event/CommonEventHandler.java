@@ -4,7 +4,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -12,12 +16,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModPlacedFeatures;
@@ -55,6 +61,19 @@ public class CommonEventHandler {
                     level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
+        Level level = event.getWorld();
+        Player player = event.getPlayer();
+        BlockState state = level.getBlockState(event.getPos());
+        if (player.getMainHandItem().getItem() instanceof PickaxeItem && state.is(ModBlocks.POT.get()) && player.isCrouching()) {
+            level.setBlockAndUpdate(event.getPos(), PotBlock.cycleChisels(state));
+            level.playSound(null, event.getPos(), SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+            player.swing(InteractionHand.MAIN_HAND);
+            player.getMainHandItem().hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(InteractionHand.MAIN_HAND));
         }
     }
 }
