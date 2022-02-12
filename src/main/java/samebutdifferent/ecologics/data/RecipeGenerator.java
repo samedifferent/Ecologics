@@ -7,6 +7,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
 import samebutdifferent.ecologics.registry.ModBlocks;
@@ -40,14 +41,17 @@ public class RecipeGenerator extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(ModItems.TROPICAL_STEW.get()).requires(ModItems.COCONUT_SLICE.get()).requires(ModItems.CRAB_MEAT.get()).unlockedBy("has_cooked_claw", has(ModItems.CRAB_MEAT.get())).save(consumer);
 */
 //        ShapedRecipeBuilder.shaped(ModBlocks.SANDCASTLE.get()).define('A', Blocks.SAND).define('B', ModBlocks.SEASHELL.get()).define('C', Items.STICK).pattern(" C ").pattern("ABA").pattern("AAA").unlockedBy(getHasName(ModBlocks.SEASHELL.get()), has(ModBlocks.SEASHELL.get())).save(consumer);
-        nineBlockStorageRecipes(consumer, ModBlocks.SEASHELL.get(), ModBlocks.SEASHELL_BLOCK.get());
+/*        nineBlockStorageRecipes(consumer, ModBlocks.SEASHELL.get(), ModBlocks.SEASHELL_BLOCK.get());
         polished(consumer, ModBlocks.SEASHELL_TILES.get(), ModBlocks.SEASHELL.get());
         stair(consumer, ModBlocks.SEASHELL_TILE_STAIRS.get(), ModBlocks.SEASHELL_TILES.get());
         stonecutting(consumer, ModBlocks.SEASHELL_TILE_STAIRS.get(), ModBlocks.SEASHELL_TILES.get());
         slab(consumer, ModBlocks.SEASHELL_TILE_SLAB.get(), ModBlocks.SEASHELL_TILES.get());
         stonecutting(consumer, ModBlocks.SEASHELL_TILE_SLAB.get(), ModBlocks.SEASHELL_TILES.get());
         wall(consumer, ModBlocks.SEASHELL_TILE_WALL.get(), ModBlocks.SEASHELL_TILES.get());
-        stonecutting(consumer, ModBlocks.SEASHELL_TILE_WALL.get(), ModBlocks.SEASHELL_TILES.get());
+        stonecutting(consumer, ModBlocks.SEASHELL_TILE_WALL.get(), ModBlocks.SEASHELL_TILES.get());*/
+        cookRecipes(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, ModItems.PRICKLY_PEAR.get(), ModItems.COOKED_PRICKLY_PEAR.get());
+        cookRecipes(consumer, "campfire_cooking", RecipeSerializer.SMOKING_RECIPE, 600, ModItems.PRICKLY_PEAR.get(), ModItems.COOKED_PRICKLY_PEAR.get());
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.PRICKLY_PEAR.get()), ModItems.COOKED_PRICKLY_PEAR.get(), 0.35F, 200).unlockedBy("has_prickly_pear", has(ModItems.PRICKLY_PEAR.get())).save(consumer);
     }
 
     private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked) {
@@ -67,8 +71,8 @@ public class RecipeGenerator extends RecipeProvider {
         return pResult.asItem().getRegistryName().getPath() + "_from_" + pIngredient.asItem().getRegistryName().getPath();
     }
 
-    private static void cookRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime) {
-        simpleCookingRecipe(pFinishedRecipeConsumer, pCookingMethod, pCookingSerializer, pCookingTime, ModItems.CRAB_CLAW.get(), ModItems.CRAB_MEAT.get(), 0.35F);
+    private static void cookRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime, Item ingredient, Item output) {
+        simpleCookingRecipe(pFinishedRecipeConsumer, pCookingMethod, pCookingSerializer, pCookingTime, ingredient, output, 0.35F);
     }
 
     private static void simpleCookingRecipe(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime, ItemLike pIngredient, ItemLike pResult, float pExperience) {

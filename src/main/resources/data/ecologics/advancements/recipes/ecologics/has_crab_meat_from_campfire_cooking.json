@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:has_crab_meat_from_campfire_cooking"
+      "ecologics:has_crab_meat_from_campfire_cooking"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:has_crab_meat_from_campfire_cooking"
+        "recipe": "ecologics:has_crab_meat_from_campfire_cooking"
       }
     }
   },

@@ -27,5 +27,5 @@ public class ModItems {
     public static final RegistryObject<Item> COCONUT_SIGN = ITEMS.register("coconut_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(Ecologics.TAB), ModBlocks.COCONUT_SIGN.get(), ModBlocks.COCONUT_WALL_SIGN.get()));
     public static final RegistryObject<Item> COCONUT_BOAT = ITEMS.register("coconut_boat", () -> new ModBoatItem("coconut", new Item.Properties().stacksTo(1).tab(Ecologics.TAB)));
     public static final RegistryObject<Item> PRICKLY_PEAR = ITEMS.register("prickly_pear", PricklyPearItem::new);
-    public static final RegistryObject<Item> COOKED_PRICKLY_PEAR = ITEMS.register("prickly_pear", () -> new Item(new Item.Properties().tab(Ecologics.TAB).food(Foods.APPLE)));
+    public static final RegistryObject<Item> COOKED_PRICKLY_PEAR = ITEMS.register("cooked_prickly_pear", () -> new Item(new Item.Properties().tab(Ecologics.TAB).food(Foods.APPLE)));
 }

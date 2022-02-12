@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:seashell_block"
+      "ecologics:seashell"
     ]
   },
   "criteria": {
-    "has_seashell": {
+    "has_seashell_block": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "ecologics:seashell"
+              "ecologics:seashell_block"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:seashell_block"
+        "recipe": "ecologics:seashell"
       }
     }
   },
   "requirements": [
     [
-      "has_seashell",
+      "has_seashell_block",
       "has_the_recipe"
     ]
   ]

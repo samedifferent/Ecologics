@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:seashell_tile_slab_from_seashell_tiles_stonecutting"
+      "ecologics:seashell_block"
     ]
   },
   "criteria": {
-    "has_seashell_tiles": {
+    "has_seashell": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "ecologics:seashell_tiles"
+              "ecologics:seashell"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:seashell_tile_slab_from_seashell_tiles_stonecutting"
+        "recipe": "ecologics:seashell_block"
       }
     }
   },
   "requirements": [
     [
-      "has_seashell_tiles",
+      "has_seashell",
       "has_the_recipe"
     ]
   ]

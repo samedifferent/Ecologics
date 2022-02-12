@@ -27,6 +27,7 @@
   "block.ecologics.coconut_wall_sign": "Coconut Wall Sign",
   "block.ecologics.prickly_pear": "Prickly Pear",
   "item.ecologics.prickly_pear": "Prickly Pear",
+  "item.ecologics.cooked_prickly_pear": "Cooked Prickly Pear",
   "block.ecologics.pot": "Pot",
   "death.attack.coconut": "%1$s was bonked by a falling coconut",
   "death.attack.coconut.player": "%1$s was bonked by a falling coconut whilst fighting %2$s",
