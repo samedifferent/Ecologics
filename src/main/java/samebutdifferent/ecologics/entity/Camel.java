@@ -25,6 +25,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
 
 public class Camel extends AbstractChestedHorse {
     public Camel(EntityType<? extends AbstractChestedHorse> type, Level level) {
@@ -45,7 +46,7 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.RABBIT) || pStack.is(Items.COOKED_RABBIT);
+        return pStack.is(Items.DEAD_BUSH) || pStack.is(Items.CACTUS) || pStack.is(ModItems.PRICKLY_PEAR.get());
     }
 
     @Override
@@ -71,11 +72,11 @@ public class Camel extends AbstractChestedHorse {
         int increaseTemperAmount = 0;
         float healAmount = 0.0F;
         boolean willEat = false;
-        if (pStack.is(Items.RABBIT)) {
+        if (pStack.is(Items.DEAD_BUSH) || pStack.is(Items.CACTUS)) {
             increaseAgeAmount = 10;
             increaseTemperAmount = 3;
             healAmount = 2.0F;
-        } else if (pStack.is(Items.COOKED_RABBIT)) {
+        } else if (pStack.is(ModItems.PRICKLY_PEAR.get())) {
             increaseAgeAmount = 90;
             increaseTemperAmount = 6;
             healAmount = 10.0F;
@@ -123,7 +124,7 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     public float getSpeed() {
-        return this.isVehicle() ? 0.175F : 0.25F;
+        return this.getPassengers().size() < 2 ? 0.175F : 0.16F;
     }
 
     @Override
@@ -200,7 +201,7 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     public double getPassengersRidingOffset() {
-        return this.getBbHeight() * 0.75D;
+        return this.getBbHeight() * 0.8D;
     }
 
     // INVENTORY & CHESTS

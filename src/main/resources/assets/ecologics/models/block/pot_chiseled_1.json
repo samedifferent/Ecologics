@@ -1,0 +1,6 @@
+{
+  "parent": "ecologics:block/template_pot",
+  "textures": {
+    "pot": "ecologics:block/pot_chiseled_1"
+  }
+}

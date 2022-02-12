@@ -28,6 +28,7 @@ public class ModEventHandler {
             ModTrunkPlacerTypes.register();
             ModFoliagePlacerTypes.register();
             ModConfiguredFeatures.register();
+            ModPlacedFeatures.register();
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(ModBlocks.COCONUT_LOG.get(), ModBlocks.STRIPPED_COCONUT_LOG.get())
                     .put(ModBlocks.COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_WOOD.get()).build();

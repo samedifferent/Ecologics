@@ -16,7 +16,7 @@ Improves the vanilla biomes.
 [[dependencies.ecologics]]
     modId="geckolib3"
     mandatory=true
-    versionRange="[3.0.5,)"
+    versionRange="[3.0.0,)"
     ordering="AFTER"
     side="BOTH"
 

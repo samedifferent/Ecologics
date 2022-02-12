@@ -2,11 +2,13 @@ package samebutdifferent.ecologics.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.text.WordUtils;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModItems;
 
 import java.util.function.Supplier;
 
@@ -30,11 +32,11 @@ public class LangGenerator extends LanguageProvider {
         addEntitySoundEvents("coconut_crab", "Coconut Crab", "hisses");
         add("advancements.husbandry.sandcastle.title", "Fortress of Sanditude");
         add("advancements.husbandry.sandcastle.description", "Build a sandcastle to protect turtle eggs.");*/
-        add(ModBlocks.SEASHELL_BLOCK.get(), formatId(ModBlocks.SEASHELL_BLOCK));
-        add(ModBlocks.SEASHELL_TILES.get(), formatId(ModBlocks.SEASHELL_TILES));
-        add(ModBlocks.SEASHELL_TILE_STAIRS.get(), formatId(ModBlocks.SEASHELL_TILE_STAIRS));
-        add(ModBlocks.SEASHELL_TILE_SLAB.get(), formatId(ModBlocks.SEASHELL_TILE_SLAB));
-        add(ModBlocks.SEASHELL_TILE_WALL.get(), formatId(ModBlocks.SEASHELL_TILE_WALL));
+        for (RegistryObject<Item> item : ModItems.ITEMS.getEntries()) {
+            if (item.getId().getPath().contains("pot")) {
+                addItem(item, formatId(item));
+            }
+        }
     }
 
     private String formatId(RegistryObject object) {

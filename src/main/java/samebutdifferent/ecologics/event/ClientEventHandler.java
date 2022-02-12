@@ -61,7 +61,7 @@ public class ClientEventHandler {
         event.registerEntityRenderer(ModEntityTypes.CAMEL.get(), CamelRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.PENGUIN.get(), PenguinRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.BOAT.get(), ModBoatRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN_BLOCK_ENTITY.get(), SignRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN.get(), SignRenderer::new);
     }
 
     @SubscribeEvent

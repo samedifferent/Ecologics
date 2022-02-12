@@ -15,12 +15,6 @@ public class BlockstateGenerator extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        ResourceLocation tileTex = modLoc("block/seashell_tiles");
-        simpleBlock(ModBlocks.SEASHELL_BLOCK.get());
-        simpleBlock(ModBlocks.SEASHELL_TILES.get());
-        slabBlock(ModBlocks.SEASHELL_TILE_SLAB.get(), tileTex, tileTex);
-        stairsBlock(ModBlocks.SEASHELL_TILE_STAIRS.get(), tileTex);
-        wallBlock(ModBlocks.SEASHELL_TILE_WALL.get(), tileTex);
 
     }
 
