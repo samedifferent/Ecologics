@@ -72,9 +72,4 @@ public class PricklyPearBlock extends CropBlock {
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return pState.is(Blocks.CACTUS);
     }
-
-    @Override
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        return pLevel.getBlockState(pPos.below()).is(Blocks.CACTUS) && pLevel.getBlockState(pPos.below(2)).is(Blocks.CACTUS) && pLevel.getBlockState(pPos.below(3)).is(Blocks.CACTUS);
-    }
 }
