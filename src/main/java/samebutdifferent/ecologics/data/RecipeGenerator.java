@@ -7,11 +7,8 @@ import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
-import samebutdifferent.ecologics.registry.ModBlocks;
-import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModTags;
 
 import javax.annotation.Nullable;
@@ -49,9 +46,11 @@ public class RecipeGenerator extends RecipeProvider {
         stonecutting(consumer, ModBlocks.SEASHELL_TILE_SLAB.get(), ModBlocks.SEASHELL_TILES.get());
         wall(consumer, ModBlocks.SEASHELL_TILE_WALL.get(), ModBlocks.SEASHELL_TILES.get());
         stonecutting(consumer, ModBlocks.SEASHELL_TILE_WALL.get(), ModBlocks.SEASHELL_TILES.get());*/
-        cookRecipes(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, ModItems.PRICKLY_PEAR.get(), ModItems.COOKED_PRICKLY_PEAR.get());
-        cookRecipes(consumer, "campfire_cooking", RecipeSerializer.SMOKING_RECIPE, 600, ModItems.PRICKLY_PEAR.get(), ModItems.COOKED_PRICKLY_PEAR.get());
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.PRICKLY_PEAR.get()), ModItems.COOKED_PRICKLY_PEAR.get(), 0.35F, 200).unlockedBy("has_prickly_pear", has(ModItems.PRICKLY_PEAR.get())).save(consumer);
+//        cookRecipes(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, ModItems.PRICKLY_PEAR.get(), ModItems.COOKED_PRICKLY_PEAR.get());
+//        cookRecipes(consumer, "campfire_cooking", RecipeSerializer.SMOKING_RECIPE, 600, ModItems.PRICKLY_PEAR.get(), ModItems.COOKED_PRICKLY_PEAR.get());
+//        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.PRICKLY_PEAR.get()), ModItems.COOKED_PRICKLY_PEAR.get(), 0.35F, 200).unlockedBy("has_prickly_pear", has(ModItems.PRICKLY_PEAR.get())).save(consumer);
+//        ShapedRecipeBuilder.shaped(ModBlocks.POT.get()).define('#', ItemTags.TERRACOTTA).pattern("# #").pattern("# #").pattern("###").unlockedBy("has_terracotta", has(ItemTags.TERRACOTTA)).save(consumer);
+
     }
 
     private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked) {
