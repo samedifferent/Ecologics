@@ -1,6 +1,7 @@
 package samebutdifferent.ecologics.worldgen.feature;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -22,23 +23,22 @@ import samebutdifferent.ecologics.Ecologics;
 import java.util.Optional;
 import java.util.Random;
 
-// Thanks to TelelpathicGrunt for his help on this:
+// Thanks to TelelpathicGrunt for his help on this
 public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
+    private final BlockIgnoreProcessor IGNORE_STRUCTURE_VOID = new BlockIgnoreProcessor(ImmutableList.of(Blocks.STRUCTURE_VOID));
+    private final StructurePlaceSettings placementsettings = new StructurePlaceSettings().setMirror(Mirror.NONE).addProcessor(IGNORE_STRUCTURE_VOID).setIgnoreEntities(false);
     private final ResourceLocation[] pieces = new ResourceLocation[]{
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/wall1"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/wall2"),
+            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/chest_house"),
             new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pillars1"),
             new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pillars2"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pillars3"),
+            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/wall1"),
+            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/wall2"),
             new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pit"),
     };
 
-    public DesertRuinFeature() {
-        super(NoneFeatureConfiguration.CODEC);
+    public DesertRuinFeature(Codec<NoneFeatureConfiguration> pCodec) {
+        super(pCodec);
     }
-
-    private final BlockIgnoreProcessor IGNORE_STRUCTURE_VOID = new BlockIgnoreProcessor(ImmutableList.of(Blocks.STRUCTURE_VOID));
-    private final StructurePlaceSettings placementsettings = (new StructurePlaceSettings()).setMirror(Mirror.NONE).addProcessor(IGNORE_STRUCTURE_VOID).setIgnoreEntities(false);
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> pContext) {
@@ -67,6 +67,15 @@ public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
 
+        for (int x = 0; x < template.get().getSize().getX(); x++) {
+            for (int z = 0; z < template.get().getSize().getZ(); z++) {
+                blockpos$Mutable.set(origin.below()).move(x, 0, z);
+                if (!level.getBlockState(blockpos$Mutable).is(BlockTags.SAND)) {
+                    return false;
+                }
+            }
+        }
+
         int radius = template.get().getSize().getX() / 2;
         for (int x = -radius; x <= radius; x++) {
             for (int z = -radius; z <= radius; z++) {
@@ -86,7 +95,7 @@ public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos halfLengths = new BlockPos(template.get().getSize().getX() / 2, 0, template.get().getSize().getZ() / 2);
         placementsettings.setRotation(Rotation.getRandom(random)).setRotationPivot(halfLengths).setIgnoreEntities(false);
         blockpos$Mutable.set(origin);
-        BlockPos offset = new BlockPos(-template.get().getSize().getX() / 2, nbtRL.getNamespace().equals("pit") ? -3 : 0, -template.get().getSize().getZ() / 2);
+        BlockPos offset = new BlockPos(-template.get().getSize().getX() / 2, nbtRL.getPath().contains("pit") ? -2 : 0, -template.get().getSize().getZ() / 2);
         template.get().placeInWorld(level, blockpos$Mutable.offset(offset), blockpos$Mutable.offset(offset), placementsettings, random, Block.UPDATE_CLIENTS);
 
         return true;
