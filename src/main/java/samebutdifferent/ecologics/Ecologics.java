@@ -6,12 +6,15 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import samebutdifferent.ecologics.registry.*;
 import software.bernie.geckolib3.GeckoLib;
 
 @Mod(Ecologics.MOD_ID)
 public class Ecologics {
 
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "ecologics";
     public static final CreativeModeTab TAB = new CreativeModeTab(MOD_ID) {
         @Override
