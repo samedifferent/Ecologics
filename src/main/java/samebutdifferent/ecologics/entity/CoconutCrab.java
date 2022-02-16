@@ -156,7 +156,7 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
     }
 
     protected void playCoconutSmashSound() {
-        this.playSound(ModSoundEvents.COCONUT_SMASH.get(), 1.0F, 1.0F);
+        this.playSound(ModSoundEvents.COCONUT_SMASH.get(), 0.5F, 1.0F);
     }
 
     private static  <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
