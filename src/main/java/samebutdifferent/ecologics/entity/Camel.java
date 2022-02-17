@@ -5,20 +5,24 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -27,12 +31,18 @@ import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 
+import java.util.Random;
+
 public class Camel extends AbstractChestedHorse {
     public Camel(EntityType<? extends AbstractChestedHorse> type, Level level) {
         super(type, level);
     }
 
     // ATTRIBUTES & BREEDING
+
+    public static boolean checkCamelSpawnRules(EntityType<Camel> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, Random random) {
+        return level.getBlockState(pos.below()).is(BlockTags.SAND) && isBrightEnoughToSpawn(level, pos);
+    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return createBaseChestedHorseAttributes().add(Attributes.MOVEMENT_SPEED, 0.2F);
