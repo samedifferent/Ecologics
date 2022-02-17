@@ -1,6 +1,7 @@
 package samebutdifferent.ecologics.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
@@ -71,5 +72,11 @@ public class PricklyPearBlock extends CropBlock {
     @Override
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return pState.is(Blocks.CACTUS);
+    }
+
+    @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        BlockPos belowPos = pPos.below();
+        return this.mayPlaceOn(pLevel.getBlockState(belowPos), pLevel, belowPos);
     }
 }
