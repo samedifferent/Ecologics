@@ -39,11 +39,11 @@ public class CommonEventHandler {
             if (biomeName.getPath().equals("beach")) {
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.TREES_BEACH).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SEASHELL);
             }
-/*            if (biomeName.getPath().equals("frozen_river") || biomeName.getPath().equals("frozen_ocean")) {
-                builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModConfiguredFeatures.THIN_ICE_PATCHES);
-            }*/
+            if (biomeName.getPath().equals("frozen_river") || biomeName.getPath().equals("frozen_ocean")) {
+                builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModPlacedFeatures.THIN_ICE_PATCH);
+            }
         }
-        if (event.getCategory() == Biome.BiomeCategory.DESERT) {
+        if (event.getCategory().equals(Biome.BiomeCategory.DESERT)) {
             event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), 1, 1, 1));
             builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.PRICKLY_PEAR).addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, ModPlacedFeatures.DESERT_RUIN);
         }

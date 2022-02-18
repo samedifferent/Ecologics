@@ -99,7 +99,7 @@ public class Penguin extends Animal implements IAnimatable {
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(6, new RandomSwimmingGoal(this, 1.0D, 120));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Cod.class, false));
@@ -222,8 +222,6 @@ public class Penguin extends Animal implements IAnimatable {
             }
         }
     }
-
-
 
     // SOUNDS
 
