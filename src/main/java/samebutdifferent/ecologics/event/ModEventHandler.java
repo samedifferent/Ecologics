@@ -1,16 +1,19 @@
 package samebutdifferent.ecologics.event;
 
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.Camel;
@@ -36,6 +39,12 @@ public class ModEventHandler {
             ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_HUSK.get().asItem(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_LEAVES.get().asItem(), 0.3F);
         });
+    }
+
+
+    @SubscribeEvent
+    public static void onComplete(FMLLoadCompleteEvent event) {
+        SpawnPlacements.register(ModEntityTypes.CAMEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
     }
 
     @SubscribeEvent
