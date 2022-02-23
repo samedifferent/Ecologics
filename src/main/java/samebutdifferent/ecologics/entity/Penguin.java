@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -46,7 +47,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.List;
 import java.util.Random;
 
 public class Penguin extends Animal implements IAnimatable {
@@ -56,6 +56,7 @@ public class Penguin extends Animal implements IAnimatable {
 
     public Penguin(EntityType<? extends Animal> type, Level level) {
         super(type, level);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 20);
         this.maxUpStep = 1.0F;
@@ -106,7 +107,7 @@ public class Penguin extends Animal implements IAnimatable {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
-        this.goalSelector.addGoal(4, new PenguinFollowParentGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new PenguinRandomSwimmingGoal(this, 1.0D, 120));
@@ -355,60 +356,6 @@ public class Penguin extends Animal implements IAnimatable {
                 return super.canUse();
             } else {
                 return false;
-            }
-        }
-    }
-
-    static class PenguinFollowParentGoal extends FollowParentGoal {
-        private final Animal animal;
-        private Animal parent;
-
-        public PenguinFollowParentGoal(Animal pAnimal, double pSpeedModifier) {
-            super(pAnimal, pSpeedModifier);
-            this.animal = pAnimal;
-        }
-
-        @Override
-        public boolean canUse() {
-            if (this.animal.getAge() >= 0) {
-                return false;
-            } else {
-                List<? extends Animal> list = this.animal.level.getEntitiesOfClass(this.animal.getClass(), this.animal.getBoundingBox().inflate(8.0D, 4.0D, 8.0D));
-                Animal animal = null;
-                double d0 = Double.MAX_VALUE;
-
-                for(Animal animal1 : list) {
-                    if (animal1.getAge() >= 0) {
-                        double d1 = this.animal.distanceToSqr(animal1);
-                        if (!(d1 > d0)) {
-                            d0 = d1;
-                            animal = animal1;
-                        }
-                    }
-                }
-
-                if (animal == null) {
-                    return false;
-                } else if (d0 < 9.0D) {
-                    return false;
-                } else {
-                    this.parent = animal;
-                    return true;
-                }
-            }
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            if (this.animal.getAge() >= 0) {
-                return false;
-            } else if (!this.parent.isAlive()) {
-                return false;
-            } else if (this.parent.isInWater()) {
-                return false;
-            } else {
-                double d0 = this.animal.distanceToSqr(this.parent);
-                return !(d0 < 9.0D) && !(d0 > 256.0D);
             }
         }
     }
