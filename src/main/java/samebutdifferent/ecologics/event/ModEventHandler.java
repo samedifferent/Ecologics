@@ -45,6 +45,7 @@ public class ModEventHandler {
     @SubscribeEvent
     public static void onComplete(FMLLoadCompleteEvent event) {
         SpawnPlacements.register(ModEntityTypes.CAMEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.PENGUIN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
     }
 
     @SubscribeEvent

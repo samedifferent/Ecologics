@@ -39,8 +39,9 @@ public class CommonEventHandler {
             if (biomeName.getPath().equals("beach")) {
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.TREES_BEACH).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SEASHELL);
             }
-            if (biomeName.getPath().equals("frozen_river") || biomeName.getPath().equals("frozen_ocean")) {
+            if (biomeName.getPath().equals("frozen_river") || biomeName.getPath().equals("frozen_ocean") || biomeName.getPath().equals("snowy_plains")) {
                 builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModPlacedFeatures.THIN_ICE_PATCH);
+                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), 20, 4, 7));
             }
         }
         if (event.getCategory().equals(Biome.BiomeCategory.DESERT)) {
