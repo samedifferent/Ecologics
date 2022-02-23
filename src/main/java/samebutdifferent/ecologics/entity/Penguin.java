@@ -217,7 +217,6 @@ public class Penguin extends Animal implements IAnimatable {
 
     @Override
     public void aiStep() {
-        super.aiStep();
         if (this.isPregnant()) {
             if (this.random.nextInt(3000) == 0) {
                 if (!this.level.isClientSide) {
@@ -236,6 +235,7 @@ public class Penguin extends Animal implements IAnimatable {
                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, true, true));
             }
         }
+        super.aiStep();
     }
 
     // SOUNDS
