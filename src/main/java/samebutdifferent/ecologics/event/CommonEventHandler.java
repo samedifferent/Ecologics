@@ -41,7 +41,7 @@ public class CommonEventHandler {
             }
             if (biomeName.getPath().equals("frozen_river") || biomeName.getPath().equals("frozen_ocean") || biomeName.getPath().equals("snowy_plains")) {
                 builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModPlacedFeatures.THIN_ICE_PATCH);
-                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), 20, 4, 7));
+                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), 2, 4, 7));
             }
         }
         if (event.getCategory().equals(Biome.BiomeCategory.DESERT)) {
