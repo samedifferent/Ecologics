@@ -8,6 +8,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -63,6 +65,7 @@ public class Penguin extends Animal implements IAnimatable {
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 20);
         this.maxUpStep = 1.0F;
+        this.setCanPickUpLoot(true);
     }
 
     // ATTRIBUTES & GOALS
@@ -108,9 +111,9 @@ public class Penguin extends Animal implements IAnimatable {
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new PenguinSearchForCodItemGoal(this));
-        this.goalSelector.addGoal(6, new PenguinFillSackGoal(this, 1.0F, 30, 20));
-        this.goalSelector.addGoal(7, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new PenguinFillSackGoal(this, 1.0F, 30, 20));
+        this.goalSelector.addGoal(6, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new PenguinRandomSwimmingGoal(this, 1.0D, 120));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
@@ -247,7 +250,7 @@ public class Penguin extends Animal implements IAnimatable {
         if (!this.getItemBySlot(equipmentslot).isEmpty()) {
             return false;
         } else {
-            return equipmentslot == EquipmentSlot.MAINHAND && pItemstack.is(Items.COD) && super.canTakeItem(pItemstack);
+            return equipmentslot == EquipmentSlot.MAINHAND && super.canTakeItem(pItemstack);
         }
     }
 
@@ -401,7 +404,9 @@ public class Penguin extends Animal implements IAnimatable {
         @Override
         public boolean canUse() {
             BlockState state = penguin.level.getBlockState(blockPos);
-            if (penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || state.getValue(CodSackBlock.FISH) > 15 || penguin.isBaby() || penguin.isPregnant()) {
+            if (penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || penguin.isBaby() || penguin.isPregnant()) {
+                return false;
+            } else if (state.is(ModBlocks.COD_SACK.get()) && state.getValue(CodSackBlock.FISH) > 15) {
                 return false;
             } else {
                 return super.canUse();
@@ -409,12 +414,19 @@ public class Penguin extends Animal implements IAnimatable {
         }
 
         @Override
+        public double acceptedDistance() {
+            return 2.0D;
+        }
+
+        @Override
         public void tick() {
             super.tick();
-            if (this.isReachedTarget()) {
-                BlockState state = penguin.level.getBlockState(blockPos);
+            if (this.isReachedTarget() && !penguin.getMainHandItem().isEmpty()) {
+                Level level = penguin.level;
+                BlockState state = level.getBlockState(blockPos);
                 penguin.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                penguin.level.setBlockAndUpdate(blockPos, state.cycle(CodSackBlock.FISH));
+                level.setBlockAndUpdate(blockPos, state.cycle(CodSackBlock.FISH));
+                level.playSound(null, blockPos, SoundEvents.COD_FLOP, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
             }
         }
 
