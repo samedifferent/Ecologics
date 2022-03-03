@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "fish=0": {
+      "model": "ecologics:block/cod_sack_0"
+    },
+    "fish=4": {
+      "model": "ecologics:block/cod_sack_1"
+    },
+    "fish=8": {
+      "model": "ecologics:block/cod_sack_2"
+    },
+    "fish=12": {
+      "model": "ecologics:block/cod_sack_3"
+    },
+    "fish=16": {
+      "model": "ecologics:block/cod_sack_4"
+    }
+  }
+}

@@ -23,19 +23,23 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cod;
-import net.minecraft.world.entity.animal.Salmon;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import samebutdifferent.ecologics.block.CodSackBlock;
+import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -44,6 +48,9 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import java.util.EnumSet;
+import java.util.List;
 
 public class Penguin extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
@@ -100,13 +107,14 @@ public class Penguin extends Animal implements IAnimatable {
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new PenguinRandomSwimmingGoal(this, 1.0D, 120));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new PenguinSearchForCodItemGoal(this));
+        this.goalSelector.addGoal(6, new PenguinFillSackGoal(this, 1.0F, 30, 20));
+        this.goalSelector.addGoal(7, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new PenguinRandomSwimmingGoal(this, 1.0D, 120));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, Cod.class, false));
-        this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, Salmon.class, false));
     }
 
     // MOVEMENT
@@ -231,6 +239,36 @@ public class Penguin extends Animal implements IAnimatable {
         super.aiStep();
     }
 
+    // FISH
+
+    @Override
+    public boolean canTakeItem(ItemStack pItemstack) {
+        EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(pItemstack);
+        if (!this.getItemBySlot(equipmentslot).isEmpty()) {
+            return false;
+        } else {
+            return equipmentslot == EquipmentSlot.MAINHAND && pItemstack.is(Items.COD) && super.canTakeItem(pItemstack);
+        }
+    }
+
+    @Override
+    public boolean canHoldItem(ItemStack pStack) {
+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+        return itemstack.isEmpty() && pStack.is(Items.COD);
+    }
+
+    @Override
+    protected void pickUpItem(ItemEntity pItemEntity) {
+        ItemStack itemstack = pItemEntity.getItem();
+        if (this.canHoldItem(itemstack)) {
+            this.onItemPickup(pItemEntity);
+            this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
+            this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 2.0F;
+            this.take(pItemEntity, itemstack.getCount());
+            pItemEntity.discard();
+        }
+    }
+
     // SOUNDS
 
 
@@ -308,7 +346,7 @@ public class Penguin extends Animal implements IAnimatable {
 
         @Override
         public boolean canUse() {
-            if (penguin.isBaby() || penguin.isPregnant()) {
+            if (penguin.isBaby() || penguin.isPregnant() || !penguin.getMainHandItem().isEmpty()) {
                 return false;
             } else {
                 return super.canUse();
@@ -349,6 +387,80 @@ public class Penguin extends Animal implements IAnimatable {
             } else {
                 return false;
             }
+        }
+    }
+
+    static class PenguinFillSackGoal extends MoveToBlockGoal {
+        private final Penguin penguin;
+
+        public PenguinFillSackGoal(Penguin penguin, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
+            super(penguin, pSpeedModifier, pSearchRange, pVerticalSearchRange);
+            this.penguin = penguin;
+        }
+
+        @Override
+        public boolean canUse() {
+            BlockState state = penguin.level.getBlockState(blockPos);
+            if (penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || state.getValue(CodSackBlock.FISH) > 15 || penguin.isBaby() || penguin.isPregnant()) {
+                return false;
+            } else {
+                return super.canUse();
+            }
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            if (this.isReachedTarget()) {
+                BlockState state = penguin.level.getBlockState(blockPos);
+                penguin.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                penguin.level.setBlockAndUpdate(blockPos, state.cycle(CodSackBlock.FISH));
+            }
+        }
+
+        @Override
+        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
+            BlockState blockstate = pLevel.getBlockState(pPos);
+            return blockstate.is(ModBlocks.COD_SACK.get());
+        }
+
+    }
+
+    static class PenguinSearchForCodItemGoal extends Goal {
+        private final Penguin penguin;
+
+        public PenguinSearchForCodItemGoal(Penguin penguin) {
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.penguin = penguin;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || penguin.isBaby() || penguin.isPregnant()) {
+                return false;
+            } else {
+                List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(Items.COD));
+                return !list.isEmpty() && penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
+            }
+        }
+        
+        @Override
+        public void tick() {
+            List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(Items.COD));
+            ItemStack itemstack = penguin.getItemBySlot(EquipmentSlot.MAINHAND);
+            if (itemstack.isEmpty() && !list.isEmpty()) {
+                penguin.getNavigation().moveTo(list.get(0), 1.0F);
+            }
+
+        }
+        
+        @Override
+        public void start() {
+            List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(Items.COD));
+            if (!list.isEmpty()) {
+                penguin.getNavigation().moveTo(list.get(0), 1.2F);
+            }
+
         }
     }
 }

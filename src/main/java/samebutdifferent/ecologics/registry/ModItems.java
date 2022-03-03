@@ -28,4 +28,5 @@ public class ModItems {
     public static final RegistryObject<Item> COCONUT_BOAT = ITEMS.register("coconut_boat", () -> new ModBoatItem("coconut", new Item.Properties().stacksTo(1).tab(Ecologics.TAB)));
     public static final RegistryObject<Item> PRICKLY_PEAR = ITEMS.register("prickly_pear", PricklyPearItem::new);
     public static final RegistryObject<Item> COOKED_PRICKLY_PEAR = ITEMS.register("cooked_prickly_pear", () -> new Item(new Item.Properties().tab(Ecologics.TAB).food(Foods.APPLE)));
+    public static final RegistryObject<Item> PENGUIN_FEATHER = ITEMS.register("penguin_feather", () -> new Item(new Item.Properties().tab(Ecologics.TAB)));
 }
