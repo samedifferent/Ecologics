@@ -43,6 +43,7 @@ import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.block.CodSackBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -105,18 +106,17 @@ public class Penguin extends Animal implements IAnimatable {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new PenguinFloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new PenguinSearchForCodItemGoal(this));
-        this.goalSelector.addGoal(5, new PenguinFillSackGoal(this, 1.0F, 30, 20));
-        this.goalSelector.addGoal(6, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new PenguinRandomSwimmingGoal(this, 1.0D, 120));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(6, new PenguinSearchForCodItemGoal(this));
+        this.goalSelector.addGoal(7, new PenguinRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new PenguinRandomSwimmingGoal(this, 1.0D, 120));
+        this.goalSelector.addGoal(8, new PenguinFillSackGoal(this, 1.0F, 30, 20));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, Cod.class, false));
     }
 
@@ -215,7 +215,7 @@ public class Penguin extends Animal implements IAnimatable {
     protected void ageBoundaryReached() {
         super.ageBoundaryReached();
         if (!this.isBaby() && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            this.spawnAtLocation(Items.GRAY_WOOL, 1);
+            this.spawnAtLocation(ModItems.PENGUIN_FEATHER.get(), 1);
         }
     }
 
@@ -264,12 +264,22 @@ public class Penguin extends Animal implements IAnimatable {
     protected void pickUpItem(ItemEntity pItemEntity) {
         ItemStack itemstack = pItemEntity.getItem();
         if (this.canHoldItem(itemstack)) {
+            int count = itemstack.getCount();
+            if (count > 1) {
+                this.dropItemStack(itemstack.split(count - 1));
+            }
+
             this.onItemPickup(pItemEntity);
             this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
             this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 2.0F;
             this.take(pItemEntity, itemstack.getCount());
             pItemEntity.discard();
         }
+    }
+
+    private void dropItemStack(ItemStack pStack) {
+        ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), pStack);
+        this.level.addFreshEntity(itementity);
     }
 
     // SOUNDS
@@ -367,7 +377,7 @@ public class Penguin extends Animal implements IAnimatable {
 
         @Override
         public boolean canUse() {
-            if (penguin.isBaby() || penguin.isPregnant()) {
+            if (penguin.isBaby() || penguin.isPregnant() || !penguin.getMainHandItem().isEmpty()) {
                 return false;
             } else {
                 return super.canUse();
@@ -375,20 +385,20 @@ public class Penguin extends Animal implements IAnimatable {
         }
     }
 
-    static class PenguinFloatGoal extends FloatGoal {
+    static class PenguinRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
         private final Penguin penguin;
 
-        public PenguinFloatGoal(Penguin pMob) {
-            super(pMob);
+        public PenguinRandomStrollGoal(Penguin pMob, double pSpeedModifier) {
+            super(pMob, pSpeedModifier);
             this.penguin = pMob;
         }
 
         @Override
         public boolean canUse() {
-            if (penguin.isBaby() || penguin.isPregnant()) {
-                return super.canUse();
-            } else {
+            if (!penguin.getMainHandItem().isEmpty()) {
                 return false;
+            } else {
+                return super.canUse();
             }
         }
     }
@@ -420,7 +430,6 @@ public class Penguin extends Animal implements IAnimatable {
 
         @Override
         public void tick() {
-            super.tick();
             if (this.isReachedTarget() && !penguin.getMainHandItem().isEmpty()) {
                 Level level = penguin.level;
                 BlockState state = level.getBlockState(blockPos);
@@ -428,6 +437,7 @@ public class Penguin extends Animal implements IAnimatable {
                 level.setBlockAndUpdate(blockPos, state.cycle(CodSackBlock.FISH));
                 level.playSound(null, blockPos, SoundEvents.COD_FLOP, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
             }
+            super.tick();
         }
 
         @Override

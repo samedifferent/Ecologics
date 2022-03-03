@@ -37,6 +37,8 @@
   "item.ecologics.prickly_pear": "Prickly Pear",
   "item.ecologics.cooked_prickly_pear": "Cooked Prickly Pear",
   "block.ecologics.pot": "Pot",
+  "block.ecologics.cod_sack": "Cod Sack",
+  "item.ecologics.penguin_feather": "Penguin Feather",
   "death.attack.coconut": "%1$s was bonked by a falling coconut",
   "death.attack.coconut.player": "%1$s was bonked by a falling coconut whilst fighting %2$s",
   "ecologics.subtitles.block.coconut.smash": "Coconut smashes",
