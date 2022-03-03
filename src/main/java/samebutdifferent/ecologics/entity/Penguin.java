@@ -247,7 +247,7 @@ public class Penguin extends Animal implements IAnimatable {
     @Override
     public boolean canTakeItem(ItemStack pItemstack) {
         EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(pItemstack);
-        if (!this.getItemBySlot(equipmentslot).isEmpty()) {
+        if (!this.getItemBySlot(equipmentslot).isEmpty() || this.isBaby()) {
             return false;
         } else {
             return equipmentslot == EquipmentSlot.MAINHAND && super.canTakeItem(pItemstack);
@@ -257,7 +257,7 @@ public class Penguin extends Animal implements IAnimatable {
     @Override
     public boolean canHoldItem(ItemStack pStack) {
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-        return itemstack.isEmpty() && pStack.is(Items.COD);
+        return itemstack.isEmpty() && pStack.is(Items.COD) && !this.isBaby();
     }
 
     @Override
@@ -425,7 +425,7 @@ public class Penguin extends Animal implements IAnimatable {
 
         @Override
         public double acceptedDistance() {
-            return 2.0D;
+            return 1.25D;
         }
 
         @Override
