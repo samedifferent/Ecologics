@@ -34,14 +34,13 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import samebutdifferent.ecologics.block.CodSackBlock;
-import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -110,7 +109,7 @@ public class Penguin extends Animal implements IAnimatable {
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(5, new PenguinMeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new PenguinSearchForCodItemGoal(this));
         this.goalSelector.addGoal(7, new PenguinRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new PenguinRandomSwimmingGoal(this, 1.0D, 120));
@@ -405,6 +404,7 @@ public class Penguin extends Animal implements IAnimatable {
 
     static class PenguinFillSackGoal extends MoveToBlockGoal {
         private final Penguin penguin;
+        private boolean reachedTarget;
 
         public PenguinFillSackGoal(Penguin penguin, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
             super(penguin, pSpeedModifier, pSearchRange, pVerticalSearchRange);
@@ -413,10 +413,7 @@ public class Penguin extends Animal implements IAnimatable {
 
         @Override
         public boolean canUse() {
-            BlockState state = penguin.level.getBlockState(blockPos);
             if (penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || penguin.isBaby() || penguin.isPregnant()) {
-                return false;
-            } else if (state.is(ModBlocks.COD_SACK.get()) && state.getValue(CodSackBlock.FISH) > 15) {
                 return false;
             } else {
                 return super.canUse();
@@ -425,27 +422,66 @@ public class Penguin extends Animal implements IAnimatable {
 
         @Override
         public double acceptedDistance() {
-            return 1.25D;
+            return 2.0D;
         }
 
         @Override
         public void tick() {
-            if (this.isReachedTarget() && !penguin.getMainHandItem().isEmpty()) {
-                Level level = penguin.level;
-                BlockState state = level.getBlockState(blockPos);
-                penguin.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                level.setBlockAndUpdate(blockPos, state.cycle(CodSackBlock.FISH));
-                level.playSound(null, blockPos, SoundEvents.COD_FLOP, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+            BlockPos blockpos = this.getMoveToTarget();
+            if (!blockpos.closerThan(this.mob.position(), this.acceptedDistance())) {
+                reachedTarget = false;
+                ++this.tryTicks;
+                if (this.shouldRecalculatePath()) {
+                    this.mob.getNavigation().moveTo((double)((float)blockpos.getX()) + 0.5D, (double)blockpos.getY(), (double)((float)blockpos.getZ()) + 0.5D, this.speedModifier);
+                }
+            } else {
+                reachedTarget = true;
+                --this.tryTicks;
             }
-            super.tick();
+
+            if (reachedTarget && !penguin.getMainHandItem().isEmpty()) {
+                Level level = penguin.level;
+                if (level.getBlockEntity(blockPos) instanceof BarrelBlockEntity barrel) {
+                    this.onReachedTarget(level, barrel);
+                    reachedTarget = false;
+                }
+            }
         }
 
         @Override
         protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
             BlockState blockstate = pLevel.getBlockState(pPos);
-            return blockstate.is(ModBlocks.COD_SACK.get());
+            return blockstate.is(Blocks.BARREL);
         }
 
+        protected void onReachedTarget(Level level, BarrelBlockEntity barrel) {
+            for (int i = 0; i < barrel.getContainerSize(); i++) {
+                if (this.canPlaceItem(barrel, i, penguin.getMainHandItem())) {
+                    penguin.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                    level.playSound(null, blockPos, SoundEvents.COD_FLOP, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+                    break;
+                }
+            }
+        }
+
+        boolean canPlaceItem(BarrelBlockEntity barrel, int index, ItemStack stack) {
+            if (barrel.getItem(index).isEmpty()) {
+                barrel.setItem(index, new ItemStack(stack.getItem()));
+                return true;
+            } else if (barrel.getItem(index).is(stack.getItem())) {
+                int amount = barrel.getItem(index).getCount();
+                if (amount < 64) {
+                    barrel.setItem(index, new ItemStack(stack.getItem(), amount + 1));
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Override
+        protected boolean isReachedTarget() {
+            return this.reachedTarget;
+        }
     }
 
     static class PenguinSearchForCodItemGoal extends Goal {
@@ -480,9 +516,27 @@ public class Penguin extends Animal implements IAnimatable {
         public void start() {
             List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(Items.COD));
             if (!list.isEmpty()) {
-                penguin.getNavigation().moveTo(list.get(0), 1.2F);
+                penguin.getNavigation().moveTo(list.get(0), 1.0F);
             }
 
+        }
+    }
+
+    static class PenguinMeleeAttackGoal extends MeleeAttackGoal {
+        private final Penguin penguin;
+
+        public PenguinMeleeAttackGoal(Penguin pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+            super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
+            this.penguin = pMob;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || penguin.isBaby() || penguin.isPregnant()) {
+                return false;
+            } else {
+                return super.canUse();
+            }
         }
     }
 }
