@@ -50,7 +50,20 @@ public class RecipeGenerator extends RecipeProvider {
 //        cookRecipes(consumer, "campfire_cooking", RecipeSerializer.SMOKING_RECIPE, 600, ModItems.PRICKLY_PEAR.get(), ModItems.COOKED_PRICKLY_PEAR.get());
 //        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.PRICKLY_PEAR.get()), ModItems.COOKED_PRICKLY_PEAR.get(), 0.35F, 200).unlockedBy("has_prickly_pear", has(ModItems.PRICKLY_PEAR.get())).save(consumer);
 //        ShapedRecipeBuilder.shaped(ModBlocks.POT.get()).define('#', ItemTags.TERRACOTTA).pattern("# #").pattern("# #").pattern("###").unlockedBy("has_terracotta", has(ItemTags.TERRACOTTA)).save(consumer);
-
+/*        polished(consumer, ModBlocks.SNOW_BRICKS.get(), Blocks.SNOW_BLOCK);
+        slab(consumer, ModBlocks.SNOW_BRICK_SLAB.get(), ModBlocks.SNOW_BRICKS.get());
+        stonecutting(consumer, ModBlocks.SNOW_BRICK_SLAB.get(), ModBlocks.SNOW_BRICKS.get());
+        stair(consumer, ModBlocks.SNOW_BRICK_STAIRS.get(), ModBlocks.SNOW_BRICKS.get());
+        stonecutting(consumer, ModBlocks.SNOW_BRICK_STAIRS.get(), ModBlocks.SNOW_BRICKS.get());
+        wall(consumer, ModBlocks.SNOW_BRICK_WALL.get(), ModBlocks.SNOW_BRICKS.get());
+        stonecutting(consumer, ModBlocks.SNOW_BRICK_WALL.get(), ModBlocks.SNOW_BRICKS.get());
+        polished(consumer, ModBlocks.ICE_BRICKS.get(), Blocks.PACKED_ICE);
+        slab(consumer, ModBlocks.ICE_BRICK_SLAB.get(), ModBlocks.ICE_BRICKS.get());
+        stonecutting(consumer, ModBlocks.ICE_BRICK_SLAB.get(), ModBlocks.ICE_BRICKS.get());
+        stair(consumer, ModBlocks.ICE_BRICK_STAIRS.get(), ModBlocks.ICE_BRICKS.get());
+        stonecutting(consumer, ModBlocks.ICE_BRICK_STAIRS.get(), ModBlocks.ICE_BRICKS.get());
+        wall(consumer, ModBlocks.ICE_BRICK_WALL.get(), ModBlocks.ICE_BRICKS.get());
+        stonecutting(consumer, ModBlocks.ICE_BRICK_WALL.get(), ModBlocks.ICE_BRICKS.get());*/
     }
 
     private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked) {
