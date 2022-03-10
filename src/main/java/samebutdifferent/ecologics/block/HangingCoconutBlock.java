@@ -68,6 +68,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
                 FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, (double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, pLevel.getBlockState(pPos));
                 this.falling(fallingblockentity);
                 pLevel.addFreshEntity(fallingblockentity);
+                pLevel.removeBlock(pPos, false);
             }
         }
     }
@@ -140,6 +141,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
             FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, (double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, pLevel.getBlockState(pPos));
             this.falling(fallingblockentity);
             pLevel.addFreshEntity(fallingblockentity);
+            pLevel.removeBlock(pPos, false);
         }
     }
 

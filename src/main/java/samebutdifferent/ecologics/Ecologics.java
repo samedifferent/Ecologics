@@ -32,6 +32,7 @@ public class Ecologics {
         ModEntityTypes.ENTITY_TYPES.register(bus);
         ModBlockEntityTypes.BLOCK_ENTITY_TYPES.register(bus);
         ModFeatures.FEATURES.register(bus);
+        ModFoliagePlacerTypes.FOLIAGE_PLACER_TYPES.register(bus);
         GeckoLib.initialize();
 
         MinecraftForge.EVENT_BUS.register(this);

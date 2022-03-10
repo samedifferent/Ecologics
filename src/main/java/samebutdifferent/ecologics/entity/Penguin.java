@@ -428,14 +428,14 @@ public class Penguin extends Animal implements IAnimatable {
         @Override
         public void tick() {
             BlockPos blockpos = this.getMoveToTarget();
-            if (!blockpos.closerThan(this.mob.position(), this.acceptedDistance())) {
-                reachedTarget = false;
+            if (!blockpos.closerToCenterThan(this.mob.position(), this.acceptedDistance())) {
+                this.reachedTarget = false;
                 ++this.tryTicks;
                 if (this.shouldRecalculatePath()) {
-                    this.mob.getNavigation().moveTo((double)((float)blockpos.getX()) + 0.5D, (double)blockpos.getY(), (double)((float)blockpos.getZ()) + 0.5D, this.speedModifier);
+                    this.mob.getNavigation().moveTo((double)((float)blockpos.getX()) + 0.5D, blockpos.getY(), (double)((float)blockpos.getZ()) + 0.5D, this.speedModifier);
                 }
             } else {
-                reachedTarget = true;
+                this.reachedTarget = true;
                 --this.tryTicks;
             }
 

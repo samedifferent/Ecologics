@@ -3,13 +3,11 @@ package samebutdifferent.ecologics.data;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
-import samebutdifferent.ecologics.registry.ModTags;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -90,11 +88,7 @@ public class RecipeGenerator extends RecipeProvider {
     private static void simpleCookingRecipe(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime, ItemLike pIngredient, ItemLike pResult, float pExperience) {
         SimpleCookingRecipeBuilder.cooking(Ingredient.of(pIngredient), pResult, pExperience, pCookingTime, pCookingSerializer).unlockedBy(getHasName(pIngredient), has(pIngredient)).save(pFinishedRecipeConsumer, getHasName(pResult) + "_from_" + pCookingMethod);
     }
-
-    private static void planksFromLogsTag(Consumer<FinishedRecipe> consumer, ItemLike planks, Tag<Item> tag) {
-        ShapelessRecipeBuilder.shapeless(planks, 4).requires(tag).group("planks").unlockedBy("has_log", has(ModTags.ModItemTags.COCONUT_LOGS)).save(consumer);
-    }
-
+    
     private static void woodFromLogs(Consumer<FinishedRecipe> consumer, ItemLike wood, ItemLike log) {
         ShapedRecipeBuilder.shaped(wood, 3).define('#', log).pattern("##").pattern("##").group("bark").unlockedBy("has_log", has(log)).save(consumer);
     }

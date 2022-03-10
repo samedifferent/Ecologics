@@ -29,7 +29,6 @@ public class ModEventHandler {
         event.enqueueWork(() -> {
             WoodType.register(ModWoodType.COCONUT);
             ModTrunkPlacerTypes.register();
-            ModFoliagePlacerTypes.register();
             ModConfiguredFeatures.register();
             ModPlacedFeatures.register();
         });
