@@ -9,7 +9,9 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import samebutdifferent.ecologics.registry.ModMobEffects;
 
 @Mixin(LivingEntity.class)
@@ -24,5 +26,12 @@ public abstract class MixinLivingEntity extends Entity {
             return 0.98F;
         }
         return state.getFriction(level, pos, entity);
+    }
+
+    @Inject(method = "getBlockSpeedFactor", at = @At("HEAD"), cancellable = true)
+    private void onGetBlockSpeedFactor(CallbackInfoReturnable<Float> cir) {
+        if (((Object)this) instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModMobEffects.SLIPPERY.get())) {
+            cir.setReturnValue(1.06F);
+        }
     }
 }
