@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "package": "samebutdifferent.ecologics.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "ecologics.refmap.json",
+  "minVersion": "0.8.5",
+  "mixins": [
+    "MixinLivingEntity"
+  ]
+}
