@@ -56,7 +56,7 @@ import java.util.List;
 
 public class Penguin extends Animal implements IAnimatable {
     private static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
-    private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.COD, Items.SALMON);
+    private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.COD, Items.COOKED_COD);
     private final AnimationFactory factory = new AnimationFactory(this);
 
     public Penguin(EntityType<? extends Animal> type, Level level) {

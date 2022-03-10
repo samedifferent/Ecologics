@@ -65,5 +65,7 @@
   "item.minecraft.tipped_arrow.effect.sliding": "Arrow of Sliding",
   "itemGroup.ecologics": "Ecologics",
   "advancements.husbandry.sandcastle.title": "Fortress of Sanditude",
-  "advancements.husbandry.sandcastle.description": "Build a sandcastle to protect turtle eggs."
+  "advancements.husbandry.sandcastle.description": "Build a sandcastle to protect turtle eggs.",
+  "advancements.husbandry.breed_penguin.title": "Happy Feet",
+  "advancements.husbandry.breed_penguin.description": "Breed penguins to obtain a penguin feather from the baby."
 }

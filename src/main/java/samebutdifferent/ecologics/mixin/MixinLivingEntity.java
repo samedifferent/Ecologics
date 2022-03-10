@@ -22,7 +22,7 @@ public abstract class MixinLivingEntity extends Entity {
 
     @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getFriction(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)F"))
     private float onTravel(BlockState state, LevelReader level, BlockPos pos, Entity entity) {
-        if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModMobEffects.SLIPPERY.get())) {
+        if (entity instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get())) {
             return 0.98F;
         }
         return state.getFriction(level, pos, entity);
@@ -30,8 +30,8 @@ public abstract class MixinLivingEntity extends Entity {
 
     @Inject(method = "getBlockSpeedFactor", at = @At("HEAD"), cancellable = true)
     private void onGetBlockSpeedFactor(CallbackInfoReturnable<Float> cir) {
-        if (((Object)this) instanceof LivingEntity livingEntity && livingEntity.hasEffect(ModMobEffects.SLIPPERY.get())) {
-            cir.setReturnValue(1.06F);
+        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get())) {
+            cir.setReturnValue(1.05F);
         }
     }
 }
