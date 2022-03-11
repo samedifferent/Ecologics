@@ -23,6 +23,25 @@
     ],
     "subtitle": "ecologics.subtitles.entity.coconut_crab.hurt"
   },
+  "entity.penguin.ambient": {
+    "sounds": [
+      "ecologics:penguin_ambient1",
+      "ecologics:penguin_ambient2"
+    ],
+    "subtitle": "ecologics.subtitles.entity.penguin.ambient"
+  },
+  "entity.penguin.death": {
+    "sounds": [
+      "ecologics:penguin_death"
+    ],
+    "subtitle": "ecologics.subtitles.entity.penguin.death"
+  },
+  "entity.penguin.hurt": {
+    "sounds": [
+      "ecologics:penguin_hurt"
+    ],
+    "subtitle": "ecologics.subtitles.entity.penguin.hurt"
+  },
   "music_disc.coconut": {
     "sounds": [
       "ecologics:music_disc_coconut"

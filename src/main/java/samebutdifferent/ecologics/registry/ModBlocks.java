@@ -46,7 +46,7 @@ public class ModBlocks {
     public static final RegistryObject<WallBlock> SEASHELL_TILE_WALL = registerBlock("seashell_tile_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(SEASHELL_BLOCK.get())));
     public static final RegistryObject<PricklyPearBlock> PRICKLY_PEAR = BLOCKS.register("prickly_pear", PricklyPearBlock::new);
     public static final RegistryObject<PotBlock> POT = registerBlock("pot", () -> new PotBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(1.0F)));
-    public static final RegistryObject<ThinIceBlock> THIN_ICE = BLOCKS.register("thin_ice", ThinIceBlock::new);
+    public static final RegistryObject<ThinIceBlock> THIN_ICE = registerBlock("thin_ice", ThinIceBlock::new);
     public static final RegistryObject<Block> ICE_BRICKS = registerBlock("ice_bricks", () -> new Block(BlockBehaviour.Properties.of(Material.ICE).friction(0.98F).strength(0.5F).sound(SoundType.GLASS)));
     public static final RegistryObject<StairBlock> ICE_BRICK_STAIRS = registerBlock("ice_brick_stairs", () -> new StairBlock(() -> ICE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(ICE_BRICKS.get())));
     public static final RegistryObject<SlabBlock> ICE_BRICK_SLAB = registerBlock("ice_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(ICE_BRICKS.get())));

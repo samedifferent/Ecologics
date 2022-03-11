@@ -17,13 +17,14 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
 public class ThinIceBlock extends Block {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
     public ThinIceBlock() {
-        super(BlockBehaviour.Properties.of(Material.ICE).friction(0.98F).strength(0.5F).sound(SoundType.GLASS).noOcclusion().isValidSpawn((state, blockGetter, pos, entityType) -> entityType == EntityType.POLAR_BEAR));
+        super(BlockBehaviour.Properties.of(Material.ICE).friction(0.98F).strength(0.5F).sound(SoundType.GLASS).noOcclusion().isValidSpawn((state, blockGetter, pos, entityType) -> entityType.equals(EntityType.POLAR_BEAR) || entityType.equals(ModEntityTypes.PENGUIN.get())));
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
     }
 

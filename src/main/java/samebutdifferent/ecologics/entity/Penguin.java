@@ -8,6 +8,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -43,6 +44,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
+import samebutdifferent.ecologics.registry.ModSoundEvents;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -283,6 +285,20 @@ public class Penguin extends Animal implements IAnimatable {
 
     // SOUNDS
 
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.PENGUIN_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return ModSoundEvents.PENGUIN_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.PENGUIN_DEATH.get();
+    }
 
     // ANIMATION
 
@@ -296,7 +312,9 @@ public class Penguin extends Animal implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.isBaby()) {
+        if (this.isInWater()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.swim", true));
+        } else if (this.isBaby()) {
             if (event.isMoving()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.waddle", true));
             } else if (this.babyIsNearAdult()) {
@@ -304,8 +322,6 @@ public class Penguin extends Animal implements IAnimatable {
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.idle", true));
             }
-        } else if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.swim", true));
         } else if (event.isMoving()) {
             if (this.level.getBlockState(this.blockPosition().below()).is(Blocks.ICE) && !this.isInLove() && !this.isPregnant()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.slide", true));
