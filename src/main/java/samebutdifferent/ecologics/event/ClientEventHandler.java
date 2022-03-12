@@ -34,8 +34,11 @@ public class ClientEventHandler {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.SANDCASTLE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.COCONUT_LEAVES.get(), RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.THIN_ICE.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.WALNUT_SAPLING.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.WALNUT_DOOR.get(), RenderType.cutout());
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.COCONUT);
+            Sheets.addWoodType(ModWoodType.WALNUT);
         });
     }
 
@@ -66,5 +69,6 @@ public class ClientEventHandler {
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
         event.registerLayerDefinition(ModBoatRenderer.COCONUT_LAYER_LOCATION, BoatModel::createBodyModel);
+        event.registerLayerDefinition(ModBoatRenderer.WALNUT_LAYER_LOCATION, BoatModel::createBodyModel);
     }
 }

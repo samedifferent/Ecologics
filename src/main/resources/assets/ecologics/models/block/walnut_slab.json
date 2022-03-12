@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "ecologics:block/walnut_planks",
+    "bottom": "ecologics:block/walnut_planks",
+    "top": "ecologics:block/walnut_planks"
+  }
+}

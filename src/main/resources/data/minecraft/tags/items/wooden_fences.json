@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ecologics:coconut_fence"
+    "ecologics:coconut_fence",
+    "ecologics:walnut_fence"
   ]
 }

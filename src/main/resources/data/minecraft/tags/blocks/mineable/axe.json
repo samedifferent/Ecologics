@@ -16,6 +16,19 @@
     "ecologics:coconut_pressure_plate",
     "ecologics:hanging_coconut",
     "ecologics:coconut",
-    "ecologics:coconut_husk"
+    "ecologics:coconut_husk",
+    "ecologics:walnut_log",
+    "ecologics:stripped_walnut_log",
+    "ecologics:walnut_wood",
+    "ecologics:stripped_walnut_wood",
+    "ecologics:walnut_planks",
+    "ecologics:walnut_slab",
+    "ecologics:walnut_stairs",
+    "ecologics:walnut_fence",
+    "ecologics:walnut_fence_gate",
+    "ecologics:walnut_door",
+    "ecologics:walnut_trapdoor",
+    "ecologics:walnut_button",
+    "ecologics:walnut_pressure_plate"
   ]
 }

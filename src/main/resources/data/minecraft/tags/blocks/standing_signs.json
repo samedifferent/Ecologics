@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ecologics:coconut_sign"
+    "ecologics:coconut_sign",
+    "ecologics:walnut_sign"
   ]
 }

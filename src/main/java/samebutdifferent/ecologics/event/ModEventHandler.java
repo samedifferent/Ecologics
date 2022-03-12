@@ -35,6 +35,7 @@ public class ModEventHandler {
     public static void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             WoodType.register(ModWoodType.COCONUT);
+            WoodType.register(ModWoodType.WALNUT);
             ModTrunkPlacerTypes.register();
             ModConfiguredFeatures.register();
             ModPlacedFeatures.register();
