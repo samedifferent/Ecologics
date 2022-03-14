@@ -1,24 +1,24 @@
 package samebutdifferent.ecologics.block.entity;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.Clearable;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.inventory.Inventories;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Clearable;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 
 public class PotBlockEntity extends BlockEntity implements Clearable {
-    private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
+    private DefaultedList<ItemStack> items = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
     public PotBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(ModBlockEntityTypes.POT.get(), pWorldPosition, pBlockState);
+        super(ModBlockEntityTypes.POT, pWorldPosition, pBlockState);
     }
 
-    public NonNullList<ItemStack> getItems() {
+    public DefaultedList<ItemStack> getItems() {
         return this.items;
     }
 
@@ -28,7 +28,7 @@ public class PotBlockEntity extends BlockEntity implements Clearable {
             if (itemstack.isEmpty()) {
                 this.items.set(i, pStack.split(1));
                 this.markUpdated();
-                PotBlock.signalItemAdded(this.getLevel(), this.getBlockPos(), this.getBlockState());
+                PotBlock.signalItemAdded(this.getWorld(), this.getPos(), this.getCachedState());
                 return true;
             }
         }
@@ -37,12 +37,12 @@ public class PotBlockEntity extends BlockEntity implements Clearable {
     }
 
     private void markUpdated() {
-        this.setChanged();
-        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+        this.markDirty();
+        this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), 3);
     }
 
     @Override
-    public void clearContent() {
+    public void clear() {
         this.items.clear();
     }
 
@@ -51,16 +51,16 @@ public class PotBlockEntity extends BlockEntity implements Clearable {
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
-        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(pTag, this.items);
+    public void readNbt(NbtCompound pTag) {
+        super.readNbt(pTag);
+        this.items = DefaultedList.ofSize(this.getContainerSize(), ItemStack.EMPTY);
+        Inventories.readNbt(pTag, this.items);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
-        ContainerHelper.saveAllItems(pTag, this.items);
+    protected void writeNbt(NbtCompound pTag) {
+        super.writeNbt(pTag);
+        Inventories.writeNbt(pTag, this.items);
     }
 
     public int getRedstoneSignal() {

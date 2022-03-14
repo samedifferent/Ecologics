@@ -1,41 +1,41 @@
 package samebutdifferent.ecologics.item;
 
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.TurtleEggBlock;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.TurtleEggBlock;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.SandcastleBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class SandcastleBlockItem extends BlockItem {
     public SandcastleBlockItem() {
-        super(ModBlocks.SANDCASTLE.get(), new Properties().tab(Ecologics.TAB).stacksTo(1));
+        super(ModBlocks.SANDCASTLE, new Settings().group(Ecologics.TAB).maxCount(1));
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext pContext) {
-        Level level = pContext.getLevel();
-        BlockPos pos = pContext.getClickedPos();
+    public ActionResult useOnBlock(ItemUsageContext pContext) {
+        World level = pContext.getWorld();
+        BlockPos pos = pContext.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        if (!state.is(Blocks.TURTLE_EGG)) {
-            return super.useOn(pContext);
+        if (!state.isOf(Blocks.TURTLE_EGG)) {
+            return super.useOnBlock(pContext);
         } else {
-            level.playSound(pContext.getPlayer(), pos, SoundEvents.SAND_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.setBlockAndUpdate(pos, ModBlocks.SANDCASTLE.get().defaultBlockState().setValue(SandcastleBlock.FACING, pContext.getHorizontalDirection().getOpposite()).setValue(SandcastleBlock.EGGS_INSIDE, state.getValue(TurtleEggBlock.EGGS)).setValue(SandcastleBlock.HATCH, state.getValue(TurtleEggBlock.HATCH)));
-            pContext.getItemInHand().shrink(1);
-            if (pContext.getPlayer() instanceof ServerPlayer player) {
-                CriteriaTriggers.PLACED_BLOCK.trigger(player, pos, pContext.getItemInHand());
+            level.playSound(pContext.getPlayer(), pos, SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            level.setBlockState(pos, ModBlocks.SANDCASTLE.getDefaultState().with(SandcastleBlock.FACING, pContext.getPlayerFacing().getOpposite()).with(SandcastleBlock.EGGS_INSIDE, state.get(TurtleEggBlock.EGGS)).with(SandcastleBlock.HATCH, state.get(TurtleEggBlock.HATCH)));
+            pContext.getStack().decrement(1);
+            if (pContext.getPlayer() instanceof ServerPlayerEntity player) {
+                Criteria.PLACED_BLOCK.trigger(player, pos, pContext.getStack());
             }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return ActionResult.success(level.isClient);
         }
     }
 }

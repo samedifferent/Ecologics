@@ -1,9 +1,9 @@
 package samebutdifferent.ecologics.client.model;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.Penguin;
@@ -14,30 +14,30 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class PenguinModel extends AnimatedGeoModel<Penguin> {
     
     @Override
-    public ResourceLocation getModelLocation(Penguin penguin) {
+    public Identifier getModelLocation(Penguin penguin) {
         if (penguin.isBaby()) {
-            return new ResourceLocation(Ecologics.MOD_ID, "geo/baby_penguin.geo.json");
+            return new Identifier(Ecologics.MOD_ID, "geo/baby_penguin.geo.json");
         } else {
-            return new ResourceLocation(Ecologics.MOD_ID, "geo/penguin.geo.json");
+            return new Identifier(Ecologics.MOD_ID, "geo/penguin.geo.json");
         }
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Penguin penguin) {
+    public Identifier getTextureLocation(Penguin penguin) {
         if (penguin.isBaby()) {
-            return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/baby_penguin.png");
+            return new Identifier(Ecologics.MOD_ID, "textures/entity/baby_penguin.png");
         } else {
-            return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/penguin.png");
+            return new Identifier(Ecologics.MOD_ID, "textures/entity/penguin.png");
         }
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(Penguin penguin) {
-        return new ResourceLocation(Ecologics.MOD_ID, "animations/penguin.animation.json");
+    public Identifier getAnimationFileLocation(Penguin penguin) {
+        return new Identifier(Ecologics.MOD_ID, "animations/penguin.animation.json");
     }
 
     @Override
@@ -49,8 +49,8 @@ public class PenguinModel extends AnimatedGeoModel<Penguin> {
         List<EntityModelData> extraDataOfType = customPredicate.getExtraDataOfType(EntityModelData.class);
 
         IBone head = this.getAnimationProcessor().getBone("head");
-        head.setRotationX(extraDataOfType.get(0).headPitch * Mth.DEG_TO_RAD);
-        head.setRotationY(extraDataOfType.get(0).netHeadYaw * Mth.DEG_TO_RAD);
+        head.setRotationX(extraDataOfType.get(0).headPitch * MathHelper.RADIANS_PER_DEGREE);
+        head.setRotationY(extraDataOfType.get(0).netHeadYaw * MathHelper.RADIANS_PER_DEGREE);
 
         if (!entity.isBaby()) {
             IBone egg = this.getAnimationProcessor().getBone("egg");

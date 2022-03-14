@@ -1,29 +1,29 @@
 package samebutdifferent.ecologics.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.model.CamelModel;
 import samebutdifferent.ecologics.entity.Camel;
 
-@OnlyIn(Dist.CLIENT)
-public class CamelRenderer extends MobRenderer<Camel, CamelModel<Camel>> {
-    public CamelRenderer(EntityRendererProvider.Context context) {
-        super(context, new CamelModel<>(context.bakeLayer(CamelModel.LAYER_LOCATION)), 0.7F);
+@Environment(EnvType.CLIENT)
+public class CamelRenderer extends MobEntityRenderer<Camel, CamelModel<Camel>> {
+    public CamelRenderer(EntityRendererFactory.Context context) {
+        super(context, new CamelModel<>(context.getPart(CamelModel.LAYER_LOCATION)), 0.7F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Camel pEntity) {
-        return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/camel.png");
+    public Identifier getTexture(Camel pEntity) {
+        return new Identifier(Ecologics.MOD_ID, "textures/entity/camel.png");
     }
 
     @Override
-    public void render(Camel pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+    public void render(Camel pEntity, float pEntityYaw, float pPartialTicks, MatrixStack pMatrixStack, VertexConsumerProvider pBuffer, int pPackedLight) {
         if (pEntity.isBaby()) {
             pMatrixStack.scale(0.5F, 0.5F, 0.5F);
         }

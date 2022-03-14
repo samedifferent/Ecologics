@@ -1,35 +1,34 @@
 package samebutdifferent.ecologics.item;
 
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class CoconutSliceItem extends Item {
-    public CoconutSliceItem(Properties properties) {
+    public CoconutSliceItem(Settings properties) {
         super(properties);
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        if (!pLevel.isClientSide) {
-            if (pLivingEntity instanceof Player player) {
-                player.removeAllEffects();
-                ItemStack mainHandStack = player.getMainHandItem();
-                ItemStack coconutHuskStack = new ItemStack(ModBlocks.COCONUT_HUSK.get());
-                if (!player.getAbilities().instabuild) {
+    public ItemStack finishUsing(ItemStack pStack, World pLevel, LivingEntity pLivingEntity) {
+        if (!pLevel.isClient) {
+            if (pLivingEntity instanceof PlayerEntity player) {
+                player.clearStatusEffects();
+                ItemStack mainHandStack = player.getMainHandStack();
+                ItemStack coconutHuskStack = new ItemStack(ModBlocks.COCONUT_HUSK);
+                if (!player.getAbilities().creativeMode) {
                     if (!mainHandStack.isEmpty()) {
-                        if (!player.getInventory().add(coconutHuskStack.copy())) {
-                            player.drop(coconutHuskStack, false);
+                        if (!player.getInventory().insertStack(coconutHuskStack.copy())) {
+                            player.dropItem(coconutHuskStack, false);
                         }
                     }
                 }
             }
         }
-        return super.finishUsingItem(pStack, pLevel, pLivingEntity);
+        return super.finishUsing(pStack, pLevel, pLivingEntity);
     }
 }

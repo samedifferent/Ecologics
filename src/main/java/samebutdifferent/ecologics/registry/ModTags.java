@@ -1,39 +1,36 @@
 package samebutdifferent.ecologics.registry;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
+import net.fabricmc.fabric.api.tag.TagFactory;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import samebutdifferent.ecologics.Ecologics;
 
 public class ModTags {
 
     public static class ModBlockTags {
 
-        public static final Tags.IOptionalNamedTag<Block> COCONUT_LOGS =
+        public static final Tag.Identified<Block> COCONUT_LOGS =
                 createTag("coconut_logs");
 
-        public static final Tags.IOptionalNamedTag<Block> POTS =
+        public static final Tag.Identified<Block> POTS =
                 createTag("pots");
 
-        private static Tags.IOptionalNamedTag<Block> createTag(String name) {
-            return BlockTags.createOptional(new ResourceLocation(Ecologics.MOD_ID, name));
+        private static Tag.Identified<Block> createTag(String name) {
+            return TagFactory.BLOCK.create(new Identifier(Ecologics.MOD_ID, name));
         }
     }
 
     public static class ModItemTags {
-        public static final Tags.IOptionalNamedTag<Item> COCONUT_LOGS =
+        public static final Tag.Identified<Item> COCONUT_LOGS =
                 createTag("coconut_logs");
 
-        public static final Tags.IOptionalNamedTag<Item> POTS =
+        public static final Tag.Identified<Item> POTS =
                 createTag("pots");
 
-        private static Tags.IOptionalNamedTag<Item> createTag(String name) {
-            return ItemTags.createOptional(new ResourceLocation(Ecologics.MOD_ID, name));
+        private static Tag.Identified<Item> createTag(String name) {
+            return TagFactory.ITEM.create(new Identifier(Ecologics.MOD_ID, name));
         }
     }
 }

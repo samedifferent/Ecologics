@@ -1,16 +1,16 @@
 package samebutdifferent.ecologics.client.renderer.entity;
 
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import samebutdifferent.ecologics.client.model.PenguinModel;
 import samebutdifferent.ecologics.entity.Penguin;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class PenguinRenderer extends GeoEntityRenderer<Penguin> {
 
-    public PenguinRenderer(EntityRendererProvider.Context renderManager) {
+    public PenguinRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new PenguinModel());
         this.shadowRadius = 0.4F;
     }

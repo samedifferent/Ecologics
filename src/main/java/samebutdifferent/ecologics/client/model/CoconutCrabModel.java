@@ -1,9 +1,9 @@
 package samebutdifferent.ecologics.client.model;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.CoconutCrab;
@@ -14,22 +14,22 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class CoconutCrabModel extends AnimatedGeoModel<CoconutCrab> {
 
 	@Override
-	public ResourceLocation getModelLocation(CoconutCrab object) {
-		return new ResourceLocation(Ecologics.MOD_ID, "geo/coconut_crab.geo.json");
+	public Identifier getModelLocation(CoconutCrab object) {
+		return new Identifier(Ecologics.MOD_ID, "geo/coconut_crab.geo.json");
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(CoconutCrab object) {
-		return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/coconut_crab.png");
+	public Identifier getTextureLocation(CoconutCrab object) {
+		return new Identifier(Ecologics.MOD_ID, "textures/entity/coconut_crab.png");
 	}
 
 	@Override
-	public ResourceLocation getAnimationFileLocation(CoconutCrab animatable) {
-		return new ResourceLocation(Ecologics.MOD_ID, "animations/coconut_crab.animation.json");
+	public Identifier getAnimationFileLocation(CoconutCrab animatable) {
+		return new Identifier(Ecologics.MOD_ID, "animations/coconut_crab.animation.json");
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class CoconutCrabModel extends AnimatedGeoModel<CoconutCrab> {
 		List<EntityModelData> extraDataOfType = customPredicate.getExtraDataOfType(EntityModelData.class);
 
 		IBone head = this.getAnimationProcessor().getBone("head");
-		head.setRotationX(extraDataOfType.get(0).headPitch * Mth.DEG_TO_RAD);
-		head.setRotationY(extraDataOfType.get(0).netHeadYaw * Mth.DEG_TO_RAD);
+		head.setRotationX(extraDataOfType.get(0).headPitch * MathHelper.RADIANS_PER_DEGREE);
+		head.setRotationY(extraDataOfType.get(0).netHeadYaw * MathHelper.RADIANS_PER_DEGREE);
 
 		IBone shell = this.getAnimationProcessor().getBone("shell");
 		shell.setHidden(!entity.hasCoconut());

@@ -1,37 +1,36 @@
 package samebutdifferent.ecologics.block;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.registry.ModItems;
 
 import java.util.Random;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.CropBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 
 public class PricklyPearBlock extends CropBlock {
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
-    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 14.0D, 3.0D, 14.0D);
+    public static final IntProperty AGE = Properties.AGE_3;
+    private static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 14.0D, 3.0D, 14.0D);
 
     public PricklyPearBlock() {
-        super(BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.HONEY_BLOCK));
+        super(AbstractBlock.Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.HONEY));
     }
 
     @Override
-    public IntegerProperty getAgeProperty() {
+    public IntProperty getAgeProperty() {
         return AGE;
     }
 
@@ -41,12 +40,12 @@ public class PricklyPearBlock extends CropBlock {
     }
 
     @Override
-    protected ItemLike getBaseSeedId() {
-        return ModItems.PRICKLY_PEAR.get();
+    protected ItemConvertible getSeedsItem() {
+        return ModItems.PRICKLY_PEAR;
     }
 
     @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+    public void randomTick(BlockState pState, ServerWorld pLevel, BlockPos pPos, Random pRandom) {
         if (pRandom.nextInt(3) != 0) {
             super.randomTick(pState, pLevel, pPos, pRandom);
         }
@@ -54,22 +53,22 @@ public class PricklyPearBlock extends CropBlock {
     }
 
     @Override
-    protected int getBonemealAgeIncrease(Level pLevel) {
-        return super.getBonemealAgeIncrease(pLevel) / 3;
+    protected int getGrowthAmount(World pLevel) {
+        return super.getGrowthAmount(pLevel) / 3;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+    protected void appendProperties(StateManager.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(AGE);
     }
 
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public VoxelShape getOutlineShape(BlockState pState, BlockView pLevel, BlockPos pPos, ShapeContext pContext) {
         return SHAPE;
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(Blocks.CACTUS);
+    protected boolean canPlantOnTop(BlockState pState, BlockView pLevel, BlockPos pPos) {
+        return pState.isOf(Blocks.CACTUS);
     }
 }

@@ -1,22 +1,22 @@
 package samebutdifferent.ecologics.block;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import samebutdifferent.ecologics.block.grower.CoconutTreeGrower;
 
 public class CoconutSaplingBlock extends SaplingBlock {
     public CoconutSaplingBlock() {
-        super(new CoconutTreeGrower(), BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.WOOD));
+        super(new CoconutTreeGrower(), AbstractBlock.Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.WOOD));
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(Blocks.SAND) || pState.is(Blocks.RED_SAND);
+    protected boolean canPlantOnTop(BlockState pState, BlockView pLevel, BlockPos pPos) {
+        return pState.isOf(Blocks.SAND) || pState.isOf(Blocks.RED_SAND);
     }
 }

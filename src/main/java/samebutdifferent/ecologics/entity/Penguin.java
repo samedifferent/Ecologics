@@ -1,38 +1,51 @@
 package samebutdifferent.ecologics.entity;
 
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.entity.MovementType;
+import net.minecraft.entity.ai.control.AquaticMoveControl;
+import net.minecraft.entity.ai.control.YawAdjustingLookControl;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.AnimalMateGoal;
+import net.minecraft.entity.ai.goal.EscapeDangerGoal;
+import net.minecraft.entity.ai.goal.FollowParentGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.SwimAroundGoal;
+import net.minecraft.entity.ai.goal.TemptGoal;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.ai.pathing.AmphibiousPathNodeMaker;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.PathNodeNavigator;
+import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.ai.pathing.SwimNavigation;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.CodEntity;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.SalmonEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
+import net.minecraft.world.World;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cod;
-import net.minecraft.world.entity.animal.Salmon;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.PathFinder;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -43,92 +56,92 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class Penguin extends Animal implements IAnimatable {
-    private static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
-    private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.COD, Items.SALMON);
+public class Penguin extends AnimalEntity implements IAnimatable {
+    private static final TrackedData<Boolean> PREGNANT = DataTracker.registerData(Penguin.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final Ingredient FOOD_ITEMS = Ingredient.ofItems(Items.COD, Items.SALMON);
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    public Penguin(EntityType<? extends Animal> type, Level level) {
+    public Penguin(EntityType<? extends AnimalEntity> type, World level) {
         super(type, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 20);
-        this.maxUpStep = 1.0F;
+        this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
+        this.moveControl = new AquaticMoveControl(this, 85, 10, 0.4F, 1.0F, true);
+        this.lookControl = new YawAdjustingLookControl(this, 20);
+        this.stepHeight = 1.0F;
     }
 
     // ATTRIBUTES & GOALS
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 2.0D);
+    public static DefaultAttributeContainer.Builder createAttributes() {
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 15.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D);
     }
 
     @Override
     public void baseTick() {
-        int airSupply = this.getAirSupply();
+        int airSupply = this.getAir();
         super.baseTick();
-        if (!this.isNoAi()) {
+        if (!this.isAiDisabled()) {
             this.handleAirSupply(airSupply);
         }
 
     }
 
     @Override
-    public int getMaxAirSupply() {
+    public int getMaxAir() {
         return 6000;
     }
 
     protected void handleAirSupply(int airSupply) {
-        if (this.isAlive() && !this.isInWaterRainOrBubble()) {
-            this.setAirSupply(airSupply - 1);
-            if (this.getAirSupply() == -20) {
-                this.setAirSupply(0);
-                this.hurt(DamageSource.DRY_OUT, 2.0F);
+        if (this.isAlive() && !this.isWet()) {
+            this.setAir(airSupply - 1);
+            if (this.getAir() == -20) {
+                this.setAir(0);
+                this.damage(DamageSource.DRYOUT, 2.0F);
             }
         } else {
-            this.setAirSupply(this.getMaxAirSupply());
+            this.setAir(this.getMaxAir());
         }
 
     }
 
     @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Cod.class, false));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Salmon.class, false));
+    protected void initGoals() {
+        super.initGoals();
+        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.2D));
+        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
+        this.goalSelector.add(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
+        this.goalSelector.add(4, new FollowParentGoal(this, 1.0D));
+        this.goalSelector.add(5, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.add(6, new WanderAroundGoal(this, 1.0D));
+        this.goalSelector.add(6, new SwimAroundGoal(this, 1.0D, 10));
+        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(8, new LookAroundGoal(this));
+        this.targetSelector.add(1, new ActiveTargetGoal<>(this, CodEntity.class, false));
+        this.targetSelector.add(1, new ActiveTargetGoal<>(this, SalmonEntity.class, false));
     }
 
     // MOVEMENT
 
     @Override
-    protected PathNavigation createNavigation(Level pLevel) {
+    protected EntityNavigation createNavigation(World pLevel) {
         return new Penguin.PenguinPathNavigation(this, pLevel);
     }
 
     @Override
-    public boolean canBreatheUnderwater() {
+    public boolean canBreatheInWater() {
         return true;
     }
 
     @Override
-    public boolean isPushedByFluid() {
+    public boolean isPushedByFluids() {
         return false;
     }
 
     @Override
-    public void travel(Vec3 pTravelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), pTravelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+    public void travel(Vec3d pTravelVector) {
+        if (this.canMoveVoluntarily() && this.isTouchingWater()) {
+            this.updateVelocity(this.getMovementSpeed(), pTravelVector);
+            this.move(MovementType.SELF, this.getVelocity());
+            this.setVelocity(this.getVelocity().multiply(0.9D));
         } else {
             super.travel(pTravelVector);
         }
@@ -139,85 +152,85 @@ public class Penguin extends Animal implements IAnimatable {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
-        return ModEntityTypes.PENGUIN.get().create(level);
+    public PassiveEntity createChild(ServerWorld level, PassiveEntity mob) {
+        return ModEntityTypes.PENGUIN.create(level);
     }
 
     @Override
-    public boolean isFood(ItemStack pStack) {
+    public boolean isBreedingItem(ItemStack pStack) {
         return FOOD_ITEMS.test(pStack);
     }
 
     public boolean isPregnant() {
-        return this.entityData.get(PREGNANT);
+        return this.dataTracker.get(PREGNANT);
     }
 
     public void setPregnant(boolean isPregnant) {
-        this.entityData.set(PREGNANT, isPregnant);
+        this.dataTracker.set(PREGNANT, isPregnant);
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(PREGNANT, false);
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(PREGNANT, false);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
+    public void writeCustomDataToNbt(NbtCompound pCompound) {
+        super.writeCustomDataToNbt(pCompound);
         pCompound.putBoolean("IsPregnant", this.isPregnant());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
+    public void readCustomDataFromNbt(NbtCompound pCompound) {
+        super.readCustomDataFromNbt(pCompound);
         this.setPregnant(pCompound.getBoolean("IsPregnant"));
     }
 
     @Override
-    public void spawnChildFromBreeding(ServerLevel level, Animal otherParent) {
-        ServerPlayer serverplayer = this.getLoveCause();
-        if (serverplayer == null && otherParent.getLoveCause() != null) {
-            serverplayer = otherParent.getLoveCause();
+    public void breed(ServerWorld level, AnimalEntity otherParent) {
+        ServerPlayerEntity serverplayer = this.getLovingPlayer();
+        if (serverplayer == null && otherParent.getLovingPlayer() != null) {
+            serverplayer = otherParent.getLovingPlayer();
         }
 
         if (serverplayer != null) {
-            serverplayer.awardStat(Stats.ANIMALS_BRED);
-            CriteriaTriggers.BRED_ANIMALS.trigger(serverplayer, this, otherParent, null);
+            serverplayer.incrementStat(Stats.ANIMALS_BRED);
+            Criteria.BRED_ANIMALS.trigger(serverplayer, this, otherParent, null);
         }
 
-        this.setAge(6000);
-        otherParent.setAge(6000);
-        this.resetLove();
-        otherParent.resetLove();
-        level.broadcastEntityEvent(this, (byte)18);
+        this.setBreedingAge(6000);
+        otherParent.setBreedingAge(6000);
+        this.resetLoveTicks();
+        otherParent.resetLoveTicks();
+        level.sendEntityStatus(this, (byte)18);
         this.setPregnant(true);
-        if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
+        if (level.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
+            level.spawnEntity(new ExperienceOrbEntity(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
         }
     }
 
     @Override
-    protected void ageBoundaryReached() {
-        super.ageBoundaryReached();
-        if (!this.isBaby() && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            this.spawnAtLocation(Items.GRAY_WOOL, 1);
+    protected void onGrowUp() {
+        super.onGrowUp();
+        if (!this.isBaby() && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
+            this.dropItem(Items.GRAY_WOOL, 1);
         }
     }
 
     @Override
-    public void aiStep() {
-        super.aiStep();
+    public void tickMovement() {
+        super.tickMovement();
         if (this.isPregnant()) {
             if (this.random.nextInt(1500) == 0) {
-                if (!this.level.isClientSide) {
-                    ServerLevel level = (ServerLevel) this.level;
+                if (!this.world.isClient) {
+                    ServerWorld level = (ServerWorld) this.world;
                     this.setPregnant(false);
-                    Penguin penguin = ModEntityTypes.PENGUIN.get().create(level);
+                    Penguin penguin = ModEntityTypes.PENGUIN.create(level);
                     penguin.setBaby(true);
-                    penguin.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
-                    level.addFreshEntityWithPassengers(penguin);
-                    level.broadcastEntityEvent(this, (byte) 18);
+                    penguin.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+                    level.spawnEntityAndPassengers(penguin);
+                    level.sendEntityStatus(this, (byte) 18);
                 }
             }
         }
@@ -232,7 +245,7 @@ public class Penguin extends Animal implements IAnimatable {
 
     private boolean babyIsNearAdult() {
         if (this.isBaby()) {
-            for(Penguin penguin : Penguin.this.level.getEntitiesOfClass(Penguin.class, Penguin.this.getBoundingBox().inflate(2.0D, 5.0D, 2.0D))) {
+            for(Penguin penguin : Penguin.this.world.getNonSpectatingEntities(Penguin.class, Penguin.this.getBoundingBox().expand(2.0D, 5.0D, 2.0D))) {
                 return !penguin.isBaby();
             }
         }
@@ -249,9 +262,9 @@ public class Penguin extends Animal implements IAnimatable {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.idle", true));
             }
         } else if (event.isMoving()) {
-            if (this.isInWater()) {
+            if (this.isTouchingWater()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.swim", true));
-            } else if (this.level.getBlockState(this.blockPosition().below()).is(Blocks.ICE) && !this.isInLove() && !this.isPregnant()) {
+            } else if (this.world.getBlockState(this.getBlockPos().down()).isOf(Blocks.ICE) && !this.isInLove() && !this.isPregnant()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.slide", true));
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.waddle", true));
@@ -273,23 +286,23 @@ public class Penguin extends Animal implements IAnimatable {
         return factory;
     }
 
-    static class PenguinPathNavigation extends WaterBoundPathNavigation {
+    static class PenguinPathNavigation extends SwimNavigation {
 
-        public PenguinPathNavigation(Penguin penguin, Level level) {
+        public PenguinPathNavigation(Penguin penguin, World level) {
             super(penguin, level);
         }
 
-        protected boolean canUpdatePath() {
+        protected boolean isAtValidPosition() {
             return true;
         }
 
-        protected PathFinder createPathFinder(int p_149222_) {
-            this.nodeEvaluator = new AmphibiousNodeEvaluator(false);
-            return new PathFinder(this.nodeEvaluator, p_149222_);
+        protected PathNodeNavigator createPathNodeNavigator(int p_149222_) {
+            this.nodeMaker = new AmphibiousPathNodeMaker(false);
+            return new PathNodeNavigator(this.nodeMaker, p_149222_);
         }
 
-        public boolean isStableDestination(BlockPos p_149224_) {
-            return !this.level.getBlockState(p_149224_.below()).isAir();
+        public boolean isValidPosition(BlockPos p_149224_) {
+            return !this.world.getBlockState(p_149224_.down()).isAir();
         }
     }
 

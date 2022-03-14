@@ -1,28 +1,28 @@
 package samebutdifferent.ecologics.item;
 
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FoodComponents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import samebutdifferent.ecologics.Ecologics;
 
 public class PricklyPearItem extends Item {
     public PricklyPearItem() {
-        super(new Properties().tab(Ecologics.TAB).food(Foods.APPLE));
+        super(new Settings().group(Ecologics.TAB).food(FoodComponents.APPLE));
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
-        if (livingEntity instanceof Player player) {
-            if (player.hasEffect(MobEffects.WITHER)) {
-                player.removeEffect(MobEffects.WITHER);
+    public ItemStack finishUsing(ItemStack stack, World level, LivingEntity livingEntity) {
+        if (livingEntity instanceof PlayerEntity player) {
+            if (player.hasStatusEffect(StatusEffects.WITHER)) {
+                player.removeStatusEffect(StatusEffects.WITHER);
             }
-            player.hurt(DamageSource.CACTUS, 1.0F);
+            player.damage(DamageSource.CACTUS, 1.0F);
         }
-        return super.finishUsingItem(stack, level, livingEntity);
+        return super.finishUsing(stack, level, livingEntity);
     }
 }

@@ -1,15 +1,12 @@
 package samebutdifferent.ecologics.loot;
 
 import com.google.gson.JsonObject;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.condition.LootCondition;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -17,7 +14,7 @@ import java.util.List;
 public class AddItemModifier extends LootModifier {
     private final Item item;
 
-    protected AddItemModifier(LootItemCondition[] conditionsIn, Item item) {
+    protected AddItemModifier(LootCondition[] conditionsIn, Item item) {
         super(conditionsIn);
         this.item = item;
     }
@@ -32,8 +29,8 @@ public class AddItemModifier extends LootModifier {
     public static class Serializer extends GlobalLootModifierSerializer<AddItemModifier>
     {
         @Override
-        public AddItemModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition) {
-            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation((GsonHelper.getAsString(object, "item"))));
+        public AddItemModifier read(Identifier location, JsonObject object, LootCondition[] ailootcondition) {
+            Item item = ForgeRegistries.ITEMS.getValue(new Identifier((JsonHelper.getString(object, "item"))));
             return new AddItemModifier(ailootcondition, item);
         }
 

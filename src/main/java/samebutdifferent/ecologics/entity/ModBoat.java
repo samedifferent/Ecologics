@@ -1,82 +1,82 @@
 package samebutdifferent.ecologics.entity;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 
-public class ModBoat extends Boat {
-    private static final EntityDataAccessor<String> WOOD_TYPE = SynchedEntityData.defineId(ModBoat.class, EntityDataSerializers.STRING);
+public class ModBoat extends BoatEntity {
+    private static final TrackedData<String> WOOD_TYPE = DataTracker.registerData(ModBoat.class, TrackedDataHandlerRegistry.STRING);
 
-    public ModBoat(EntityType<? extends Boat> type, Level level) {
+    public ModBoat(EntityType<? extends BoatEntity> type, World level) {
         super(type, level);
-        this.blocksBuilding = true;
+        this.intersectionChecked = true;
     }
 
-    public ModBoat(Level level, double x, double y, double z) {
-        this(ModEntityTypes.BOAT.get(), level);
-        this.setPos(x, y, z);
-        this.xo = x;
-        this.yo = y;
-        this.zo = z;
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(WOOD_TYPE, "coconut");
+    public ModBoat(World level, double x, double y, double z) {
+        this(ModEntityTypes.BOAT, level);
+        this.setPosition(x, y, z);
+        this.prevX = x;
+        this.prevY = y;
+        this.prevZ = z;
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(WOOD_TYPE, "coconut");
+    }
+
+    @Override
+    protected void readCustomDataFromNbt(NbtCompound pCompound) {
+        super.readCustomDataFromNbt(pCompound);
         pCompound.putString("Type", this.getWoodType());
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
+    protected void writeCustomDataToNbt(NbtCompound pCompound) {
+        super.writeCustomDataToNbt(pCompound);
         pCompound.putString("Type", this.getWoodType());
     }
 
     public String getWoodType() {
-        return this.entityData.get(WOOD_TYPE);
+        return this.dataTracker.get(WOOD_TYPE);
     }
 
     public void setWoodType(String wood) {
-        this.entityData.set(WOOD_TYPE, wood);
+        this.dataTracker.set(WOOD_TYPE, wood);
     }
 
     @Override
-    public Item getDropItem() {
+    public Item asItem() {
         switch(this.getWoodType()) {
             case "coconut":
-                return ModItems.COCONUT_BOAT.get();
+                return ModItems.COCONUT_BOAT;
             default:
-                return ModItems.COCONUT_BOAT.get();
+                return ModItems.COCONUT_BOAT;
         }
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Ecologics.MOD_ID, this.getWoodType() + "_boat")));
+    public ItemStack getPickBlockStack() {
+        return new ItemStack(Registry.ITEM.get(new Identifier(Ecologics.MOD_ID, this.getWoodType() + "_boat")));
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
+    public Packet<?> createSpawnPacket() {
+        return super.createSpawnPacket();
+        // TODO: return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

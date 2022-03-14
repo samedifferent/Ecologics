@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "ecologics",
+  "version": "${version}",
+
+  "name": "Ecologics",
+  "description": "Improves the vanilla biomes.",
+  "authors": [
+    "SameButDifferent",
+    "Foquito Azul",
+    "Avila",
+    "Drig",
+    "PhoenixVX"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/ecologics",
+    "sources": "https://github.com/SameButDifferent/Ecologics"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "logo.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "samebutdifferent.ecologics.Ecologics"
+    ],
+    "client": [
+      "samebutdifferent.ecologics.EcologicsClient"
+    ]
+  },
+  "mixins": [
+    "ecologics.mixins.json"
+  ],
+  "accessWidener" : "Ecologics.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=0.12.12",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17",
+    "geckolib3": ">=3.0.0"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

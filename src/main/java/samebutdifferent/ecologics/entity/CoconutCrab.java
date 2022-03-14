@@ -1,29 +1,38 @@
 package samebutdifferent.ecologics.entity;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.TimeUtil;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeMod;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.FleeEntityGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.UniversalAngerGoal;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.Angerable;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.TimeHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
@@ -38,49 +47,50 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
-    private static final EntityDataAccessor<Boolean> HAS_COCONUT = SynchedEntityData.defineId(CoconutCrab.class, EntityDataSerializers.BOOLEAN);
-    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+public class CoconutCrab extends AnimalEntity implements IAnimatable, Angerable {
+    private static final TrackedData<Boolean> HAS_COCONUT = DataTracker.registerData(CoconutCrab.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final UniformIntProvider PERSISTENT_ANGER_TIME = TimeHelper.betweenSeconds(20, 39);
     private int remainingPersistentAngerTime;
     @Nullable private UUID persistentAngerTarget;
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    public CoconutCrab(EntityType<? extends Animal> entityType, Level level) {
+    public CoconutCrab(EntityType<? extends AnimalEntity> entityType, World level) {
         super(entityType, level);
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pMob) {
+    public PassiveEntity createChild(ServerWorld pLevel, PassiveEntity pMob) {
         return null;
     }
 
     @Override
-    public boolean isFood(ItemStack pStack) {
+    public boolean isBreedingItem(ItemStack pStack) {
         return false;
     }
 
     @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new CoconutCrab.CrabAvoidGoal<>(this, Player.class, 8.0F, 2.0D, 2.0D));
-        this.goalSelector.addGoal(2, new CoconutCrab.CrabMeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new CoconutCrab.CrabNearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, false));
+    protected void initGoals() {
+        super.initGoals();
+        this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(1, new CoconutCrab.CrabAvoidGoal<>(this, PlayerEntity.class, 8.0F, 2.0D, 2.0D));
+        this.goalSelector.add(2, new CoconutCrab.CrabMeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.add(3, new WanderAroundGoal(this, 1.0D));
+        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(5, new LookAroundGoal(this));
+        this.targetSelector.add(1, new RevengeGoal(this));
+        this.targetSelector.add(2, new CoconutCrab.CrabNearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAngerAt));
+        this.targetSelector.add(3, new UniversalAngerGoal<>(this, false));
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 2.0D).add(ForgeMod.REACH_DISTANCE.get(), 3);
+    public static DefaultAttributeContainer.Builder createAttributes() {
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 20.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D);
+                //TODO: .add(ForgeMod.REACH_DISTANCE.get(), 3);
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        return super.hurt(pSource, this.hasCoconut() ? pAmount / 2 : pAmount);
+    public boolean damage(DamageSource pSource, float pAmount) {
+        return super.damage(pSource, this.hasCoconut() ? pAmount / 2 : pAmount);
     }
 
     @Override
@@ -93,70 +103,70 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
 
     private void breakCoconut() {
         this.setHasCoconut(false);
-        this.stopBeingAngry();
+        this.stopAnger();
         this.playCoconutSmashSound();
-        ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
-        itementity.setDefaultPickUpDelay();
-        this.level.addFreshEntity(itementity);
+        ItemEntity itementity = new ItemEntity(this.world, this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.COCONUT_SLICE, 2));
+        itementity.setToDefaultPickupDelay();
+        this.world.spawnEntity(itementity);
     }
 
 
     @Override
-    public boolean canBreatheUnderwater() {
+    public boolean canBreatheInWater() {
         return true;
     }
 
     @Override
-    protected float getWaterSlowDown() {
+    protected float getBaseMovementSpeedMultiplier() {
         return 0.98F;
     }
 
     @Override
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+    public boolean handleFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
         return false;
     }
 
     @Override
-    public boolean canBeLeashed(Player pPlayer) {
+    public boolean canBeLeashedBy(PlayerEntity pPlayer) {
         return false;
     }
 
     public void setHasCoconut(boolean hasCoconut) {
-        this.entityData.set(HAS_COCONUT, hasCoconut);
+        this.dataTracker.set(HAS_COCONUT, hasCoconut);
     }
 
     public boolean hasCoconut() {
-        return this.entityData.get(HAS_COCONUT);
+        return this.dataTracker.get(HAS_COCONUT);
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HAS_COCONUT, true);
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(HAS_COCONUT, true);
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.COCONUT_CRAB_AMBIENT.get();
+        return ModSoundEvents.COCONUT_CRAB_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return ModSoundEvents.COCONUT_CRAB_HURT.get();
+        return ModSoundEvents.COCONUT_CRAB_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.COCONUT_CRAB_DEATH.get();
+        return ModSoundEvents.COCONUT_CRAB_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
-        this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
     }
 
     protected void playCoconutSmashSound() {
-        this.playSound(ModSoundEvents.COCONUT_SMASH.get(), 0.5F, 1.0F);
+        this.playSound(ModSoundEvents.COCONUT_SMASH, 0.5F, 1.0F);
     }
 
     private static  <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
@@ -179,29 +189,29 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
     }
 
     @Override
-    public int getRemainingPersistentAngerTime() {
+    public int getAngerTime() {
         return this.remainingPersistentAngerTime;
     }
 
     @Override
-    public void setRemainingPersistentAngerTime(int pTime) {
+    public void setAngerTime(int pTime) {
         this.remainingPersistentAngerTime = pTime;
     }
 
     @Nullable
     @Override
-    public UUID getPersistentAngerTarget() {
+    public UUID getAngryAt() {
         return this.persistentAngerTarget;
     }
 
     @Override
-    public void setPersistentAngerTarget(@Nullable UUID pTarget) {
+    public void setAngryAt(@Nullable UUID pTarget) {
         this.persistentAngerTarget = pTarget;
     }
 
     @Override
-    public void startPersistentAngerTimer() {
-        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+    public void chooseRandomAngerTime() {
+        this.setAngerTime(PERSISTENT_ANGER_TIME.get(this.random));
     }
 
 
@@ -214,19 +224,19 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         }
 
         @Override
-        public boolean canUse() {
-            return crab.hasCoconut() && super.canUse();
+        public boolean canStart() {
+            return crab.hasCoconut() && super.canStart();
         }
 
         @Override
-        public boolean canContinueToUse() {
-            return crab.hasCoconut() && super.canContinueToUse();
+        public boolean shouldContinue() {
+            return crab.hasCoconut() && super.shouldContinue();
         }
 
         @Override
         public void start() {
             if (!crab.hasCoconut()) {
-                crab.setAggressive(false);
+                crab.setAttacking(false);
                 this.stop();
             } else {
                 super.start();
@@ -234,21 +244,21 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         }
     }
 
-    static class CrabAvoidGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
+    static class CrabAvoidGoal<T extends LivingEntity> extends FleeEntityGoal<T> {
         private final CoconutCrab crab;
 
         public CrabAvoidGoal(CoconutCrab pMob, Class<T> pEntityClassToAvoid, float pMaxDistance, double pWalkSpeedModifier, double pSprintSpeedModifier) {
-            super(pMob, pEntityClassToAvoid, pMaxDistance, pWalkSpeedModifier, pSprintSpeedModifier, EntitySelector.NO_SPECTATORS::test);
+            super(pMob, pEntityClassToAvoid, pMaxDistance, pWalkSpeedModifier, pSprintSpeedModifier, EntityPredicates.EXCEPT_SPECTATOR::test);
             this.crab = pMob;
         }
 
         @Override
-        public boolean canUse() {
-            return !this.crab.hasCoconut() && super.canUse();
+        public boolean canStart() {
+            return !this.crab.hasCoconut() && super.canStart();
         }
     }
 
-    static class CrabNearestAttackableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+    static class CrabNearestAttackableTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T> {
         private final CoconutCrab crab;
 
         public CrabNearestAttackableTargetGoal(CoconutCrab pMob, Class<T> pTargetType, int pRandomInterval, boolean pMustSee, boolean pMustReach, @Nullable Predicate<LivingEntity> pTargetPredicate) {
@@ -257,8 +267,8 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         }
 
         @Override
-        public boolean canUse() {
-            return this.crab.hasCoconut() && super.canUse();
+        public boolean canStart() {
+            return this.crab.hasCoconut() && super.canStart();
         }
     }
 }

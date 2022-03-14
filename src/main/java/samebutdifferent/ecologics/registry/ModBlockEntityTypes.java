@@ -1,16 +1,14 @@
 package samebutdifferent.ecologics.registry;
 
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.entity.ModSignBlockEntity;
 import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 
 public class ModBlockEntityTypes {
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Ecologics.MOD_ID);
-
-    public static final RegistryObject<BlockEntityType<ModSignBlockEntity>> SIGN = BLOCK_ENTITY_TYPES.register("sign", () -> BlockEntityType.Builder.of(ModSignBlockEntity::new, ModBlocks.COCONUT_SIGN.get(), ModBlocks.COCONUT_WALL_SIGN.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PotBlockEntity>> POT = BLOCK_ENTITY_TYPES.register("pot", () -> BlockEntityType.Builder.of(PotBlockEntity::new, ModBlocks.POT.get()).build(null));
+    public static final BlockEntityType<ModSignBlockEntity> SIGN = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(Ecologics.MOD_ID, "sign"), FabricBlockEntityTypeBuilder.create(ModSignBlockEntity::new, ModBlocks.COCONUT_SIGN, ModBlocks.COCONUT_WALL_SIGN).build(null));
+    public static final BlockEntityType<PotBlockEntity> POT = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(Ecologics.MOD_ID, "pot"), FabricBlockEntityTypeBuilder.create(PotBlockEntity::new, ModBlocks.POT).build(null));
 }

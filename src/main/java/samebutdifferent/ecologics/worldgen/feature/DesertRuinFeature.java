@@ -2,65 +2,65 @@ package samebutdifferent.ecologics.worldgen.feature;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import samebutdifferent.ecologics.Ecologics;
 
 import java.util.Optional;
 import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.structure.Structure;
+import net.minecraft.structure.StructureManager;
+import net.minecraft.structure.StructurePlacementData;
+import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 // Thanks to TelelpathicGrunt for his help on this
-public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
-    private final BlockIgnoreProcessor IGNORE_STRUCTURE_VOID = new BlockIgnoreProcessor(ImmutableList.of(Blocks.STRUCTURE_VOID));
-    private final StructurePlaceSettings placementsettings = new StructurePlaceSettings().setMirror(Mirror.NONE).addProcessor(IGNORE_STRUCTURE_VOID).setIgnoreEntities(false);
-    private final ResourceLocation[] pieces = new ResourceLocation[]{
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/chest_house"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pillars1"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pillars2"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/wall1"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/wall2"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pit"),
+public class DesertRuinFeature extends Feature<DefaultFeatureConfig> {
+    private final BlockIgnoreStructureProcessor IGNORE_STRUCTURE_VOID = new BlockIgnoreStructureProcessor(ImmutableList.of(Blocks.STRUCTURE_VOID));
+    private final StructurePlacementData placementsettings = new StructurePlacementData().setMirror(BlockMirror.NONE).addProcessor(IGNORE_STRUCTURE_VOID).setIgnoreEntities(false);
+    private final Identifier[] pieces = new Identifier[]{
+            new Identifier(Ecologics.MOD_ID, "desert_ruin/chest_house"),
+            new Identifier(Ecologics.MOD_ID, "desert_ruin/pillars1"),
+            new Identifier(Ecologics.MOD_ID, "desert_ruin/pillars2"),
+            new Identifier(Ecologics.MOD_ID, "desert_ruin/wall1"),
+            new Identifier(Ecologics.MOD_ID, "desert_ruin/wall2"),
+            new Identifier(Ecologics.MOD_ID, "desert_ruin/pit"),
     };
 
-    public DesertRuinFeature(Codec<NoneFeatureConfiguration> pCodec) {
+    public DesertRuinFeature(Codec<DefaultFeatureConfig> pCodec) {
         super(pCodec);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> pContext) {
-        WorldGenLevel level = pContext.level();
-        BlockPos origin = pContext.origin();
-        Random random = pContext.random();
+    public boolean generate(FeatureContext<DefaultFeatureConfig> pContext) {
+        StructureWorldAccess level = pContext.getWorld();
+        BlockPos origin = pContext.getOrigin();
+        Random random = pContext.getRandom();
 
-        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos().set(origin);
-        for (mutable.move(Direction.UP); level.isEmptyBlock(mutable) && mutable.getY() > 2;) {
+        BlockPos.Mutable mutable = new BlockPos.Mutable().set(origin);
+        for (mutable.move(Direction.UP); level.isAir(mutable) && mutable.getY() > 2;) {
             mutable.move(Direction.DOWN);
         }
 
-        if (!level.getBlockState(mutable).isAir() && !level.isEmptyBlock(mutable.below()) && !level.isEmptyBlock(mutable.below(2))) {
+        if (!level.getBlockState(mutable).isAir() && !level.isAir(mutable.down()) && !level.isAir(mutable.down(2))) {
             mutable.move(Direction.DOWN);
         } else {
             return false;
         }
 
-        BlockPos.MutableBlockPos blockpos$Mutable = new BlockPos.MutableBlockPos();
-        StructureManager templatemanager = level.getLevel().getServer().getStructureManager();
-        ResourceLocation nbtRL = pieces[random.nextInt(pieces.length)];
-        Optional<StructureTemplate> template = templatemanager.get(nbtRL);
+        BlockPos.Mutable blockpos$Mutable = new BlockPos.Mutable();
+        StructureManager templatemanager = level.toServerWorld().getServer().getStructureManager();
+        Identifier nbtRL = pieces[random.nextInt(pieces.length)];
+        Optional<Structure> template = templatemanager.getStructure(nbtRL);
 
         if (template.isEmpty()) {
             Ecologics.LOGGER.warn(nbtRL + " NTB does not exist!");
@@ -69,8 +69,8 @@ public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
 
         for (int x = 0; x < template.get().getSize().getX(); x++) {
             for (int z = 0; z < template.get().getSize().getZ(); z++) {
-                blockpos$Mutable.set(origin.below()).move(x, 0, z);
-                if (!level.getBlockState(blockpos$Mutable).is(BlockTags.SAND)) {
+                blockpos$Mutable.set(origin.down()).move(x, 0, z);
+                if (!level.getBlockState(blockpos$Mutable).isIn(BlockTags.SAND)) {
                     return false;
                 }
             }
@@ -83,9 +83,9 @@ public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
                     blockpos$Mutable.set(origin).move(x, 0, z);
                     if (!level.getFluidState(blockpos$Mutable).isEmpty()) {
                         return false;
-                    } else if (level.getBlockState(blockpos$Mutable.move(Direction.UP)).canOcclude() || !level.getBlockState(blockpos$Mutable.move(Direction.DOWN, 3)).canOcclude()) {
+                    } else if (level.getBlockState(blockpos$Mutable.move(Direction.UP)).isOpaque() || !level.getBlockState(blockpos$Mutable.move(Direction.DOWN, 3)).isOpaque()) {
                         return false;
-                    } else if (!level.getBlockState(blockpos$Mutable).is(BlockTags.SAND)) {
+                    } else if (!level.getBlockState(blockpos$Mutable).isIn(BlockTags.SAND)) {
                         return false;
                     }
                 }
@@ -93,10 +93,10 @@ public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
         }
 
         BlockPos halfLengths = new BlockPos(template.get().getSize().getX() / 2, 0, template.get().getSize().getZ() / 2);
-        placementsettings.setRotation(Rotation.getRandom(random)).setRotationPivot(halfLengths).setIgnoreEntities(false);
+        placementsettings.setRotation(BlockRotation.random(random)).setPosition(halfLengths).setIgnoreEntities(false);
         blockpos$Mutable.set(origin);
         BlockPos offset = new BlockPos(-template.get().getSize().getX() / 2, nbtRL.getPath().contains("pit") ? -2 : 0, -template.get().getSize().getZ() / 2);
-        template.get().placeInWorld(level, blockpos$Mutable.offset(offset), blockpos$Mutable.offset(offset), placementsettings, random, Block.UPDATE_CLIENTS);
+        template.get().place(level, blockpos$Mutable.add(offset), blockpos$Mutable.add(offset), placementsettings, random, Block.NOTIFY_LISTENERS);
 
         return true;
     }

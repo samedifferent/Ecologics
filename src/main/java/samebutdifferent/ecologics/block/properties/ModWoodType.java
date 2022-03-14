@@ -1,9 +1,10 @@
 package samebutdifferent.ecologics.block.properties;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.SignType;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.mixin.SignTypeAccessor;
 
 public class ModWoodType {
-    public static final WoodType COCONUT = WoodType.create(new ResourceLocation(Ecologics.MOD_ID, "coconut").toString());
+    public static final SignType COCONUT = SignTypeAccessor.newSignType("coconut");
 }
