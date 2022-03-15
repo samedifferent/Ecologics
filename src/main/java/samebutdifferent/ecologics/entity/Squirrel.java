@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,12 +28,12 @@ import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
@@ -74,6 +75,7 @@ public class Squirrel extends Animal implements IAnimatable {
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, TEMPT_INGREDIENT, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new SquirrelPlantSaplingGoal(this, 1.0F, 8, 4));
         this.goalSelector.addGoal(5, new SquirrelSearchForSaplingsGoal(this));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -109,7 +111,7 @@ public class Squirrel extends Animal implements IAnimatable {
 
     @Override
     public boolean isFood(ItemStack pStack) {
-        return TEMPT_INGREDIENT.test(pStack);
+        return pStack.is(Items.HONEYCOMB);
     }
 
     boolean isTrusting() {
@@ -224,11 +226,6 @@ public class Squirrel extends Animal implements IAnimatable {
     @Override
     public boolean onClimbable() {
         return this.isClimbing();
-    }
-
-    @Override
-    protected float getJumpPower() {
-        return super.getJumpPower() + 0.2F;
     }
 
     public boolean isClimbing() {
@@ -369,41 +366,30 @@ public class Squirrel extends Animal implements IAnimatable {
 
             if (reachedTarget && !squirrel.getMainHandItem().isEmpty()) {
                 Level level = squirrel.level;
-                if (level.getBlockEntity(blockPos) instanceof BarrelBlockEntity barrel) {
-                    this.onReachedTarget(level, barrel);
+                if (level.getBlockState(blockPos).is(BlockTags.DIRT)) {
+                    this.onReachedTarget(level);
                     reachedTarget = false;
                 }
             }
         }
 
         @Override
+        public double acceptedDistance() {
+            return 1.5D;
+        }
+
+        @Override
         protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
             BlockState blockstate = pLevel.getBlockState(pPos);
-            return blockstate.is(Blocks.BARREL);
+            return blockstate.is(BlockTags.DIRT) && pLevel.getBlockState(pPos.above()).isAir();
         }
 
-        protected void onReachedTarget(Level level, BarrelBlockEntity barrel) {
-            for (int i = 0; i < barrel.getContainerSize(); i++) {
-                if (this.canPlaceItem(barrel, i, squirrel.getMainHandItem())) {
-                    squirrel.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                    level.playSound(null, blockPos, SoundEvents.COD_FLOP, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-                    break;
-                }
+        protected void onReachedTarget(Level level) {
+            if (squirrel.getMainHandItem().getItem() instanceof BlockItem item) {
+                level.setBlockAndUpdate(blockPos.above(), item.getBlock().defaultBlockState());
+                level.playSound(null, blockPos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+                squirrel.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
             }
-        }
-
-        boolean canPlaceItem(BarrelBlockEntity barrel, int index, ItemStack stack) {
-            if (barrel.getItem(index).isEmpty()) {
-                barrel.setItem(index, new ItemStack(stack.getItem()));
-                return true;
-            } else if (barrel.getItem(index).is(stack.getItem())) {
-                int amount = barrel.getItem(index).getCount();
-                if (amount < 64) {
-                    barrel.setItem(index, new ItemStack(stack.getItem(), amount + 1));
-                    return true;
-                }
-            }
-            return false;
         }
 
         @Override
