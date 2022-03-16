@@ -1,5 +1,13 @@
 {
   "block.ecologics.coconut": "Coconut",
+  "block.ecologics.snow_brick_slab": "Snow Brick Slab",
+  "block.ecologics.snow_brick_stairs": "Snow Brick Stairs",
+  "block.ecologics.snow_brick_wall": "Snow Brick Wall",
+  "block.ecologics.snow_bricks": "Snow Bricks",
+  "block.ecologics.ice_brick_slab": "Ice Brick Slab",
+  "block.ecologics.ice_brick_stairs": "Ice Brick Stairs",
+  "block.ecologics.ice_brick_wall": "Ice Brick Wall",
+  "block.ecologics.ice_bricks": "Ice Bricks",
   "block.ecologics.hanging_coconut": "Hanging Coconut",
   "block.ecologics.coconut_button": "Coconut Button",
   "block.ecologics.coconut_door": "Coconut Door",

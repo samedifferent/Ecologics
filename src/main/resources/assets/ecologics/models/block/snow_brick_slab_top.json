@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "side": "ecologics:block/snow_bricks",
+    "bottom": "ecologics:block/snow_bricks",
+    "top": "ecologics:block/snow_bricks"
+  }
+}

@@ -55,6 +55,10 @@ public class ModBlocks {
     public static final SlabBlock SEASHELL_TILE_SLAB = registerBlock("seashell_tile_slab", () -> new SlabBlock(AbstractBlock.Settings.copy(SEASHELL_BLOCK)));
     public static final WallBlock SEASHELL_TILE_WALL = registerBlock("seashell_tile_wall", () -> new WallBlock(AbstractBlock.Settings.copy(SEASHELL_BLOCK)));
     public static final ThinIceBlock THIN_ICE = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "thin_ice"), new ThinIceBlock());
+    public static final Block SNOW_BRICKS = registerBlock("snow_bricks", () -> new Block(AbstractBlock.Settings.copy(Blocks.STONE_BRICKS)));
+    public static final StairsBlock SNOW_BRICK_STAIRS = registerBlock("snow_brick_stairs", () -> new StairsBlock(SNOW_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(SNOW_BRICKS)));
+    public static final SlabBlock SNOW_BRICK_SLAB = registerBlock("snow_brick_slab", () -> new SlabBlock(AbstractBlock.Settings.copy(SNOW_BRICKS)));
+    public static final WallBlock SNOW_BRICK_WALL = registerBlock("snow_brick_wall", () -> new WallBlock(AbstractBlock.Settings.copy(SNOW_BRICKS)));
     public static final PricklyPearBlock PRICKLY_PEAR = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "prickly_pear"), new PricklyPearBlock());
     public static final PotBlock POT = registerBlock("pot", () -> new PotBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.ORANGE).requiresTool().strength(1.0F)));
 

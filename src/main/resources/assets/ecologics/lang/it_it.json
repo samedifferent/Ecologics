@@ -51,5 +51,14 @@
   "item.ecologics.music_disc_coconut.desc": "BooWho - coconut",
   "itemGroup.ecologics": "Ecologics",
   "advancements.husbandry.sandcastle.title": "Fortezza di sabbitudine",
-  "advancements.husbandry.sandcastle.description": "Costruisci un castello di sabbia per proteggere delle uova di tartaruga."
+  "advancements.husbandry.sandcastle.description": "Costruisci un castello di sabbia per proteggere delle uova di tartaruga.",
+  "block.ecologics.snow_brick_slab": "Snow Brick Slab",
+  "block.ecologics.snow_brick_stairs": "Snow Brick Stairs",
+  "block.ecologics.snow_brick_wall": "Snow Brick Wall",
+  "block.ecologics.snow_bricks": "Snow Bricks",
+  "block.ecologics.ice_brick_slab": "Ice Brick Slab",
+  "block.ecologics.ice_brick_stairs": "Ice Brick Stairs",
+  "block.ecologics.ice_brick_wall": "Ice Brick Wall",
+  "block.ecologics.ice_bricks": "Ice Bricks",
+  "item.ecologics.cooked_prickly_pear": "Cooked Prickly Pear"
 }

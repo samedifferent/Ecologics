@@ -25,4 +25,9 @@ public class ModItems {
     public static final Item COCONUT_BOAT = Registry.register(Registry.ITEM, new Identifier(Ecologics.MOD_ID, "coconut_boat"), new ModBoatItem("coconut", new Item.Settings().maxCount(1).group(Ecologics.TAB)));
     public static final Item PRICKLY_PEAR = Registry.register(Registry.ITEM, new Identifier(Ecologics.MOD_ID, "prickly_pear"), new PricklyPearItem());
     public static final Item COOKED_PRICKLY_PEAR = Registry.register(Registry.ITEM, new Identifier(Ecologics.MOD_ID, "cooked_prickly_pear"), new Item(new Item.Settings().group(Ecologics.TAB).food(FoodComponents.APPLE)));
+    public static final Item PENGUIN_FEATHER = Registry.register(Registry.ITEM, new Identifier(Ecologics.MOD_ID, "penguin_feather"), new Item(new Item.Settings().group(Ecologics.TAB)));
 }
+
+
+
+
