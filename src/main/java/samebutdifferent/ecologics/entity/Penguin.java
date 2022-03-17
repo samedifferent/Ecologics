@@ -1,10 +1,10 @@
 package samebutdifferent.ecologics.entity;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.MovementType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.AquaticMoveControl;
 import net.minecraft.entity.ai.control.YawAdjustingLookControl;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -40,6 +40,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -48,6 +50,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.entity.*;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
+import samebutdifferent.ecologics.registry.ModSoundEvents;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -60,6 +64,7 @@ public class Penguin extends AnimalEntity implements IAnimatable {
     private static final TrackedData<Boolean> PREGNANT = DataTracker.registerData(Penguin.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final Ingredient FOOD_ITEMS = Ingredient.ofItems(Items.COD, Items.SALMON);
     private final AnimationFactory factory = new AnimationFactory(this);
+    private EntityType<? extends ItemEntity> level;
 
     public Penguin(EntityType<? extends AnimalEntity> type, World level) {
         super(type, level);
@@ -214,11 +219,12 @@ public class Penguin extends AnimalEntity implements IAnimatable {
     protected void onGrowUp() {
         super.onGrowUp();
         if (!this.isBaby() && this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
-            this.dropItem(Items.GRAY_WOOL, 1);
+            this.dropItem(ModItems.PENGUIN_FEATHER, 1);
         }
     }
 
-    @Override
+
+@Override
     public void tickMovement() {
         super.tickMovement();
         if (this.isPregnant()) {
@@ -239,6 +245,21 @@ public class Penguin extends AnimalEntity implements IAnimatable {
 
 
     // SOUNDS
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.PENGUIN_AMBIENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return ModSoundEvents.PENGUIN_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.PENGUIN_DEATH;
+    }
 
 
     // ANIMATION
@@ -273,6 +294,7 @@ public class Penguin extends AnimalEntity implements IAnimatable {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.idle", true));
         }
         return PlayState.CONTINUE;
+
     }
 
     @Override

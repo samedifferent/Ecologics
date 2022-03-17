@@ -59,6 +59,10 @@ public class ModBlocks {
     public static final StairsBlock SNOW_BRICK_STAIRS = registerBlock("snow_brick_stairs", () -> new StairsBlock(SNOW_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(SNOW_BRICKS)));
     public static final SlabBlock SNOW_BRICK_SLAB = registerBlock("snow_brick_slab", () -> new SlabBlock(AbstractBlock.Settings.copy(SNOW_BRICKS)));
     public static final WallBlock SNOW_BRICK_WALL = registerBlock("snow_brick_wall", () -> new WallBlock(AbstractBlock.Settings.copy(SNOW_BRICKS)));
+    public static final Block ICE_BRICKS = registerBlock("ice_bricks", () -> new Block(AbstractBlock.Settings.copy(Blocks.STONE_BRICKS)));
+    public static final StairsBlock ICE_BRICK_STAIRS = registerBlock("ice_brick_stairs", () -> new StairsBlock(ICE_BRICKS.getDefaultState(), AbstractBlock.Settings.copy(SNOW_BRICKS)));
+    public static final SlabBlock ICE_BRICK_SLAB = registerBlock("ice_brick_slab", () -> new SlabBlock(AbstractBlock.Settings.copy(ICE_BRICKS)));
+    public static final WallBlock ICE_BRICK_WALL = registerBlock("ice_brick_wall", () -> new WallBlock(AbstractBlock.Settings.copy(ICE_BRICKS)));
     public static final PricklyPearBlock PRICKLY_PEAR = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "prickly_pear"), new PricklyPearBlock());
     public static final PotBlock POT = registerBlock("pot", () -> new PotBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.ORANGE).requiresTool().strength(1.0F)));
 

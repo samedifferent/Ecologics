@@ -12,4 +12,7 @@ public class ModSoundEvents {
     public static final SoundEvent COCONUT_CRAB_HURT = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "coconut_crab_hurt"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.coconut_crab.hurt")));
     public static final SoundEvent MUSIC_DISC_COCONUT = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "music_disc_coconut"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "music_disc.coconut")));
     public static final SoundEvent THIN_ICE_CRACK = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "thin_ice_crack"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "block.thin_ice.crack")));
+    public static final SoundEvent PENGUIN_AMBIENT = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "penguin_ambient"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.penguin.ambient")));
+    public static final SoundEvent PENGUIN_DEATH = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "penguin_death"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.penguin.death")));
+    public static final SoundEvent PENGUIN_HURT = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "penguin_hurt"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.penguin.hurt")));
 }

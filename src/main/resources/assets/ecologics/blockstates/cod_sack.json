@@ -1,0 +1,55 @@
+{
+  "variants": {
+    "fish=0": {
+      "model": "ecologics:block/cod_sack_0"
+    },
+    "fish=1": {
+      "model": "ecologics:block/cod_sack_1"
+    },
+    "fish=2": {
+      "model": "ecologics:block/cod_sack_1"
+    },
+    "fish=3": {
+      "model": "ecologics:block/cod_sack_1"
+    },
+    "fish=4": {
+      "model": "ecologics:block/cod_sack_1"
+    },
+    "fish=5": {
+      "model": "ecologics:block/cod_sack_1"
+    },
+    "fish=6": {
+      "model": "ecologics:block/cod_sack_2"
+    },
+    "fish=7": {
+      "model": "ecologics:block/cod_sack_2"
+    },
+    "fish=8": {
+      "model": "ecologics:block/cod_sack_2"
+    },
+    "fish=9": {
+      "model": "ecologics:block/cod_sack_2"
+    },
+    "fish=10": {
+      "model": "ecologics:block/cod_sack_2"
+    },
+    "fish=11": {
+      "model": "ecologics:block/cod_sack_3"
+    },
+    "fish=12": {
+      "model": "ecologics:block/cod_sack_3"
+    },
+    "fish=13": {
+      "model": "ecologics:block/cod_sack_3"
+    },
+    "fish=14": {
+      "model": "ecologics:block/cod_sack_3"
+    },
+    "fish=15": {
+      "model": "ecologics:block/cod_sack_3"
+    },
+    "fish=16": {
+      "model": "ecologics:block/cod_sack_4"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "ecologics:snow_bricks"
+  },
+  "result": "ecologics:snow_brick_wall",
+  "count": 1
+}
