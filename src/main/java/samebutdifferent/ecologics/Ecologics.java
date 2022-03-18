@@ -10,7 +10,9 @@ import net.minecraft.block.ComposterBlock;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
+import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -62,7 +64,7 @@ public class Ecologics implements ModInitializer {
 
         LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
             if (LootTables.BURIED_TREASURE_CHEST.equals(id)) {
-
+                supplier.withPool(LootPool.builder().with(LootTableEntry.builder(new Identifier(Ecologics.MOD_ID, "modified/" + id.getPath()))).build());
             }
         });
 
