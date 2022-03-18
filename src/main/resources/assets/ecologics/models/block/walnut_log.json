@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "ecologics:block/walnut_log",
+    "end": "ecologics:block/walnut_log_top"
+  }
+}

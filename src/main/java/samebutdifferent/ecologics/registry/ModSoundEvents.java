@@ -15,4 +15,7 @@ public class ModSoundEvents {
     public static final SoundEvent PENGUIN_AMBIENT = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "penguin_ambient"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.penguin.ambient")));
     public static final SoundEvent PENGUIN_DEATH = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "penguin_death"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.penguin.death")));
     public static final SoundEvent PENGUIN_HURT = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "penguin_hurt"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.penguin.hurt")));
+    public static final SoundEvent SQUIRREL_AMBIENT = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "squirrel_ambient"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.squirrel.ambient")));
+    public static final SoundEvent SQUIRREL_DEATH = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "squirrel_death"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.squirrel.death")));
+    public static final SoundEvent SQUIRREL_HURT = Registry.register(Registry.SOUND_EVENT, new Identifier(Ecologics.MOD_ID, "squirrel_hurt"), new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.squirrel.hurt")));
 }

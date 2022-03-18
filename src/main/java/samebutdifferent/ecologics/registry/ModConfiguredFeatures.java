@@ -17,8 +17,10 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.PricklyPearBlock;
 import samebutdifferent.ecologics.block.SeashellBlock;
@@ -33,6 +35,7 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<DiskFeatureConfig, ?> THIN_ICE_PATCH = ModFeatures.THIN_ICE.configure(new DiskFeatureConfig(ModBlocks.THIN_ICE.getDefaultState(), UniformIntProvider.create(2, 3), 1, List.of(Blocks.ICE.getDefaultState())));
     public static final ConfiguredFeature<?, ?> PRICKLY_PEAR = Feature.SIMPLE_BLOCK.configure(new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.PRICKLY_PEAR.getDefaultState().with(PricklyPearBlock.AGE, 0), 2).add(ModBlocks.PRICKLY_PEAR.getDefaultState().with(PricklyPearBlock.AGE, 1), 2).add(ModBlocks.PRICKLY_PEAR.getDefaultState().with(PricklyPearBlock.AGE, 2), 1).add(ModBlocks.PRICKLY_PEAR.getDefaultState().with(PricklyPearBlock.AGE, 3), 1).build())));
     public static final ConfiguredFeature<DefaultFeatureConfig, ?> DESERT_RUIN = ModFeatures.DESERT_RUIN.configure(FeatureConfig.DEFAULT);
+    public static final ConfiguredFeature<TreeFeatureConfig, ?> WALNUT = Feature.TREE.configure(new TreeFeatureConfig.Builder(BlockStateProvider.of(ModBlocks.WALNUT_LOG), new GiantTrunkPlacer(3, 1, 0), BlockStateProvider.of(ModBlocks.WALNUT_LEAVES), new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 3), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
     public static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String pKey, ConfiguredFeature<FC, ?> pConfiguredFeature) {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Ecologics.MOD_ID, pKey), pConfiguredFeature);
@@ -44,5 +47,6 @@ public class ModConfiguredFeatures {
         registerConfiguredFeature("thin_ice_patch", THIN_ICE_PATCH);
         registerConfiguredFeature("prickly_pear", PRICKLY_PEAR);
         registerConfiguredFeature("desert_ruin", DESERT_RUIN);
+        registerConfiguredFeature("walnut", WALNUT);
     }
 }

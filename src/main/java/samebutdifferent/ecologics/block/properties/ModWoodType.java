@@ -7,4 +7,5 @@ import samebutdifferent.ecologics.mixin.SignTypeAccessor;
 
 public class ModWoodType {
     public static final SignType COCONUT = SignTypeAccessor.newSignType("coconut");
+    public static final SignType WALNUT = SignTypeAccessor.newSignType("walnut");
 }

@@ -13,10 +13,8 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.BoatEntityModel;
 import net.minecraft.item.BlockItem;
 import samebutdifferent.ecologics.client.model.CamelModel;
-import samebutdifferent.ecologics.client.renderer.entity.CamelRenderer;
-import samebutdifferent.ecologics.client.renderer.entity.CoconutCrabRenderer;
-import samebutdifferent.ecologics.client.renderer.entity.ModBoatRenderer;
-import samebutdifferent.ecologics.client.renderer.entity.PenguinRenderer;
+import samebutdifferent.ecologics.client.renderer.entity.*;
+import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 
@@ -29,6 +27,7 @@ public class EcologicsClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COCONUT_TRAPDOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SANDCASTLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COCONUT_LEAVES, RenderLayer.getCutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WALNUT_LEAVES, RenderLayer.getCutoutMipped());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.THIN_ICE, RenderLayer.getTranslucent());
 
         // Register sign types
@@ -36,6 +35,7 @@ public class EcologicsClient implements ClientModInitializer {
 
         // Register block colors
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
+        ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.WALNUT_LEAVES);
 
         // Register item colors
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
@@ -47,6 +47,7 @@ public class EcologicsClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntityTypes.COCONUT_CRAB, CoconutCrabRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.CAMEL, CamelRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.PENGUIN, PenguinRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.SQUIRREL, SquirrelRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.BOAT, ModBoatRenderer::new);
         // TODO: BlockEntityRendererRegistry.register(ModBlockEntityTypes.SIGN, SignBlockEntityRenderer::new);
 

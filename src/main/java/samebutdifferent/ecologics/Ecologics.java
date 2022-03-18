@@ -25,6 +25,7 @@ import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.Camel;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.mixin.SignTypeAccessor;
 import samebutdifferent.ecologics.registry.*;
 import software.bernie.geckolib3.GeckoLib;
@@ -36,6 +37,7 @@ public class Ecologics implements ModInitializer {
     public static final ItemGroup TAB = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "ecologics"))
             .icon(() -> new ItemStack(ModBlocks.COCONUT_LOG))
             .build();
+
 
     @Override
     public void onInitialize() {
@@ -58,9 +60,11 @@ public class Ecologics implements ModInitializer {
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModBlocks.COCONUT_HUSK.asItem(), 0.3F);
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModBlocks.COCONUT_LEAVES.asItem(), 0.3F);
 
+
         FabricDefaultAttributeRegistry.register(ModEntityTypes.COCONUT_CRAB, CoconutCrab.createAttributes());
         FabricDefaultAttributeRegistry.register(ModEntityTypes.CAMEL, Camel.createAttributes());
         FabricDefaultAttributeRegistry.register(ModEntityTypes.PENGUIN, Penguin.createAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntityTypes.SQUIRREL, Squirrel.createAttributes());
 
         LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
             if (LootTables.BURIED_TREASURE_CHEST.equals(id)) {
@@ -88,6 +92,6 @@ public class Ecologics implements ModInitializer {
         BiomeModifications.addSpawn(
                 (biomeSelector) -> biomeSelector.getBiome().getCategory().equals(Biome.Category.DESERT),
                 SpawnGroup.CREATURE,
-                ModEntityTypes.CAMEL, 1, 1, 1);
+                ModEntityTypes.CAMEL, 2, 1, 1);
     }
 }
