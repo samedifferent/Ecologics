@@ -12,6 +12,7 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,6 +49,9 @@ public class CommonEventHandler {
         if (event.getCategory().equals(Biome.BiomeCategory.DESERT)) {
             event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), 1, 1, 1));
             builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.PRICKLY_PEAR)).addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Holder.direct(ModPlacedFeatures.DESERT_RUIN));
+        }
+        if (event.getName().equals(Biomes.PLAINS.location())) {
+            event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), 10, 2, 3));
         }
     }
 
