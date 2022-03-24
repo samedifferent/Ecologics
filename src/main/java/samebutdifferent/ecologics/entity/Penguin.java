@@ -77,34 +77,6 @@ public class Penguin extends Animal implements IAnimatable {
     }
 
     @Override
-    public void baseTick() {
-        int airSupply = this.getAirSupply();
-        super.baseTick();
-        if (!this.isNoAi()) {
-            this.handleAirSupply(airSupply);
-        }
-
-    }
-
-    @Override
-    public int getMaxAirSupply() {
-        return 6000;
-    }
-
-    protected void handleAirSupply(int airSupply) {
-        if (this.isAlive() && !this.isInWaterRainOrBubble()) {
-            this.setAirSupply(airSupply - 1);
-            if (this.getAirSupply() == -20) {
-                this.setAirSupply(0);
-                this.hurt(DamageSource.DRY_OUT, 2.0F);
-            }
-        } else {
-            this.setAirSupply(this.getMaxAirSupply());
-        }
-
-    }
-
-    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
@@ -115,7 +87,7 @@ public class Penguin extends Animal implements IAnimatable {
         this.goalSelector.addGoal(6, new PenguinSearchForCodItemGoal(this));
         this.goalSelector.addGoal(7, new PenguinRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new PenguinRandomSwimmingGoal(this, 1.0D, 120));
-        this.goalSelector.addGoal(8, new PenguinFillSackGoal(this, 1.0F, 30, 20));
+        this.goalSelector.addGoal(8, new PenguinFillBarrelGoal(this, 1.0F, 30, 20));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, Cod.class, false));
@@ -418,11 +390,11 @@ public class Penguin extends Animal implements IAnimatable {
         }
     }
 
-    static class PenguinFillSackGoal extends MoveToBlockGoal {
+    static class PenguinFillBarrelGoal extends MoveToBlockGoal {
         private final Penguin penguin;
         private boolean reachedTarget;
 
-        public PenguinFillSackGoal(Penguin penguin, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
+        public PenguinFillBarrelGoal(Penguin penguin, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
             super(penguin, pSpeedModifier, pSearchRange, pVerticalSearchRange);
             this.penguin = penguin;
         }

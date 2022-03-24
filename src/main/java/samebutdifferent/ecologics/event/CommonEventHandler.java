@@ -12,6 +12,7 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,10 +38,10 @@ public class CommonEventHandler {
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
         ResourceLocation biomeName = event.getName();
         if (biomeName != null) {
-            if (biomeName.getPath().equals("beach")) {
+            if (biomeName.equals(Biomes.BEACH.location())) {
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.TREES_BEACH)).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.SEASHELL));
             }
-            if (biomeName.getPath().equals("frozen_river") || biomeName.getPath().equals("frozen_ocean") || biomeName.getPath().equals("snowy_plains")) {
+            if (biomeName.equals(Biomes.FROZEN_RIVER.location()) || biomeName.equals(Biomes.FROZEN_OCEAN.location()) || biomeName.equals(Biomes.SNOWY_PLAINS.location())) {
                 builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, Holder.direct(ModPlacedFeatures.THIN_ICE_PATCH));
                 event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), 2, 4, 7));
             }
