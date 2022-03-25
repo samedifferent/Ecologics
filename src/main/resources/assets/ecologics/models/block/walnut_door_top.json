@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top",
+  "textures": {
+    "bottom": "ecologics:block/walnut_door_bottom",
+    "top": "ecologics:block/walnut_door_top"
+  }
+}

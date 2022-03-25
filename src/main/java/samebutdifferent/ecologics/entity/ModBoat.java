@@ -63,8 +63,8 @@ public class ModBoat extends Boat {
     @Override
     public Item getDropItem() {
         switch(this.getWoodType()) {
-            case "coconut":
-                return ModItems.COCONUT_BOAT.get();
+            case "walnut":
+                return ModItems.WALNUT_BOAT.get();
             default:
                 return ModItems.COCONUT_BOAT.get();
         }

@@ -13,8 +13,10 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.PricklyPearBlock;
 import samebutdifferent.ecologics.block.SeashellBlock;
@@ -29,6 +31,7 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<DiskConfiguration, ?> THIN_ICE_PATCH = new ConfiguredFeature<>(ModFeatures.THIN_ICE.get(), new DiskConfiguration(ModBlocks.THIN_ICE.get().defaultBlockState(), UniformInt.of(2, 3), 1, List.of(Blocks.ICE.defaultBlockState())));
     public static final ConfiguredFeature<?, ?> PRICKLY_PEAR = new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 0), 2).add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 1), 2).add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 2), 1).add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 3), 1).build())));
     public static final ConfiguredFeature<NoneFeatureConfiguration, ?> DESERT_RUIN = new ConfiguredFeature<>(ModFeatures.DESERT_RUIN.get(), FeatureConfiguration.NONE);
+    public static final ConfiguredFeature<TreeConfiguration, ?> WALNUT = new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.WALNUT_LOG.get()), new StraightTrunkPlacer(3, 1, 1), BlockStateProvider.simple(ModBlocks.WALNUT_LEAVES.get()), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(3), 200), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
     public static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> registerConfiguredFeature(String pKey, ConfiguredFeature<FC, ?> pConfiguredFeature) {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Ecologics.MOD_ID, pKey), pConfiguredFeature);
@@ -40,5 +43,6 @@ public class ModConfiguredFeatures {
         registerConfiguredFeature("thin_ice_patch", THIN_ICE_PATCH);
         registerConfiguredFeature("prickly_pear", PRICKLY_PEAR);
         registerConfiguredFeature("desert_ruin", DESERT_RUIN);
+        registerConfiguredFeature("walnut", WALNUT);
     }
 }

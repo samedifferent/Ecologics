@@ -6,4 +6,5 @@ import samebutdifferent.ecologics.Ecologics;
 
 public class ModWoodType {
     public static final WoodType COCONUT = WoodType.create(new ResourceLocation(Ecologics.MOD_ID, "coconut").toString());
+    public static final WoodType WALNUT = WoodType.create(new ResourceLocation(Ecologics.MOD_ID, "walnut").toString());
 }

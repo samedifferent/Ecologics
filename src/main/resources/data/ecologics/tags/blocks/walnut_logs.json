@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "ecologics:walnut_log",
+    "ecologics:stripped_walnut_log",
+    "ecologics:walnut_wood",
+    "ecologics:stripped_walnut_wood"
+  ]
+}
