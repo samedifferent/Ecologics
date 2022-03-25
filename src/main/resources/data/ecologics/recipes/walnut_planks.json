@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "ecologics:walnut_logs"
+    }
+  ],
+  "result": {
+    "item": "ecologics:walnut_planks",
+    "count": 4
+  }
+}
