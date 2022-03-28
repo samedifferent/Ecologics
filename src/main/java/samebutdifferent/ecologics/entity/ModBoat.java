@@ -42,8 +42,9 @@ public class ModBoat extends Boat {
 
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        pCompound.putString("Type", this.getWoodType());
+        if (pCompound.contains("Type", 8)) {
+            this.setWoodType(pCompound.getString("Type"));
+        }
     }
 
     @Override
