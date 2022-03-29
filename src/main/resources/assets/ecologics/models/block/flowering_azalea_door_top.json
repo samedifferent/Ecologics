@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top",
+  "textures": {
+    "bottom": "ecologics:block/flowering_azalea_door_bottom",
+    "top": "ecologics:block/flowering_azalea_door_top"
+  }
+}

@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "ecologics:coconut_stairs",
-    "ecologics:walnut_stairs"
+    "ecologics:walnut_stairs",
+    "ecologics:azalea_stairs",
+    "ecologics:flowering_azalea_stairs"
   ]
 }

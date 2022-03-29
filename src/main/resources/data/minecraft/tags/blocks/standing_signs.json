@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "ecologics:coconut_sign",
-    "ecologics:walnut_sign"
+    "ecologics:walnut_sign",
+    "ecologics:azalea_sign",
+    "ecologics:flowering_azalea_sign"
   ]
 }

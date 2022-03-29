@@ -74,7 +74,37 @@ public class ModBlocks {
     public static final RegistryObject<ModStandingSignBlock> WALNUT_SIGN = BLOCKS.register("walnut_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.WALNUT));
     public static final RegistryObject<ModWallSignBlock> WALNUT_WALL_SIGN = BLOCKS.register("walnut_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(WALNUT_SIGN.get()), ModWoodType.WALNUT));
     public static final RegistryObject<SaplingBlock> WALNUT_SAPLING = registerBlock("walnut_sapling", () -> new SaplingBlock(new WalnutTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
-
+    public static final RegistryObject<AzaleaLogBlock> AZALEA_LOG = registerBlock("azalea_log", AzaleaLogBlock::new);
+    public static final RegistryObject<FloweringAzaleaLogBlock> FLOWERING_AZALEA_LOG = registerBlock("flowering_azalea_log", FloweringAzaleaLogBlock::new);
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_AZALEA_LOG = registerBlock("stripped_azalea_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> AZALEA_WOOD = registerBlock("azalea_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+    public static final RegistryObject<FloweringAzaleaLogBlock> FLOWERING_AZALEA_WOOD = registerBlock("flowering_azalea_wood", FloweringAzaleaLogBlock::new);
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_AZALEA_WOOD = registerBlock("stripped_azalea_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+    public static final RegistryObject<Block> AZALEA_PLANKS = registerBlock("azalea_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<Block> FLOWERING_AZALEA_PLANKS = registerBlock("flowering_azalea_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<SlabBlock> AZALEA_SLAB = registerBlock("azalea_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<SlabBlock> FLOWERING_AZALEA_SLAB = registerBlock("flowering_azalea_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<StairBlock> AZALEA_STAIRS = registerBlock("azalea_stairs", () -> new StairBlock(Blocks.OAK_PLANKS::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<StairBlock> FLOWERING_AZALEA_STAIRS = registerBlock("flowering_azalea_stairs", () -> new StairBlock(Blocks.OAK_PLANKS::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<FenceBlock> AZALEA_FENCE = registerBlock("azalea_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<FenceBlock> FLOWERING_AZALEA_FENCE = registerBlock("flowering_azalea_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<FenceGateBlock> AZALEA_FENCE_GATE = registerBlock("azalea_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<FenceGateBlock> FLOWERING_AZALEA_FENCE_GATE = registerBlock("flowering_azalea_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<DoorBlock> AZALEA_DOOR = registerBlock("azalea_door", () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR)));
+    public static final RegistryObject<DoorBlock> FLOWERING_AZALEA_DOOR = registerBlock("flowering_azalea_door", () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR)));
+    public static final RegistryObject<TrapDoorBlock> AZALEA_TRAPDOOR = registerBlock("azalea_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR)));
+    public static final RegistryObject<TrapDoorBlock> FLOWERING_AZALEA_TRAPDOOR = registerBlock("flowering_azalea_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR)));
+    public static final RegistryObject<WoodButtonBlock> AZALEA_BUTTON = registerBlock("azalea_button", () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
+    public static final RegistryObject<PressurePlateBlock> AZALEA_PRESSURE_PLATE = registerBlock("azalea_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
+    public static final RegistryObject<AzaleaFlowerBlock> AZALEA_FLOWER = registerBlock("azalea_flower", AzaleaFlowerBlock::new);
+    public static final RegistryObject<SurfaceMossBlock> MOSS = registerBlock("moss", SurfaceMossBlock::new);
+    public static final RegistryObject<MossLayerBlock> MOSS_LAYER = BLOCKS.register("moss_layer", MossLayerBlock::new);
+    public static final RegistryObject<FlowerPotBlock> POTTED_AZALEA_FLOWER = BLOCKS.register("potted_azalea_flower", () -> new FlowerPotBlock(ModBlocks.AZALEA_FLOWER.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
+    public static final RegistryObject<ModStandingSignBlock> AZALEA_SIGN = BLOCKS.register("azalea_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.AZALEA));
+    public static final RegistryObject<ModWallSignBlock> AZALEA_WALL_SIGN = BLOCKS.register("azalea_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(AZALEA_SIGN.get()), ModWoodType.AZALEA));
+    public static final RegistryObject<ModStandingSignBlock> FLOWERING_AZALEA_SIGN = BLOCKS.register("flowering_azalea_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.FLOWERING_AZALEA));
+    public static final RegistryObject<ModWallSignBlock> FLOWERING_AZALEA_WALL_SIGN = BLOCKS.register("flowering_azalea_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FLOWERING_AZALEA_SIGN.get()), ModWoodType.FLOWERING_AZALEA));
+    
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(Ecologics.TAB)));

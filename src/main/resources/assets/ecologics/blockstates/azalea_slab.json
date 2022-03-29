@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "ecologics:block/azalea_slab_top"
+    },
+    "type=bottom": {
+      "model": "ecologics:block/azalea_slab"
+    },
+    "type=double": {
+      "model": "ecologics:block/azalea_planks"
+    }
+  }
+}

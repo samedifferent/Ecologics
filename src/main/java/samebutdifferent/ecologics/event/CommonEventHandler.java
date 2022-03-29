@@ -1,13 +1,17 @@
 package samebutdifferent.ecologics.event;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -18,14 +22,18 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
+import samebutdifferent.ecologics.block.grower.ModAzaleaTreeGrower;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModPlacedFeatures;
@@ -74,19 +82,47 @@ public class CommonEventHandler {
     public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
         Level level = event.getWorld();
         Player player = event.getPlayer();
-        BlockState state = level.getBlockState(event.getPos());
+        BlockPos pos = event.getPos();
+        BlockState state = level.getBlockState(pos);
+        InteractionHand hand = event.getHand();
         if (state.is(ModBlocks.POT.get()) && player.isCrouching()) {
-            if (player.getMainHandItem().getItem() instanceof PickaxeItem && event.getHand().equals(InteractionHand.MAIN_HAND)){
-                level.setBlockAndUpdate(event.getPos(), state.cycle(PotBlock.CHISEL));
-                level.playSound(null, event.getPos(), SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+            if (player.getMainHandItem().getItem() instanceof PickaxeItem && hand.equals(InteractionHand.MAIN_HAND)){
+                level.setBlockAndUpdate(pos, state.cycle(PotBlock.CHISEL));
+                level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
                 player.swing(InteractionHand.MAIN_HAND);
                 player.getMainHandItem().hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(InteractionHand.MAIN_HAND));
             }
-            if (player.getOffhandItem().getItem() instanceof PickaxeItem && !(player.getMainHandItem().getItem() instanceof PickaxeItem) && event.getHand().equals(InteractionHand.OFF_HAND)){
-                level.setBlockAndUpdate(event.getPos(), state.cycle(PotBlock.CHISEL));
-                level.playSound(null, event.getPos(), SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
+            if (player.getOffhandItem().getItem() instanceof PickaxeItem && !(player.getMainHandItem().getItem() instanceof PickaxeItem) && hand.equals(InteractionHand.OFF_HAND)){
+                level.setBlockAndUpdate(pos, state.cycle(PotBlock.CHISEL));
+                level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
                 player.swing(InteractionHand.OFF_HAND);
                 player.getOffhandItem().hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+            }
+        }
+        if (!event.getWorld().isClientSide) {
+            ItemStack stack = event.getItemStack();
+            Direction direction = event.getHitVec().getDirection().getAxis() == Direction.Axis.Y ? event.getHitVec().getDirection().getOpposite() : event.getHitVec().getDirection();
+            if (stack.is(Items.SHEARS)) {
+                if (state.is(Blocks.FLOWERING_AZALEA)) {
+                    FloweringAzaleaLogBlock.shearAzalea(level, player, pos, stack, hand, direction, Blocks.AZALEA.defaultBlockState());
+                    player.swing(hand, true);
+                }
+                if (state.is(Blocks.FLOWERING_AZALEA_LEAVES)) {
+                    FloweringAzaleaLogBlock.shearAzalea(level, player, pos, stack, hand, direction, Blocks.AZALEA_LEAVES.defaultBlockState());
+                    player.swing(hand, true);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBoneMeal(BonemealEvent event) {
+        if (!event.getWorld().isClientSide) {
+            if (event.getBlock().getBlock() == Blocks.AZALEA || event.getBlock().getBlock() == Blocks.FLOWERING_AZALEA) {
+                event.setResult(Event.Result.ALLOW);
+                ServerLevel world = (ServerLevel) event.getWorld();
+                ModAzaleaTreeGrower tree = new ModAzaleaTreeGrower();
+                tree.growTree(world, world.getChunkSource().getGenerator(), event.getPos(), event.getBlock(), world.random);
             }
         }
     }

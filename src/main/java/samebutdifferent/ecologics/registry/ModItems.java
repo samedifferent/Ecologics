@@ -34,4 +34,8 @@ public class ModItems {
     public static final RegistryObject<Item> WALNUT_SIGN = ITEMS.register("walnut_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(Ecologics.TAB), ModBlocks.WALNUT_SIGN.get(), ModBlocks.WALNUT_WALL_SIGN.get()));
     public static final RegistryObject<Item> WALNUT_BOAT = ITEMS.register("walnut_boat", () -> new ModBoatItem("walnut", new Item.Properties().stacksTo(1).tab(Ecologics.TAB)));
     public static final RegistryObject<Item> WALNUT = ITEMS.register("walnut", () -> new Item(new Item.Properties().tab(Ecologics.TAB).food(new FoodProperties.Builder().nutrition(3).saturationMod(0.6F).fast().build())));
+    public static final RegistryObject<SignItem> AZALEA_SIGN = ITEMS.register("azalea_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), ModBlocks.AZALEA_SIGN.get(), ModBlocks.AZALEA_WALL_SIGN.get()));
+    public static final RegistryObject<SignItem> FLOWERING_AZALEA_SIGN = ITEMS.register("flowering_azalea_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), ModBlocks.FLOWERING_AZALEA_SIGN.get(), ModBlocks.FLOWERING_AZALEA_WALL_SIGN.get()));
+    public static final RegistryObject<Item> AZALEA_BOAT = ITEMS.register("azalea_boat", () -> new ModBoatItem("azalea", new Item.Properties().stacksTo(1).tab(Ecologics.TAB)));
+    public static final RegistryObject<Item> FLOWERING_AZALEA_BOAT = ITEMS.register("flowering_azalea_boat", () -> new ModBoatItem("flowering_azalea", new Item.Properties().stacksTo(1).tab(Ecologics.TAB)));
 }

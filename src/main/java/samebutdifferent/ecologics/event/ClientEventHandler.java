@@ -36,9 +36,18 @@ public class ClientEventHandler {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.THIN_ICE.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.WALNUT_SAPLING.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.WALNUT_DOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.AZALEA_FLOWER.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.AZALEA_DOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLOWERING_AZALEA_DOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.AZALEA_TRAPDOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLOWERING_AZALEA_TRAPDOOR.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_AZALEA_FLOWER.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.MOSS.get(), RenderType.cutoutMipped());
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.COCONUT);
             Sheets.addWoodType(ModWoodType.WALNUT);
+            Sheets.addWoodType(ModWoodType.AZALEA);
+            Sheets.addWoodType(ModWoodType.FLOWERING_AZALEA);
         });
     }
 
@@ -70,5 +79,7 @@ public class ClientEventHandler {
         event.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
         event.registerLayerDefinition(ModBoatRenderer.COCONUT_LAYER_LOCATION, BoatModel::createBodyModel);
         event.registerLayerDefinition(ModBoatRenderer.WALNUT_LAYER_LOCATION, BoatModel::createBodyModel);
+        event.registerLayerDefinition(ModBoatRenderer.AZALEA_LAYER_LOCATION, BoatModel::createBodyModel);
+        event.registerLayerDefinition(ModBoatRenderer.FLOWERING_AZALEA_LAYER_LOCATION, BoatModel::createBodyModel);
     }
 }

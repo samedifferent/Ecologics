@@ -36,6 +36,8 @@ public class ModEventHandler {
         event.enqueueWork(() -> {
             WoodType.register(ModWoodType.COCONUT);
             WoodType.register(ModWoodType.WALNUT);
+            WoodType.register(ModWoodType.AZALEA);
+            WoodType.register(ModWoodType.FLOWERING_AZALEA);
             ModTrunkPlacerTypes.register();
             ModConfiguredFeatures.register();
             ModPlacedFeatures.register();
@@ -44,7 +46,11 @@ public class ModEventHandler {
         });
         AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                 .put(ModBlocks.COCONUT_LOG.get(), ModBlocks.STRIPPED_COCONUT_LOG.get())
-                .put(ModBlocks.COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_WOOD.get()).build();
+                .put(ModBlocks.COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_WOOD.get())
+                .put(ModBlocks.AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
+                .put(ModBlocks.FLOWERING_AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
+                .put(ModBlocks.FLOWERING_AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get())
+                .put(ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get()).build();
         ComposterBlock.COMPOSTABLES.put(ModItems.COCONUT_SLICE.get(), 0.3F);
         ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_HUSK.get().asItem(), 0.3F);
         ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_LEAVES.get().asItem(), 0.3F);

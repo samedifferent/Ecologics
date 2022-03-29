@@ -5,6 +5,7 @@
   "refmap": "ecologics.refmap.json",
   "minVersion": "0.8.5",
   "mixins": [
+    "MixinCarpetBlock",
     "MixinLivingEntity"
   ]
 }
