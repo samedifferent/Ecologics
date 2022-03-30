@@ -1,14 +1,18 @@
 package samebutdifferent.ecologics.registry;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
@@ -21,6 +25,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.PricklyPearBlock;
 import samebutdifferent.ecologics.block.SeashellBlock;
+import samebutdifferent.ecologics.worldgen.feature.configurations.MossPatchFeatureConfiguration;
 import samebutdifferent.ecologics.worldgen.feature.foliageplacers.CoconutFoliagePlacer;
 import samebutdifferent.ecologics.worldgen.feature.trunkplacers.SlantedTrunkPlacer;
 
@@ -33,7 +38,9 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> PRICKLY_PEAR = new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 0), 2).add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 1), 2).add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 2), 1).add(ModBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(PricklyPearBlock.AGE, 3), 1).build())));
     public static final ConfiguredFeature<NoneFeatureConfiguration, ?> DESERT_RUIN = new ConfiguredFeature<>(ModFeatures.DESERT_RUIN.get(), FeatureConfiguration.NONE);
     public static final ConfiguredFeature<TreeConfiguration, ?> WALNUT = new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.WALNUT_LOG.get()), new StraightTrunkPlacer(3, 1, 1), BlockStateProvider.simple(ModBlocks.WALNUT_LEAVES.get()), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(3), 200), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
-    public static final ConfiguredFeature<TreeConfiguration, ?> AZALEA = new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(ModBlocks.AZALEA_LOG.get().defaultBlockState(), 2).add(ModBlocks.FLOWERING_AZALEA_LOG.get().defaultBlockState(), 1).build()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1).build()), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1)).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT.defaultBlockState())).forceDirt().build());
+    public static final ConfiguredFeature<TreeConfiguration, ?> AZALEA_TREE = new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(ModBlocks.AZALEA_LOG.get().defaultBlockState(), 2).add(ModBlocks.FLOWERING_AZALEA_LOG.get().defaultBlockState(), 1).build()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1).build()), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1)).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT.defaultBlockState())).forceDirt().build());
+    public static final ConfiguredFeature<RootSystemConfiguration, ?> ROOTED_AZALEA_TREE = new ConfiguredFeature<>(Feature.ROOT_SYSTEM, new RootSystemConfiguration(PlacementUtils.inlinePlaced(Holder.direct(ModConfiguredFeatures.AZALEA_TREE)), 3, 3, BlockTags.AZALEA_ROOT_REPLACEABLE, BlockStateProvider.simple(Blocks.ROOTED_DIRT), 20, 100, 3, 2, BlockStateProvider.simple(Blocks.HANGING_ROOTS), 20, 2, BlockPredicate.allOf(BlockPredicate.anyOf(BlockPredicate.matchesBlocks(List.of(Blocks.AIR, Blocks.CAVE_AIR, Blocks.VOID_AIR, Blocks.WATER)), BlockPredicate.matchesTag(BlockTags.LEAVES), BlockPredicate.matchesTag(BlockTags.REPLACEABLE_PLANTS)), BlockPredicate.matchesTag(BlockTags.AZALEA_GROWS_ON, Direction.DOWN.getNormal()))));
+    public static final ConfiguredFeature<MossPatchFeatureConfiguration, ?> SURFACE_MOSS_PATCH = new ConfiguredFeature<>(ModFeatures.SURFACE_MOSS_PATCH.get(), new MossPatchFeatureConfiguration(96, 7, 3, true,true,true, List.of(Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE)));
 
     public static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> registerConfiguredFeature(String pKey, ConfiguredFeature<FC, ?> pConfiguredFeature) {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Ecologics.MOD_ID, pKey), pConfiguredFeature);
@@ -46,6 +53,8 @@ public class ModConfiguredFeatures {
         registerConfiguredFeature("prickly_pear", PRICKLY_PEAR);
         registerConfiguredFeature("desert_ruin", DESERT_RUIN);
         registerConfiguredFeature("walnut", WALNUT);
-        registerConfiguredFeature("azalea", AZALEA);
+        registerConfiguredFeature("azalea_tree", AZALEA_TREE);
+        registerConfiguredFeature("rooted_azalea_tree", ROOTED_AZALEA_TREE);
+        registerConfiguredFeature("surface_moss_patch", SURFACE_MOSS_PATCH);
     }
 }
