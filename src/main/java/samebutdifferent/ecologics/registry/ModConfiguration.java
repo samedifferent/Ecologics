@@ -57,7 +57,7 @@ public class ModConfiguration {
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Lush Caves Update").push(CATEGORY_LUSH_CAVES);
-        REPLACE_AZALEA_TREE = COMMON_BUILDER.comment("Replace the oak logs in vanilla azalea trees with azalea logs").define("replaceAzaleaTree", true);
+        REPLACE_AZALEA_TREE = COMMON_BUILDER.comment("Azalea trees generated from bonemealing azalea bushes will have azalea logs instead of oak logs").define("replaceAzaleaTree", true);
         GENERATE_SURFACE_MOSS = COMMON_BUILDER.comment("Generate surface moss in lush cave biomes").define("generateSurfaceMoss", true);
         COMMON_BUILDER.pop();
 

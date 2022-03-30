@@ -31,6 +31,7 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModConfiguration;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModPlacedFeatures;
 
@@ -43,22 +44,24 @@ public class CommonEventHandler {
         ResourceLocation biomeName = event.getName();
         if (biomeName != null) {
             if (biomeName.equals(Biomes.BEACH.location())) {
-                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.TREES_BEACH)).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.SEASHELL));
+                if (ModConfiguration.GENERATE_COCONUT_TREES.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.TREES_BEACH));
+                if (ModConfiguration.GENERATE_SEASHELLS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.SEASHELL));
             }
             if (biomeName.equals(Biomes.FROZEN_RIVER.location()) || biomeName.equals(Biomes.FROZEN_OCEAN.location()) || biomeName.equals(Biomes.SNOWY_PLAINS.location())) {
-                builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, Holder.direct(ModPlacedFeatures.THIN_ICE_PATCH));
-                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), 2, 4, 7));
+                if (ModConfiguration.GENERATE_THIN_ICE_PATCHES.get()) builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, Holder.direct(ModPlacedFeatures.THIN_ICE_PATCH));
+                if (ModConfiguration.SPAWN_PENGUINS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), 2, 4, 7));
             }
             if (biomeName.equals(Biomes.LUSH_CAVES.location())) {
-                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.SURFACE_MOSS_PATCH));
+                if (ModConfiguration.GENERATE_SURFACE_MOSS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.SURFACE_MOSS_PATCH));
             }
         }
         if (event.getCategory().equals(Biome.BiomeCategory.DESERT)) {
-            event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), 1, 1, 1));
-            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.PRICKLY_PEAR)).addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Holder.direct(ModPlacedFeatures.DESERT_RUIN));
+            if (ModConfiguration.SPAWN_CAMELS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), 1, 1, 1));
+            if (ModConfiguration.GENERATE_PRICKLY_PEARS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.PRICKLY_PEAR));
+            if (ModConfiguration.GENERATE_DESERT_RUINS.get()) builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Holder.direct(ModPlacedFeatures.DESERT_RUIN));
         }
         if (event.getName().equals(Biomes.PLAINS.location())) {
-            event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), 10, 2, 3));
+            if (ModConfiguration.SPAWN_SQUIRRELS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), 10, 2, 3));
         }
     }
 
@@ -69,7 +72,7 @@ public class CommonEventHandler {
         BlockState state = event.getState();
         if (state.is(Blocks.CACTUS)) {
             if (level.getBlockState(pos.above()).is(Blocks.CACTUS) && level.getBlockState(pos.below()).is(Blocks.CACTUS)) {
-                if (level.isEmptyBlock(pos.above(2))) {
+                if (level.isEmptyBlock(pos.above(2)) && level.getRandom().nextFloat() <= ModConfiguration.PRICKLY_PEAR_GROWTH_CHANCE.get()) {
                     level.setBlock(pos.above(2), ModBlocks.PRICKLY_PEAR.get().defaultBlockState(), 2);
                     level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
