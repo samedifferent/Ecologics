@@ -66,6 +66,10 @@ public class ModBoat extends Boat {
         switch(this.getWoodType()) {
             case "walnut":
                 return ModItems.WALNUT_BOAT.get();
+            case "azalea":
+                return ModItems.AZALEA_BOAT.get();
+            case "flowering_azalea":
+                return ModItems.FLOWERING_AZALEA_BOAT.get();
             default:
                 return ModItems.COCONUT_BOAT.get();
         }
