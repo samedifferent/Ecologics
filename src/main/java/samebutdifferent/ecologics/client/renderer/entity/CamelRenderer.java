@@ -14,7 +14,7 @@ import samebutdifferent.ecologics.entity.Camel;
 @Environment(EnvType.CLIENT)
 public class CamelRenderer extends MobEntityRenderer<Camel, CamelModel<Camel>> {
     public CamelRenderer(EntityRendererFactory.Context context) {
-        super(context, new CamelModel<>(context.getPart(CamelModel.LAYER_LOCATION)), 0.3F);
+        super(context, new CamelModel<>(context.getPart(CamelModel.LAYER_LOCATION)), 0.7F);
     }
 
     @Override

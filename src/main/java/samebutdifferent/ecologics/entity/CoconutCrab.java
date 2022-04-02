@@ -85,7 +85,7 @@ public class CoconutCrab extends AnimalEntity implements IAnimatable, Angerable 
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 20.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D);
-                //TODO: .add(ForgeMod.REACH_DISTANCE.get(), 3);
+                // TODO: .add(ForgeMod.REACH_DISTANCE.get(), 3);
     }
 
     @Override
@@ -166,7 +166,7 @@ public class CoconutCrab extends AnimalEntity implements IAnimatable, Angerable 
     }
 
     protected void playCoconutSmashSound() {
-        this.playSound(ModSoundEvents.COCONUT_SMASH, 0.5F, 1.0F);
+        this.playSound(ModSoundEvents.COCONUT_SMASH, 0.2F, 1.0F);
     }
 
     private static  <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {

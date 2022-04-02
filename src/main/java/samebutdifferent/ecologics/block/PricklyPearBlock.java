@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 
 public class PricklyPearBlock extends CropBlock {
     public static final IntProperty AGE = Properties.AGE_3;
@@ -70,5 +71,11 @@ public class PricklyPearBlock extends CropBlock {
     @Override
     protected boolean canPlantOnTop(BlockState pState, BlockView pLevel, BlockPos pPos) {
         return pState.isOf(Blocks.CACTUS);
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState pState, WorldView pLevel, BlockPos pPos) {
+        BlockPos belowPos = pPos.down();
+        return this.canPlantOnTop(pLevel.getBlockState(belowPos), pLevel, belowPos);
     }
 }

@@ -2,11 +2,9 @@ package samebutdifferent.ecologics.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Shearable;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
@@ -22,7 +20,7 @@ import net.minecraft.world.WorldAccess;
 
 import java.util.Random;
 
-public class CoconutLeavesBlock extends Block implements Shearable {
+public class CoconutLeavesBlock extends Block {
     public static final BooleanProperty PERSISTENT = Properties.PERSISTENT;
     public static final IntProperty DISTANCE = IntProperty.of("distance", 1, 9);
 
@@ -117,15 +115,5 @@ public class CoconutLeavesBlock extends Block implements Shearable {
     @Override
     public BlockState getPlacementState(ItemPlacementContext pContext) {
         return updateDistance(this.getDefaultState().with(PERSISTENT, true), pContext.getWorld(), pContext.getBlockPos());
-    }
-
-    @Override
-    public void sheared(SoundCategory shearedSoundCategory) {
-        // TODO: WTF IS SUPPOSED TO GO HERE???
-    }
-
-    @Override
-    public boolean isShearable() {
-        return true;
     }
 }

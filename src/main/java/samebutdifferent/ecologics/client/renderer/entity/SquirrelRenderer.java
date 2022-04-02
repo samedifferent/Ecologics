@@ -1,15 +1,11 @@
 package samebutdifferent.ecologics.client.renderer.entity;
 
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import samebutdifferent.ecologics.client.model.CoconutCrabModel;
 import samebutdifferent.ecologics.client.model.SquirrelModel;
-import samebutdifferent.ecologics.entity.Camel;
-import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Squirrel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
@@ -22,10 +18,10 @@ public class SquirrelRenderer extends GeoEntityRenderer<Squirrel> {
     }
 
     @Override
-    public void render(Squirrel pEntity, float pEntityYaw, float pPartialTicks, MatrixStack pMatrixStack, VertexConsumerProvider pBuffer, int pPackedLight) {
-        if (pEntity.isBaby()) {
-            pMatrixStack.scale(0.6F, 0.6F, 0.6F);
+    public void render(Squirrel entity, float entityYaw, float partialTicks, MatrixStack stack, VertexConsumerProvider bufferIn, int packedLightIn) {
+        if (entity.isBaby()) {
+            stack.scale(0.6F, 0.6F, 0.6F);
         }
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
+        super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
     }
 }

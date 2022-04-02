@@ -76,7 +76,8 @@ public class CamelModel<T extends AbstractDonkeyEntity> extends EntityModel<T> {
         boolean showChest = !pEntity.isBaby() && pEntity.hasChest();
         this.rightChest.visible = showChest;
         this.leftChest.visible = showChest;
-        this.saddle.visible = pEntity.isSaddled();
+        boolean showSaddle = pEntity.isSaddled();
+        this.saddle.visible = showSaddle;
     }
 
     @Override

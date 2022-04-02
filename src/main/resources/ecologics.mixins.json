@@ -1,15 +1,12 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "samebutdifferent.ecologics.mixin",
   "compatibilityLevel": "JAVA_17",
+  "refmap": "ecologics-refmap.json",
+  "minVersion": "0.8.5",
   "mixins": [
-    "BlockEntityTypeMixin",
-    "SignTypeAccessor"
-  ],
-  "client": [
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "MixinCropBlock",
+    "MixinLivingEntity",
+    "MixinSignType"
+  ]
 }

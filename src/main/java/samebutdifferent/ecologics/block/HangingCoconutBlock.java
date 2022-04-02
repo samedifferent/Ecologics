@@ -72,6 +72,7 @@ public class HangingCoconutBlock extends FallingBlock implements Fertilizable {
                 FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, (double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, pLevel.getBlockState(pPos));
                 this.configureFallingBlockEntity(fallingblockentity);
                 pLevel.spawnEntity(fallingblockentity);
+                pLevel.removeBlock(pPos, false);
             }
         }
     }
@@ -144,12 +145,13 @@ public class HangingCoconutBlock extends FallingBlock implements Fertilizable {
             FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, (double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, pLevel.getBlockState(pPos));
             this.configureFallingBlockEntity(fallingblockentity);
             pLevel.spawnEntity(fallingblockentity);
+            pLevel.removeBlock(pPos, false);
         }
     }
 
     @Override
     public void onDestroyedOnLanding(World pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
-        pLevel.playSound(null, pPos, ModSoundEvents.COCONUT_SMASH, SoundCategory.BLOCKS, 0.5F, 1.0F);
+        pLevel.playSound(null, pPos, ModSoundEvents.COCONUT_SMASH, SoundCategory.BLOCKS, 0.2F, 1.0F);
         if (pLevel.random.nextInt(5) == 0) {
             CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.create(pLevel);
             if (coconutCrab != null) {

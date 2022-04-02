@@ -42,6 +42,24 @@
     ],
     "subtitle": "ecologics.subtitles.entity.penguin.hurt"
   },
+  "entity.squirrel.ambient": {
+    "sounds": [
+      "ecologics:squirrel_ambient"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.ambient"
+  },
+  "entity.squirrel.death": {
+    "sounds": [
+      "ecologics:squirrel_death"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.death"
+  },
+  "entity.squirrel.hurt": {
+    "sounds": [
+      "ecologics:squirrel_hurt"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.hurt"
+  },
   "music_disc.coconut": {
     "sounds": [
       "ecologics:music_disc_coconut"
@@ -56,24 +74,5 @@
       "minecraft:mob/turtle/egg/egg_crack5"
     ],
     "subtitle": "ecologics.subtitles.block.thin_ice.crack"
-  },"entity.squirrel.ambient": {
-  "sounds": [
-    "ecologics:squirrel_ambient"
-
-  ],
-  "subtitle": "ecologics.subtitles.entity.squirrel.ambient"
-},
-  "entity.squirrel.death": {
-    "sounds": [
-      "ecologics:squirrel_death"
-    ],
-    "subtitle": "ecologics.subtitles.entity.squirrel.death"
-  },
-  "entity.squirrel.hurt": {
-    "sounds": [
-      "ecologics:squirrel_hurt"
-    ],
-    "subtitle": "ecologics.subtitles.entity.squirrel.hurt"
-
   }
 }

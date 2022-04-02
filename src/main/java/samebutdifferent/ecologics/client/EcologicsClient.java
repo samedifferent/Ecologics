@@ -1,0 +1,72 @@
+package samebutdifferent.ecologics.client;
+
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.color.world.FoliageColors;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
+import net.minecraft.client.render.entity.model.BoatEntityModel;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.item.BlockItem;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.SignType;
+import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.block.properties.ModWoodType;
+import samebutdifferent.ecologics.client.model.CamelModel;
+import samebutdifferent.ecologics.client.renderer.block.ModSignBlockEntityRenderer;
+import samebutdifferent.ecologics.client.renderer.entity.*;
+import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
+import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModEntityTypes;
+
+public class EcologicsClient implements ClientModInitializer {
+    /**
+     * Runs the mod initializer on the client environment.
+     */
+    @Override
+    public void onInitializeClient() {
+        // Block render layers
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COCONUT_HUSK, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COCONUT_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COCONUT_TRAPDOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SANDCASTLE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COCONUT_LEAVES, RenderLayer.getCutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.THIN_ICE, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WALNUT_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WALNUT_DOOR, RenderLayer.getCutout());
+
+        createSignTextureId(ModWoodType.COCONUT);
+        createSignTextureId(ModWoodType.WALNUT);
+
+        // Entity renderers
+        EntityRendererRegistry.register(ModEntityTypes.COCONUT_CRAB, CoconutCrabRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.CAMEL, CamelRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.PENGUIN, PenguinRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.BOAT, ModBoatRenderer::new);
+        BlockEntityRendererRegistry.register(ModBlockEntityTypes.SIGN, ModSignBlockEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.SQUIRREL, SquirrelRenderer::new);
+
+        // Render layer definitions
+        EntityModelLayerRegistry.registerModelLayer(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(ModBoatRenderer.COCONUT_LAYER_LOCATION, BoatEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModBoatRenderer.WALNUT_LAYER_LOCATION, BoatEntityModel::getTexturedModelData);
+
+        // Register block/item colors
+        ColorProviderRegistry.BLOCK.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ? BiomeColors.getFoliageColor(pLevel, pPos) : FoliageColors.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
+        ColorProviderRegistry.ITEM.register((pStack, pTintIndex) -> {
+            BlockState blockstate = ((BlockItem)pStack.getItem()).getBlock().getDefaultState();
+            return ColorProviderRegistry.BLOCK.get(blockstate.getBlock()).getColor(blockstate, null, null, pTintIndex);
+        }, ModBlocks.COCONUT_LEAVES);
+    }
+
+    private static SpriteIdentifier createSignTextureId(SignType type) {
+        return new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, new Identifier(Ecologics.MOD_ID, "entity/signs/" + type.getName()));
+    }
+}

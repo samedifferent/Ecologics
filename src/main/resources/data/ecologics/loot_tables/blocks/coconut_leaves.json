@@ -15,8 +15,12 @@
                   "condition": "minecraft:alternative",
                   "terms": [
                     {
-                      "condition": "forge:can_tool_perform_action",
-                      "action": "shears_dig"
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "items": [
+                          "minecraft:shears"
+                        ]
+                      }
                     },
                     {
                       "condition": "minecraft:match_tool",
@@ -103,8 +107,12 @@
             "condition": "minecraft:alternative",
             "terms": [
               {
-                "condition": "forge:can_tool_perform_action",
-                "action": "shears_dig"
+                "condition": "minecraft:match_tool",
+                "predicate": {
+                  "items": [
+                    "minecraft:shears"
+                  ]
+                }
               },
               {
                 "condition": "minecraft:match_tool",

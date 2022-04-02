@@ -112,6 +112,7 @@ public class SandcastleBlock extends HorizontalFacingBlock {
         return pState.get(EGGS_INSIDE) > 0;
     }
 
+    @Override
     public void randomTick(BlockState pState, ServerWorld pLevel, BlockPos pPos, Random pRandom) {
         if (this.shouldUpdateHatchLevel(pLevel)) {
             int hatch = pState.get(HATCH);

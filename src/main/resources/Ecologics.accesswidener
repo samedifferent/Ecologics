@@ -1,7 +1,5 @@
 accessWidener   v1  named
 accessible method net/minecraft/world/gen/trunk/TrunkPlacerType <init> (Lcom/mojang/serialization/Codec;)V
-mutable field net/minecraft/item/AxeItem STRIPPED_BLOCKS Ljava/util/Map;
-accessible field net/minecraft/item/AxeItem STRIPPED_BLOCKS Ljava/util/Map;
 accessible method net/minecraft/block/StairsBlock <init> (Lnet/minecraft/block/BlockState;Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/TrapdoorBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
 accessible method net/minecraft/block/WoodenButtonBlock <init> (Lnet/minecraft/block/AbstractBlock$Settings;)V
@@ -11,3 +9,8 @@ accessible method net/minecraft/item/MusicDiscItem <init> (ILnet/minecraft/sound
 accessible method net/minecraft/entity/damage/DamageSource <init> (Ljava/lang/String;)V
 accessible method net/minecraft/entity/damage/DamageSource setFallingBlock ()Lnet/minecraft/entity/damage/DamageSource;
 accessible method net/minecraft/world/gen/foliage/FoliagePlacerType <init> (Lcom/mojang/serialization/Codec;)V
+accessible method net/minecraft/entity/FallingBlockEntity <init> (Lnet/minecraft/world/World;DDDLnet/minecraft/block/BlockState;)V
+accessible method net/minecraft/tag/BlockTags register (Ljava/lang/String;)Lnet/minecraft/tag/TagKey;
+accessible method net/minecraft/tag/ItemTags register (Ljava/lang/String;)Lnet/minecraft/tag/TagKey;
+accessible method net/minecraft/recipe/BrewingRecipeRegistry registerPotionRecipe (Lnet/minecraft/potion/Potion;Lnet/minecraft/item/Item;Lnet/minecraft/potion/Potion;)V
+accessible method net/minecraft/entity/SpawnRestriction register (Lnet/minecraft/entity/EntityType;Lnet/minecraft/entity/SpawnRestriction$Location;Lnet/minecraft/world/Heightmap$Type;Lnet/minecraft/entity/SpawnRestriction$SpawnPredicate;)V

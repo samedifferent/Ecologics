@@ -1,9 +1,15 @@
 package samebutdifferent.ecologics.entity;
 
+import org.jetbrains.annotations.Nullable;
+import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
+
+import java.util.Random;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -17,15 +23,14 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
-import samebutdifferent.ecologics.registry.ModEntityTypes;
-import samebutdifferent.ecologics.registry.ModItems;
 
 public class Camel extends AbstractDonkeyEntity {
     public Camel(EntityType<? extends AbstractDonkeyEntity> type, World level) {
@@ -33,6 +38,10 @@ public class Camel extends AbstractDonkeyEntity {
     }
 
     // ATTRIBUTES & BREEDING
+
+    public static boolean checkCamelSpawnRules(EntityType<Camel> type, WorldAccess level, SpawnReason spawnType, BlockPos pos, Random random) {
+        return level.getBlockState(pos.down()).isIn(BlockTags.SAND) && isLightLevelValidForNaturalSpawn(level, pos);
+    }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return createAbstractDonkeyAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2F);

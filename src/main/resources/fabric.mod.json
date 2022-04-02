@@ -26,7 +26,7 @@
       "samebutdifferent.ecologics.Ecologics"
     ],
     "client": [
-      "samebutdifferent.ecologics.EcologicsClient"
+      "samebutdifferent.ecologics.client.EcologicsClient"
     ]
   },
   "mixins": [

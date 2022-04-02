@@ -17,13 +17,14 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
 public class ThinIceBlock extends Block {
     public static final IntProperty AGE = Properties.AGE_3;
 
     public ThinIceBlock() {
-        super(AbstractBlock.Settings.of(Material.ICE).slipperiness(0.98F).strength(0.5F).sounds(BlockSoundGroup.GLASS).nonOpaque().allowsSpawning((state, blockGetter, pos, entityType) -> entityType == EntityType.POLAR_BEAR));
+        super(AbstractBlock.Settings.of(Material.ICE).slipperiness(0.98F).strength(0.5F).sounds(BlockSoundGroup.GLASS).nonOpaque().allowsSpawning((state, blockGetter, pos, entityType) -> entityType.equals(EntityType.POLAR_BEAR) || entityType.equals(ModEntityTypes.PENGUIN)));
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
     }
 

@@ -1,9 +1,10 @@
 package samebutdifferent.ecologics.registry;
 
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import samebutdifferent.ecologics.Ecologics;
 
@@ -11,26 +12,21 @@ public class ModTags {
 
     public static class ModBlockTags {
 
-        public static final Tag.Identified<Block> COCONUT_LOGS =
-                createTag("coconut_logs");
+        public static final TagKey<Block> COCONUT_LOGS = createTag("coconut_logs");
+        public static final TagKey<Block> WALNUT_LOGS = createTag("walnut_logs");
 
-        public static final Tag.Identified<Block> POTS =
-                createTag("pots");
-
-        private static Tag.Identified<Block> createTag(String name) {
-            return TagFactory.BLOCK.create(new Identifier(Ecologics.MOD_ID, name));
+        private static TagKey<Block> createTag(String name) {
+            return BlockTags.register(new Identifier(Ecologics.MOD_ID, name).toString());
         }
     }
 
     public static class ModItemTags {
-        public static final Tag.Identified<Item> COCONUT_LOGS =
-                createTag("coconut_logs");
 
-        public static final Tag.Identified<Item> POTS =
-                createTag("pots");
+        public static final TagKey<Item> COCONUT_LOGS = createTag("coconut_logs");
+        public static final TagKey<Item> WALNUT_LOGS = createTag("walnut_logs");
 
-        private static Tag.Identified<Item> createTag(String name) {
-            return TagFactory.ITEM.create(new Identifier(Ecologics.MOD_ID, name));
+        private static TagKey<Item> createTag(String name) {
+            return ItemTags.register(new Identifier(Ecologics.MOD_ID, name).toString());
         }
     }
 }

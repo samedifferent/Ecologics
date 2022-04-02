@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.11-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -8,7 +8,7 @@ targetCompatibility = JavaVersion.VERSION_17
 
 version = project.mod_version
 group = 'samebutdifferent.ecologics'
-archivesBaseName = 'ecologics'
+archivesBaseName = 'ecologics-fabric'
 
 repositories {
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
@@ -22,7 +22,7 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.18:3.0.32'
+    modImplementation "software.bernie.geckolib:geckolib-fabric-1.18:${project.geckolib_version}"
 }
 
 loom {
