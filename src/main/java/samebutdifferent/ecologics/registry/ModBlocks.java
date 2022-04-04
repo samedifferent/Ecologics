@@ -56,7 +56,6 @@ public class ModBlocks {
     public static final RegistryObject<StairBlock> SNOW_BRICK_STAIRS = registerBlock("snow_brick_stairs", () -> new StairBlock(() -> SNOW_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(SNOW_BRICKS.get())));
     public static final RegistryObject<SlabBlock> SNOW_BRICK_SLAB = registerBlock("snow_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(SNOW_BRICKS.get())));
     public static final RegistryObject<WallBlock> SNOW_BRICK_WALL = registerBlock("snow_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(SNOW_BRICKS.get())));
-//    public static final RegistryObject<CodSackBlock> COD_SACK = registerBlock("cod_sack", () -> new CodSackBlock(BlockBehaviour.Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.8F)));
     public static final RegistryObject<RotatedPillarBlock> WALNUT_LOG = registerBlock("walnut_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_WALNUT_LOG = registerBlock("stripped_walnut_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));
     public static final RegistryObject<RotatedPillarBlock> WALNUT_WOOD = registerBlock("walnut_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
@@ -74,6 +73,7 @@ public class ModBlocks {
     public static final RegistryObject<ModStandingSignBlock> WALNUT_SIGN = BLOCKS.register("walnut_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.WALNUT));
     public static final RegistryObject<ModWallSignBlock> WALNUT_WALL_SIGN = BLOCKS.register("walnut_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(WALNUT_SIGN.get()), ModWoodType.WALNUT));
     public static final RegistryObject<SaplingBlock> WALNUT_SAPLING = registerBlock("walnut_sapling", () -> new SaplingBlock(new WalnutTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<FlowerPotBlock> POTTED_WALNUT_SAPLING = BLOCKS.register("potted_walnut_sapling", () -> new FlowerPotBlock(ModBlocks.WALNUT_SAPLING.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
     public static final RegistryObject<AzaleaLogBlock> AZALEA_LOG = registerBlock("azalea_log", AzaleaLogBlock::new);
     public static final RegistryObject<FloweringAzaleaLogBlock> FLOWERING_AZALEA_LOG = registerBlock("flowering_azalea_log", FloweringAzaleaLogBlock::new);
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_AZALEA_LOG = registerBlock("stripped_azalea_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));

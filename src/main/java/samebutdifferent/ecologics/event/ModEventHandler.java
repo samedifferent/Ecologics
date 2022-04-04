@@ -57,6 +57,8 @@ public class ModEventHandler {
         ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_HUSK.get().asItem(), 0.3F);
         ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_LEAVES.get().asItem(), 0.3F);
         ComposterBlock.COMPOSTABLES.put(ModBlocks.WALNUT_LEAVES.get().asItem(), 0.3F);
+        ComposterBlock.COMPOSTABLES.put(ModBlocks.WALNUT_SAPLING.get().asItem(), 0.3F);
+        ComposterBlock.COMPOSTABLES.put(ModBlocks.AZALEA_FLOWER.get().asItem(), 0.65F);
     }
 
 
