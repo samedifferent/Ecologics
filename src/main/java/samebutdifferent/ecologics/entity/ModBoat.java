@@ -58,10 +58,16 @@ public class ModBoat extends BoatEntity {
 
     @Override
     public Item asItem() {
-        return switch (this.getWoodType()) {
-            case "walnut" -> ModItems.WALNUT_BOAT;
-            default -> ModItems.COCONUT_BOAT;
-        };
+        switch(this.getWoodType()) {
+            case "walnut":
+                return ModItems.WALNUT_BOAT;
+            case "azalea":
+                return ModItems.AZALEA_BOAT;
+            case "flowering_azalea":
+                return ModItems.FLOWERING_AZALEA_BOAT;
+            default:
+                return ModItems.COCONUT_BOAT;
+        }
     }
 
     @Override

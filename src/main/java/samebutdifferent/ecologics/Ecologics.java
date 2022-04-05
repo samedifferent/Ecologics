@@ -3,6 +3,7 @@ package samebutdifferent.ecologics;
 import com.google.common.reflect.Reflection;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -31,6 +32,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.PlacedFeature;
+import net.minecraft.world.gen.feature.UndergroundPlacedFeatures;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import samebutdifferent.ecologics.block.PotBlock;
@@ -41,6 +43,9 @@ import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.registry.*;
 import samebutdifferent.ecologics.util.CustomItemGroupBuilder;
 import software.bernie.geckolib3.GeckoLib;
+
+import static net.minecraft.world.biome.BiomeKeys.LUSH_CAVES;
+import static net.minecraft.world.gen.GenerationStep.Feature.VEGETAL_DECORATION;
 
 public class Ecologics implements ModInitializer {
 
@@ -78,12 +83,32 @@ public class Ecologics implements ModInitializer {
 
         StrippableBlockRegistry.register(ModBlocks.COCONUT_LOG, ModBlocks.STRIPPED_COCONUT_LOG);
         StrippableBlockRegistry.register(ModBlocks.COCONUT_WOOD, ModBlocks.STRIPPED_COCONUT_WOOD);
+        StrippableBlockRegistry.register(ModBlocks.WALNUT_LOG, ModBlocks.STRIPPED_WALNUT_LOG);
+        StrippableBlockRegistry.register(ModBlocks.WALNUT_WOOD, ModBlocks.STRIPPED_WALNUT_WOOD);
+        StrippableBlockRegistry.register(ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG);
+        StrippableBlockRegistry.register(ModBlocks.AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD);
+        StrippableBlockRegistry.register(ModBlocks.FLOWERING_AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG);
+        StrippableBlockRegistry.register(ModBlocks.FLOWERING_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD);
 
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModItems.COCONUT_SLICE, 0.3F);
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModBlocks.COCONUT_HUSK.asItem(), 0.3F);
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModBlocks.COCONUT_LEAVES.asItem(), 0.3F);
+        ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModBlocks.WALNUT_LEAVES.asItem(), 0.3F);
+        ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModBlocks.WALNUT_SAPLING.asItem(), 0.3F);
+        ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModBlocks.AZALEA_FLOWER.asItem(), 0.65F);
 
         SpawnRestriction.register(ModEntityTypes.CAMEL, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
+
+        // this is not working
+        if (BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE).isPresent()) {
+            BiomeModifications.create(new Identifier(MOD_ID, "remove_azalea_trees")).add(ModificationPhase.REPLACEMENTS, biomeSelectionContext -> (biomeSelectionContext.getBiomeKey().equals(LUSH_CAVES)), (c) -> {
+                c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.ROOTED_AZALEA_TREE.value());
+                c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.CLASSIC_VINES_CAVE_FEATURE.value());
+                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE).get());
+                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.SURFACE_MOSS_PATCH).get());
+
+            });
+        }
     }
 
     public void addPlacedFeatures() {

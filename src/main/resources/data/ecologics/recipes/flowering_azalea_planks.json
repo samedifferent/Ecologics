@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "ecologics:flowering_azalea_log"
+    }
+  ],
+  "result": {
+    "item": "ecologics:flowering_azalea_planks",
+    "count": 4
+  }
+}

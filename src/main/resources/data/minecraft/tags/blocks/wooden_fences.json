@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "ecologics:coconut_fence",
-    "ecologics:walnut_fence"
+    "ecologics:walnut_fence",
+    "ecologics:azalea_fence",
+    "ecologics:flowering_azalea_fence"
   ]
 }

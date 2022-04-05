@@ -1,0 +1,16 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "ecologics:block/moss_three",
+    "moss": "ecologics:block/moss_one"
+  },
+  "elements": [
+    {   "from": [ 0, 0, 0.1 ],
+      "to": [ 16, 16, 0.1 ],
+      "faces": {
+        "north": { "uv": [ 16, 0, 0, 16 ], "texture": "#moss" },
+        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#moss" }
+      }
+    }
+  ]
+}

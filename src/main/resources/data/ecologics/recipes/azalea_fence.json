@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_fence",
+  "pattern": [
+    "W#W",
+    "W#W"
+  ],
+  "key": {
+    "W": {
+      "item": "ecologics:azalea_planks"
+    },
+    "#": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "ecologics:azalea_fence",
+    "count": 3
+  }
+}

@@ -23,7 +23,7 @@ public class AzaleaLogBlock extends PillarBlock {
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (random.nextInt(25) == 0) {
-            world.setBlockState(pos, ModBlocks.FLOWERING_AZALEA_LOG.getDefaultState().with(PillarBlock.AXIS, state.get(AXIS))), 2);
+            world.setBlockState(pos, ModBlocks.FLOWERING_AZALEA_LOG.getDefaultState().with(PillarBlock.AXIS, state.get(AXIS)));
         }
     }
 

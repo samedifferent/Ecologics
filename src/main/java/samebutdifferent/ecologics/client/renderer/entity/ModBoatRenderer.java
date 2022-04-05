@@ -21,8 +21,13 @@ import samebutdifferent.ecologics.entity.ModBoat;
 public class ModBoatRenderer<T extends BoatEntity> extends EntityRenderer<T> {
     public static final EntityModelLayer COCONUT_LAYER_LOCATION = new EntityModelLayer(new Identifier(Ecologics.MOD_ID, "boat/coconut"), "main");
     public static final EntityModelLayer WALNUT_LAYER_LOCATION = new EntityModelLayer(new Identifier(Ecologics.MOD_ID, "boat/walnut"), "main");
+    public static final EntityModelLayer AZALEA_LAYER_LOCATION = new EntityModelLayer(new Identifier(Ecologics.MOD_ID, "boat/azalea"), "main");
+    public static final EntityModelLayer FLOWERING_AZALEA_LAYER_LOCATION = new EntityModelLayer(new Identifier(Ecologics.MOD_ID, "boat/flowering_azalea"), "main");
+
     private final Pair<Identifier, BoatEntityModel> coconut;
     private final Pair<Identifier, BoatEntityModel> walnut;
+    private final Pair<Identifier, BoatEntityModel> azalea;
+    private final Pair<Identifier, BoatEntityModel> flowering_azalea;
 
     public ModBoatRenderer(EntityRendererFactory.Context context) {
         super(context);
@@ -30,6 +35,9 @@ public class ModBoatRenderer<T extends BoatEntity> extends EntityRenderer<T> {
 
         coconut = new Pair<>(new Identifier(Ecologics.MOD_ID, "textures/entity/boat/coconut.png"), new BoatEntityModel(context.getPart(COCONUT_LAYER_LOCATION)));
         walnut = new Pair<>(new Identifier(Ecologics.MOD_ID, "textures/entity/boat/walnut.png"), new BoatEntityModel(context.getPart(WALNUT_LAYER_LOCATION)));
+        azalea = new Pair<>(new Identifier(Ecologics.MOD_ID, "textures/entity/boat/azalea.png"), new BoatEntityModel(context.getPart(AZALEA_LAYER_LOCATION)));
+        flowering_azalea = new Pair<>(new Identifier(Ecologics.MOD_ID, "textures/entity/boat/flowering_azalea.png"), new BoatEntityModel(context.getPart(FLOWERING_AZALEA_LAYER_LOCATION)));
+
     }
 
     @Override
@@ -75,10 +83,15 @@ public class ModBoatRenderer<T extends BoatEntity> extends EntityRenderer<T> {
     }
 
     public Pair<Identifier, BoatEntityModel> getBoatType(ModBoat boat) {
-        if (boat.getWoodType().equals("walnut")) {
-            return walnut;
-        } else {
-            return coconut;
+        switch (boat.getWoodType()) {
+            case "walnut":
+                return walnut;
+            case "azalea":
+                return azalea;
+            case "flowering_azalea":
+                return flowering_azalea;
+            default:
+                return coconut;
         }
     }
 }

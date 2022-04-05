@@ -11,7 +11,6 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.BoatEntityModel;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.BlockItem;
@@ -41,9 +40,19 @@ public class EcologicsClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.THIN_ICE, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WALNUT_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WALNUT_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POTTED_WALNUT_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.AZALEA_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.AZALEA_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FLOWERING_AZALEA_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.AZALEA_TRAPDOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FLOWERING_AZALEA_TRAPDOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POTTED_AZALEA_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SURFACE_MOSS, RenderLayer.getCutoutMipped());
 
         createSignTextureId(ModWoodType.COCONUT);
         createSignTextureId(ModWoodType.WALNUT);
+        createSignTextureId(ModWoodType.AZALEA);
+        createSignTextureId(ModWoodType.FLOWERING_AZALEA);
 
         // Entity renderers
         EntityRendererRegistry.register(ModEntityTypes.COCONUT_CRAB, CoconutCrabRenderer::new);
@@ -57,6 +66,8 @@ public class EcologicsClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(ModBoatRenderer.COCONUT_LAYER_LOCATION, BoatEntityModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModBoatRenderer.WALNUT_LAYER_LOCATION, BoatEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModBoatRenderer.AZALEA_LAYER_LOCATION, BoatEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModBoatRenderer.FLOWERING_AZALEA_LAYER_LOCATION, BoatEntityModel::getTexturedModelData);
 
         // Register block/item colors
         ColorProviderRegistry.BLOCK.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ? BiomeColors.getFoliageColor(pLevel, pPos) : FoliageColors.getDefaultColor(), ModBlocks.COCONUT_LEAVES);

@@ -1,0 +1,73 @@
+{
+  "variants": {
+    "facing=up,layers=1": {
+      "model": "ecologics:block/moss_one",
+      "x": 90
+    },
+    "facing=down,layers=1": {
+      "model": "ecologics:block/moss_one",
+      "x": 270
+    },
+    "facing=north,layers=1": {
+      "model": "ecologics:block/moss_one",
+      "y": 180
+    },
+    "facing=east,layers=1": {
+      "model": "ecologics:block/moss_one",
+      "y": 270
+    },
+    "facing=south,layers=1": {
+      "model": "ecologics:block/moss_one"
+    },
+    "facing=west,layers=1": {
+      "model": "ecologics:block/moss_one",
+      "y": 90
+    },
+    "facing=up,layers=2": {
+      "model": "ecologics:block/moss_two",
+      "x": 90
+    },
+    "facing=down,layers=2": {
+      "model": "ecologics:block/moss_two",
+      "x": 270
+    },
+    "facing=north,layers=2": {
+      "model": "ecologics:block/moss_two",
+      "y": 180
+    },
+    "facing=east,layers=2": {
+      "model": "ecologics:block/moss_two",
+      "y": 270
+    },
+    "facing=south,layers=2": {
+      "model": "ecologics:block/moss_two"
+    },
+    "facing=west,layers=2": {
+      "model": "ecologics:block/moss_two",
+      "y": 90
+    },
+    "facing=up,layers=3": {
+      "model": "ecologics:block/moss_three",
+      "x": 90
+    },
+    "facing=down,layers=3": {
+      "model": "ecologics:block/moss_three",
+      "x": 270
+    },
+    "facing=north,layers=3": {
+      "model": "ecologics:block/moss_three",
+      "y": 180
+    },
+    "facing=east,layers=3": {
+      "model": "ecologics:block/moss_three",
+      "y": 270
+    },
+    "facing=south,layers=3": {
+      "model": "ecologics:block/moss_three"
+    },
+    "facing=west,layers=3": {
+      "model": "ecologics:block/moss_three",
+      "y": 90
+    }
+  }
+}

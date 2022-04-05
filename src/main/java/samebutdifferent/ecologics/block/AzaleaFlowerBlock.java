@@ -8,6 +8,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import samebutdifferent.ecologics.block.grower.ModAzaleaTreeGrower;
 
 import java.util.Random;
 
@@ -42,6 +43,6 @@ public class AzaleaFlowerBlock extends PlantBlock implements Fertilizable {
 
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        TREE_GROWER.growTree(serverWorld, serverWorld.getChunkSource().getGenerator(), pos, state, random);
+        TREE_GROWER.generate(world, world.getChunkManager().getChunkGenerator(), pos, state, random);
     }
 }

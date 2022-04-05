@@ -31,6 +31,10 @@ public class ModItems {
     public static final Item WALNUT_SIGN = registerItem("walnut_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModBlocks.WALNUT_SIGN, ModBlocks.WALNUT_WALL_SIGN));
     public static final Item WALNUT_BOAT = registerItem("walnut_boat", () -> new ModBoatItem("walnut", new Item.Settings().maxCount(1).group(Ecologics.TAB)));
     public static final Item WALNUT = registerItem("walnut", () -> new Item(new Item.Settings().group(Ecologics.TAB).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.6F).snack().build())));
+    public static final SignItem AZALEA_SIGN = registerItem("azalea_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModBlocks.AZALEA_SIGN, ModBlocks.AZALEA_WALL_SIGN));
+    public static final SignItem FLOWERING_AZALEA_SIGN = registerItem("flowering_azalea_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModBlocks.FLOWERING_AZALEA_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_SIGN));
+    public static final Item AZALEA_BOAT = registerItem("azalea_boat", () -> new ModBoatItem("azalea", new Item.Settings().maxCount(1).group(Ecologics.TAB)));
+    public static final Item FLOWERING_AZALEA_BOAT = registerItem("flowering_azalea_boat", () -> new ModBoatItem("flowering_azalea", new Item.Settings().maxCount(1).group(Ecologics.TAB)));
     
     public static <T extends Item> T registerItem(String name, Supplier<T> item) {
         return Registry.register(Registry.ITEM, new Identifier(Ecologics.MOD_ID, name), item.get());
