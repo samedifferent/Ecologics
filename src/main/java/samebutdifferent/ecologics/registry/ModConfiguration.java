@@ -53,7 +53,7 @@ public class ModConfiguration {
 
         COMMON_BUILDER.comment("Plains Update").push(CATEGORY_PLAINS);
         SPAWN_SQUIRRELS = COMMON_BUILDER.comment("Spawn squirrels in plains biomes").define("spawnSquirrels", true);
-        GENERATE_WALNUT_TREES = COMMON_BUILDER.comment("Generate walnut trees in plains biomes").define("generateWalnutTrees", true);
+        GENERATE_WALNUT_TREES = COMMON_BUILDER.comment("Generate walnut trees in plains biomes instead of oak trees").define("generateWalnutTrees", true);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Lush Caves Update").push(CATEGORY_LUSH_CAVES);
