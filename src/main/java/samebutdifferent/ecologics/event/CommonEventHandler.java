@@ -68,10 +68,10 @@ public class CommonEventHandler {
                 }
                 if (ModConfiguration.SPAWN_SQUIRRELS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), 10, 2, 3));
             }
-        }
-        if (ModConfiguration.REPLACE_AZALEA_TREE.get()) {
-            builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), CavePlacements.ROOTED_AZALEA_TREE.value()));
-            builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(Holder.direct(ModPlacedFeatures.ROOTED_AZALEA_TREE));
+            if (ModConfiguration.REPLACE_AZALEA_TREE.get()) {
+                builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), CavePlacements.ROOTED_AZALEA_TREE.value()));
+                builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(Holder.direct(ModPlacedFeatures.ROOTED_AZALEA_TREE));
+            }
         }
     }
 
