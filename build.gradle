@@ -85,9 +85,9 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.12'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.40'
 
-    implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.12')
+    implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.13')
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

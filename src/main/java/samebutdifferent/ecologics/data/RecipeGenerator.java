@@ -64,11 +64,11 @@ public class RecipeGenerator extends RecipeProvider {
         stonecutting(consumer, ModBlocks.ICE_BRICK_WALL.get(), ModBlocks.ICE_BRICKS.get());*/
     }
 
-    private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked) {
+    protected static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked) {
         nineBlockStorageRecipes(pFinishedRecipeConsumer, pUnpacked, pPacked, pPacked.asItem().getRegistryName().getPath(), null, pUnpacked.asItem().getRegistryName().getPath(), null);
     }
 
-    private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked, String pPackingRecipeName, @Nullable String pPackingRecipeGroup, String pUnpackingRecipeName, @Nullable String pUnpackingRecipeGroup) {
+    protected static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked, String pPackingRecipeName, @Nullable String pPackingRecipeGroup, String pUnpackingRecipeName, @Nullable String pUnpackingRecipeGroup) {
         ShapelessRecipeBuilder.shapeless(pUnpacked, 9).requires(pPacked).group(pUnpackingRecipeGroup).unlockedBy(getHasName(pPacked), has(pPacked)).save(pFinishedRecipeConsumer, new ResourceLocation(pUnpackingRecipeName));
         ShapedRecipeBuilder.shaped(pPacked).define('#', pUnpacked).pattern("###").pattern("###").pattern("###").group(pPackingRecipeGroup).unlockedBy(getHasName(pUnpacked), has(pUnpacked)).save(pFinishedRecipeConsumer, new ResourceLocation(pPackingRecipeName));
     }
@@ -77,7 +77,7 @@ public class RecipeGenerator extends RecipeProvider {
         SingleItemRecipeBuilder.stonecutting(Ingredient.of(pMaterial), pResult, 1).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, getConversionRecipeName(pResult, pMaterial) + "_stonecutting");
     }
 
-    private static String getConversionRecipeName(ItemLike pResult, ItemLike pIngredient) {
+    protected static String getConversionRecipeName(ItemLike pResult, ItemLike pIngredient) {
         return pResult.asItem().getRegistryName().getPath() + "_from_" + pIngredient.asItem().getRegistryName().getPath();
     }
 
@@ -85,11 +85,11 @@ public class RecipeGenerator extends RecipeProvider {
         simpleCookingRecipe(pFinishedRecipeConsumer, pCookingMethod, pCookingSerializer, pCookingTime, ingredient, output, 0.35F);
     }
 
-    private static void simpleCookingRecipe(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime, ItemLike pIngredient, ItemLike pResult, float pExperience) {
+    protected static void simpleCookingRecipe(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime, ItemLike pIngredient, ItemLike pResult, float pExperience) {
         SimpleCookingRecipeBuilder.cooking(Ingredient.of(pIngredient), pResult, pExperience, pCookingTime, pCookingSerializer).unlockedBy(getHasName(pIngredient), has(pIngredient)).save(pFinishedRecipeConsumer, getHasName(pResult) + "_from_" + pCookingMethod);
     }
-    
-    private static void woodFromLogs(Consumer<FinishedRecipe> consumer, ItemLike wood, ItemLike log) {
+
+    protected static void woodFromLogs(Consumer<FinishedRecipe> consumer, ItemLike wood, ItemLike log) {
         ShapedRecipeBuilder.shaped(wood, 3).define('#', log).pattern("##").pattern("##").group("bark").unlockedBy("has_log", has(log)).save(consumer);
     }
 
@@ -97,7 +97,7 @@ public class RecipeGenerator extends RecipeProvider {
         buttonBuilder(button, Ingredient.of(planks)).unlockedBy(getHasName(planks), has(planks)).save(consumer);
     }
 
-    private static RecipeBuilder buttonBuilder(ItemLike button, Ingredient planks) {
+    protected static RecipeBuilder buttonBuilder(ItemLike button, Ingredient planks) {
         return ShapelessRecipeBuilder.shapeless(button).requires(planks);
     }
 
@@ -105,15 +105,15 @@ public class RecipeGenerator extends RecipeProvider {
         doorBuilder(door, Ingredient.of(planks)).unlockedBy(getHasName(planks), has(planks)).save(consumer);
     }
 
-    private static RecipeBuilder doorBuilder(ItemLike door, Ingredient planks) {
+    protected static RecipeBuilder doorBuilder(ItemLike door, Ingredient planks) {
         return ShapedRecipeBuilder.shaped(door, 3).define('#', planks).pattern("##").pattern("##").pattern("##");
     }
 
     private static void fence(Consumer<FinishedRecipe> consumer, ItemLike fence, ItemLike planks) {
         fenceBuilder(fence, Ingredient.of(planks)).unlockedBy(getHasName(planks), has(planks)).save(consumer);
     }
-    
-    private static RecipeBuilder fenceBuilder(ItemLike fence, Ingredient planks) {
+
+    protected static RecipeBuilder fenceBuilder(ItemLike fence, Ingredient planks) {
         return ShapedRecipeBuilder.shaped(fence, 3).define('W', planks).define('#', Items.STICK).pattern("W#W").pattern("W#W");
     }
 
@@ -121,31 +121,31 @@ public class RecipeGenerator extends RecipeProvider {
         fenceGateBuilder(fenceGate, Ingredient.of(planks)).unlockedBy(getHasName(planks), has(planks)).save(consumer);
     }
 
-    private static RecipeBuilder fenceGateBuilder(ItemLike fenceGate, Ingredient planks) {
+    protected static RecipeBuilder fenceGateBuilder(ItemLike fenceGate, Ingredient planks) {
         return ShapedRecipeBuilder.shaped(fenceGate).define('#', Items.STICK).define('W', planks).pattern("#W#").pattern("#W#");
     }
 
-    private static void pressurePlate(Consumer<FinishedRecipe> consumer, ItemLike pressurePlate, ItemLike planks) {
+    protected static void pressurePlate(Consumer<FinishedRecipe> consumer, ItemLike pressurePlate, ItemLike planks) {
         pressurePlateBuilder(pressurePlate, Ingredient.of(planks)).unlockedBy(getHasName(planks), has(planks)).save(consumer);
     }
 
-    private static RecipeBuilder pressurePlateBuilder(ItemLike pressurePlate, Ingredient planks) {
+    protected static RecipeBuilder pressurePlateBuilder(ItemLike pressurePlate, Ingredient planks) {
         return ShapedRecipeBuilder.shaped(pressurePlate).define('#', planks).pattern("##");
     }
 
-    private static void slab(Consumer<FinishedRecipe> consumer, ItemLike slab, ItemLike planks) {
+    protected static void slab(Consumer<FinishedRecipe> consumer, ItemLike slab, ItemLike planks) {
         slabBuilder(slab, Ingredient.of(planks)).unlockedBy(getHasName(planks), has(planks)).save(consumer);
     }
 
-    private static RecipeBuilder slabBuilder(ItemLike slab, Ingredient planks) {
+    protected static RecipeBuilder slabBuilder(ItemLike slab, Ingredient planks) {
         return ShapedRecipeBuilder.shaped(slab, 6).define('#', planks).pattern("###");
     }
 
     private static void stair(Consumer<FinishedRecipe> consumer, ItemLike stair, ItemLike planks) {
         stairBuilder(stair, Ingredient.of(planks)).unlockedBy(getHasName(planks), has(planks)).save(consumer);
     }
-    
-    private static RecipeBuilder stairBuilder(ItemLike stairs, Ingredient planks) {
+
+    protected static RecipeBuilder stairBuilder(ItemLike stairs, Ingredient planks) {
         return ShapedRecipeBuilder.shaped(stairs, 4).define('#', planks).pattern("#  ").pattern("## ").pattern("###");
     }
 
@@ -153,11 +153,11 @@ public class RecipeGenerator extends RecipeProvider {
         trapdoorBuilder(trapdoor, Ingredient.of(planks)).unlockedBy(getHasName(planks), has(planks)).save(consumer);
     }
 
-    private static RecipeBuilder trapdoorBuilder(ItemLike trapdoor, Ingredient planks) {
+    protected static RecipeBuilder trapdoorBuilder(ItemLike trapdoor, Ingredient planks) {
         return ShapedRecipeBuilder.shaped(trapdoor, 2).define('#', planks).pattern("###").pattern("###");
     }
 
-    private static String getHasName(ItemLike item) {
+    protected static String getHasName(ItemLike item) {
         return "has_" + item.asItem().getRegistryName().getPath();
     }
 }
