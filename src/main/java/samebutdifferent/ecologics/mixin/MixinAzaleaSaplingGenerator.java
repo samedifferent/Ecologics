@@ -16,6 +16,6 @@ public class MixinAzaleaSaplingGenerator extends SaplingGenerator {
     @Nullable
     @Override
     public RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-        return RegistryEntry.of(ModConfiguredFeatures.AZALEA_TREE);
+        return ModConfiguredFeatures.AZALEA_TREE;
     }
 }

@@ -12,6 +12,6 @@ public class CoconutTreeGrower extends SaplingGenerator {
     @Nullable
     @Override
     protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean pLargeHive) {
-        return RegistryEntry.of(ModConfiguredFeatures.COCONUT);
+        return ModConfiguredFeatures.COCONUT;
     }
 }

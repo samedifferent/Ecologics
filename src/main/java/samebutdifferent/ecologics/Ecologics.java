@@ -75,8 +75,6 @@ public class Ecologics implements ModInitializer {
         addEntityAttributes();
 
         ModTrunkPlacerTypes.register();
-        ModConfiguredFeatures.register();
-        ModPlacedFeatures.register();
 
         BrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, ModItems.PENGUIN_FEATHER, ModPotions.SLIDING);
         BrewingRecipeRegistry.registerPotionRecipe(ModPotions.SLIDING, Items.REDSTONE, ModPotions.LONG_SLIDING);
@@ -100,12 +98,12 @@ public class Ecologics implements ModInitializer {
         SpawnRestriction.register(ModEntityTypes.CAMEL, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
 
         // this is not working
-        if (BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE).isPresent()) {
+        if (BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE.value()).isPresent()) {
             BiomeModifications.create(new Identifier(MOD_ID, "remove_azalea_trees")).add(ModificationPhase.REPLACEMENTS, biomeSelectionContext -> (biomeSelectionContext.getBiomeKey().equals(LUSH_CAVES)), (c) -> {
                 c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.ROOTED_AZALEA_TREE.value());
                 c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.CLASSIC_VINES_CAVE_FEATURE.value());
-                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE).get());
-                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.SURFACE_MOSS_PATCH).get());
+                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE.value()).get());
+                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.SURFACE_MOSS_PATCH.value()).get());
 
             });
         }
@@ -115,27 +113,27 @@ public class Ecologics implements ModInitializer {
         BiomeModifications.addFeature(
                 (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("beach"),
                 GenerationStep.Feature.VEGETAL_DECORATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.TREES_BEACH))
+                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.TREES_BEACH.value()))
         );
         BiomeModifications.addFeature(
                 (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("beach"),
                 GenerationStep.Feature.VEGETAL_DECORATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.SEASHELL))
+                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.SEASHELL.value()))
         );
         BiomeModifications.addFeature(
                 (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_river") || biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_ocean") || biomeSelector.getBiomeKey().getValue().equals("snowy_plains"),
                 GenerationStep.Feature.TOP_LAYER_MODIFICATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.THIN_ICE_PATCH))
+                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.THIN_ICE_PATCH.value()))
         );
         BiomeModifications.addFeature(
                 (biomeSelector) -> Biome.getCategory(biomeSelector.getBiomeRegistryEntry()).equals(Biome.Category.DESERT),
                 GenerationStep.Feature.VEGETAL_DECORATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.PRICKLY_PEAR))
+                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.PRICKLY_PEAR.value()))
         );
         BiomeModifications.addFeature(
                 (biomeSelector) -> Biome.getCategory(biomeSelector.getBiomeRegistryEntry()).equals(Biome.Category.DESERT),
                 GenerationStep.Feature.VEGETAL_DECORATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.DESERT_RUIN))
+                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.DESERT_RUIN.value()))
         );
     }
 

@@ -12,6 +12,6 @@ public class WalnutTreeGrower extends SaplingGenerator {
     @Nullable
     @Override
     protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random pRandom, boolean pLargeHive) {
-        return RegistryEntry.of(ModConfiguredFeatures.WALNUT);
+        return ModConfiguredFeatures.WALNUT;
     }
 }
