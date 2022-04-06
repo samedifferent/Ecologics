@@ -2,7 +2,6 @@ package samebutdifferent.ecologics.event;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceLocation;
@@ -46,31 +45,31 @@ public class CommonEventHandler {
         ResourceLocation biomeName = event.getName();
         if (biomeName != null) {
             if (biomeName.equals(Biomes.BEACH.location())) {
-                if (ModConfiguration.GENERATE_COCONUT_TREES.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.TREES_BEACH));
-                if (ModConfiguration.GENERATE_SEASHELLS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.SEASHELL));
+                if (ModConfiguration.GENERATE_COCONUT_TREES.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.TREES_BEACH);
+                if (ModConfiguration.GENERATE_SEASHELLS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SEASHELL);
             }
             if (biomeName.equals(Biomes.DESERT.location())) {
                 if (ModConfiguration.SPAWN_CAMELS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), 1, 1, 1));
-                if (ModConfiguration.GENERATE_PRICKLY_PEARS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.PRICKLY_PEAR));
-                if (ModConfiguration.GENERATE_DESERT_RUINS.get()) builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Holder.direct(ModPlacedFeatures.DESERT_RUIN));
+                if (ModConfiguration.GENERATE_PRICKLY_PEARS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.PRICKLY_PEAR);
+                if (ModConfiguration.GENERATE_DESERT_RUINS.get()) builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, ModPlacedFeatures.DESERT_RUIN);
             }
             if (biomeName.equals(Biomes.FROZEN_RIVER.location()) || biomeName.equals(Biomes.FROZEN_OCEAN.location()) || biomeName.equals(Biomes.SNOWY_PLAINS.location())) {
-                if (ModConfiguration.GENERATE_THIN_ICE_PATCHES.get()) builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, Holder.direct(ModPlacedFeatures.THIN_ICE_PATCH));
+                if (ModConfiguration.GENERATE_THIN_ICE_PATCHES.get()) builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModPlacedFeatures.THIN_ICE_PATCH);
                 if (ModConfiguration.SPAWN_PENGUINS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), 2, 4, 7));
             }
             if (biomeName.equals(Biomes.LUSH_CAVES.location())) {
-                if (ModConfiguration.GENERATE_SURFACE_MOSS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Holder.direct(ModPlacedFeatures.SURFACE_MOSS_PATCH));
+                if (ModConfiguration.GENERATE_SURFACE_MOSS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SURFACE_MOSS_PATCH);
+                if (ModConfiguration.REPLACE_AZALEA_TREE.get()) {
+                    builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), CavePlacements.ROOTED_AZALEA_TREE.value()));
+                    builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.ROOTED_AZALEA_TREE);
+                }
             }
             if (biomeName.equals(Biomes.PLAINS.location())) {
                 if (ModConfiguration.GENERATE_WALNUT_TREES.get()) {
                     builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), VegetationPlacements.TREES_PLAINS.value()));
-                    builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(Holder.direct(ModPlacedFeatures.TREES_WALNUT));
+                    builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.TREES_WALNUT);
                 }
                 if (ModConfiguration.SPAWN_SQUIRRELS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), 10, 2, 3));
-            }
-            if (ModConfiguration.REPLACE_AZALEA_TREE.get()) {
-                builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), CavePlacements.ROOTED_AZALEA_TREE.value()));
-                builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(Holder.direct(ModPlacedFeatures.ROOTED_AZALEA_TREE));
             }
         }
     }
