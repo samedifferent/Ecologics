@@ -33,6 +33,7 @@ import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.UndergroundPlacedFeatures;
+import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import samebutdifferent.ecologics.block.PotBlock;
@@ -45,6 +46,7 @@ import samebutdifferent.ecologics.util.CustomItemGroupBuilder;
 import software.bernie.geckolib3.GeckoLib;
 
 import static net.minecraft.world.biome.BiomeKeys.LUSH_CAVES;
+import static net.minecraft.world.biome.BiomeKeys.PLAINS;
 import static net.minecraft.world.gen.GenerationStep.Feature.VEGETAL_DECORATION;
 
 public class Ecologics implements ModInitializer {
@@ -97,14 +99,18 @@ public class Ecologics implements ModInitializer {
 
         SpawnRestriction.register(ModEntityTypes.CAMEL, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
 
-        // this is not working
         if (BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE.value()).isPresent()) {
             BiomeModifications.create(new Identifier(MOD_ID, "remove_azalea_trees")).add(ModificationPhase.REPLACEMENTS, biomeSelectionContext -> (biomeSelectionContext.getBiomeKey().equals(LUSH_CAVES)), (c) -> {
                 c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.ROOTED_AZALEA_TREE.value());
                 c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.CLASSIC_VINES_CAVE_FEATURE.value());
                 c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE.value()).get());
                 c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.SURFACE_MOSS_PATCH.value()).get());
-
+            });
+        }
+        if (BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.TREES_WALNUT.value()).isPresent()) {
+            BiomeModifications.create(new Identifier(MOD_ID, "remove_oak_trees")).add(ModificationPhase.REPLACEMENTS, biomeSelectionContext -> (biomeSelectionContext.getBiomeKey().equals(PLAINS)), (c) -> {
+                c.getGenerationSettings().removeBuiltInFeature(VegetationPlacedFeatures.TREES_PLAINS.value());
+                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.TREES_WALNUT.value()).get());
             });
         }
     }
