@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ecologics:walnut_planks"
+    }
+  ],
+  "result": {
+    "item": "ecologics:walnut_button"
+  }
+}

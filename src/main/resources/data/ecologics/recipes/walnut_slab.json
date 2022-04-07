@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ecologics:walnut_planks"
+    }
+  },
+  "result": {
+    "item": "ecologics:walnut_slab",
+    "count": 6
+  }
+}
