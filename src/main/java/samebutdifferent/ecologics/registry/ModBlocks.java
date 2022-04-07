@@ -34,6 +34,7 @@ public class ModBlocks {
     public static final HangingCoconutBlock HANGING_COCONUT = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "hanging_coconut"), new HangingCoconutBlock());
     public static final CoconutBlock COCONUT = registerBlock("coconut", CoconutBlock::new);
     public static final SaplingBlock COCONUT_HUSK = registerBlock("coconut_husk", CoconutSaplingBlock::new);
+    public static final FlowerPotBlock POTTED_COCONUT_HUSK = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID,"potted_coconut_husk"), new FlowerPotBlock(ModBlocks.COCONUT_HUSK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque()));
     public static final SeashellBlock SEASHELL = registerBlock("seashell", SeashellBlock::new);
     public static final SandcastleBlock SANDCASTLE = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "sandcastle"), new SandcastleBlock());
     public static final Block SEASHELL_BLOCK = registerBlock("seashell_block", () -> new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.BROWN).strength(1.5F, 6.0F).sounds(BlockSoundGroup.DEEPSLATE_TILES).requiresTool()));
