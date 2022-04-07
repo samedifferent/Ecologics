@@ -8,7 +8,6 @@
     "MixinAzaleaSaplingGenerator",
     "MixinCarpetBlock",
     "MixinCropBlock",
-    "MixinLivingEntity",
-    "MixinSignType"
+    "MixinLivingEntity"
   ]
 }

@@ -39,7 +39,8 @@
     "fabric": "*",
     "minecraft": "1.18.x",
     "java": ">=17",
-    "geckolib3": ">=3.0.0"
+    "geckolib3": ">=3.0.0",
+    "cloth-config": ">=6.0.0"
   },
   "suggests": {
     "another-mod": "*"
