@@ -28,11 +28,9 @@ public abstract class MixinCarpetBlock extends Block {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack item = pPlayer.getItemInHand(pHand);
         if (item.sameItem(Blocks.MOSS_CARPET.asItem().getDefaultInstance()) && (pPlayer.getFeetBlockState() != pState)) {
-            if (pState.is(Blocks.MOSS_CARPET.defaultBlockState().getBlock()) && !pLevel.isClientSide()) {
-                pLevel.setBlockAndUpdate(pPos, ModBlocks.MOSS_LAYER.get().defaultBlockState());
-            }
-            if (!pPlayer.getAbilities().instabuild) {
-                item.shrink(1);
+            if (pState.is(Blocks.MOSS_CARPET.defaultBlockState().getBlock())) {
+                if (!pLevel.isClientSide()) pLevel.setBlockAndUpdate(pPos, ModBlocks.MOSS_LAYER.get().defaultBlockState());
+                if (!pPlayer.isCreative()) item.shrink(1);
             }
             pLevel.playSound(pPlayer, pPos, SoundEvents.MOSS_CARPET_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
             return InteractionResult.sidedSuccess(pLevel.isClientSide());
