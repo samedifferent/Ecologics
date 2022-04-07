@@ -38,6 +38,7 @@ public class ModBlocks {
     public static final RegistryObject<HangingCoconutBlock> HANGING_COCONUT = BLOCKS.register("hanging_coconut", HangingCoconutBlock::new);
     public static final RegistryObject<CoconutBlock> COCONUT = registerBlock("coconut", CoconutBlock::new);
     public static final RegistryObject<SaplingBlock> COCONUT_HUSK = registerBlock("coconut_husk", CoconutSaplingBlock::new);
+    public static final RegistryObject<FlowerPotBlock> POTTED_COCONUT_HUSK = BLOCKS.register("potted_coconut_husk", () -> new FlowerPotBlock(ModBlocks.COCONUT_HUSK.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
     public static final RegistryObject<SeashellBlock> SEASHELL = registerBlock("seashell", SeashellBlock::new);
     public static final RegistryObject<SandcastleBlock> SANDCASTLE = BLOCKS.register("sandcastle", SandcastleBlock::new);
     public static final RegistryObject<Block> SEASHELL_BLOCK = registerBlock("seashell_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BROWN).strength(1.5F, 6.0F).sound(SoundType.DEEPSLATE_TILES).requiresCorrectToolForDrops()));
