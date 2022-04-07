@@ -26,8 +26,9 @@ public abstract class MixinCarpetBlock extends Block {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult result) {
         ItemStack item = player.getStackInHand(hand);
         if (item.isItemEqual(Blocks.MOSS_CARPET.asItem().getDefaultStack()) && (player.getBlockStateAtPos() != state)) {
-            if (state.isOf(Blocks.MOSS_CARPET.getDefaultState().getBlock()) && !world.isClient ) {
-                world.setBlockState(pos, ModBlocks.MOSS_LAYER.getDefaultState());
+            if (state.isOf(Blocks.MOSS_CARPET.getDefaultState().getBlock())) {
+                if (!world.isClient) world.setBlockState(pos, ModBlocks.MOSS_LAYER.getDefaultState());
+                if (!player.isCreative()) item.decrement(1);
             }
             world.playSound(player, pos, SoundEvents.BLOCK_MOSS_CARPET_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
             return ActionResult.success(world.isClient);

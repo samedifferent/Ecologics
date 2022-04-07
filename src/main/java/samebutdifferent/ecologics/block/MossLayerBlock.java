@@ -28,6 +28,9 @@ public class MossLayerBlock extends SnowBlock {
                 } else {
                     world.setBlockState(pos, Blocks.MOSS_BLOCK.getDefaultState());
                 }
+                if (!player.isCreative()) {
+                    item.decrement(1);
+                }
             }
             world.playSound(player, pos, SoundEvents.BLOCK_MOSS_CARPET_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
             return ActionResult.success(world.isClient);
