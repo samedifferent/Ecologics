@@ -12,6 +12,7 @@ archivesBaseName = 'ecologics-fabric'
 
 repositories {
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    maven { url "https://maven.shedaniel.me/" }
 }
 
 dependencies {
@@ -23,6 +24,9 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation "software.bernie.geckolib:geckolib-fabric-1.18:${project.geckolib_version}"
+    modApi("me.shedaniel.cloth:cloth-config-fabric:6.2.57") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 loom {

@@ -1,6 +1,10 @@
 package samebutdifferent.ecologics;
 
 import com.google.common.reflect.Reflection;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
@@ -9,6 +13,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.entity.SpawnGroup;
@@ -45,6 +50,13 @@ import samebutdifferent.ecologics.registry.*;
 import samebutdifferent.ecologics.util.CustomItemGroupBuilder;
 import software.bernie.geckolib3.GeckoLib;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Collectors;
+
 import static net.minecraft.world.biome.BiomeKeys.LUSH_CAVES;
 import static net.minecraft.world.biome.BiomeKeys.PLAINS;
 import static net.minecraft.world.gen.GenerationStep.Feature.VEGETAL_DECORATION;
@@ -55,11 +67,20 @@ public class Ecologics implements ModInitializer {
     public static final String MOD_ID = "ecologics";
     public static final ItemGroup TAB = CustomItemGroupBuilder.create(MOD_ID).icon(() -> new ItemStack(ModBlocks.COCONUT_LOG)).build();
 
+    public static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+
+            .create();
+    public static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("ecologics.json");
+    public static ModConfiguration CONFIG;
+
     /**
      * Runs the mod initializer.
      */
     @Override
     public void onInitialize() {
+        CONFIG = AutoConfig.register(ModConfiguration.class, GsonConfigSerializer::new).getConfig();
+
         Reflection.initialize(
                 ModBlocks.class,
                 ModItems.class,
@@ -101,73 +122,95 @@ public class Ecologics implements ModInitializer {
 
         if (BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE.value()).isPresent()) {
             BiomeModifications.create(new Identifier(MOD_ID, "remove_azalea_trees")).add(ModificationPhase.REPLACEMENTS, biomeSelectionContext -> (biomeSelectionContext.getBiomeKey().equals(LUSH_CAVES)), (c) -> {
-                c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.ROOTED_AZALEA_TREE.value());
-                c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.CLASSIC_VINES_CAVE_FEATURE.value());
-                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE.value()).get());
-                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.SURFACE_MOSS_PATCH.value()).get());
+                if (Ecologics.CONFIG.REPLACE_AZALEA_TREE) {
+                    c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.ROOTED_AZALEA_TREE.value());
+                    c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.ROOTED_AZALEA_TREE.value()).get());
+                }
+                if (Ecologics.CONFIG.GENERATE_SURFACE_MOSS) {
+                    c.getGenerationSettings().removeBuiltInFeature(UndergroundPlacedFeatures.CLASSIC_VINES_CAVE_FEATURE.value());
+                    c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.SURFACE_MOSS_PATCH.value()).get());
+                }
             });
         }
         if (BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.TREES_WALNUT.value()).isPresent()) {
             BiomeModifications.create(new Identifier(MOD_ID, "remove_oak_trees")).add(ModificationPhase.REPLACEMENTS, biomeSelectionContext -> (biomeSelectionContext.getBiomeKey().equals(PLAINS)), (c) -> {
-                c.getGenerationSettings().removeBuiltInFeature(VegetationPlacedFeatures.TREES_PLAINS.value());
-                c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.TREES_WALNUT.value()).get());
+                if (Ecologics.CONFIG.GENERATE_WALNUT_TREES) {
+                    c.getGenerationSettings().removeBuiltInFeature(VegetationPlacedFeatures.TREES_PLAINS.value());
+                    c.getGenerationSettings().addFeature(VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getKey(ModPlacedFeatures.TREES_WALNUT.value()).get());
+                }
             });
         }
     }
 
     public void addPlacedFeatures() {
-        BiomeModifications.addFeature(
-                (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("beach"),
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.TREES_BEACH.value()))
-        );
-        BiomeModifications.addFeature(
-                (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("beach"),
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.SEASHELL.value()))
-        );
-        BiomeModifications.addFeature(
-                (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_river") || biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_ocean") || biomeSelector.getBiomeKey().getValue().equals("snowy_plains"),
-                GenerationStep.Feature.TOP_LAYER_MODIFICATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.THIN_ICE_PATCH.value()))
-        );
-        BiomeModifications.addFeature(
-                (biomeSelector) -> Biome.getCategory(biomeSelector.getBiomeRegistryEntry()).equals(Biome.Category.DESERT),
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.PRICKLY_PEAR.value()))
-        );
-        BiomeModifications.addFeature(
-                (biomeSelector) -> Biome.getCategory(biomeSelector.getBiomeRegistryEntry()).equals(Biome.Category.DESERT),
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.DESERT_RUIN.value()))
-        );
+        if (Ecologics.CONFIG.GENERATE_COCONUT_TREES) {
+            BiomeModifications.addFeature(
+                    (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("beach"),
+                    GenerationStep.Feature.VEGETAL_DECORATION,
+                    getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.TREES_BEACH.value()))
+            );
+        }
+        if (Ecologics.CONFIG.GENERATE_SEASHELLS) {
+            BiomeModifications.addFeature(
+                    (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("beach"),
+                    GenerationStep.Feature.VEGETAL_DECORATION,
+                    getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.SEASHELL.value()))
+            );
+        }
+        if (Ecologics.CONFIG.GENERATE_THIN_ICE_PATCHES) {
+            BiomeModifications.addFeature(
+                    (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_river") || biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_ocean") || biomeSelector.getBiomeKey().getValue().equals("snowy_plains"),
+                    GenerationStep.Feature.TOP_LAYER_MODIFICATION,
+                    getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.THIN_ICE_PATCH.value()))
+            );
+        }
+        if (Ecologics.CONFIG.GENERATE_PRICKLY_PEARS) {
+            BiomeModifications.addFeature(
+                    (biomeSelector) -> Biome.getCategory(biomeSelector.getBiomeRegistryEntry()).equals(Biome.Category.DESERT),
+                    GenerationStep.Feature.VEGETAL_DECORATION,
+                    getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.PRICKLY_PEAR.value()))
+            );
+        }
+        if (Ecologics.CONFIG.GENERATE_DESERT_RUINS) {
+            BiomeModifications.addFeature(
+                    (biomeSelector) -> Biome.getCategory(biomeSelector.getBiomeRegistryEntry()).equals(Biome.Category.DESERT),
+                    GenerationStep.Feature.VEGETAL_DECORATION,
+                    getPlacedFeature(getPlacedFeatureIdentifier(ModPlacedFeatures.DESERT_RUIN.value()))
+            );
+        }
     }
 
     public void addSpawns() {
-        BiomeModifications.addSpawn(
-                (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_river") || biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_ocean") || biomeSelector.getBiomeKey().getValue().equals("snowy_plains"),
-                SpawnGroup.CREATURE,
-                ModEntityTypes.PENGUIN,
-                2,
-                4,
-                7
-        );
-        BiomeModifications.addSpawn(
-                (biomeSelector) -> Biome.getCategory(biomeSelector.getBiomeRegistryEntry()).equals(Biome.Category.DESERT),
-                SpawnGroup.CREATURE,
-                ModEntityTypes.CAMEL,
-                1,
-                1,
-                1
-        );
-        BiomeModifications.addSpawn(
-                (biomeSelector) -> biomeSelector.getBiomeKey().equals(BiomeKeys.PLAINS),
-                SpawnGroup.CREATURE,
-                ModEntityTypes.SQUIRREL,
-                10,
-                2,
-                3
-        );
+        if (Ecologics.CONFIG.SPAWN_PENGUINS) {
+            BiomeModifications.addSpawn(
+                    (biomeSelector) -> biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_river") || biomeSelector.getBiomeKey().getValue().getPath().equals("frozen_ocean") || biomeSelector.getBiomeKey().getValue().equals("snowy_plains"),
+                    SpawnGroup.CREATURE,
+                    ModEntityTypes.PENGUIN,
+                    2,
+                    4,
+                    7
+            );
+        }
+        if (Ecologics.CONFIG.SPAWN_CAMELS) {
+            BiomeModifications.addSpawn(
+                    (biomeSelector) -> Biome.getCategory(biomeSelector.getBiomeRegistryEntry()).equals(Biome.Category.DESERT),
+                    SpawnGroup.CREATURE,
+                    ModEntityTypes.CAMEL,
+                    1,
+                    1,
+                    1
+            );
+        }
+        if (Ecologics.CONFIG.SPAWN_SQUIRRELS) {
+            BiomeModifications.addSpawn(
+                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(BiomeKeys.PLAINS),
+                    SpawnGroup.CREATURE,
+                    ModEntityTypes.SQUIRREL,
+                    10,
+                    2,
+                    3
+            );
+        }
     }
 
     public void addEvents() {

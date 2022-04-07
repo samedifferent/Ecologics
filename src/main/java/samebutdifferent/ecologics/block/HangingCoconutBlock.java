@@ -26,8 +26,10 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModConfiguration;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
@@ -152,7 +154,7 @@ public class HangingCoconutBlock extends FallingBlock implements Fertilizable {
     @Override
     public void onDestroyedOnLanding(World pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
         pLevel.playSound(null, pPos, ModSoundEvents.COCONUT_SMASH, SoundCategory.BLOCKS, 0.2F, 1.0F);
-        if (pLevel.random.nextInt(5) == 0) {
+        if (pLevel.random.nextInt() <= Ecologics.CONFIG.COCONUT_CRAB_SPAWN_CHANCE) {
             CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.create(pLevel);
             if (coconutCrab != null) {
                 coconutCrab.setPosition(pPos.getX(), pPos.getY(), pPos.getZ());
