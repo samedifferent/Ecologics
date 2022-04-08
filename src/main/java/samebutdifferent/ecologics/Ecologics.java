@@ -232,10 +232,8 @@ public class Ecologics implements ModInitializer {
             }
             return ActionResult.PASS;
         });
-        ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
-            addPlacedFeatures();
-            addSpawns();
-        });
+        addPlacedFeatures();
+        addSpawns();
     }
 
     public void addEntityAttributes() {
