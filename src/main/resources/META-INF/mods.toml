@@ -21,6 +21,27 @@ Improves the vanilla biomes.
     side="BOTH"
 
 [[dependencies.ecologics]]
+    modId="decorative_blocks"
+    mandatory=false
+    versionRange="[2.1.0,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.ecologics]]
+    modId="quark"
+    mandatory=false
+    versionRange="[2.3,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.ecologics]]
+    modId="autoreglib"
+    mandatory=false
+    versionRange="[1.7,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.ecologics]]
     modId="forge"
     mandatory=true
     versionRange="[40,)"

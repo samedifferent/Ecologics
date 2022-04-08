@@ -10,6 +10,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import samebutdifferent.ecologics.compat.ModCompat;
 import samebutdifferent.ecologics.registry.*;
 import software.bernie.geckolib3.GeckoLib;
 
@@ -40,6 +41,7 @@ public class Ecologics {
         ModMobEffects.MOB_EFFECTS.register(bus);
         ModPotions.POTIONS.register(bus);
         GeckoLib.initialize();
+        ModCompat.init();
 
         MinecraftForge.EVENT_BUS.register(this);
     }

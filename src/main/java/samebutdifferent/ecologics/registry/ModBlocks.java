@@ -106,7 +106,7 @@ public class ModBlocks {
     public static final RegistryObject<ModStandingSignBlock> FLOWERING_AZALEA_SIGN = BLOCKS.register("flowering_azalea_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.FLOWERING_AZALEA));
     public static final RegistryObject<ModWallSignBlock> FLOWERING_AZALEA_WALL_SIGN = BLOCKS.register("flowering_azalea_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FLOWERING_AZALEA_SIGN.get()), ModWoodType.FLOWERING_AZALEA));
     
-    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
+    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(Ecologics.TAB)));
         return toReturn;

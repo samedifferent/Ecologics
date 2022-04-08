@@ -23,6 +23,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
+import samebutdifferent.ecologics.compat.ModCompat;
 import samebutdifferent.ecologics.entity.Camel;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
