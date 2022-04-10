@@ -12,6 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.compat.quark.block.*;
 import samebutdifferent.ecologics.compat.quark.block.entity.ModChestBlockEntity;
 import samebutdifferent.ecologics.compat.quark.block.entity.ModTrappedChestBlockEntity;
+import samebutdifferent.ecologics.compat.quark.item.ModChestBlockItem;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModItems;
@@ -97,14 +98,14 @@ public class QuarkCompat {
         AZALEA_HEDGE = registerBlock("azalea_hedge", HedgeBlock::new, CreativeModeTab.TAB_DECORATIONS);
         FLOWERING_AZALEA_HEDGE = registerBlock("flowering_azalea_hedge", HedgeBlock::new, CreativeModeTab.TAB_DECORATIONS);
 
-        COCONUT_CHEST = registerBlock("coconut_chest", () -> new ModChestBlock(ChestVariant.COCONUT), CreativeModeTab.TAB_DECORATIONS);
-        WALNUT_CHEST = registerBlock("walnut_chest", () -> new ModChestBlock(ChestVariant.WALNUT), CreativeModeTab.TAB_DECORATIONS);
-        AZALEA_CHEST = registerBlock("azalea_chest", () -> new ModChestBlock(ChestVariant.AZALEA), CreativeModeTab.TAB_DECORATIONS);
-        FLOWERING_AZALEA_CHEST = registerBlock("flowering_azalea_chest", () -> new ModChestBlock(ChestVariant.FLOWERING_AZALEA), CreativeModeTab.TAB_DECORATIONS);
-        COCONUT_TRAPPED_CHEST = registerBlock("coconut_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.COCONUT_TRAPPED), CreativeModeTab.TAB_DECORATIONS);
-        WALNUT_TRAPPED_CHEST = registerBlock("walnut_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.WALNUT_TRAPPED), CreativeModeTab.TAB_DECORATIONS);
-        AZALEA_TRAPPED_CHEST = registerBlock("azalea_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.AZALEA_TRAPPED), CreativeModeTab.TAB_DECORATIONS);
-        FLOWERING_AZALEA_TRAPPED_CHEST = registerBlock("flowering_azalea_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.FLOWERING_AZALEA_TRAPPED), CreativeModeTab.TAB_DECORATIONS);
+        COCONUT_CHEST = registerChest("coconut_chest", () -> new ModChestBlock(ChestVariant.COCONUT));
+        WALNUT_CHEST = registerChest("walnut_chest", () -> new ModChestBlock(ChestVariant.WALNUT));
+        AZALEA_CHEST = registerChest("azalea_chest", () -> new ModChestBlock(ChestVariant.AZALEA));
+        FLOWERING_AZALEA_CHEST = registerChest("flowering_azalea_chest", () -> new ModChestBlock(ChestVariant.FLOWERING_AZALEA));
+        COCONUT_TRAPPED_CHEST = registerChest("coconut_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.COCONUT_TRAPPED));
+        WALNUT_TRAPPED_CHEST = registerChest("walnut_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.WALNUT_TRAPPED));
+        AZALEA_TRAPPED_CHEST = registerChest("azalea_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.AZALEA_TRAPPED));
+        FLOWERING_AZALEA_TRAPPED_CHEST = registerChest("flowering_azalea_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.FLOWERING_AZALEA_TRAPPED));
         
         CHEST = ModBlockEntityTypes.BLOCK_ENTITY_TYPES.register("chest", () -> BlockEntityType.Builder.of(ModChestBlockEntity::new, COCONUT_CHEST.get(), WALNUT_CHEST.get(), AZALEA_CHEST.get(), FLOWERING_AZALEA_CHEST.get()).build(null));
         TRAPPED_CHEST = ModBlockEntityTypes.BLOCK_ENTITY_TYPES.register("trapped_chest", () -> BlockEntityType.Builder.of(ModTrappedChestBlockEntity::new, COCONUT_TRAPPED_CHEST.get(), WALNUT_TRAPPED_CHEST.get(), AZALEA_TRAPPED_CHEST.get(), FLOWERING_AZALEA_TRAPPED_CHEST.get()).build(null));
@@ -113,6 +114,12 @@ public class QuarkCompat {
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(tab)));
+        return toReturn;
+    }
+
+    public static <T extends Block> RegistryObject<T> registerChest(String name, Supplier<T> block) {
+        RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);
+        ModItems.ITEMS.register(name, () -> new ModChestBlockItem(toReturn.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
         return toReturn;
     }
 

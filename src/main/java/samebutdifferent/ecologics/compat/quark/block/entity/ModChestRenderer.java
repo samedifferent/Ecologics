@@ -15,10 +15,12 @@ import samebutdifferent.ecologics.compat.quark.block.IChestBlock;
 @OnlyIn(Dist.CLIENT)
 public class ModChestRenderer extends ChestRenderer<ModChestBlockEntity> {
     public static Block block = null;
+    public static ModChestRenderer renderer;
     public boolean xmasTextures;
 
     public ModChestRenderer(BlockEntityRendererProvider.Context pContext) {
         super(pContext);
+        renderer = this;
     }
 
     @Override
