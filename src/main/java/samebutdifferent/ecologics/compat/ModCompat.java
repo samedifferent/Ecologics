@@ -1,18 +1,23 @@
 package samebutdifferent.ecologics.compat;
 
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import samebutdifferent.ecologics.compat.decorative_blocks.DBCompat;
+import samebutdifferent.ecologics.compat.farmersdelight.FDCompat;
 import samebutdifferent.ecologics.compat.quark.QuarkCompat;
+import samebutdifferent.ecologics.compat.quark.QuarkCompatClient;
 
 public class ModCompat {
     public static final boolean quark;
     public static final boolean autoreglib;
     public static final boolean decorative_blocks;
+    public static final boolean farmersdelight;
 
     static {
         quark = isModPresent("quark");
         autoreglib = isModPresent("autoreglib");
         decorative_blocks = isModPresent("decorative_blocks");
+        farmersdelight = isModPresent("farmersdelight");
     }
 
     public static boolean isModPresent(String modid) {
@@ -20,7 +25,13 @@ public class ModCompat {
     }
 
     public static void init() {
+        if (quark) {
+            QuarkCompat.init();
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::registerRenderLayers);
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::registerBlockColors);
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::registerItemColors);
+        }
         if (decorative_blocks) DBCompat.init();
-        if (quark) QuarkCompat.init();
+        if (farmersdelight) FDCompat.init();
     }
 }

@@ -1,0 +1,6 @@
+{   
+    "parent": "quark:block/leaf_carpet",
+    "textures": {
+        "all": "ecologics:block/coconut_leaves"
+    }
+}

@@ -2,31 +2,14 @@ package samebutdifferent.ecologics.compat.decorative_blocks;
 
 import lilypuree.decorative_blocks.blocks.types.IWoodType;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.MaterialColor;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
 public enum DBCompatWoodTypes implements IWoodType {
-    COCONUT("coconut") {
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.WOOD;
-        }
-    },
-    WALNUT("walnut") {
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.TERRACOTTA_BROWN;
-        }
-    },
-    AZALEA("azalea") {
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.TERRACOTTA_PINK;
-        }
-    },
-    FLOWERING_AZALEA("flowering_azalea") {
-        public MaterialColor getMaterialColor() {
-            return MaterialColor.TERRACOTTA_PINK;
-        }
-    };
+    COCONUT("coconut"),
+    WALNUT("walnut"),
+    AZALEA("azalea"),
+    FLOWERING_AZALEA("flowering_azalea");
 
     private final String name;
 

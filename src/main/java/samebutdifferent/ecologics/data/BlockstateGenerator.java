@@ -1,12 +1,10 @@
 package samebutdifferent.ecologics.data;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class BlockstateGenerator extends BlockStateProvider {
     public BlockstateGenerator(DataGenerator gen, ExistingFileHelper exFileHelper) {

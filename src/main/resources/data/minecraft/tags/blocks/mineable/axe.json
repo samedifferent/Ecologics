@@ -51,6 +51,22 @@
     "ecologics:flowering_azalea_stairs",
     "ecologics:flowering_azalea_fence",
     "ecologics:flowering_azalea_fence_gate",
-    "ecologics:flowering_azalea_trapdoor"
+    "ecologics:flowering_azalea_trapdoor",
+    {
+      "id": "ecologics:coconut_cabinet",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:walnut_cabinet",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:azalea_cabinet",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:flowering_azalea_cabinet",
+      "required": "false"
+    }
   ]
 }

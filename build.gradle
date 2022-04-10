@@ -95,6 +95,7 @@ dependencies {
     implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.13')
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf("curse.maven:decorativeblocks-362528:3681919")
+    implementation fg.deobf("curse.maven:farmersdelight-398521:3739914")
     implementation fg.deobf("vazkii.autoreglib:AutoRegLib:1.7-54.112")
     implementation fg.deobf("vazkii.quark:Quark:3.2-347.2296")
 }
