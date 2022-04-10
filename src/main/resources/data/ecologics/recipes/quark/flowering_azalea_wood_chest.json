@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "# #",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "tag": "ecologics:flowering_azalea_logs"
+        }
+    },
+    "result": {
+        "item": "ecologics:flowering_azalea_chest",
+        "count": 4
+    },
+    "conditions": [
+        {
+            "type": "forge:and",
+            "values": [
+                {
+                    "type": "ecologics:quark_flag",
+                    "flag": "wood_to_chest_recipes"
+                },
+                {
+                    "type": "ecologics:quark_flag",
+                    "flag": "variant_chests"
+                }
+            ]
+        }
+    ]
+}

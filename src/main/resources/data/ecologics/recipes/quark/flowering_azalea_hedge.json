@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "C"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:flowering_azalea_leaves"
+    },
+    "C": {
+      "tag": "ecologics:flowering_azalea_logs"
+    }
+  },
+  "result": {
+    "item": "ecologics:flowering_azalea_hedge",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+      "flag": "hedges"
+    }
+  ]
+}

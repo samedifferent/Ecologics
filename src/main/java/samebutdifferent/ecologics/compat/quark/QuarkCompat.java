@@ -6,9 +6,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LadderBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.compat.quark.block.*;
+import samebutdifferent.ecologics.compat.quark.block.entity.ModChestBlockEntity;
+import samebutdifferent.ecologics.compat.quark.block.entity.ModTrappedChestBlockEntity;
+import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModItems;
 
@@ -44,6 +48,21 @@ public class QuarkCompat {
 
     public static final RegistryObject<Block> COCONUT_HEDGE;
     public static final RegistryObject<Block> WALNUT_HEDGE;
+    public static final RegistryObject<Block> AZALEA_HEDGE;
+    public static final RegistryObject<Block> FLOWERING_AZALEA_HEDGE;
+
+    public static final RegistryObject<Block> COCONUT_CHEST;
+    public static final RegistryObject<Block> WALNUT_CHEST;
+    public static final RegistryObject<Block> AZALEA_CHEST;
+    public static final RegistryObject<Block> FLOWERING_AZALEA_CHEST;
+    
+    public static final RegistryObject<Block> COCONUT_TRAPPED_CHEST;
+    public static final RegistryObject<Block> WALNUT_TRAPPED_CHEST;
+    public static final RegistryObject<Block> AZALEA_TRAPPED_CHEST;
+    public static final RegistryObject<Block> FLOWERING_AZALEA_TRAPPED_CHEST;
+
+    public static final RegistryObject<BlockEntityType<ModChestBlockEntity>> CHEST;
+    public static final RegistryObject<BlockEntityType<ModTrappedChestBlockEntity>> TRAPPED_CHEST;
 
     static {
         COCONUT_VERTICAL_SLAB = registerBlock("coconut_vertical_slab", VerticalSlabBlock::new, CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -75,6 +94,20 @@ public class QuarkCompat {
 
         COCONUT_HEDGE = registerBlock("coconut_hedge", HedgeBlock::new, CreativeModeTab.TAB_DECORATIONS);
         WALNUT_HEDGE = registerBlock("walnut_hedge", HedgeBlock::new, CreativeModeTab.TAB_DECORATIONS);
+        AZALEA_HEDGE = registerBlock("azalea_hedge", HedgeBlock::new, CreativeModeTab.TAB_DECORATIONS);
+        FLOWERING_AZALEA_HEDGE = registerBlock("flowering_azalea_hedge", HedgeBlock::new, CreativeModeTab.TAB_DECORATIONS);
+
+        COCONUT_CHEST = registerBlock("coconut_chest", () -> new ModChestBlock(ChestVariant.COCONUT), CreativeModeTab.TAB_DECORATIONS);
+        WALNUT_CHEST = registerBlock("walnut_chest", () -> new ModChestBlock(ChestVariant.WALNUT), CreativeModeTab.TAB_DECORATIONS);
+        AZALEA_CHEST = registerBlock("azalea_chest", () -> new ModChestBlock(ChestVariant.AZALEA), CreativeModeTab.TAB_DECORATIONS);
+        FLOWERING_AZALEA_CHEST = registerBlock("flowering_azalea_chest", () -> new ModChestBlock(ChestVariant.FLOWERING_AZALEA), CreativeModeTab.TAB_DECORATIONS);
+        COCONUT_TRAPPED_CHEST = registerBlock("coconut_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.COCONUT_TRAPPED), CreativeModeTab.TAB_DECORATIONS);
+        WALNUT_TRAPPED_CHEST = registerBlock("walnut_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.WALNUT_TRAPPED), CreativeModeTab.TAB_DECORATIONS);
+        AZALEA_TRAPPED_CHEST = registerBlock("azalea_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.AZALEA_TRAPPED), CreativeModeTab.TAB_DECORATIONS);
+        FLOWERING_AZALEA_TRAPPED_CHEST = registerBlock("flowering_azalea_trapped_chest", () -> new ModTrappedChestBlock(ChestVariant.FLOWERING_AZALEA_TRAPPED), CreativeModeTab.TAB_DECORATIONS);
+        
+        CHEST = ModBlockEntityTypes.BLOCK_ENTITY_TYPES.register("chest", () -> BlockEntityType.Builder.of(ModChestBlockEntity::new, COCONUT_CHEST.get(), WALNUT_CHEST.get(), AZALEA_CHEST.get(), FLOWERING_AZALEA_CHEST.get()).build(null));
+        TRAPPED_CHEST = ModBlockEntityTypes.BLOCK_ENTITY_TYPES.register("trapped_chest", () -> BlockEntityType.Builder.of(ModTrappedChestBlockEntity::new, COCONUT_TRAPPED_CHEST.get(), WALNUT_TRAPPED_CHEST.get(), AZALEA_TRAPPED_CHEST.get(), FLOWERING_AZALEA_TRAPPED_CHEST.get()).build(null));
     }
 
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {

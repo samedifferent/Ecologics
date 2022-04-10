@@ -1,7 +1,21 @@
 {
   "replace": false,
   "values": [
-    "ecologics:coconut_hedge",
-    "ecologics:walnut_hedge"
+    {
+      "id": "ecologics:coconut_hedge",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:walnut_hedge",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:azalea_hedge",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:flowering_azalea_hedge",
+      "required": "false"
+    }
   ]
 }

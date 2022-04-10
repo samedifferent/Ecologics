@@ -4,8 +4,6 @@
     "ecologics:azalea_log",
     "ecologics:azalea_wood",
     "ecologics:stripped_azalea_log",
-    "ecologics:stripped_azalea_wood",
-    "ecologics:flowering_azalea_log",
-    "ecologics:flowering_azalea_wood"
+    "ecologics:stripped_azalea_wood"
   ]
 }

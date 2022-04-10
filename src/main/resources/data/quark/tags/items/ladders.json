@@ -1,9 +1,21 @@
 {
   "replace": false,
   "values": [
-    "ecologics:azalea_ladder",
-    "ecologics:flowering_azalea_ladder",
-    "ecologics:coconut_ladder",
-    "ecologics:walnut_ladder"
+    {
+      "id": "ecologics:coconut_ladder",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:walnut_ladder",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:azalea_ladder",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:flowering_azalea_ladder",
+      "required": "false"
+    }
   ]
 }

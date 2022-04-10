@@ -3,7 +3,7 @@
   "group": "planks",
   "ingredients": [
     {
-      "item": "ecologics:flowering_azalea_log"
+      "tag": "ecologics:flowering_azalea_logs"
     }
   ],
   "result": {
