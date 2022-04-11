@@ -93,34 +93,6 @@ public class Penguin extends AnimalEntity implements IAnimatable {
     }
 
     @Override
-    public void baseTick() {
-        int airSupply = this.getAir();
-        super.baseTick();
-        if (!this.isAiDisabled()) {
-            this.handleAirSupply(airSupply);
-        }
-
-    }
-
-    @Override
-    public int getMaxAir() {
-        return 6000;
-    }
-
-    protected void handleAirSupply(int airSupply) {
-        if (this.isAlive() && !this.isWet()) {
-            this.setAir(airSupply - 1);
-            if (this.getAir() == -20) {
-                this.setAir(0);
-                this.damage(DamageSource.DRYOUT, 2.0F);
-            }
-        } else {
-            this.setAir(this.getMaxAir());
-        }
-
-    }
-
-    @Override
     protected void initGoals() {
         super.initGoals();
         this.goalSelector.add(1, new EscapeDangerGoal(this, 1.2D));
