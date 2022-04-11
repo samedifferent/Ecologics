@@ -3,6 +3,7 @@ package samebutdifferent.ecologics.compat;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
+import samebutdifferent.ecologics.compat.decorative_blocks.DBCompat;
 import samebutdifferent.ecologics.compat.farmersdelight.FDCompat;
 import samebutdifferent.ecologics.compat.quark.QuarkCompat;
 import samebutdifferent.ecologics.compat.quark.QuarkCompatClient;
@@ -34,7 +35,7 @@ public class ModCompat {
             FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::registerRenderers);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::stitchTextures);
         }
-//        if (decorative_blocks) DBCompat.init();
+        if (decorative_blocks) DBCompat.init();
         if (farmersdelight) FDCompat.init();
         CraftingHelper.register(new QuarkFlagRecipeCondition.Serializer());
     }
