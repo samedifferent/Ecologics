@@ -1,0 +1,8 @@
+{
+	"parent": "mcwbridges:block/stair/rope/parent/torch",
+	"textures": {
+		"4": "ecologics:block/azalea_log",
+		"1_3": "minecraft:block/torch",
+		"particle": "ecologics:block/azalea_log"
+	}
+}

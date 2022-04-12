@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "F F",
+        "WWW"
+    ],
+    "key": {
+        "F": {
+            "item": "minecraft:string"
+        },
+        "W": {
+            "item": "ecologics:azalea_slab"
+        }
+    },
+    "result": {
+        "item": "ecologics:rope_azalea_bridge",
+        "count": 4
+    }
+}

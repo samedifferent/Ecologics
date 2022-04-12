@@ -1,0 +1,10 @@
+{
+	"type": "minecraft:block",
+	"pools": [{
+		"rolls": 1,
+		"entries": [{
+			"type": "minecraft:item",
+			"name": "ecologics:flowering_azalea_bridge_pier"
+		}]
+	}]
+}

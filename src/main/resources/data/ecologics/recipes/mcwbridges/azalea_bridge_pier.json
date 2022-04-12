@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WFW"
+    ],
+    "key": {
+        "F": {
+            "item": "ecologics:azalea_fence"
+        },
+        "W": {
+            "item": "ecologics:azalea_log"
+        }
+    },
+    "result": {
+        "item": "ecologics:azalea_bridge_pier",
+        "count": 3
+    }
+}

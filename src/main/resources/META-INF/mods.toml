@@ -28,6 +28,20 @@ Improves the vanilla biomes.
     side="BOTH"
 
 [[dependencies.ecologics]]
+    modId="farmersdelight"
+    mandatory=false
+    versionRange="[1.18.2-1.0.4,]"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.ecologics]]
+    modId="mcwbridges"
+    mandatory=false
+    versionRange="[2.0.2,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.ecologics]]
     modId="quark"
     mandatory=false
     versionRange="[2.3,)"

@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "  F",
+        " FF",
+        "FFF"
+    ],
+    "key": {
+        "F": {
+            "item": "ecologics:rope_azalea_bridge"
+        }
+    },
+    "result": {
+        "item": "ecologics:azalea_rope_bridge_stair",
+        "count": 6
+    }
+}

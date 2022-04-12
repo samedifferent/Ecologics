@@ -1,0 +1,9 @@
+{
+  "parent": "mcwbridges:block/support_pier/wooden/parent/pillar_side",
+  "textures": {
+    "0": "ecologics:block/azalea_log",
+    "1": "ecologics:block/azalea_log_top",
+    "2": "ecologics:block/azalea_planks",
+    "particle": "ecologics:block/azalea_log"
+  }
+}
