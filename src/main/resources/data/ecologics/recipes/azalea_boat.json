@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ecologics:azalea_planks"
+    }
+  },
+  "result": {
+    "item": "ecologics:azalea_boat"
+  }
+}
