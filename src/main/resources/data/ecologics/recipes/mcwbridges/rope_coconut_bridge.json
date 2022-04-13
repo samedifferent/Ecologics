@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "F F",
+        "WWW"
+    ],
+    "key": {
+        "F": {
+            "item": "minecraft:string"
+        },
+        "W": {
+            "item": "ecologics:coconut_slab"
+        }
+    },
+    "result": {
+        "item": "ecologics:rope_coconut_bridge",
+        "count": 4
+    }
+}
