@@ -1,15 +1,11 @@
 package samebutdifferent.ecologics.data;
 
-import lilypuree.decorative_blocks.blocks.types.IWoodType;
-import lilypuree.decorative_blocks.datagen.DBItemModels;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.compat.decorative_blocks.DBCompatWoodTypes;
 
 public class ItemModelGenerator extends ItemModelProvider {
     public ItemModelGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper) {
@@ -18,15 +14,6 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-    DBItemModels.ItemGenerationHelper generationHelper = new DBItemModels.ItemGenerationHelper(Ecologics.MOD_ID, this);
-        DBCompatWoodTypes[] var2 = DBCompatWoodTypes.values();
-
-        for (IWoodType wood : var2) {
-            ((ItemModelBuilder) this.getBuilder(wood + "_beam")).parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + wood + "_beam_y")));
-            ((ItemModelBuilder) this.getBuilder(wood + "_palisade")).parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + wood + "_palisade_inventory")));
-            generationHelper.seatModel(wood);
-            generationHelper.supportModel(wood);
-        }
     }
 
     private void ofBlock(RegistryObject block) {
