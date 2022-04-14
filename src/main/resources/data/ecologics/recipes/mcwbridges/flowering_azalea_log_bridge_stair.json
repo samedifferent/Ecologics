@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "  F",
+        " FF",
+        "FFF"
+    ],
+    "key": {
+        "F": {
+            "item": "ecologics:flowering_azalea_log_bridge_middle"
+        }
+    },
+    "result": {
+        "item": "ecologics:flowering_azalea_log_bridge_stair",
+        "count": 6
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "F F",
+        "FWF"
+    ],
+    "key": {
+        "F": {
+            "item": "ecologics:azalea_fence"
+        },
+        "W": {
+            "item": "ecologics:azalea_slab"
+        }
+    },
+    "result": {
+        "item": "ecologics:azalea_rail_bridge",
+        "count": 4
+    }
+}

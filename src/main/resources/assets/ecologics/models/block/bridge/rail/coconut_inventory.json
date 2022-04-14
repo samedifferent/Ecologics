@@ -1,0 +1,9 @@
+{
+  "parent": "mcwbridges:block/bridge/rail/parent/inventory",
+  "textures": {
+    "0": "ecologics:block/coconut_log",
+    "2": "ecologics:block/coconut_planks",
+    "3": "ecologics:block/coconut_log_top",
+    "particle": "ecologics:block/coconut_planks"
+  }
+}

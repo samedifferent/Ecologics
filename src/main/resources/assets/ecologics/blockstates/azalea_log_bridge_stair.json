@@ -1,0 +1,285 @@
+{
+  "multipart": [
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "north",
+          "north": "true",
+          "south": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_base",
+        "y": 270
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "east",
+          "east": "true",
+          "west": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_base",
+        "y": 0
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "south",
+          "north": "true",
+          "south": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_base",
+        "y": 90
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "west",
+          "east": "true",
+          "west": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_base",
+        "y": 180
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "north",
+          "torch": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_torch",
+        "y": 270
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "east",
+          "torch": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_torch",
+        "y": 0
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "south",
+          "torch": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_torch",
+        "y": 90
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "west",
+          "torch": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_torch",
+        "y": 180
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "east",
+          "east": "false",
+          "west": "false"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_double",
+        "y": 0
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "east",
+          "east": "false",
+          "west": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_right",
+        "y": 0
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "east",
+          "east": "true",
+          "west": "false"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_left",
+        "y": 0
+      }
+    },
+
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "south",
+          "south": "false",
+          "north": "false"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_double",
+        "y": 90
+      }
+    },
+
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "south",
+          "south": "false",
+          "north": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_right",
+        "y": 90
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "south",
+          "south": "true",
+          "north": "false"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_left",
+        "y": 90
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "west",
+          "west": "false",
+          "east": "false"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_double",
+        "y": 180
+      }
+    },
+
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "west",
+          "west": "false",
+          "east": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_right",
+        "y": 180
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "west",
+          "west": "true",
+          "east": "false"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_left",
+        "y": 180
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "north",
+          "north": "false",
+          "south": "false"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_double",
+        "y": 270
+      }
+    },
+
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "north",
+          "north": "false",
+          "south": "true"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_right",
+        "y": 270
+      }
+    },
+
+    {
+      "when": {
+        "AND": [{
+          "facing": "north",
+          "north": "true",
+          "south": "false"
+        }]
+      },
+      "apply": {
+        "model": "ecologics:block/stair/wood/azalea_left",
+        "y": 270
+      }
+    }
+
+  ]
+}

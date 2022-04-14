@@ -1,0 +1,7 @@
+{
+	"parent": "mcwbridges:block/stair/rope/parent/base",
+	"textures": {
+		"2": "ecologics:block/coconut_planks",
+	    "particle": "ecologics:block/coconut_planks"
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "mcwbridges:block/stair/rope/parent/base",
+	"textures": {
+		"2": "ecologics:block/flowering_azalea_planks",
+	    "particle": "ecologics:block/flowering_azalea_planks"
+	}
+}

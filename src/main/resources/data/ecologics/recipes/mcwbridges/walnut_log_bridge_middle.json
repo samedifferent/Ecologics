@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "F F",
+        "WWW"
+    ],
+    "key": {
+        "F": {
+            "item": "ecologics:walnut_fence"
+        },
+        "W": {
+            "item": "ecologics:walnut_slab"
+        }
+    },
+    "result": {
+        "item": "ecologics:walnut_log_bridge_middle",
+        "count": 4
+    }
+}
