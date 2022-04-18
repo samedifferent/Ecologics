@@ -1,0 +1,7 @@
+{
+  "parent": "decorative_blocks:custom/seat_post_inventory",
+  "textures": {
+    "particle": "ecologics:block/azalea_seat",
+    "texture": "ecologics:block/azalea_seat"
+  }
+}

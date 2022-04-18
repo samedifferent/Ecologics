@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "ecologics:block/coconut_beam_x"
+    },
+    "axis=y": {
+      "model": "ecologics:block/coconut_beam_y"
+    },
+    "axis=z": {
+      "model": "ecologics:block/coconut_beam_z"
+    }
+  }
+}

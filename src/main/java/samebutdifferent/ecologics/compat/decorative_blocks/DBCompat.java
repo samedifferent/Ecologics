@@ -28,10 +28,10 @@ public class DBCompat {
     public static final RegistryObject<Block> AZALEA_PALISADE;
     public static final RegistryObject<Block> AZALEA_SEAT;
 
-    public static final RegistryObject<Block> FLOWERING_AZALEA_BEAM;
-    public static final RegistryObject<Block> FLOWERING_AZALEA_SUPPORT;
-    public static final RegistryObject<Block> FLOWERING_AZALEA_PALISADE;
-    public static final RegistryObject<Block> FLOWERING_AZALEA_SEAT;
+//    public static final RegistryObject<Block> FLOWERING_AZALEA_BEAM;
+//    public static final RegistryObject<Block> FLOWERING_AZALEA_SUPPORT;
+//    public static final RegistryObject<Block> FLOWERING_AZALEA_PALISADE;
+//    public static final RegistryObject<Block> FLOWERING_AZALEA_SEAT;
 
     static {
         COCONUT_BEAM = registerBlock("coconut_beam", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.COCONUT, WoodDecorativeBlockTypes.BEAM));
@@ -49,10 +49,10 @@ public class DBCompat {
         AZALEA_PALISADE = registerBlock("azalea_palisade", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.AZALEA, WoodDecorativeBlockTypes.PALISADE));
         AZALEA_SEAT = registerBlock("azalea_seat", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.AZALEA, WoodDecorativeBlockTypes.SEAT));
 
-        FLOWERING_AZALEA_BEAM = registerBlock("flowering_azalea_beam", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.FLOWERING_AZALEA, WoodDecorativeBlockTypes.BEAM));
-        FLOWERING_AZALEA_SUPPORT = registerBlock("flowering_azalea_support", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.FLOWERING_AZALEA, WoodDecorativeBlockTypes.SUPPORT));
-        FLOWERING_AZALEA_PALISADE = registerBlock("flowering_azalea_palisade", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.FLOWERING_AZALEA, WoodDecorativeBlockTypes.PALISADE));
-        FLOWERING_AZALEA_SEAT = registerBlock("flowering_azalea_seat", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.FLOWERING_AZALEA, WoodDecorativeBlockTypes.SEAT));
+//        FLOWERING_AZALEA_BEAM = registerBlock("flowering_azalea_beam", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.FLOWERING_AZALEA, WoodDecorativeBlockTypes.BEAM));
+//        FLOWERING_AZALEA_SUPPORT = registerBlock("flowering_azalea_support", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.FLOWERING_AZALEA, WoodDecorativeBlockTypes.SUPPORT));
+//        FLOWERING_AZALEA_PALISADE = registerBlock("flowering_azalea_palisade", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.FLOWERING_AZALEA, WoodDecorativeBlockTypes.PALISADE));
+//        FLOWERING_AZALEA_SEAT = registerBlock("flowering_azalea_seat", () -> DBBlocks.createDecorativeBlock(DBCompatWoodTypes.FLOWERING_AZALEA, WoodDecorativeBlockTypes.SEAT));
     }
 
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

@@ -1,0 +1,11 @@
+{
+  "parent": "ecologics:block/coconut_support_inventory",
+  "overrides": [
+    {
+      "predicate": {
+        "decorative_blocks:up": 1.0
+      },
+      "model": "ecologics:block/coconut_upside_down_support_inventory"
+    }
+  ]
+}
