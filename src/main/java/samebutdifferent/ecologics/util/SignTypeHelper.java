@@ -37,7 +37,7 @@ public interface SignTypeHelper
 
             SignType type = constructor.newInstance(name);
 
-            TexturedRenderLayers.WOOD_TYPE_TEXTURES.put(type, new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, new Identifier(MOD_ID, "entity/signs/" + type.name)));
+            TexturedRenderLayers.WOOD_TYPE_TEXTURES.put(type, new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, new Identifier("entity/signs/" + type.name)));
 
             return type;
         }
