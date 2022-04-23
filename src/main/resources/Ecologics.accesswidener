@@ -16,3 +16,5 @@ accessible field net/minecraft/util/SignType name Ljava/lang/String;
 accessible method net/minecraft/recipe/BrewingRecipeRegistry registerPotionRecipe (Lnet/minecraft/potion/Potion;Lnet/minecraft/item/Item;Lnet/minecraft/potion/Potion;)V
 accessible method net/minecraft/entity/SpawnRestriction register (Lnet/minecraft/entity/EntityType;Lnet/minecraft/entity/SpawnRestriction$Location;Lnet/minecraft/world/Heightmap$Type;Lnet/minecraft/entity/SpawnRestriction$SpawnPredicate;)V
 extendable    method    net/minecraft/block/AbstractBlock    getLootTableId    ()Lnet/minecraft/util/Identifier;
+accessible method net/minecraft/client/render/entity/MobEntityRenderer renderLeashPiece (Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/util/math/Matrix4f;FFFIIIIFFFFIZ)V
+accessible method net/minecraft/client/render/entity/EntityRenderer getBlockLight (Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;)I
