@@ -14,5 +14,11 @@
     "result": {
         "item": "ecologics:flowering_azalea_bridge_pier",
         "count": 3
-    }
+    },
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "mcwbridges"
+        }
+    ]
 }
