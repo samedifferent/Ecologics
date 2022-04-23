@@ -93,6 +93,11 @@ public class Penguin extends AnimalEntity implements IAnimatable {
     }
 
     @Override
+    public Vec3d getLeashOffset() {
+        return new Vec3d(0.0, this.getStandingEyeHeight() * 0.5F, this.getWidth() * 0.0);
+    }
+
+    @Override
     protected void initGoals() {
         super.initGoals();
         this.goalSelector.add(1, new EscapeDangerGoal(this, 1.2D));

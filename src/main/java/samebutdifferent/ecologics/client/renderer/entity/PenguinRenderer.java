@@ -15,7 +15,7 @@ import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 @Environment(EnvType.CLIENT)
-public class PenguinRenderer extends GeoEntityRenderer<Penguin> {
+public class PenguinRenderer extends GeoMobRenderer<Penguin> {
 
     public PenguinRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new PenguinModel());

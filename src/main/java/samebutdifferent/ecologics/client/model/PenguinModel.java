@@ -34,6 +34,7 @@ public class PenguinModel extends AnimatedGeoModel<Penguin> {
             return new Identifier(Ecologics.MOD_ID, "textures/entity/penguin.png");
         }
     }
+    
 
     @Override
     public Identifier getAnimationFileLocation(Penguin penguin) {

@@ -10,7 +10,7 @@ import samebutdifferent.ecologics.entity.Squirrel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 @Environment(EnvType.CLIENT)
-public class SquirrelRenderer extends GeoEntityRenderer<Squirrel> {
+public class SquirrelRenderer extends GeoMobRenderer<Squirrel> {
 
     public SquirrelRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new SquirrelModel());
