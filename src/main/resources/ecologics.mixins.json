@@ -9,7 +9,7 @@
     "MixinCarpetBlock",
     "MixinCropBlock",
     "MixinLivingEntity",
-    "SignTypeAccessor"
+    "SignTypeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

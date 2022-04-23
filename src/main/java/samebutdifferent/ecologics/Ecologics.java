@@ -84,6 +84,7 @@ public class Ecologics implements ModInitializer {
 
 
         ModBlocks.init();
+        ModSigns.init();
         ModItems.init();
         ModSoundEvents.init();
         ModEntityTypes.init();
@@ -92,7 +93,6 @@ public class Ecologics implements ModInitializer {
         ModFoliagePlacerTypes.init();
         ModMobEffects.init();
         ModPotions.init();
-        ModSigns.init();
         // dopadream was here :3
 
         GeckoLib.initialize();
