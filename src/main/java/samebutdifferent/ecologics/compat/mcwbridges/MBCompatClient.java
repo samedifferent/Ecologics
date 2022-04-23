@@ -2,13 +2,10 @@ package samebutdifferent.ecologics.compat.mcwbridges;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class MBCompatClient {
 
-    @OnlyIn(Dist.CLIENT)
     public static void registerRenderLayers(FMLClientSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(MBCompat.AZALEA_LOG_ROPE_BRIDGE_MIDDLE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(MBCompat.FLOWERING_AZALEA_LOG_ROPE_BRIDGE_MIDDLE.get(), RenderType.cutout());

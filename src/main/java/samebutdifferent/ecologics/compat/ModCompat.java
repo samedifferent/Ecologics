@@ -1,14 +1,11 @@
 package samebutdifferent.ecologics.compat;
 
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import samebutdifferent.ecologics.compat.decorative_blocks.DBCompat;
 import samebutdifferent.ecologics.compat.farmersdelight.FDCompat;
 import samebutdifferent.ecologics.compat.mcwbridges.MBCompat;
-import samebutdifferent.ecologics.compat.mcwbridges.MBCompatClient;
 import samebutdifferent.ecologics.compat.quark.QuarkCompat;
-import samebutdifferent.ecologics.compat.quark.QuarkCompatClient;
 import samebutdifferent.ecologics.compat.quark.QuarkFlagRecipeCondition;
 
 public class ModCompat {
@@ -31,20 +28,10 @@ public class ModCompat {
     }
 
     public static void init() {
-        if (quark) {
-            QuarkCompat.init();
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::registerRenderLayers);
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::registerBlockColors);
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::registerItemColors);
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::registerRenderers);
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(QuarkCompatClient::stitchTextures);
-        }
+        if (quark) QuarkCompat.init();
         if (decorative_blocks) DBCompat.init();
         if (farmersdelight) FDCompat.init();
-        if (mcwbridges) {
-            MBCompat.init();
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(MBCompatClient::registerRenderLayers);
-        }
+        if (mcwbridges) MBCompat.init();
         CraftingHelper.register(new QuarkFlagRecipeCondition.Serializer());
     }
 }
