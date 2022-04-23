@@ -2,7 +2,6 @@ package samebutdifferent.ecologics.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -10,18 +9,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.model.BoatEntityModel;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.SignType;
-import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.client.model.CamelModel;
-import samebutdifferent.ecologics.client.renderer.block.ModSignBlockEntityRenderer;
 import samebutdifferent.ecologics.client.renderer.entity.*;
-import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 
@@ -50,17 +41,12 @@ public class EcologicsClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POTTED_AZALEA_FLOWER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SURFACE_MOSS, RenderLayer.getCutoutMipped());
 
-        createSignTextureId(ModWoodType.COCONUT);
-        createSignTextureId(ModWoodType.WALNUT);
-        createSignTextureId(ModWoodType.AZALEA);
-        createSignTextureId(ModWoodType.FLOWERING_AZALEA);
 
         // Entity renderers
         EntityRendererRegistry.register(ModEntityTypes.COCONUT_CRAB, CoconutCrabRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.CAMEL, CamelRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.PENGUIN, PenguinRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.BOAT, ModBoatRenderer::new);
-        BlockEntityRendererRegistry.register(ModBlockEntityTypes.SIGN, ModSignBlockEntityRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.SQUIRREL, SquirrelRenderer::new);
 
         // Render layer definitions
@@ -76,9 +62,5 @@ public class EcologicsClient implements ClientModInitializer {
             BlockState blockstate = ((BlockItem)pStack.getItem()).getBlock().getDefaultState();
             return ColorProviderRegistry.BLOCK.get(blockstate.getBlock()).getColor(blockstate, null, null, pTintIndex);
         }, ModBlocks.COCONUT_LEAVES);
-    }
-
-    private static SpriteIdentifier createSignTextureId(SignType type) {
-        return new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, new Identifier(Ecologics.MOD_ID, "entity/signs/" + type.getName()));
     }
 }

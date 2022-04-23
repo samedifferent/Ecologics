@@ -81,17 +81,20 @@ public class Ecologics implements ModInitializer {
     public void onInitialize() {
         CONFIG = AutoConfig.register(ModConfiguration.class, GsonConfigSerializer::new).getConfig();
 
-        Reflection.initialize(
-                ModBlocks.class,
-                ModItems.class,
-                ModSoundEvents.class,
-                ModEntityTypes.class,
-                ModBlockEntityTypes.class,
-                ModFeatures.class,
-                ModFoliagePlacerTypes.class,
-                ModMobEffects.class,
-                ModPotions.class
-        );
+
+
+        ModBlocks.init();
+        ModSigns.init();
+        ModItems.init();
+        ModSoundEvents.init();
+        ModEntityTypes.init();
+        ModBlockEntityTypes.init();
+        ModFeatures.init();
+        ModFoliagePlacerTypes.init();
+        ModMobEffects.init();
+        ModPotions.init();
+        // dopadream was here :3
+
         GeckoLib.initialize();
 
         addEvents();
