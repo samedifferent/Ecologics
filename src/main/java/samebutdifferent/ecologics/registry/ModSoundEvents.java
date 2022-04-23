@@ -8,6 +8,10 @@ import samebutdifferent.ecologics.Ecologics;
 import java.util.function.Supplier;
 
 public class ModSoundEvents {
+
+    public static void init(){
+    }
+
     public static final SoundEvent COCONUT_SMASH = registerSoundEvent("coconut_smash", () -> new SoundEvent(new Identifier(Ecologics.MOD_ID, "block.coconut.smash")));
     public static final SoundEvent COCONUT_CRAB_AMBIENT = registerSoundEvent("coconut_crab_ambient", () -> new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.coconut_crab.ambient")));
     public static final SoundEvent COCONUT_CRAB_DEATH = registerSoundEvent("coconut_crab_death", () -> new SoundEvent(new Identifier(Ecologics.MOD_ID, "entity.coconut_crab.death")));

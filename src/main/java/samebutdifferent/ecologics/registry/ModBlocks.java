@@ -5,16 +5,21 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.SignType;
 import net.minecraft.util.registry.Registry;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.*;
 import samebutdifferent.ecologics.block.grower.WalnutTreeGrower;
-import samebutdifferent.ecologics.block.properties.ModWoodType;
+import samebutdifferent.ecologics.mixin.SignTypeAccessor;
 
 import java.util.Properties;
 import java.util.function.Supplier;
 
 public class ModBlocks {
+
+    public static void init(){
+    }
+
     public static final PillarBlock COCONUT_LOG = registerBlock("coconut_log", () -> new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG)));
     public static final PillarBlock STRIPPED_COCONUT_LOG = registerBlock("stripped_coconut_log", () -> new PillarBlock(AbstractBlock.Settings.copy(Blocks.STRIPPED_OAK_LOG)));
     public static final PillarBlock COCONUT_WOOD = registerBlock("coconut_wood", () -> new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_WOOD)));
@@ -29,8 +34,6 @@ public class ModBlocks {
     public static final TrapdoorBlock COCONUT_TRAPDOOR = registerBlock("coconut_trapdoor", () -> new TrapdoorBlock(AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR)));
     public static final WoodenButtonBlock COCONUT_BUTTON = registerBlock("coconut_button", () -> new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON)));
     public static final PressurePlateBlock COCONUT_PRESSURE_PLATE = registerBlock("coconut_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.copy(Blocks.OAK_PRESSURE_PLATE)));
-    public static final ModStandingSignBlock COCONUT_SIGN = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "coconut_sign"), new ModStandingSignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), ModWoodType.COCONUT));
-    public static final ModWallSignBlock COCONUT_WALL_SIGN = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "coconut_wall_sign"), new ModWallSignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(COCONUT_SIGN), ModWoodType.COCONUT));
     public static final HangingCoconutBlock HANGING_COCONUT = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "hanging_coconut"), new HangingCoconutBlock());
     public static final CoconutBlock COCONUT = registerBlock("coconut", CoconutBlock::new);
     public static final SaplingBlock COCONUT_HUSK = registerBlock("coconut_husk", CoconutSaplingBlock::new);
@@ -67,8 +70,6 @@ public class ModBlocks {
     public static final TrapdoorBlock WALNUT_TRAPDOOR = registerBlock("walnut_trapdoor", () -> new TrapdoorBlock(AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR)));
     public static final WoodenButtonBlock WALNUT_BUTTON = registerBlock("walnut_button", () -> new WoodenButtonBlock(AbstractBlock.Settings.copy(Blocks.OAK_BUTTON)));
     public static final PressurePlateBlock WALNUT_PRESSURE_PLATE = registerBlock("walnut_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.copy(Blocks.OAK_PRESSURE_PLATE)));
-    public static final ModStandingSignBlock WALNUT_SIGN = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "walnut_sign"), new ModStandingSignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), ModWoodType.WALNUT));
-    public static final ModWallSignBlock WALNUT_WALL_SIGN = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "walnut_wall_sign"), new ModWallSignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(WALNUT_SIGN), ModWoodType.WALNUT));
     public static final SaplingBlock WALNUT_SAPLING = registerBlock("walnut_sapling", () -> new SaplingBlock(new WalnutTreeGrower(), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)));
     public static final FlowerPotBlock POTTED_WALNUT_SAPLING = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, "potted_walnut_sapling"), new FlowerPotBlock(ModBlocks.WALNUT_SAPLING, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque()));
     public static final AzaleaLogBlock AZALEA_LOG = registerBlock("azalea_log", AzaleaLogBlock::new);
@@ -97,10 +98,8 @@ public class ModBlocks {
     public static final SurfaceMossBlock SURFACE_MOSS = registerBlock("surface_moss", SurfaceMossBlock::new);
     public static final MossLayerBlock MOSS_LAYER = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID,"moss_layer"), new MossLayerBlock());
     public static final FlowerPotBlock POTTED_AZALEA_FLOWER = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID,"potted_azalea_flower"), new FlowerPotBlock(ModBlocks.AZALEA_FLOWER, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque()));
-    public static final ModStandingSignBlock AZALEA_SIGN = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID,"azalea_sign"), new ModStandingSignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), ModWoodType.AZALEA));
-    public static final ModWallSignBlock AZALEA_WALL_SIGN = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID,"azalea_wall_sign"), new ModWallSignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(AZALEA_SIGN), ModWoodType.AZALEA));
-    public static final ModStandingSignBlock FLOWERING_AZALEA_SIGN = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID,"flowering_azalea_sign"), new ModStandingSignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), ModWoodType.FLOWERING_AZALEA));
-    public static final ModWallSignBlock FLOWERING_AZALEA_WALL_SIGN = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID,"flowering_azalea_wall_sign"), new ModWallSignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(FLOWERING_AZALEA_SIGN), ModWoodType.FLOWERING_AZALEA));
+
+
 
     private static <T extends Block> T registerBlock(String name, Supplier<T> block) {
         T toReturn = Registry.register(Registry.BLOCK, new Identifier(Ecologics.MOD_ID, name), block.get());

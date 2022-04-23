@@ -5,9 +5,11 @@
   "refmap": "ecologics-refmap.json",
   "minVersion": "0.8.5",
   "mixins": [
+    "BlockEntityTypeMixin",
     "MixinAzaleaSaplingGenerator",
     "MixinCarpetBlock",
     "MixinCropBlock",
-    "MixinLivingEntity"
+    "MixinLivingEntity",
+    "SignTypeAccessor"
   ]
 }

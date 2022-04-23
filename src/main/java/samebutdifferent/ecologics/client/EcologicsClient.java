@@ -17,11 +17,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.client.model.CamelModel;
-import samebutdifferent.ecologics.client.renderer.block.ModSignBlockEntityRenderer;
 import samebutdifferent.ecologics.client.renderer.entity.*;
-import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 
@@ -50,17 +47,12 @@ public class EcologicsClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POTTED_AZALEA_FLOWER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SURFACE_MOSS, RenderLayer.getCutoutMipped());
 
-        createSignTextureId(ModWoodType.COCONUT);
-        createSignTextureId(ModWoodType.WALNUT);
-        createSignTextureId(ModWoodType.AZALEA);
-        createSignTextureId(ModWoodType.FLOWERING_AZALEA);
 
         // Entity renderers
         EntityRendererRegistry.register(ModEntityTypes.COCONUT_CRAB, CoconutCrabRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.CAMEL, CamelRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.PENGUIN, PenguinRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.BOAT, ModBoatRenderer::new);
-        BlockEntityRendererRegistry.register(ModBlockEntityTypes.SIGN, ModSignBlockEntityRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.SQUIRREL, SquirrelRenderer::new);
 
         // Render layer definitions

@@ -9,6 +9,9 @@ import samebutdifferent.ecologics.Ecologics;
 import java.util.function.Supplier;
 
 public class ModPotions {
+
+    public static void init(){}
+
     public static final Potion SLIDING = registerPotion("sliding", () -> new Potion(new StatusEffectInstance(ModMobEffects.SLIPPERY, 3600)));
     public static final Potion LONG_SLIDING = registerPotion("long_sliding", () -> new Potion("sliding", new StatusEffectInstance(ModMobEffects.SLIPPERY, 9600)));
 

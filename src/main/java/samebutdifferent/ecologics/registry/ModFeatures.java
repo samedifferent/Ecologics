@@ -16,6 +16,9 @@ import samebutdifferent.ecologics.worldgen.feature.configurations.MossPatchFeatu
 import java.util.function.Supplier;
 
 public class ModFeatures {
+
+    public static void init(){}
+
     public static final CoastalFeature COASTAL = registerFeature("coastal", () -> new CoastalFeature(SimpleBlockFeatureConfig.CODEC));
     public static final ThinIceFeature THIN_ICE = registerFeature("thin_ice", () -> new ThinIceFeature(DiskFeatureConfig.CODEC));
     public static final DesertRuinFeature DESERT_RUIN = registerFeature("desert_ruin", () -> new DesertRuinFeature(DefaultFeatureConfig.CODEC));

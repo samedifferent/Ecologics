@@ -13,6 +13,10 @@ import samebutdifferent.ecologics.item.SandcastleBlockItem;
 import java.util.function.Supplier;
 
 public class ModItems {
+
+    public static void init(){
+    }
+
     public static final Item COCONUT_SLICE = registerItem("coconut_slice", () -> new CoconutSliceItem(new Item.Settings().group(Ecologics.TAB).food(FoodComponents.SWEET_BERRIES)));
     public static final Item CRAB_CLAW = registerItem("crab_claw", () -> new ShearsItem(new Item.Settings().group(Ecologics.TAB).maxDamage(50)));
     public static final Item CRAB_MEAT = registerItem("crab_meat", () -> new Item(new Item.Settings().group(Ecologics.TAB).food(FoodComponents.COOKED_RABBIT)));
@@ -23,16 +27,16 @@ public class ModItems {
     public static final Item SQUIRREL_SPAWN_EGG = registerItem("squirrel_spawn_egg", () -> new SpawnEggItem(ModEntityTypes.SQUIRREL, 10051392, 15720061, new Item.Settings().group(Ecologics.TAB)));
     public static final Item SANDCASTLE = registerItem("sandcastle", SandcastleBlockItem::new);
     public static final Item MUSIC_DISC_COCONUT = registerItem("music_disc_coconut", () -> new MusicDiscItem(10, ModSoundEvents.MUSIC_DISC_COCONUT, new Item.Settings().maxCount(1).group(Ecologics.TAB).rarity(Rarity.RARE)));
-    public static final Item COCONUT_SIGN = registerItem("coconut_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModBlocks.COCONUT_SIGN, ModBlocks.COCONUT_WALL_SIGN));
+    public static final Item COCONUT_SIGN = registerItem("coconut_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModSigns.COCONUT_SIGN, ModSigns.COCONUT_WALL_SIGN));
     public static final Item COCONUT_BOAT = registerItem("coconut_boat", () -> new ModBoatItem("coconut", new Item.Settings().maxCount(1).group(Ecologics.TAB)));
     public static final Item PRICKLY_PEAR = registerItem("prickly_pear", PricklyPearItem::new);
     public static final Item COOKED_PRICKLY_PEAR = registerItem("cooked_prickly_pear", () -> new Item(new Item.Settings().group(Ecologics.TAB).food(FoodComponents.APPLE)));
     public static final Item PENGUIN_FEATHER = registerItem("penguin_feather", () -> new Item(new Item.Settings().group(Ecologics.TAB)));
-    public static final Item WALNUT_SIGN = registerItem("walnut_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModBlocks.WALNUT_SIGN, ModBlocks.WALNUT_WALL_SIGN));
+    public static final Item WALNUT_SIGN = registerItem("walnut_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModSigns.WALNUT_SIGN, ModSigns.WALNUT_WALL_SIGN));
     public static final Item WALNUT_BOAT = registerItem("walnut_boat", () -> new ModBoatItem("walnut", new Item.Settings().maxCount(1).group(Ecologics.TAB)));
     public static final Item WALNUT = registerItem("walnut", () -> new Item(new Item.Settings().group(Ecologics.TAB).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.6F).snack().build())));
-    public static final SignItem AZALEA_SIGN = registerItem("azalea_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModBlocks.AZALEA_SIGN, ModBlocks.AZALEA_WALL_SIGN));
-    public static final SignItem FLOWERING_AZALEA_SIGN = registerItem("flowering_azalea_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModBlocks.FLOWERING_AZALEA_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_SIGN));
+    public static final SignItem AZALEA_SIGN = registerItem("azalea_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModSigns.AZALEA_SIGN, ModSigns.AZALEA_WALL_SIGN));
+    public static final SignItem FLOWERING_AZALEA_SIGN = registerItem("flowering_azalea_sign", () -> new SignItem(new Item.Settings().maxCount(16).group(Ecologics.TAB), ModSigns.FLOWERING_AZALEA_SIGN, ModSigns.FLOWERING_AZALEA_WALL_SIGN));
     public static final Item AZALEA_BOAT = registerItem("azalea_boat", () -> new ModBoatItem("azalea", new Item.Settings().maxCount(1).group(Ecologics.TAB)));
     public static final Item FLOWERING_AZALEA_BOAT = registerItem("flowering_azalea_boat", () -> new ModBoatItem("flowering_azalea", new Item.Settings().maxCount(1).group(Ecologics.TAB)));
     
