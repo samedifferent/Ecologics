@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "_",
+    "_",
+    "_"
+  ],
+  "key": {
+    "_": {
+      "item": "ecologics:seashell_tile_slab"
+    }
+  },
+  "result": {
+    "item": "ecologics:seashell_tile_vertical_slab",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}

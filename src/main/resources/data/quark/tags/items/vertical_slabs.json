@@ -16,6 +16,18 @@
     {
       "id": "ecologics:flowering_azalea_vertical_slab",
       "required": "false"
+    },
+    {
+      "id": "ecologics:seashell_tile_vertical_slab",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:snow_brick_vertical_slab",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:ice_brick_vertical_slab",
+      "required": "false"
     }
   ]
 }

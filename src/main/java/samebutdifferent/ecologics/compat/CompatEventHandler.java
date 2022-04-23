@@ -15,6 +15,7 @@ public class CompatEventHandler {
 
     private static final List<String> portedMods = List.of("azalea", "quarkologics", "quarkazalea", "macawsbridgesazalea");
 
+    // Remaps any block ids to use "ecologics" namespace
     @SubscribeEvent
     public static void onMissingBlockMappings(RegistryEvent.MissingMappings<Block> e) {
         for (var mapping : e.getAllMappings()) {
@@ -29,6 +30,7 @@ public class CompatEventHandler {
         }
     }
 
+    // Remaps any item ids to use "ecologics" namespace
     @SubscribeEvent
     public static void onMissingItemMappings(RegistryEvent.MissingMappings<Item> e) {
         for (var mapping : e.getAllMappings()) {

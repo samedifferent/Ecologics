@@ -67,6 +67,22 @@
     {
       "id": "ecologics:flowering_azalea_cabinet",
       "required": "false"
+    },
+    {
+      "id": "ecologics:coconut_vertical_slab",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:walnut_vertical_slab",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:azalea_vertical_slab",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:flowering_azalea_vertical_slab",
+      "required": "false"
     }
   ]
 }

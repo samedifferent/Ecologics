@@ -24,6 +24,9 @@ public class QuarkCompat {
     public static final RegistryObject<Block> WALNUT_VERTICAL_SLAB;
     public static final RegistryObject<Block> AZALEA_VERTICAL_SLAB;
     public static final RegistryObject<Block> FLOWERING_AZALEA_VERTICAL_SLAB;
+    public static final RegistryObject<Block> SEASHELL_TILE_VERTICAL_SLAB;
+    public static final RegistryObject<Block> ICE_BRICK_VERTICAL_SLAB;
+    public static final RegistryObject<Block> SNOW_BRICK_VERTICAL_SLAB;
 
     public static final RegistryObject<Block> STRIPPED_COCONUT_POST;
     public static final RegistryObject<Block> STRIPPED_WALNUT_POST;
@@ -66,10 +69,13 @@ public class QuarkCompat {
     public static final RegistryObject<BlockEntityType<ModTrappedChestBlockEntity>> TRAPPED_CHEST;
 
     static {
-        COCONUT_VERTICAL_SLAB = registerBlock("coconut_vertical_slab", VerticalSlabBlock::new, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        WALNUT_VERTICAL_SLAB = registerBlock("walnut_vertical_slab", VerticalSlabBlock::new, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        AZALEA_VERTICAL_SLAB = registerBlock("azalea_vertical_slab", VerticalSlabBlock::new, CreativeModeTab.TAB_BUILDING_BLOCKS);
-        FLOWERING_AZALEA_VERTICAL_SLAB = registerBlock("flowering_azalea_vertical_slab", VerticalSlabBlock::new, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        COCONUT_VERTICAL_SLAB = registerBlock("coconut_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.COCONUT_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+        WALNUT_VERTICAL_SLAB = registerBlock("walnut_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.WALNUT_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+        AZALEA_VERTICAL_SLAB = registerBlock("azalea_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.AZALEA_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+        FLOWERING_AZALEA_VERTICAL_SLAB = registerBlock("flowering_azalea_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.FLOWERING_AZALEA_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+        SEASHELL_TILE_VERTICAL_SLAB = registerBlock("seashell_tile_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.SEASHELL_TILE_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+        ICE_BRICK_VERTICAL_SLAB = registerBlock("ice_brick_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.ICE_BRICK_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+        SNOW_BRICK_VERTICAL_SLAB = registerBlock("snow_brick_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.SNOW_BRICK_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
         STRIPPED_COCONUT_POST = registerBlock("stripped_coconut_post", WoodPostBlock::new, CreativeModeTab.TAB_BUILDING_BLOCKS);
         STRIPPED_WALNUT_POST = registerBlock("stripped_walnut_post", WoodPostBlock::new, CreativeModeTab.TAB_BUILDING_BLOCKS);

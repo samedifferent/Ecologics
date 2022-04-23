@@ -32,8 +32,9 @@ public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
     public static final EnumProperty<VerticalSlabType> TYPE = EnumProperty.create("type", VerticalSlabType.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public VerticalSlabBlock() {
-        super(Properties.copy(Blocks.OAK_PLANKS));
+    // The block "variantOf" should be the slab of which this is the vertical variant
+    public VerticalSlabBlock(Block variantOf) {
+        super(Properties.copy(variantOf));
         this.registerDefaultState(this.stateDefinition.any().setValue(TYPE, VerticalSlabType.NORTH).setValue(WATERLOGGED, false));
     }
 
