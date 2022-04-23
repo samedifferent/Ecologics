@@ -82,7 +82,7 @@ public class Ecologics implements ModInitializer {
         CONFIG = AutoConfig.register(ModConfiguration.class, GsonConfigSerializer::new).getConfig();
 
 
-        ModSigns.init();
+
         ModBlocks.init();
         ModItems.init();
         ModSoundEvents.init();
@@ -92,6 +92,7 @@ public class Ecologics implements ModInitializer {
         ModFoliagePlacerTypes.init();
         ModMobEffects.init();
         ModPotions.init();
+        ModSigns.init();
         // dopadream was here :3
 
         GeckoLib.initialize();

@@ -5,14 +5,11 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.SignType;
 import net.minecraft.util.registry.Registry;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.*;
 import samebutdifferent.ecologics.block.grower.WalnutTreeGrower;
-import samebutdifferent.ecologics.mixin.SignTypeAccessor;
 
-import java.util.Properties;
 import java.util.function.Supplier;
 
 public class ModBlocks {

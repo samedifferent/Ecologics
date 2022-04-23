@@ -1,8 +1,6 @@
 package samebutdifferent.ecologics.registry;
 
 import net.minecraft.block.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.SignItem;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
@@ -25,7 +23,7 @@ public class ModSigns {
     }
 
 
-    public static final SignType AZALEA_SIGN_TYPE = SignTypeAccessor.registerNew(SignTypeAccessor.newSignType("azalea"));
+    public static final SignType AZALEA_SIGN_TYPE =  SignTypeAccessor.registerNew(SignTypeAccessor.newSignType("azalea"));
     public static final Block AZALEA_SIGN = new SignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.OAK_TAN).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), AZALEA_SIGN_TYPE);
     public static final Block AZALEA_WALL_SIGN = new WallSignBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.OAK_TAN).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(AZALEA_SIGN), AZALEA_SIGN_TYPE);
     public static final SignType FLOWERING_AZALEA_SIGN_TYPE = SignTypeAccessor.registerNew(SignTypeAccessor.newSignType("flowering_azalea"));
