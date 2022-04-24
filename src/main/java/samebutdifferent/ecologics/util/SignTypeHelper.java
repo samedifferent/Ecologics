@@ -1,9 +1,10 @@
 package samebutdifferent.ecologics.util;
 
 
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.api.EnvironmentInterface;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
@@ -13,9 +14,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
-import static samebutdifferent.ecologics.Ecologics.MOD_ID;
 
-@Environment(EnvType.CLIENT)
 public interface SignTypeHelper
 {
     Set<SignType> eco_getTypes();
@@ -37,8 +36,10 @@ public interface SignTypeHelper
 
             SignType type = constructor.newInstance(name);
 
-            TexturedRenderLayers.WOOD_TYPE_TEXTURES.put(type, new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, new Identifier("entity/signs/" + type.name)));
-
+            if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+                TexturedRenderLayers.WOOD_TYPE_TEXTURES.put(type, new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, new Identifier("entity/signs/" + type.name)));
+            }
+            
             return type;
         }
         catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
