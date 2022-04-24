@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ecologics:vertical_coconut_planks"
+    }
+  ],
+  "result": {
+    "item": "ecologics:coconut_planks",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+        "flag": "vertical_planks"
+    }
+  ]
+} 

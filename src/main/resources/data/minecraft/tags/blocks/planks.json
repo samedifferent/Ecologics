@@ -4,6 +4,22 @@
     "ecologics:coconut_planks",
     "ecologics:walnut_planks",
     "ecologics:azalea_planks",
-    "ecologics:flowering_azalea_planks"
+    "ecologics:flowering_azalea_planks",
+    {
+      "id": "ecologics:vertical_coconut_planks",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:vertical_walnut_planks",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:vertical_azalea_planks",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:vertical_flowering_azalea_planks",
+      "required": "false"
+    }
   ]
 }

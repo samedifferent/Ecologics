@@ -83,6 +83,22 @@
     {
       "id": "ecologics:flowering_azalea_vertical_slab",
       "required": "false"
+    },
+    {
+      "id": "ecologics:vertical_coconut_planks",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:vertical_walnut_planks",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:vertical_azalea_planks",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:vertical_flowering_azalea_planks",
+      "required": "false"
     }
   ]
 }

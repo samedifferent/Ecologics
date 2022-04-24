@@ -110,7 +110,7 @@ dependencies {
     implementation fg.deobf("curse.maven:farmersdelight-398521:3739914")
     implementation fg.deobf("curse.maven:macaws-bridges-351725:3683688")
     implementation fg.deobf("vazkii.autoreglib:AutoRegLib:1.7-54.112")
-    implementation fg.deobf("vazkii.quark:Quark:3.2-347.2296")
+    implementation fg.deobf("vazkii.quark:Quark:3.2-350.2345")
 }
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta', "${mod_id}.mixins.json".toString()]
