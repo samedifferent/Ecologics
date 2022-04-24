@@ -39,7 +39,7 @@ public interface SignTypeHelper
             if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
                 TexturedRenderLayers.WOOD_TYPE_TEXTURES.put(type, new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, new Identifier("entity/signs/" + type.name)));
             }
-            
+
             return type;
         }
         catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
