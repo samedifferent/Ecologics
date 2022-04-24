@@ -15,5 +15,11 @@
     "result": {
         "item": "ecologics:rope_flowering_azalea_bridge",
         "count": 4
-    }
+    },
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "mcwbridges"
+        }
+    ]
 }

@@ -13,5 +13,11 @@
     "result": {
         "item": "ecologics:walnut_rope_bridge_stair",
         "count": 6
-    }
+    },
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "mcwbridges"
+        }
+    ]
 }
