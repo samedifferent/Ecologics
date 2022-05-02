@@ -45,8 +45,9 @@ public class ThinIceBlock extends Block {
     }
 
     private void replaceIfThinIce(BlockPos pPos, int age, Level pLevel) {
-        if (pLevel.getBlockState(pPos).is(ModBlocks.THIN_ICE.get())) {
-            pLevel.setBlock(pPos, ModBlocks.THIN_ICE.get().defaultBlockState().setValue(AGE, age), 2);
+        BlockState state = pLevel.getBlockState(pPos);
+        if (state.is(ModBlocks.THIN_ICE.get())) {
+            pLevel.setBlock(pPos, ModBlocks.THIN_ICE.get().defaultBlockState().setValue(AGE, Math.min(state.getValue(AGE) + age, 3)), 2);
         }
     }
 
