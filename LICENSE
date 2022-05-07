@@ -1,3 +1,22 @@
+The following directories, their subdirectories, and any files inside said directories or subdirectories are subject to
+the license below.
+
+/src/main/resources/
+
+All Rights Reserved
+Copyright (c) 2022 SameButDifferent
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+All other files within this repository are subject to the license below.
+
+MIT License
+
 Copyright (c) 2022 SameButDifferent
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,5 +36,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-All assets created for the Software are Copyright (c) 2022 SameButDifferent. All Rights Reserved.

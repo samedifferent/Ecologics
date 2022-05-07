@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -57,10 +58,14 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
         tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
 
         if (pRandom.nextInt(2) == 0) {
-            pBlockSetter.accept(pos.below(), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
+            if (Feature.isAir(pLevel, pos.below())) {
+                pBlockSetter.accept(pos.below(), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
+            }
         }
         if (pRandom.nextInt(2) == 0) {
-            pBlockSetter.accept(pos.below().relative(direction.getCounterClockWise()), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
+            if (Feature.isAir(pLevel, pos.below().relative(direction.getCounterClockWise()))) {
+                pBlockSetter.accept(pos.below().relative(direction.getCounterClockWise()), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
+            }
         }
 
         for (int i = 0; i < 2; i++) {
