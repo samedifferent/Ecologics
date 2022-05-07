@@ -9,9 +9,6 @@ import vectorwing.farmersdelight.common.block.CabinetBlock;
 import java.util.function.Supplier;
 
 public class FDSuppliers {
-    public static Supplier<Block> COCONUT_CABINET = () -> new CabinetBlock(BlockBehaviour.Properties.copy(Blocks.BARREL));
-    public static Supplier<Block> WALNUT_CABINET = () -> new CabinetBlock(BlockBehaviour.Properties.copy(Blocks.BARREL));
-    public static Supplier<Block> AZALEA_CABINET = () -> new CabinetBlock(BlockBehaviour.Properties.copy(Blocks.BARREL));
-    public static Supplier<Block> FLOWERING_AZALEA_CABINET = () -> new CabinetBlock(BlockBehaviour.Properties.copy(Blocks.BARREL));
+    public static Supplier<Block> CABINET = () -> new CabinetBlock(BlockBehaviour.Properties.copy(Blocks.BARREL));
     public static Supplier<CreativeModeTab> FD_TAB = () -> FarmersDelight.CREATIVE_TAB;
 }
