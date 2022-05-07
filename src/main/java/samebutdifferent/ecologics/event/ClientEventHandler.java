@@ -56,7 +56,7 @@ public class ClientEventHandler {
             Sheets.addWoodType(ModWoodType.FLOWERING_AZALEA);
         });
         if (ModCompat.quark) QuarkCompatClient.registerRenderLayers(event);
-        if (ModCompat.mcwbridges) MBCompatClient.registerRenderLayers(event);
+        MBCompatClient.registerRenderLayers(event);
     }
 
     @SubscribeEvent

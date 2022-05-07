@@ -12,13 +12,11 @@ public class ModCompat {
     public static final boolean quark;
     public static final boolean autoreglib;
     public static final boolean decorative_blocks;
-    public static final boolean mcwbridges;
 
     static {
         quark = isModPresent("quark");
         autoreglib = isModPresent("autoreglib");
         decorative_blocks = isModPresent("decorative_blocks");
-        mcwbridges = isModPresent("mcwbridges");
     }
 
     // This function should no longer be necessary once everything is ported
@@ -31,7 +29,7 @@ public class ModCompat {
         if (quark) QuarkCompat.init();
         if (decorative_blocks) DBCompat.init();
         FDCompat.init();
-        if (mcwbridges) MBCompat.init();
+        MBCompat.init();
         CraftingHelper.register(new QuarkFlagRecipeCondition.Serializer());
     }
 }
