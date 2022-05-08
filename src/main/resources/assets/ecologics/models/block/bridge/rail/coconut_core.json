@@ -1,5 +1,5 @@
 {
-  "parent": "mcwbridges:block/bridge/rail/parent/core",
+  "parent": "ecologics:block/bridge/rail/parent/core",
   "textures": {
     "2": "ecologics:block/coconut_planks",
     "particle": "ecologics:block/coconut_planks"

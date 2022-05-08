@@ -1,5 +1,5 @@
 {
-  "parent": "mcwbridges:block/support_pier/wooden/parent/pillar_corner",
+  "parent": "ecologics:block/support_pier/wooden/parent/pillar_corner",
   "textures": {
     "0": "ecologics:block/coconut_log",
     "1": "ecologics:block/coconut_log_top",
