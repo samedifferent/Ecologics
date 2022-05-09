@@ -105,4 +105,16 @@ public enum DBCompatWoodTypes implements IWoodType {
     public boolean isFlammable() {
         return true;
     }
+
+    public static DBCompatWoodTypes withName(String name) {
+        if (name.equalsIgnoreCase("walnut")) {
+            return WALNUT;
+        } else if (name.equalsIgnoreCase("azalea")) {
+            return AZALEA;
+        } else if (name.equalsIgnoreCase("flowering_azalea")) {
+            return FLOWERING_AZALEA;
+        } else {
+            return COCONUT;
+        }
+    }
 }
