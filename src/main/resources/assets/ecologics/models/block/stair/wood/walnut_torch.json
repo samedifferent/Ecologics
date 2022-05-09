@@ -1,5 +1,5 @@
 {
-  "parent": "mcwbridges:block/stair/wood/parent/torch",
+  "parent": "ecologics:block/stair/wood/parent/torch",
   "textures": {
     "3": "minecraft:block/torch",
     "particle": "ecologics:block/walnut_log",

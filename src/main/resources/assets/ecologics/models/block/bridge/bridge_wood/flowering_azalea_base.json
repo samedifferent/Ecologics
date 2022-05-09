@@ -1,5 +1,5 @@
 {
-	"parent": "mcwbridges:block/bridge/bridge_wood/parent/base",
+	"parent": "ecologics:block/bridge/bridge_wood/parent/base",
 	"textures": {
 		"1": "ecologics:block/flowering_azalea_log",
 		"2": "ecologics:block/flowering_azalea_planks",

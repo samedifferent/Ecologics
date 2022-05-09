@@ -1,5 +1,5 @@
 {
-  "parent": "mcwbridges:block/bridge/rail/parent/corner",
+  "parent": "ecologics:block/bridge/rail/parent/corner",
   "textures": {
     "0": "ecologics:block/walnut_log",
     "2": "ecologics:block/walnut_planks",

@@ -1,5 +1,5 @@
 {
-  "parent": "mcwbridges:block/stair/wood/parent/right",
+  "parent": "ecologics:block/stair/wood/parent/right",
   "textures": {
     "2": "ecologics:block/azalea_planks",
     "particle": "ecologics:block/azalea_log",

@@ -1,5 +1,5 @@
 {
-  "parent": "mcwbridges:block/bridge/rail/parent/base",
+  "parent": "ecologics:block/bridge/rail/parent/base",
   "textures": {
     "2": "ecologics:block/azalea_planks",
     "particle": "ecologics:block/azalea_planks"

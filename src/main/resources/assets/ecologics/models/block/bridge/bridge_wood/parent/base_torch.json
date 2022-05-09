@@ -1,0 +1,76 @@
+{
+	"credit": "Made with Blockbench, borrowed from Macaw's Bridges for compatibility purposes",
+	"elements": [
+		{
+			"from": [6, 3, 6],
+			"to": [10, 4, 10],
+			"faces": {
+				"north": {"uv": [0, 0, 4, 1], "texture": "#1"},
+				"east": {"uv": [0, 0, 4, 1], "texture": "#1"},
+				"south": {"uv": [0, 0, 4, 1], "texture": "#1"},
+				"west": {"uv": [0, 0, 4, 1], "texture": "#1"},
+				"up": {"uv": [0, 0, 4, 4], "texture": "#1"}
+			}
+		},
+		{
+			"from": [7, 4, 7],
+			"to": [9, 5, 9],
+			"faces": {
+				"north": {"uv": [7, 6, 9, 7], "texture": "#3"},
+				"east": {"uv": [7, 6, 9, 7], "texture": "#3"},
+				"south": {"uv": [7, 6, 9, 7], "texture": "#3"},
+				"west": {"uv": [7, 6, 9, 7], "texture": "#3"},
+				"up": {"uv": [7, 6, 9, 8], "texture": "#3"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [57, 91, 0],
+			"translation": [0, 1.25, 0.5],
+			"scale": [0.15, 0.15, 0.15]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [64, 91, 0],
+			"translation": [0, 1.25, 1],
+			"scale": [0.15, 0.15, 0.15]
+		},
+		"firstperson_righthand": {
+			"rotation": [-6, 80, -6],
+			"translation": [1.75, 1.5, 0.5],
+			"scale": [0.15, 0.15, 0.15]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-1, 78, 0],
+			"translation": [2, 1, 0],
+			"scale": [0.15, 0.15, 0.15]
+		},
+		"ground": {
+			"translation": [0, -0.5, 0],
+			"scale": [0.2, 0.2, 0.2]
+		},
+		"gui": {
+			"rotation": [21, -39, 0],
+			"translation": [0, 0.25, 0],
+			"scale": [0.36, 0.36, 0.36]
+		},
+		"head": {
+			"rotation": [-1, 0, 0],
+			"translation": [0, 10.5, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"fixed": {
+			"rotation": [1, 93, 0],
+			"translation": [0.25, -0.25, -0.25],
+			"scale": [0.66, 0.65, 0.43]
+		}
+	},
+	"groups": [
+		{
+			"name": "base_torch",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

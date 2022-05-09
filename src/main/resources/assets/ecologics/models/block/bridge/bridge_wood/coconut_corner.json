@@ -1,5 +1,5 @@
 {
-	"parent": "mcwbridges:block/bridge/bridge_wood/parent/corner",
+	"parent": "ecologics:block/bridge/bridge_wood/parent/corner",
 	"textures": {
 		"0": "ecologics:block/coconut_log",
 		"particle": "ecologics:block/coconut_log"
