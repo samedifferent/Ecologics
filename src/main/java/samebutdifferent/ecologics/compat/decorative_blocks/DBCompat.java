@@ -31,10 +31,10 @@ public class DBCompat {
     public static final RegistryObject<Block> AZALEA_PALISADE = registerPalisade("azalea_palisade", DBCompatWoodTypes.AZALEA);
     public static final RegistryObject<Block> AZALEA_SEAT = registerSeat("azalea_seat", DBCompatWoodTypes.AZALEA);
 
-//    public static final RegistryObject<Block> FLOWERING_AZALEA_BEAM = registerBeam("flowering_azalea_beam", DBCompatWoodTypes.FLOWERING_AZALEA);
-//    public static final RegistryObject<Block> FLOWERING_AZALEA_SUPPORT = registerSupport("flowering_azalea_support", DBCompatWoodTypes.FLOWERING_AZALEA);
-//    public static final RegistryObject<Block> FLOWERING_AZALEA_PALISADE = registerPalisade("flowering_azalea_palisade", DBCompatWoodTypes.FLOWERING_AZALEA);
-//    public static final RegistryObject<Block> FLOWERING_AZALEA_SEAT = registerSeat("flowering_azalea_seat", DBCompatWoodTypes.FLOWERING_AZALEA);
+    public static final RegistryObject<Block> FLOWERING_AZALEA_BEAM = registerBeam("flowering_azalea_beam", DBCompatWoodTypes.FLOWERING_AZALEA);
+    public static final RegistryObject<Block> FLOWERING_AZALEA_SUPPORT = registerSupport("flowering_azalea_support", DBCompatWoodTypes.FLOWERING_AZALEA);
+    public static final RegistryObject<Block> FLOWERING_AZALEA_PALISADE = registerPalisade("flowering_azalea_palisade", DBCompatWoodTypes.FLOWERING_AZALEA);
+    public static final RegistryObject<Block> FLOWERING_AZALEA_SEAT = registerSeat("flowering_azalea_seat", DBCompatWoodTypes.FLOWERING_AZALEA);
 
     private static RegistryObject<Block> registerBeam(String name, DBCompatWoodTypes woodType) {
         var toReturn = ModBlocks.BLOCKS.register(name, loaded ? DBSuppliers.createBeamBlock(woodType) : NoBeamBlock::new);

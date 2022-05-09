@@ -1,5 +1,5 @@
 {
-  "parent": "decorative_blocks:custom/upside_down_support_vertical_small",
+  "parent": "ecologics:block/decorative_blocks/upside_down_support_vertical_small",
   "textures": {
     "particle": "ecologics:block/walnut_support_side",
     "side": "ecologics:block/walnut_support_side",

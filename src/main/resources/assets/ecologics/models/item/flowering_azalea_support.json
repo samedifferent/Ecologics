@@ -1,0 +1,11 @@
+{
+  "parent": "ecologics:block/flowering_azalea_support_inventory",
+  "overrides": [
+    {
+      "predicate": {
+        "decorative_blocks:up": 1.0
+      },
+      "model": "ecologics:block/flowering_azalea_upside_down_support_inventory"
+    }
+  ]
+}

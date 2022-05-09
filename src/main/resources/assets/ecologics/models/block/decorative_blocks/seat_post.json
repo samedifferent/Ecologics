@@ -1,0 +1,21 @@
+{
+	"__comment": "Designed by Stohun with Cubik Studio - https://cubik.studio",
+	"parent": "block/block",
+	"textures": {
+        "particle": "#texture"
+    },
+	"elements": [ 	 
+		{
+			"__comment": "post",
+			"from": [ 6, 0, 6 ],
+			"to": [ 10, 4, 10 ],
+			"faces": {
+				"down": { "uv": [ 6, 12, 10, 16 ], "texture": "#texture", "cullface": "down" },
+				"north": { "uv": [ 12, 12, 16, 16 ], "texture": "#texture", "rotation": 90 },
+				"south": { "uv": [ 12, 12, 16, 16 ], "texture": "#texture", "rotation": 90 },
+				"west": { "uv": [ 12, 12, 16, 16 ], "texture": "#texture", "rotation": 90 },
+				"east": { "uv": [ 12, 12, 16, 16 ], "texture": "#texture", "rotation": 90 }
+			}
+		}
+	]
+}

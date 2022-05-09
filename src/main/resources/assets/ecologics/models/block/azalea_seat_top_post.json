@@ -1,5 +1,5 @@
 {
-  "parent": "decorative_blocks:custom/seat_top_post",
+  "parent": "ecologics:block/decorative_blocks/seat_top_post",
   "textures": {
     "particle": "ecologics:block/azalea_seat",
     "texture": "ecologics:block/azalea_seat"

@@ -1,5 +1,5 @@
 {
-  "parent": "decorative_blocks:custom/support_inventory",
+  "parent": "ecologics:block/decorative_blocks/support_inventory",
   "textures": {
     "particle": "ecologics:block/walnut_support_side",
     "side": "ecologics:block/walnut_support_side",

@@ -1,5 +1,5 @@
 {
-  "parent": "decorative_blocks:custom/support_vertical_small",
+  "parent": "ecologics:block/decorative_blocks/support_vertical_small",
   "textures": {
     "particle": "ecologics:block/azalea_support_side",
     "side": "ecologics:block/azalea_support_side",

@@ -1,5 +1,5 @@
 {
-  "parent": "decorative_blocks:custom/support_horizontal_big",
+  "parent": "ecologics:block/decorative_blocks/support_horizontal_big",
   "textures": {
     "particle": "ecologics:block/coconut_support_side",
     "side": "ecologics:block/coconut_support_side",

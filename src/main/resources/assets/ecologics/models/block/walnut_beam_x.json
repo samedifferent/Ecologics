@@ -1,5 +1,5 @@
 {
-  "parent": "decorative_blocks:custom/beam_x",
+  "parent": "ecologics:block/decorative_blocks/beam_x",
   "textures": {
     "particle": "ecologics:block/walnut_beam_side",
     "side": "ecologics:block/walnut_beam_side",

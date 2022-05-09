@@ -1,5 +1,5 @@
 {
-  "parent": "decorative_blocks:custom/palisade_side",
+  "parent": "ecologics:block/decorative_blocks/palisade_side",
   "textures": {
     "particle": "ecologics:block/coconut_palisade_side",
     "side": "ecologics:block/coconut_palisade_side",
