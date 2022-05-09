@@ -10,5 +10,15 @@
   ],
   "result": {
     "item": "ecologics:azalea_trapped_chest"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+      "flag": "variant_chests"
+    }
+  ]
 }
