@@ -11,12 +11,10 @@ import samebutdifferent.ecologics.compat.quark.QuarkFlagRecipeCondition;
 public class ModCompat {
     public static final boolean quark;
     public static final boolean autoreglib;
-    public static final boolean decorative_blocks;
 
     static {
         quark = isModPresent("quark");
         autoreglib = isModPresent("autoreglib");
-        decorative_blocks = isModPresent("decorative_blocks");
     }
 
     // This function should no longer be necessary once everything is ported
@@ -27,7 +25,7 @@ public class ModCompat {
 
     public static void init() {
         if (quark) QuarkCompat.init();
-        if (decorative_blocks) DBCompat.init();
+        DBCompat.init();
         FDCompat.init();
         MBCompat.init();
         CraftingHelper.register(new QuarkFlagRecipeCondition.Serializer());
