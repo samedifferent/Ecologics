@@ -1,5 +1,5 @@
 {
-  "parent": "quark:block/vertical_slab",
+  "parent": "ecologics:block/quark/vertical_slab",
   "textures": {
     "side": "ecologics:block/flowering_azalea_planks",
     "top": "ecologics:block/flowering_azalea_planks",

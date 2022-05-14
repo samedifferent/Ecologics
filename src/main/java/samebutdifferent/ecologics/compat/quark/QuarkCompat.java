@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LadderBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.RegistryObject;
 import samebutdifferent.ecologics.compat.quark.block.*;
 import samebutdifferent.ecologics.compat.quark.block.entity.ModChestBlockEntity;
@@ -20,6 +21,9 @@ import samebutdifferent.ecologics.registry.ModItems;
 import java.util.function.Supplier;
 
 public class QuarkCompat {
+    public static final String QUARK_ID = "quark";
+    private static final boolean loaded = ModList.get().isLoaded(QUARK_ID);
+
     public static final RegistryObject<Block> COCONUT_VERTICAL_SLAB = registerBlock("coconut_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.COCONUT_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
     public static final RegistryObject<Block> WALNUT_VERTICAL_SLAB = registerBlock("walnut_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.WALNUT_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
     public static final RegistryObject<Block> AZALEA_VERTICAL_SLAB = registerBlock("azalea_vertical_slab", () -> new VerticalSlabBlock(ModBlocks.AZALEA_SLAB.get()), CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -74,13 +78,13 @@ public class QuarkCompat {
 
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);
-        ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(tab)));
+        ModItems.ITEMS.register(name, () -> new BlockItem(toReturn.get(), loaded ? new Item.Properties().tab(tab) : new Item.Properties()));
         return toReturn;
     }
 
     public static <T extends Block> RegistryObject<T> registerChest(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = ModBlocks.BLOCKS.register(name, block);
-        ModItems.ITEMS.register(name, () -> new ModChestBlockItem(toReturn.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+        ModItems.ITEMS.register(name, () -> new ModChestBlockItem(toReturn.get(), loaded ? new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS) : new Item.Properties()));
         return toReturn;
     }
 

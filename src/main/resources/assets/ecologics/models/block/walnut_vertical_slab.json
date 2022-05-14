@@ -1,5 +1,5 @@
 {
-  "parent": "quark:block/vertical_slab",
+  "parent": "ecologics:block/quark/vertical_slab",
   "textures": {
     "side": "ecologics:block/walnut_planks",
     "top": "ecologics:block/walnut_planks",

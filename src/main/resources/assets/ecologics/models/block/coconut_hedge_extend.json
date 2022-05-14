@@ -1,5 +1,5 @@
 {
-  "parent": "quark:block/hedge_extend",
+  "parent": "ecologics:block/quark/hedge_extend",
   "textures": {
     "leaf": "ecologics:block/coconut_leaves"
   }

@@ -1,5 +1,5 @@
 {
-  "parent": "quark:block/post",
+  "parent": "ecologics:block/quark/post",
   "textures": {
     "texture": "ecologics:block/walnut_log"
   }

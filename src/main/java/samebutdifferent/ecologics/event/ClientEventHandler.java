@@ -20,7 +20,6 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.client.model.CamelModel;
 import samebutdifferent.ecologics.client.renderer.entity.*;
-import samebutdifferent.ecologics.compat.ModCompat;
 import samebutdifferent.ecologics.compat.mcwbridges.MBCompatClient;
 import samebutdifferent.ecologics.compat.quark.QuarkCompatClient;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
@@ -55,14 +54,14 @@ public class ClientEventHandler {
             Sheets.addWoodType(ModWoodType.AZALEA);
             Sheets.addWoodType(ModWoodType.FLOWERING_AZALEA);
         });
-        if (ModCompat.quark) QuarkCompatClient.registerRenderLayers(event);
+        QuarkCompatClient.registerRenderLayers(event);
         MBCompatClient.registerRenderLayers(event);
     }
 
     @SubscribeEvent
     public static void registerBlockColors(ColorHandlerEvent.Block event) {
         event.getBlockColors().register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ? BiomeColors.getAverageFoliageColor(pLevel, pPos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES.get());
-        if (ModCompat.quark) QuarkCompatClient.registerBlockColors(event);
+        QuarkCompatClient.registerBlockColors(event);
     }
 
     @SubscribeEvent
@@ -71,7 +70,7 @@ public class ClientEventHandler {
             BlockState blockstate = ((BlockItem)pStack.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, null, null, pTintIndex);
         }, ModBlocks.COCONUT_LEAVES.get());
-        if (ModCompat.quark) QuarkCompatClient.registerItemColors(event);
+        QuarkCompatClient.registerItemColors(event);
     }
 
     @SubscribeEvent
@@ -82,7 +81,7 @@ public class ClientEventHandler {
         event.registerEntityRenderer(ModEntityTypes.BOAT.get(), ModBoatRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN.get(), SignRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.SQUIRREL.get(), SquirrelRenderer::new);
-        if (ModCompat.quark) QuarkCompatClient.registerRenderers(event);
+        QuarkCompatClient.registerRenderers(event);
     }
 
     @SubscribeEvent
@@ -96,6 +95,6 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void stitchTextures(TextureStitchEvent.Pre event) {
-        if (ModCompat.quark) QuarkCompatClient.stitchTextures(event);
+        QuarkCompatClient.stitchTextures(event);
     }
 }

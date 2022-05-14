@@ -1,5 +1,5 @@
 {
-  "parent": "quark:block/hedge_extend",
+  "parent": "ecologics:block/quark/hedge_extend",
   "textures": {
     "leaf": "minecraft:block/flowering_azalea_leaves"
   }
