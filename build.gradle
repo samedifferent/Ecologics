@@ -106,11 +106,11 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
     implementation fg.deobf("software.bernie.geckolib:geckolib-1.18-forge:${geckolib_version}")
-    implementation fg.deobf("curse.maven:decorativeblocks-362528:3681919")
-    implementation fg.deobf("curse.maven:farmersdelight-398521:3739914")
-    implementation fg.deobf("curse.maven:macaws-bridges-351725:3683688")
-    implementation fg.deobf("vazkii.autoreglib:AutoRegLib:1.7-54.112")
-    implementation fg.deobf("vazkii.quark:Quark:3.2-350.2345")
+    compileOnly fg.deobf("curse.maven:decorativeblocks-362528:3681919")
+    compileOnly fg.deobf("curse.maven:farmersdelight-398521:3739914")
+    compileOnly fg.deobf("curse.maven:macaws-bridges-351725:3683688")
+    compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.7-54.112")
+    compileOnly fg.deobf("vazkii.quark:Quark:3.2-350.2345")
 }
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta', "${mod_id}.mixins.json".toString()]
