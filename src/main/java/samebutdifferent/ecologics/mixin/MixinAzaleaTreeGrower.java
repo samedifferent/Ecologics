@@ -19,7 +19,7 @@ public class MixinAzaleaTreeGrower extends AbstractTreeGrower {
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random p_204307_, boolean p_204308_) {
         if (ModConfiguration.REPLACE_AZALEA_TREE.get()) {
-            return ModConfiguredFeatures.AZALEA_TREE;
+            return ModConfiguredFeatures.AZALEA_TREE.getHolder().orElseThrow();
         } else {
             return TreeFeatures.AZALEA_TREE;
         }

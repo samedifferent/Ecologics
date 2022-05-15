@@ -12,6 +12,6 @@ public class ModAzaleaTreeGrower extends AbstractTreeGrower {
     @Nullable
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random p_204307_, boolean p_204308_) {
-        return ModConfiguredFeatures.AZALEA_TREE;
+        return ModConfiguredFeatures.AZALEA_TREE.getHolder().orElseThrow();
     }
 }

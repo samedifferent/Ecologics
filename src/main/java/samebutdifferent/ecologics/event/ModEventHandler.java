@@ -42,7 +42,6 @@ public class ModEventHandler {
             WoodType.register(ModWoodType.WALNUT);
             WoodType.register(ModWoodType.AZALEA);
             WoodType.register(ModWoodType.FLOWERING_AZALEA);
-            ModTrunkPlacerTypes.register();
             BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(ModItems.PENGUIN_FEATHER.get()), PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.SLIDING.get()));
             BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.SLIDING.get())), Ingredient.of(Items.REDSTONE), PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.LONG_SLIDING.get()));
             registerCompostables();

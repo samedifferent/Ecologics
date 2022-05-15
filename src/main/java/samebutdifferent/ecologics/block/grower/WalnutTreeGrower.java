@@ -12,6 +12,6 @@ public class WalnutTreeGrower extends AbstractTreeGrower {
     @Nullable
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random pRandom, boolean pLargeHive) {
-        return ModConfiguredFeatures.WALNUT;
+        return ModConfiguredFeatures.WALNUT.getHolder().orElseThrow();
     }
 }
