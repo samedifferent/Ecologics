@@ -11,7 +11,9 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -53,6 +55,7 @@ public class ModEventHandler {
                     .put(ModBlocks.FLOWERING_AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
                     .put(ModBlocks.FLOWERING_AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get())
                     .put(ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get()).build();
+            registerFlammables();
         });
     }
 
@@ -87,5 +90,53 @@ public class ModEventHandler {
 
     private static void compostibleBlocks(float chance, ItemLike item) {
         ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
+    }
+
+    public static void registerFlammables() {
+        // COCONUT
+        flammableBlock(ModBlocks.COCONUT_PLANKS.get(), 5, 20);
+        flammableBlock(ModBlocks.COCONUT_SLAB.get(), 5, 20);
+        flammableBlock(ModBlocks.COCONUT_FENCE_GATE.get(), 5, 20);
+        flammableBlock(ModBlocks.COCONUT_FENCE.get(), 5, 20);
+        flammableBlock(ModBlocks.COCONUT_STAIRS.get(), 5, 20);
+        flammableBlock(ModBlocks.COCONUT_LOG.get(), 5, 5);
+        flammableBlock(ModBlocks.STRIPPED_COCONUT_LOG.get(), 5, 5);
+        flammableBlock(ModBlocks.STRIPPED_COCONUT_WOOD.get(), 5, 5);
+        flammableBlock(ModBlocks.COCONUT_WOOD.get(), 5, 5);
+        flammableBlock(ModBlocks.COCONUT_LEAVES.get(), 30, 60);
+        // WALNUT
+        flammableBlock(ModBlocks.WALNUT_PLANKS.get(), 5, 20);
+        flammableBlock(ModBlocks.WALNUT_SLAB.get(), 5, 20);
+        flammableBlock(ModBlocks.WALNUT_FENCE_GATE.get(), 5, 20);
+        flammableBlock(ModBlocks.WALNUT_FENCE.get(), 5, 20);
+        flammableBlock(ModBlocks.WALNUT_STAIRS.get(), 5, 20);
+        flammableBlock(ModBlocks.WALNUT_LOG.get(), 5, 5);
+        flammableBlock(ModBlocks.STRIPPED_WALNUT_LOG.get(), 5, 5);
+        flammableBlock(ModBlocks.STRIPPED_WALNUT_WOOD.get(), 5, 5);
+        flammableBlock(ModBlocks.WALNUT_WOOD.get(), 5, 5);
+        flammableBlock(ModBlocks.WALNUT_LEAVES.get(), 30, 60);
+        // AZALEA
+        flammableBlock(ModBlocks.AZALEA_PLANKS.get(), 5, 20);
+        flammableBlock(ModBlocks.AZALEA_SLAB.get(), 5, 20);
+        flammableBlock(ModBlocks.AZALEA_FENCE_GATE.get(), 5, 20);
+        flammableBlock(ModBlocks.AZALEA_FENCE.get(), 5, 20);
+        flammableBlock(ModBlocks.AZALEA_STAIRS.get(), 5, 20);
+        flammableBlock(ModBlocks.AZALEA_LOG.get(), 5, 5);
+        flammableBlock(ModBlocks.STRIPPED_AZALEA_LOG.get(), 5, 5);
+        flammableBlock(ModBlocks.STRIPPED_AZALEA_WOOD.get(), 5, 5);
+        flammableBlock(ModBlocks.AZALEA_WOOD.get(), 5, 5);
+        // FLOWERING_AZALEA
+        flammableBlock(ModBlocks.FLOWERING_AZALEA_PLANKS.get(), 5, 20);
+        flammableBlock(ModBlocks.FLOWERING_AZALEA_SLAB.get(), 5, 20);
+        flammableBlock(ModBlocks.FLOWERING_AZALEA_FENCE_GATE.get(), 5, 20);
+        flammableBlock(ModBlocks.FLOWERING_AZALEA_FENCE.get(), 5, 20);
+        flammableBlock(ModBlocks.FLOWERING_AZALEA_STAIRS.get(), 5, 20);
+        flammableBlock(ModBlocks.FLOWERING_AZALEA_LOG.get(), 5, 5);
+        flammableBlock(ModBlocks.FLOWERING_AZALEA_WOOD.get(), 5, 5);
+    }
+
+    public static void flammableBlock(Block block, int flameOdds, int burnOdds) {
+        FireBlock fire = (FireBlock) Blocks.FIRE;
+        fire.setFlammable(block, flameOdds, burnOdds);
     }
 }
