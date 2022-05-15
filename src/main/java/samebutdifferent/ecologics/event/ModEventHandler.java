@@ -9,6 +9,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -42,22 +43,17 @@ public class ModEventHandler {
             ModTrunkPlacerTypes.register();
             BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(ModItems.PENGUIN_FEATHER.get()), PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.SLIDING.get()));
             BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.SLIDING.get())), Ingredient.of(Items.REDSTONE), PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.LONG_SLIDING.get()));
+            registerCompostables();
+            AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
+                    .put(ModBlocks.COCONUT_LOG.get(), ModBlocks.STRIPPED_COCONUT_LOG.get())
+                    .put(ModBlocks.COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_WOOD.get())
+                    .put(ModBlocks.WALNUT_LOG.get(), ModBlocks.STRIPPED_WALNUT_LOG.get())
+                    .put(ModBlocks.WALNUT_WOOD.get(), ModBlocks.STRIPPED_WALNUT_WOOD.get())
+                    .put(ModBlocks.AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
+                    .put(ModBlocks.FLOWERING_AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
+                    .put(ModBlocks.FLOWERING_AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get())
+                    .put(ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get()).build();
         });
-        AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
-                .put(ModBlocks.COCONUT_LOG.get(), ModBlocks.STRIPPED_COCONUT_LOG.get())
-                .put(ModBlocks.COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_WOOD.get())
-                .put(ModBlocks.WALNUT_LOG.get(), ModBlocks.STRIPPED_WALNUT_LOG.get())
-                .put(ModBlocks.WALNUT_WOOD.get(), ModBlocks.STRIPPED_WALNUT_WOOD.get())
-                .put(ModBlocks.AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
-                .put(ModBlocks.FLOWERING_AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
-                .put(ModBlocks.FLOWERING_AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get())
-                .put(ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get()).build();
-        ComposterBlock.COMPOSTABLES.put(ModItems.COCONUT_SLICE.get(), 0.3F);
-        ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_HUSK.get().asItem(), 0.3F);
-        ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_LEAVES.get().asItem(), 0.3F);
-        ComposterBlock.COMPOSTABLES.put(ModBlocks.WALNUT_LEAVES.get().asItem(), 0.3F);
-        ComposterBlock.COMPOSTABLES.put(ModBlocks.WALNUT_SAPLING.get().asItem(), 0.3F);
-        ComposterBlock.COMPOSTABLES.put(ModBlocks.AZALEA_FLOWER.get().asItem(), 0.65F);
     }
 
 
@@ -78,5 +74,18 @@ public class ModEventHandler {
     @SubscribeEvent
     public static void registerLootModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
         event.getRegistry().register(new AddItemModifier.Serializer().setRegistryName(Ecologics.MOD_ID, "add_item"));
+    }
+
+    private static void registerCompostables() {
+        compostibleBlocks(0.3F, ModItems.COCONUT_SLICE.get());
+        compostibleBlocks(0.3F, ModBlocks.COCONUT_HUSK.get().asItem());
+        compostibleBlocks(0.3F, ModBlocks.COCONUT_LEAVES.get().asItem());
+        compostibleBlocks(0.3F, ModBlocks.WALNUT_LEAVES.get().asItem());
+        compostibleBlocks(0.3F, ModBlocks.WALNUT_SAPLING.get().asItem());
+        compostibleBlocks(0.65F, ModBlocks.AZALEA_FLOWER.get().asItem());
+    }
+
+    private static void compostibleBlocks(float chance, ItemLike item) {
+        ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
     }
 }
