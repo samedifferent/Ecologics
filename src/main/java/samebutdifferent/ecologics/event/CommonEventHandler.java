@@ -65,8 +65,10 @@ public class CommonEventHandler {
                 }
             }
             if (biomeName.equals(Biomes.PLAINS.location())) {
-                if (ModConfiguration.GENERATE_WALNUT_TREES.get()) {
+                if (ModConfiguration.REMOVE_PLAINS_OAK_TREES.get()) {
                     builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), VegetationPlacements.TREES_PLAINS.value()));
+                }
+                if (ModConfiguration.GENERATE_WALNUT_TREES.get()) {
                     builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.TREES_WALNUT);
                 }
                 if (ModConfiguration.SPAWN_SQUIRRELS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), 10, 2, 3));

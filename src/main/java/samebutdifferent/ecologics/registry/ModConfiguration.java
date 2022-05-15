@@ -25,6 +25,7 @@ public class ModConfiguration {
     public static final String CATEGORY_PLAINS = "plains";
     public static final ForgeConfigSpec.BooleanValue SPAWN_SQUIRRELS;
     public static final ForgeConfigSpec.BooleanValue GENERATE_WALNUT_TREES;
+    public static final ForgeConfigSpec.BooleanValue REMOVE_PLAINS_OAK_TREES;
 
     public static final String CATEGORY_LUSH_CAVES = "lush_caves";
     public static final ForgeConfigSpec.BooleanValue REPLACE_AZALEA_TREE;
@@ -53,7 +54,8 @@ public class ModConfiguration {
 
         COMMON_BUILDER.comment("Plains Update").push(CATEGORY_PLAINS);
         SPAWN_SQUIRRELS = COMMON_BUILDER.comment("Spawn squirrels in plains biomes").define("spawnSquirrels", true);
-        GENERATE_WALNUT_TREES = COMMON_BUILDER.comment("Generate walnut trees in plains biomes instead of oak trees").define("generateWalnutTrees", true);
+        GENERATE_WALNUT_TREES = COMMON_BUILDER.comment("Generate walnut trees in plains biomes").define("generateWalnutTrees", true);
+        REMOVE_PLAINS_OAK_TREES = COMMON_BUILDER.comment("Remove the oak trees in plains biomes so only walnut trees generate").define("removePlainsOakTrees", true);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Lush Caves Update").push(CATEGORY_LUSH_CAVES);
