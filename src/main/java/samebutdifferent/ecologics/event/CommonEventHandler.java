@@ -49,13 +49,13 @@ public class CommonEventHandler {
                 if (ModConfiguration.GENERATE_SEASHELLS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SEASHELL.getHolder().orElseThrow());
             }
             if (biomeName.equals(Biomes.DESERT.location())) {
-                if (ModConfiguration.SPAWN_CAMELS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), 1, 1, 1));
+                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), ModConfiguration.CAMEL_SPAWN_WEIGHT.get(), 1, 1));
                 if (ModConfiguration.GENERATE_PRICKLY_PEARS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.PRICKLY_PEAR.getHolder().orElseThrow());
                 if (ModConfiguration.GENERATE_DESERT_RUINS.get()) builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, ModPlacedFeatures.DESERT_RUIN.getHolder().orElseThrow());
             }
             if (biomeName.equals(Biomes.FROZEN_RIVER.location()) || biomeName.equals(Biomes.FROZEN_OCEAN.location()) || biomeName.equals(Biomes.SNOWY_PLAINS.location())) {
                 if (ModConfiguration.GENERATE_THIN_ICE_PATCHES.get()) builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModPlacedFeatures.THIN_ICE_PATCH.getHolder().orElseThrow());
-                if (ModConfiguration.SPAWN_PENGUINS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), 2, 4, 7));
+                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), ModConfiguration.PENGUIN_SPAWN_WEIGHT.get(), 4, 7));
             }
             if (biomeName.equals(Biomes.LUSH_CAVES.location())) {
                 if (ModConfiguration.GENERATE_SURFACE_MOSS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SURFACE_MOSS_PATCH.getHolder().orElseThrow());
@@ -71,7 +71,7 @@ public class CommonEventHandler {
                 if (ModConfiguration.GENERATE_WALNUT_TREES.get()) {
                     builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.TREES_WALNUT.getHolder().orElseThrow());
                 }
-                if (ModConfiguration.SPAWN_SQUIRRELS.get()) event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), 10, 2, 3));
+                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), ModConfiguration.SQUIRREL_SPAWN_WEIGHT.get(), 2, 3));
             }
         }
     }
