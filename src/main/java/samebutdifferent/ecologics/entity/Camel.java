@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,7 +15,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +28,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
+import samebutdifferent.ecologics.registry.ModSoundEvents;
 
 import java.util.Random;
 
@@ -235,37 +234,37 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     protected SoundEvent getAngrySound() {
-        return SoundEvents.LLAMA_ANGRY;
+        return ModSoundEvents.CAMEL_ANGRY.get();
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.LLAMA_AMBIENT;
+        return ModSoundEvents.CAMEL_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.LLAMA_HURT;
+        return ModSoundEvents.CAMEL_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.LLAMA_DEATH;
+        return ModSoundEvents.CAMEL_DEATH.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getEatingSound() {
-        return SoundEvents.LLAMA_EAT;
+        return ModSoundEvents.CAMEL_EAT.get();
     }
 
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
-        this.playSound(SoundEvents.LLAMA_STEP, 0.15F, 1.0F);
+        this.playSound(ModSoundEvents.CAMEL_STEP.get(), 0.15F, 1.0F);
     }
 
     @Override
     protected void playChestEquipsSound() {
-        this.playSound(SoundEvents.LLAMA_CHEST, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        this.playSound(ModSoundEvents.CAMEL_CHEST.get(), 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
     }
 }

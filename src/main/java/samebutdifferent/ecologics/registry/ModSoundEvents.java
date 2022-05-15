@@ -22,4 +22,11 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> SQUIRREL_AMBIENT = SOUND_EVENTS.register("squirrel_ambient", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.ambient")));
     public static final RegistryObject<SoundEvent> SQUIRREL_DEATH = SOUND_EVENTS.register("squirrel_death", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.death")));
     public static final RegistryObject<SoundEvent> SQUIRREL_HURT = SOUND_EVENTS.register("squirrel_hurt", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.hurt")));
+    public static final RegistryObject<SoundEvent> CAMEL_AMBIENT = SOUND_EVENTS.register("camel_ambient", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.ambient")));
+    public static final RegistryObject<SoundEvent> CAMEL_DEATH = SOUND_EVENTS.register("camel_death", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.death")));
+    public static final RegistryObject<SoundEvent> CAMEL_HURT = SOUND_EVENTS.register("camel_hurt", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.hurt")));
+    public static final RegistryObject<SoundEvent> CAMEL_ANGRY = SOUND_EVENTS.register("camel_angry", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.angry")));
+    public static final RegistryObject<SoundEvent> CAMEL_EAT = SOUND_EVENTS.register("camel_eat", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.eat")));
+    public static final RegistryObject<SoundEvent> CAMEL_STEP = SOUND_EVENTS.register("camel_step", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.step")));
+    public static final RegistryObject<SoundEvent> CAMEL_CHEST = SOUND_EVENTS.register("camel_chest", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.chest")));
 }
