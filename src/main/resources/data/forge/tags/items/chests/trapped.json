@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "ecologics:coconut_trapped_chest",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:walnut_trapped_chest",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:azalea_trapped_chest",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:flowering_azalea_trapped_chest",
+      "required": "false"
+    }
+  ]
+}
