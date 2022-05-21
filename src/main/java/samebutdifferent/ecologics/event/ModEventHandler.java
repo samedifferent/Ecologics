@@ -23,7 +23,6 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.Camel;
@@ -31,7 +30,10 @@ import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.loot.AddItemModifier;
-import samebutdifferent.ecologics.registry.*;
+import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
+import samebutdifferent.ecologics.registry.ModPotions;
 
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventHandler {
@@ -55,14 +57,9 @@ public class ModEventHandler {
                     .put(ModBlocks.FLOWERING_AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get())
                     .put(ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get()).build();
             registerFlammables();
+            SpawnPlacements.register(ModEntityTypes.CAMEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
+            SpawnPlacements.register(ModEntityTypes.SQUIRREL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
         });
-    }
-
-
-    @SubscribeEvent
-    public static void onComplete(FMLLoadCompleteEvent event) {
-        SpawnPlacements.register(ModEntityTypes.CAMEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
-        SpawnPlacements.register(ModEntityTypes.SQUIRREL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
     }
 
     @SubscribeEvent
