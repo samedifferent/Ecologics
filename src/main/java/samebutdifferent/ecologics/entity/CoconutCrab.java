@@ -1,6 +1,7 @@
 package samebutdifferent.ecologics.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -133,6 +134,18 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(HAS_COCONUT, true);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("Coconut", this.hasCoconut());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.setHasCoconut(pCompound.getBoolean("Coconut"));
     }
 
     @Override
