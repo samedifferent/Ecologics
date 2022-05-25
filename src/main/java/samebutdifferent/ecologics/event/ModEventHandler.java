@@ -4,11 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -34,6 +31,7 @@ import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModPotions;
+import samebutdifferent.ecologics.util.ModBrewingRecipe;
 
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventHandler {
@@ -44,8 +42,8 @@ public class ModEventHandler {
             WoodType.register(ModWoodType.WALNUT);
             WoodType.register(ModWoodType.AZALEA);
             WoodType.register(ModWoodType.FLOWERING_AZALEA);
-            BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(ModItems.PENGUIN_FEATHER.get()), PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.SLIDING.get()));
-            BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.SLIDING.get())), Ingredient.of(Items.REDSTONE), PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.LONG_SLIDING.get()));
+            BrewingRecipeRegistry.addRecipe(new ModBrewingRecipe(Potions.AWKWARD, ModItems.PENGUIN_FEATHER.get(), ModPotions.SLIDING.get()));
+            BrewingRecipeRegistry.addRecipe(new ModBrewingRecipe(ModPotions.SLIDING.get(), Items.REDSTONE, ModPotions.LONG_SLIDING.get()));
             registerCompostables();
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(ModBlocks.COCONUT_LOG.get(), ModBlocks.STRIPPED_COCONUT_LOG.get())
