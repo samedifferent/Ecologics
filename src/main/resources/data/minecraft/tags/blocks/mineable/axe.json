@@ -99,6 +99,22 @@
     {
       "id": "ecologics:vertical_flowering_azalea_planks",
       "required": "false"
+    },
+    {
+      "id": "ecologics:coconut_bookshelf",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:walnut_bookshelf",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:azalea_bookshelf",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:flowering_azalea_bookshelf",
+      "required": "false"
     }
   ]
 }
