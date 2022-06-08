@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "F F",
+        "WWW"
+    ],
+    "key": {
+        "F": {
+            "item": "ecologics:coconut_fence"
+        },
+        "W": {
+            "item": "ecologics:coconut_slab"
+        }
+    },
+    "result": {
+        "item": "ecologics:coconut_log_bridge_middle",
+        "count": 4
+    },
+    "conditions": [
+        {
+            "type": "forge:mod_loaded",
+            "modid": "mcwbridges"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "decorative_beams",
+  "pattern": [
+    " x ",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "ecologics:stripped_azalea_log"
+    }
+  },
+  "result": {
+    "item": "ecologics:flowering_azalea_beam",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "decorative_blocks"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "decorative_palisades",
+  "pattern": [
+    "xx "
+  ],
+  "key": {
+    "x": {
+      "item": "ecologics:flowering_azalea_log"
+    }
+  },
+  "result": {
+    "item": "ecologics:flowering_azalea_palisade",
+    "count": 6
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "decorative_blocks"
+    }
+  ]
+}

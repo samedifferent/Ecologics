@@ -1,0 +1,133 @@
+{
+  "block.coconut.smash": {
+    "sounds": [
+      "ecologics:coconut_smash"
+    ],
+    "subtitle": "ecologics.subtitles.block.coconut.smash"
+  },
+  "entity.coconut_crab.ambient": {
+    "sounds": [
+      "ecologics:coconut_crab_ambient"
+    ],
+    "subtitle": "ecologics.subtitles.entity.coconut_crab.ambient"
+  },
+  "entity.coconut_crab.death": {
+    "sounds": [
+      "ecologics:coconut_crab_death"
+    ],
+    "subtitle": "ecologics.subtitles.entity.coconut_crab.death"
+  },
+  "entity.coconut_crab.hurt": {
+    "sounds": [
+      "ecologics:coconut_crab_hurt"
+    ],
+    "subtitle": "ecologics.subtitles.entity.coconut_crab.hurt"
+  },
+  "entity.penguin.ambient": {
+    "sounds": [
+      "ecologics:penguin_ambient1",
+      "ecologics:penguin_ambient2"
+    ],
+    "subtitle": "ecologics.subtitles.entity.penguin.ambient"
+  },
+  "entity.penguin.death": {
+    "sounds": [
+      "ecologics:penguin_death"
+    ],
+    "subtitle": "ecologics.subtitles.entity.penguin.death"
+  },
+  "entity.penguin.hurt": {
+    "sounds": [
+      "ecologics:penguin_hurt"
+    ],
+    "subtitle": "ecologics.subtitles.entity.penguin.hurt"
+  },
+  "entity.squirrel.ambient": {
+    "sounds": [
+      "ecologics:squirrel_ambient"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.ambient"
+  },
+  "entity.squirrel.death": {
+    "sounds": [
+      "ecologics:squirrel_death"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.death"
+  },
+  "entity.squirrel.hurt": {
+    "sounds": [
+      "ecologics:squirrel_hurt"
+    ],
+    "subtitle": "ecologics.subtitles.entity.squirrel.hurt"
+  },
+  "music_disc.coconut": {
+    "sounds": [
+      "ecologics:music_disc_coconut"
+    ]
+  },
+  "block.thin_ice.crack": {
+    "sounds": [
+      "minecraft:mob/turtle/egg/egg_crack1",
+      "minecraft:mob/turtle/egg/egg_crack2",
+      "minecraft:mob/turtle/egg/egg_crack3",
+      "minecraft:mob/turtle/egg/egg_crack4",
+      "minecraft:mob/turtle/egg/egg_crack5"
+    ],
+    "subtitle": "ecologics.subtitles.block.thin_ice.crack"
+  },
+  "entity.camel.ambient": {
+    "sounds": [
+      "minecraft:mob/llama/idle1",
+      "minecraft:mob/llama/idle2",
+      "minecraft:mob/llama/idle3",
+      "minecraft:mob/llama/idle4",
+      "minecraft:mob/llama/idle5"
+    ],
+    "subtitle": "ecologics.subtitles.entity.camel.ambient"
+  },
+  "entity.camel.death": {
+    "sounds": [
+      "minecraft:mob/llama/death1",
+      "minecraft:mob/llama/death2"
+    ],
+    "subtitle": "ecologics.subtitles.entity.camel.death"
+  },
+  "entity.camel.hurt": {
+    "sounds": [
+      "minecraft:mob/llama/hurt1",
+      "minecraft:mob/llama/hurt2",
+      "minecraft:mob/llama/hurt3"
+    ],
+    "subtitle": "ecologics.subtitles.entity.camel.hurt"
+  },
+  "entity.camel.angry": {
+    "sounds": [
+      "minecraft:mob/llama/angry1"
+    ],
+    "subtitle": "ecologics.subtitles.entity.camel.angry"
+  },
+  "entity.camel.eat": {
+    "sounds": [
+      "minecraft:mob/llama/eat1",
+      "minecraft:mob/llama/eat2",
+      "minecraft:mob/llama/eat3"
+    ],
+    "subtitle": "ecologics.subtitles.entity.camel.eat"
+  },
+  "entity.camel.step": {
+    "sounds": [
+      "minecraft:mob/llama/step1",
+      "minecraft:mob/llama/step2",
+      "minecraft:mob/llama/step3",
+      "minecraft:mob/llama/step4",
+      "minecraft:mob/llama/step5"
+    ],
+    "subtitle": "ecologics.subtitles.entity.camel.step"
+  },
+  "entity.camel.chest": {
+    "sounds": [
+      "minecraft:mob/chicken/plop"
+    ],
+    "subtitle": "ecologics.subtitles.entity.camel.chest"
+  }
+}

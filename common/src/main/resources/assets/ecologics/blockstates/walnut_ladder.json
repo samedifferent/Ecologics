@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "ecologics:block/walnut_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "ecologics:block/walnut_ladder"
+    },
+    "facing=south": {
+      "model": "ecologics:block/walnut_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ecologics:block/walnut_ladder",
+      "y": 270
+    }
+  }
+}

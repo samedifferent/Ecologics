@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "___",
+    "D D",
+    "___"
+  ],
+  "key": {
+    "_": {
+      "item": "ecologics:walnut_slab"
+    },
+    "D": {
+      "item": "ecologics:walnut_trapdoor"
+    }
+  },
+  "result": {
+    "item": "ecologics:walnut_cabinet"
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ]
+}

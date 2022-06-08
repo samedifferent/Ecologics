@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "ecologics:seashell_tiles"
+  },
+  "result": "ecologics:seashell_tile_stairs",
+  "count": 1
+}

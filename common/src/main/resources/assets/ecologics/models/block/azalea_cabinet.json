@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "ecologics:block/azalea_cabinet_side",
+    "front": "ecologics:block/azalea_cabinet_front",
+    "top": "ecologics:block/azalea_cabinet_top"
+  }
+}

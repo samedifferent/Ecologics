@@ -1,0 +1,246 @@
+{
+  "__comment": "Designed by Stohun with Cubik Studio - https://cubik.studio",
+  "parent": "block/block",
+  "elements": [
+    {
+      "__comment": "Element",
+      "from": [
+        6.5,
+        6.9999,
+        -2.4996
+      ],
+      "to": [
+        9.5,
+        8.9999,
+        16.5004
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          7,
+          7
+        ],
+        "axis": "x",
+        "angle": 45
+      },
+      "faces": {
+        "down": {
+          "uv": [
+            12.5,
+            9.5,
+            11,
+            0
+          ],
+          "texture": "#texture"
+        },
+        "west": {
+          "uv": [
+            11,
+            4.5,
+            12,
+            14
+          ],
+          "texture": "#texture",
+          "rotation": 270
+        },
+        "east": {
+          "uv": [
+            11.5,
+            6.5,
+            12.5,
+            16
+          ],
+          "texture": "#texture",
+          "rotation": 90
+        }
+      }
+    },
+    {
+      "__comment": "Element",
+      "from": [
+        6.5,
+        -1.5,
+        9
+      ],
+      "to": [
+        9.5,
+        15.5,
+        10
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          7,
+          7
+        ],
+        "axis": "x",
+        "angle": -45
+      },
+      "faces": {
+        "south": {
+          "uv": [
+            11,
+            0.5,
+            12.5,
+            9
+          ],
+          "texture": "#texture"
+        },
+        "west": {
+          "uv": [
+            12,
+            5,
+            12.5,
+            13.5
+          ],
+          "texture": "#texture"
+        },
+        "east": {
+          "uv": [
+            11,
+            7,
+            11.5,
+            15.5
+          ],
+          "texture": "#texture"
+        }
+      }
+    },
+    {
+      "__comment": "Box7",
+      "from": [
+        4,
+        0,
+        13
+      ],
+      "to": [
+        12,
+        13,
+        16
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            2,
+            8,
+            6,
+            9.5
+          ],
+          "texture": "#texture",
+          "cullface": "down"
+        },
+        "north": {
+          "uv": [
+            2,
+            9.5,
+            6,
+            16
+          ],
+          "texture": "#texture"
+        },
+        "south": {
+          "uv": [
+            2,
+            9.5,
+            6,
+            16
+          ],
+          "texture": "#texture",
+          "cullface": "south"
+        },
+        "west": {
+          "uv": [
+            6.5,
+            9.5,
+            8,
+            16
+          ],
+          "texture": "#texture"
+        },
+        "east": {
+          "uv": [
+            0.5,
+            9.5,
+            2,
+            16
+          ],
+          "texture": "#texture"
+        }
+      }
+    },
+    {
+      "__comment": "Box8",
+      "from": [
+        0,
+        13,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ],
+          "texture": "#texture"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ],
+          "texture": "#texture",
+          "cullface": "up"
+        },
+        "north": {
+          "uv": [
+            0,
+            8,
+            8,
+            9.5
+          ],
+          "texture": "#texture",
+          "cullface": "north"
+        },
+        "south": {
+          "uv": [
+            0,
+            8,
+            8,
+            9.5
+          ],
+          "texture": "#texture",
+          "cullface": "south"
+        },
+        "west": {
+          "uv": [
+            0,
+            8,
+            8,
+            9.5
+          ],
+          "texture": "#texture",
+          "cullface": "west"
+        },
+        "east": {
+          "uv": [
+            0,
+            8,
+            8,
+            9.5
+          ],
+          "texture": "#texture",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

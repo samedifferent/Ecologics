@@ -1,0 +1,23 @@
+{
+	"parent": "block/block",
+	"texture_size": [32, 32],
+	"textures": {
+		"particle": "ecologics:block/coconut_stage2",
+		"coconut": "ecologics:block/coconut_stage2"
+	},
+	"elements": [
+		{
+			"name": "coconut",
+			"from": [2, 0, 2],
+			"to": [14, 12, 14],
+			"faces": {
+				"north": {"uv": [9, 1, 15, 7], "texture": "#coconut"},
+				"east": {"uv": [9, 1, 15, 7], "texture": "#coconut"},
+				"south": {"uv": [9, 1, 15, 7], "texture": "#coconut"},
+				"west": {"uv": [9, 1, 15, 7], "texture": "#coconut"},
+				"up": {"uv": [1, 9, 7, 15], "texture": "#coconut"},
+				"down": {"uv": [1, 1, 7, 7], "texture": "#coconut"}
+			}
+		}
+	]
+}

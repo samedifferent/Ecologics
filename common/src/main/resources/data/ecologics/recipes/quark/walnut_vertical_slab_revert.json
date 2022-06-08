@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "_"
+  ],
+  "key": {
+    "_": {
+      "item": "ecologics:walnut_vertical_slab"
+    }
+  },
+  "result": {
+    "item": "ecologics:walnut_slab",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}

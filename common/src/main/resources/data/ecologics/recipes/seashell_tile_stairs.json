@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ecologics:seashell_tiles"
+    }
+  },
+  "result": {
+    "item": "ecologics:seashell_tile_stairs",
+    "count": 4
+  }
+}

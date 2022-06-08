@@ -1,0 +1,42 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "ecologics:block/walnut_ladder",
+    "texture": "ecologics:block/walnut_ladder"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        15.2
+      ],
+      "to": [
+        16,
+        16,
+        15.2
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "#texture",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#texture",
+          "uv": [
+            16,
+            0,
+            0,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "ecologics:block/walnut_beam_x"
+    },
+    "axis=y": {
+      "model": "ecologics:block/walnut_beam_y"
+    },
+    "axis=z": {
+      "model": "ecologics:block/walnut_beam_z"
+    }
+  }
+}

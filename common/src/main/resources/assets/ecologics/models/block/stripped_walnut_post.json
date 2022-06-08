@@ -1,0 +1,6 @@
+{
+  "parent": "ecologics:block/quark/post",
+  "textures": {
+    "texture": "ecologics:block/stripped_walnut_log"
+  }
+}

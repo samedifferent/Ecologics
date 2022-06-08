@@ -1,0 +1,7 @@
+{
+	"parent": "ecologics:block/bridge/bridge_wood/parent/corner",
+	"textures": {
+		"0": "ecologics:block/flowering_azalea_log",
+		"particle": "ecologics:block/flowering_azalea_log"
+	}
+}

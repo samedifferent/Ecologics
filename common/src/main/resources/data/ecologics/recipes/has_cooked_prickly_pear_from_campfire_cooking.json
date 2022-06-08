@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "ecologics:prickly_pear"
+  },
+  "result": "ecologics:cooked_prickly_pear",
+  "experience": 0.35,
+  "cookingtime": 600
+}

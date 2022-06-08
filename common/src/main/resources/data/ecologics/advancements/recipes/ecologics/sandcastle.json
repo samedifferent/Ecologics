@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ecologics:sandcastle"
+    ]
+  },
+  "criteria": {
+    "has_seashell": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ecologics:seashell"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ecologics:sandcastle"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_seashell",
+      "has_the_recipe"
+    ]
+  ]
+}

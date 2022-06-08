@@ -1,0 +1,11 @@
+{
+  "parent": "ecologics:block/flowering_azalea_seat_inventory",
+  "overrides": [
+    {
+      "predicate": {
+        "decorative_blocks:post": 1.0
+      },
+      "model": "ecologics:block/flowering_azalea_seat_post_inventory"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "ecologics:seashell_tile_slab",
+    "ecologics:snow_brick_slab",
+    "ecologics:ice_brick_slab"
+  ]
+}

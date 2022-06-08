@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "decorative_seats",
+  "pattern": [
+    "x  ",
+    "y  "
+  ],
+  "key": {
+    "x": {
+      "item": "ecologics:flowering_azalea_slab"
+    },
+    "y": {
+      "item": "ecologics:flowering_azalea_fence"
+    }
+  },
+  "result": {
+    "item": "ecologics:flowering_azalea_seat",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "decorative_blocks"
+    }
+  ]
+}

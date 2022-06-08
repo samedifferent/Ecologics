@@ -1,0 +1,442 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "north",
+        "horizontal": "big",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_horizontal_big"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "horizontal": "big",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_horizontal_big",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "horizontal": "big",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_horizontal_big",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "horizontal": "big",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_horizontal_big",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "horizontal": "small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_horizontal_small"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "horizontal": "small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_horizontal_small",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "horizontal": "small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_horizontal_small",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "horizontal": "small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_horizontal_small",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "vertical": "big",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_vertical_big"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "vertical": "big",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_vertical_big",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "vertical": "big",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_vertical_big",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "vertical": "big",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_vertical_big",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "vertical": "small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_vertical_small"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "vertical": "small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_vertical_small",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "vertical": "small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_vertical_small",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "vertical": "small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_vertical_small",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "vertical": "big|small",
+        "horizontal": "big|small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_post"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "vertical": "big|small",
+        "horizontal": "big|small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_post",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "vertical": "big|small",
+        "horizontal": "big|small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_post",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "vertical": "big|small",
+        "horizontal": "big|small",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_support_post",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "horizontal": "big",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_horizontal_big"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "horizontal": "big",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_horizontal_big",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "horizontal": "big",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_horizontal_big",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "horizontal": "big",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_horizontal_big",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "horizontal": "small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_horizontal_small"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "horizontal": "small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_horizontal_small",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "horizontal": "small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_horizontal_small",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "horizontal": "small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_horizontal_small",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "vertical": "big",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_vertical_big"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "vertical": "big",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_vertical_big",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "vertical": "big",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_vertical_big",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "vertical": "big",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_vertical_big",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "vertical": "small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_vertical_small"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "vertical": "small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_vertical_small",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "vertical": "small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_vertical_small",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "vertical": "small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_vertical_small",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "vertical": "big|small",
+        "horizontal": "big|small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_post"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "vertical": "big|small",
+        "horizontal": "big|small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_post",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "vertical": "big|small",
+        "horizontal": "big|small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_post",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "vertical": "big|small",
+        "horizontal": "big|small",
+        "up": "false"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_upside_down_support_post",
+        "y": 270
+      }
+    }
+  ]
+}

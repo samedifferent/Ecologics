@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "ecologics:block/snow_brick_slab_top"
+    },
+    "type=bottom": {
+      "model": "ecologics:block/snow_brick_slab"
+    },
+    "type=double": {
+      "model": "ecologics:block/snow_bricks"
+    }
+  }
+}

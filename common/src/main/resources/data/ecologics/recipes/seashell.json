@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ecologics:seashell_block"
+    }
+  ],
+  "result": {
+    "item": "ecologics:seashell",
+    "count": 9
+  }
+}

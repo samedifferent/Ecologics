@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "ecologics:block/seashell_tile_slab_top"
+    },
+    "type=bottom": {
+      "model": "ecologics:block/seashell_tile_slab"
+    },
+    "type=double": {
+      "model": "ecologics:block/seashell_tiles"
+    }
+  }
+}

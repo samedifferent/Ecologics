@@ -1,0 +1,6 @@
+{
+  "parent": "ecologics:block/quark/post",
+  "textures": {
+    "texture": "ecologics:block/azalea_log"
+  }
+}

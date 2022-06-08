@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ecologics:cooked_prickly_pear"
+    ]
+  },
+  "criteria": {
+    "has_prickly_pear": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ecologics:prickly_pear"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ecologics:cooked_prickly_pear"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_prickly_pear",
+      "has_the_recipe"
+    ]
+  ]
+}

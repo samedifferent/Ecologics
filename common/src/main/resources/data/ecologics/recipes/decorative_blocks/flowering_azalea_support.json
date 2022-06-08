@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "support",
+  "pattern": [
+    "xx ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "ecologics:flowering_azalea_planks"
+    }
+  },
+  "result": {
+    "item": "ecologics:flowering_azalea_support",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "decorative_blocks"
+    }
+  ]
+}

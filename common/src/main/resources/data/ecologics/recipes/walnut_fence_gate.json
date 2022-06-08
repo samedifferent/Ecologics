@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "ecologics:walnut_planks"
+    }
+  },
+  "result": {
+    "item": "ecologics:walnut_fence_gate"
+  }
+}

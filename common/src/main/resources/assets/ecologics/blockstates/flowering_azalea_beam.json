@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "ecologics:block/flowering_azalea_beam_x"
+    },
+    "axis=y": {
+      "model": "ecologics:block/flowering_azalea_beam_y"
+    },
+    "axis=z": {
+      "model": "ecologics:block/flowering_azalea_beam_z"
+    }
+  }
+}

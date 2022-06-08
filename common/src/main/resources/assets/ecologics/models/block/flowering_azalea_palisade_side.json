@@ -1,0 +1,8 @@
+{
+  "parent": "ecologics:block/decorative_blocks/palisade_side",
+  "textures": {
+    "particle": "ecologics:block/flowering_azalea_palisade_side",
+    "side": "ecologics:block/flowering_azalea_palisade_side",
+    "end": "ecologics:block/flowering_azalea_palisade_end"
+  }
+}

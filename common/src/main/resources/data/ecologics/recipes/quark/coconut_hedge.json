@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "C"
+  ],
+  "key": {
+    "#": {
+      "item": "ecologics:coconut_leaves"
+    },
+    "C": {
+      "tag": "ecologics:coconut_logs"
+    }
+  },
+  "result": {
+    "item": "ecologics:coconut_hedge",
+    "count": 2
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+      "flag": "hedges"
+    }
+  ]
+}

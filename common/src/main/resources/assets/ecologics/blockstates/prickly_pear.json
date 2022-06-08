@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "ecologics:block/prickly_pear_stage0"
+    },
+    "age=1": {
+      "model": "ecologics:block/prickly_pear_stage1"
+    },
+    "age=2": {
+      "model": "ecologics:block/prickly_pear_stage2"
+    },
+    "age=3": {
+      "model": "ecologics:block/prickly_pear_stage3"
+    }
+  }
+}

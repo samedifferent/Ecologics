@@ -1,0 +1,6 @@
+{   
+    "parent": "ecologics:block/quark/vertical_planks",
+    "textures": {
+        "all": "ecologics:block/flowering_azalea_planks"
+    }
+}

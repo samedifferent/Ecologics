@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "ecologics:block/flowering_azalea_planks",
+    "side": "ecologics:block/flowering_azalea_bookshelf"
+  }
+}

@@ -1,0 +1,10 @@
+{
+	"parent": "ecologics:block/stair/rope/parent/left",
+	"textures": {
+		"0": "ecologics:block/mcwbridges/lead_knot_vert",
+		"2": "ecologics:block/flowering_azalea_planks",
+		"3": "ecologics:block/mcwbridges/lead_knot",
+		"4": "ecologics:block/flowering_azalea_log",
+		"particle": "ecologics:block/flowering_azalea_log"
+	}
+}

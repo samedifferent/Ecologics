@@ -19,7 +19,7 @@
     "main": [
       "samebutdifferent.ecologics.fabric.EcologicsFabric"
     ],
-    "main": [
+    "client": [
       "samebutdifferent.ecologics.client.fabric.EcologicsFabricClient"
     ]
   },
@@ -27,6 +27,7 @@
     "ecologics.mixins.json",
     "ecologics-common.mixins.json"
   ],
+  "accessWidener" : "ecologics.accesswidener",
   "depends": {
     "fabricloader": ">=0.14.6",
     "minecraft": ">=1.19",

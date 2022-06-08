@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/ /",
+    "/B/",
+    "/ /"
+  ],
+  "key": {
+    "/": {
+      "tag": "forge:rods/wooden"
+    },
+    "B": {
+      "item": "ecologics:coconut_planks"
+    }
+  },
+  "result": {
+    "item": "ecologics:coconut_ladder",
+    "count": 4
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "quark:flag",
+      "flag": "variant_ladders"
+    }
+  ]
+}

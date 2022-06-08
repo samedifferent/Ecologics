@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "ecologics:seashell_block",
+    "ecologics:seashell_tiles",
+    "ecologics:seashell_tile_stairs",
+    "ecologics:seashell_tile_slab",
+    "ecologics:seashell_tile_wall",
+    "ecologics:pot",
+    "ecologics:thin_ice",
+    "ecologics:ice_bricks",
+    "ecologics:ice_brick_stairs",
+    "ecologics:ice_brick_slab",
+    "ecologics:ice_brick_wall",
+    {
+      "id": "ecologics:seashell_tile_vertical_slab",
+      "required": "false"
+    },
+    {
+      "id": "ecologics:ice_brick_vertical_slab",
+      "required": "false"
+    }
+  ]
+}

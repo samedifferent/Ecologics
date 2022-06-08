@@ -1,0 +1,8 @@
+{
+  "parent": "ecologics:block/stair/wood/parent/double",
+  "textures": {
+    "2": "ecologics:block/walnut_planks",
+    "particle": "ecologics:block/walnut_log",
+    "1_1": "ecologics:block/walnut_log"
+  }
+}

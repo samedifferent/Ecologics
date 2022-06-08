@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "ecologics:block/seashell",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "ecologics:block/seashell"
+    },
+    "facing=south": {
+      "model": "ecologics:block/seashell",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ecologics:block/seashell",
+      "y": 270
+    }
+  }
+}

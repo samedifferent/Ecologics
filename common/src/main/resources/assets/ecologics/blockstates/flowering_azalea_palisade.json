@@ -1,0 +1,48 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_palisade_post"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_palisade_side",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_palisade_side",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_palisade_side",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "ecologics:block/flowering_azalea_palisade_side",
+        "y": 270,
+        "uvlock": true
+      }
+    }
+  ]
+}

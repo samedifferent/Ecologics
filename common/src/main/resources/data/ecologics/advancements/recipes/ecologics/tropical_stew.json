@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ecologics:tropical_stew"
+    ]
+  },
+  "criteria": {
+    "has_cooked_claw": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ecologics:crab_meat"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ecologics:tropical_stew"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cooked_claw",
+      "has_the_recipe"
+    ]
+  ]
+}
