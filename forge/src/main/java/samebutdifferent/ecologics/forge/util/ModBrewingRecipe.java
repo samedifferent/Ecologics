@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.util;
+package samebutdifferent.ecologics.forge.util;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;

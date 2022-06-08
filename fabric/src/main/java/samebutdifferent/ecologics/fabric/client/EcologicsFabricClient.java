@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.client.fabric;
+package samebutdifferent.ecologics.fabric.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import samebutdifferent.ecologics.client.EcologicsClient;

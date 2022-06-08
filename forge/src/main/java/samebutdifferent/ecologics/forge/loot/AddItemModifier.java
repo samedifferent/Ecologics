@@ -1,6 +1,7 @@
-package samebutdifferent.ecologics.loot;
+package samebutdifferent.ecologics.forge.loot;
 
 import com.google.gson.JsonObject;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
@@ -22,11 +23,10 @@ public class AddItemModifier extends LootModifier {
         this.item = item;
     }
 
-    @NotNull
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        generatedLoot.add(new ItemStack(item));
-        return generatedLoot;
+    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> objectArrayList, LootContext arg) {
+        objectArrayList.add(new ItemStack(item));
+        return objectArrayList;
     }
 
     public static class Serializer extends GlobalLootModifierSerializer<AddItemModifier>

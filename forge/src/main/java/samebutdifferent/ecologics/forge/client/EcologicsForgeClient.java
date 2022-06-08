@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.client.forge;
+package samebutdifferent.ecologics.forge.client;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
