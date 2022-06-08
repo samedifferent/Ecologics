@@ -1,0 +1,36 @@
+modLoader = "javafml"
+loaderVersion = "[41,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/samedifferent/Ecologics/issues"
+
+[[mods]]
+modId = "ecologics"
+version = "${version}"
+displayName = "Ecologics"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/ecologics"
+logoFile = "icon.png"
+authors = "SameButDifferent, Zero_DSRS_VX, Drigonis, Crispytwig, Irishjevil, Foquito Azul"
+description = '''
+Simple vanilla biome updates, with fun mobs, blocks, and more!
+'''
+
+[[dependencies.ecologics]]
+modId = "forge"
+mandatory = true
+versionRange = "[41,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ecologics]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19,1.20)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ecologics]]
+modId = "geckolib3"
+mandatory = true
+versionRange="[3.1.0,)"
+ordering = "AFTER"
+side = "BOTH"

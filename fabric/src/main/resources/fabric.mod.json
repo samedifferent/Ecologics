@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "ecologics",
+  "version": "${version}",
+  "name": "Ecologics",
+  "description": "Simple vanilla biome updates, with fun mobs, blocks, and more!",
+  "authors": [
+    "SameButDifferent"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/ecologics",
+    "repo": "https://github.com/samedifferent/Ecologics",
+    "issues": "https://github.com/samedifferent/Ecologics/issues"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "samebutdifferent.ecologics.fabric.EcologicsFabric"
+    ],
+    "main": [
+      "samebutdifferent.ecologics.client.fabric.EcologicsFabricClient"
+    ]
+  },
+  "mixins": [
+    "ecologics.mixins.json",
+    "ecologics-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "minecraft": ">=1.19",
+    "geckolib3": ">=3.1.0"
+  }
+}
