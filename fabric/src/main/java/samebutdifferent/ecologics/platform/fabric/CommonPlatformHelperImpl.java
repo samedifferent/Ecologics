@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.mixin.fabric.PotionBrewingInvoker;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 
 import java.util.function.Supplier;
@@ -37,7 +39,7 @@ public class CommonPlatformHelperImpl {
         return () -> registry;
     }
 
-    public static <T extends Mob> Supplier<SpawnEggItem> registerSpawnEggItem(String name, Supplier<EntityType<T>> entityType, int backgroundColor, int highlightColor) {
+    public static <T extends Item, M extends Mob> Supplier<SpawnEggItem> registerSpawnEggItem(String name, Supplier<EntityType<M>> entityType, int backgroundColor, int highlightColor) {
         var registry = Registry.register(Registry.ITEM, new ResourceLocation(Ecologics.MOD_ID, name), new SpawnEggItem(entityType.get(), backgroundColor, highlightColor, new Item.Properties().tab(Ecologics.TAB)));
         return () -> registry;
     }
@@ -71,7 +73,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static void registerBrewingRecipe(Potion input, Item ingredient, Potion output) {
-        PotionBrewing.addMix(input, ingredient, output);
+        PotionBrewingInvoker.invokeAddMix(input, ingredient, output);
     }
 
     public static <T extends FoliagePlacer> Supplier<FoliagePlacerType<T>> registerFoliagePlacerType(String name, Supplier<FoliagePlacerType<T>> foliagePlacerType) {
@@ -86,5 +88,10 @@ public class CommonPlatformHelperImpl {
 
     public static <T extends Block> void setFlammable(Block fireBlock, Supplier<T> block, int encouragement, int flammability) {
         FlammableBlockRegistry.getInstance(fireBlock).add(block.get(), encouragement, flammability);
+    }
+
+    public static <T extends MobEffect> Supplier<T> registerMobEffect(String name, Supplier<T> mobEffect) {
+        var registry = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(Ecologics.MOD_ID, name), mobEffect.get());
+        return () -> registry;
     }
 }

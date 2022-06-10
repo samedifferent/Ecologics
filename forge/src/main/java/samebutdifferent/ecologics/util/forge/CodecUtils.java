@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.forge.util;
+package samebutdifferent.ecologics.util.forge;
 
 import com.google.gson.JsonElement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;

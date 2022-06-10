@@ -1,7 +1,9 @@
 package samebutdifferent.ecologics.entity;
 
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -11,9 +13,6 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.registries.ForgeRegistries;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
@@ -76,12 +75,12 @@ public class ModBoat extends Boat {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Ecologics.MOD_ID, this.getWoodType() + "_boat")));
+    public ItemStack getPickResult() {
+        return new ItemStack(Registry.ITEM.get(new ResourceLocation(Ecologics.MOD_ID, this.getWoodType() + "_boat")));
     }
 
     @Override
     public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
+        return new ClientboundAddEntityPacket(this);
     }
 }

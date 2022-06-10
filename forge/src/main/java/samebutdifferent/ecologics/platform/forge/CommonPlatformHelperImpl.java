@@ -3,13 +3,13 @@ package samebutdifferent.ecologics.platform.forge;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -22,8 +22,8 @@ import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.forge.mixin.FireBlockAccessor;
-import samebutdifferent.ecologics.forge.util.ModBrewingRecipe;
+import samebutdifferent.ecologics.mixin.forge.FireBlockAccessor;
+import samebutdifferent.ecologics.util.forge.ModBrewingRecipe;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 
 import java.util.function.Supplier;
@@ -37,6 +37,7 @@ public class CommonPlatformHelperImpl {
     public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, Ecologics.MOD_ID);
     public static final DeferredRegister<TrunkPlacerType<?>> TRUNK_PLACER_TYPES = DeferredRegister.create(Registry.TRUNK_PLACER_TYPE_REGISTRY, Ecologics.MOD_ID);
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, Ecologics.MOD_ID);
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Ecologics.MOD_ID);
 
     public static <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> block) {
         return BLOCKS.register(name, block);
@@ -46,7 +47,7 @@ public class CommonPlatformHelperImpl {
         return ITEMS.register(name, item);
     }
 
-    public static <T extends Mob> Supplier<SpawnEggItem> registerSpawnEggItem(String name, Supplier<EntityType<T>> entityType, int backgroundColor, int highlightColor) {
+    public static <T extends Item, M extends Mob> Supplier<SpawnEggItem> registerSpawnEggItem(String name, Supplier<EntityType<M>> entityType, int backgroundColor, int highlightColor) {
         return ITEMS.register(name, () -> new ForgeSpawnEggItem(entityType, backgroundColor, highlightColor, new Item.Properties().tab(Ecologics.TAB)));
     }
 
@@ -76,8 +77,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static <T extends Potion> Supplier<T> registerPotion(String name, Supplier<T> potion) {
-        var registry = Registry.register(Registry.POTION, new ResourceLocation(Ecologics.MOD_ID, name), potion.get());
-        return () -> registry;
+        return POTIONS.register(name, potion);
     }
 
     public static void registerBrewingRecipe(Potion input, Item ingredient, Potion output) {
@@ -94,6 +94,10 @@ public class CommonPlatformHelperImpl {
 
     public static <T extends Block> void setFlammable(Block fireBlock, Supplier<T> block, int encouragement, int flammability) {
         ((FireBlockAccessor)fireBlock).invokeSetFlammable(block.get(), encouragement, flammability);
+    }
+
+    public static <T extends MobEffect> Supplier<T> registerMobEffect(String name, Supplier<T> mobEffect) {
+        return MOB_EFFECTS.register(name, mobEffect);
     }
 
 }

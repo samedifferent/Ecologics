@@ -20,7 +20,7 @@
       "samebutdifferent.ecologics.fabric.EcologicsFabric"
     ],
     "client": [
-      "samebutdifferent.ecologics.fabric.client.EcologicsFabricClient"
+      "samebutdifferent.ecologics.client.fabric.EcologicsFabricClient"
     ]
   },
   "mixins": [

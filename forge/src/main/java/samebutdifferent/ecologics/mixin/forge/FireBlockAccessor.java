@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.forge.mixin;
+package samebutdifferent.ecologics.mixin.forge;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FireBlock;

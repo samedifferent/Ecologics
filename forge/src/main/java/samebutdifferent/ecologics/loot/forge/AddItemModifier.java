@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.forge.loot;
+package samebutdifferent.ecologics.loot.forge;
 
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -12,8 +12,6 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class AddItemModifier extends LootModifier {
     private final Item item;
