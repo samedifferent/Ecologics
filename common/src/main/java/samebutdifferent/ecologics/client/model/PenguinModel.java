@@ -1,9 +1,9 @@
 package samebutdifferent.ecologics.client.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.Penguin;
@@ -14,11 +14,11 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class PenguinModel extends AnimatedGeoModel<Penguin> {
     
     @Override
-    public ResourceLocation getModelLocation(Penguin penguin) {
+    public ResourceLocation getModelResource(Penguin penguin) {
         if (penguin.isBaby()) {
             return new ResourceLocation(Ecologics.MOD_ID, "geo/baby_penguin.geo.json");
         } else {
@@ -27,7 +27,7 @@ public class PenguinModel extends AnimatedGeoModel<Penguin> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Penguin penguin) {
+    public ResourceLocation getTextureResource(Penguin penguin) {
         if (penguin.isBaby()) {
             return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/baby_penguin.png");
         } else {
@@ -36,7 +36,7 @@ public class PenguinModel extends AnimatedGeoModel<Penguin> {
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(Penguin penguin) {
+    public ResourceLocation getAnimationResource(Penguin penguin) {
         return new ResourceLocation(Ecologics.MOD_ID, "animations/penguin.animation.json");
     }
 

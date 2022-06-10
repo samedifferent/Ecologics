@@ -1,9 +1,9 @@
 package samebutdifferent.ecologics.client.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.CoconutCrab;
@@ -14,21 +14,21 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class CoconutCrabModel extends AnimatedGeoModel<CoconutCrab> {
 
 	@Override
-	public ResourceLocation getModelLocation(CoconutCrab object) {
+	public ResourceLocation getModelResource(CoconutCrab object) {
 		return new ResourceLocation(Ecologics.MOD_ID, "geo/coconut_crab.geo.json");
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(CoconutCrab object) {
+	public ResourceLocation getTextureResource(CoconutCrab object) {
 		return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/coconut_crab.png");
 	}
 
 	@Override
-	public ResourceLocation getAnimationFileLocation(CoconutCrab animatable) {
+	public ResourceLocation getAnimationResource(CoconutCrab animatable) {
 		return new ResourceLocation(Ecologics.MOD_ID, "animations/coconut_crab.animation.json");
 	}
 
