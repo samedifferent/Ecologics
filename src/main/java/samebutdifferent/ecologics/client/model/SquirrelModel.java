@@ -18,17 +18,17 @@ import java.util.List;
 public class SquirrelModel extends AnimatedGeoModel<Squirrel>  {
 
     @Override
-    public ResourceLocation getModelLocation(Squirrel object) {
+    public ResourceLocation getModelResource(Squirrel object) {
         return new ResourceLocation(Ecologics.MOD_ID, "geo/squirrel.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Squirrel object) {
+    public ResourceLocation getTextureResource(Squirrel object) {
         return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/squirrel.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(Squirrel animatable) {
+    public ResourceLocation getAnimationResource(Squirrel animatable) {
         return new ResourceLocation(Ecologics.MOD_ID, "animations/squirrel.animation.json");
     }
 

@@ -11,14 +11,6 @@
     "ecologics:ice_bricks",
     "ecologics:ice_brick_stairs",
     "ecologics:ice_brick_slab",
-    "ecologics:ice_brick_wall",
-    {
-      "id": "ecologics:seashell_tile_vertical_slab",
-      "required": "false"
-    },
-    {
-      "id": "ecologics:ice_brick_vertical_slab",
-      "required": "false"
-    }
+    "ecologics:ice_brick_wall"
   ]
 }

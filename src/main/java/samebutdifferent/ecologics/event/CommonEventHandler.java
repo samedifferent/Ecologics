@@ -23,7 +23,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,7 +38,7 @@ import samebutdifferent.ecologics.util.CodecUtils;
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class CommonEventHandler {
 
-    @SubscribeEvent
+/*    @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent event) {
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
         ResourceLocation biomeName = event.getName();
@@ -74,7 +73,7 @@ public class CommonEventHandler {
                 event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), ModConfiguration.SQUIRREL_SPAWN_WEIGHT.get(), 2, 3));
             }
         }
-    }
+    }*/
 
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {

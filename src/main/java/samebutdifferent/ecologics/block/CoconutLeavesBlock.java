@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -11,6 +12,8 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 
 import java.util.Random;
 
@@ -19,30 +22,25 @@ public class CoconutLeavesBlock extends LeavesBlock {
 
     public CoconutLeavesBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE_9, 9).setValue(PERSISTENT, false).setValue(DISTANCE, 7));
+        this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE_9, 9).setValue(PERSISTENT, false).setValue(DISTANCE, 7).setValue(WATERLOGGED, false));
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState pState) {
-        return pState.getValue(DISTANCE_9) == 9 && !pState.getValue(PERSISTENT);
+    protected boolean decaying(BlockState pState) {
+        return !pState.getValue(PERSISTENT) && pState.getValue(DISTANCE_9) == 9;
     }
 
     @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
-        if (!pState.getValue(PERSISTENT) && pState.getValue(DISTANCE_9) == 9) {
-            dropResources(pState, pLevel, pPos);
-            pLevel.removeBlock(pPos, false);
-        }
-
-    }
-
-    @Override
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         pLevel.setBlock(pPos, updateDistance(pState, pLevel, pPos), 3);
     }
 
     @Override
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+        if (pState.getValue(WATERLOGGED)) {
+            pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+        }
+
         int i = getDistanceAt(pFacingState) + 1;
         if (i != 1 || pState.getValue(DISTANCE_9) != i) {
             pLevel.scheduleTick(pCurrentPos, this, 1);
@@ -76,11 +74,13 @@ public class CoconutLeavesBlock extends LeavesBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(DISTANCE_9, PERSISTENT, DISTANCE);
+        pBuilder.add(DISTANCE_9, PERSISTENT, DISTANCE, WATERLOGGED);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return updateDistance(this.defaultBlockState().setValue(PERSISTENT, true), pContext.getLevel(), pContext.getClickedPos());
+        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
+        BlockState blockstate = this.defaultBlockState().setValue(PERSISTENT, true).setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
+        return updateDistance(blockstate, pContext.getLevel(), pContext.getClickedPos());
     }
 }

@@ -18,17 +18,17 @@ import java.util.List;
 public class CoconutCrabModel extends AnimatedGeoModel<CoconutCrab> {
 
 	@Override
-	public ResourceLocation getModelLocation(CoconutCrab object) {
+	public ResourceLocation getModelResource(CoconutCrab object) {
 		return new ResourceLocation(Ecologics.MOD_ID, "geo/coconut_crab.geo.json");
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(CoconutCrab object) {
+	public ResourceLocation getTextureResource(CoconutCrab object) {
 		return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/coconut_crab.png");
 	}
 
 	@Override
-	public ResourceLocation getAnimationFileLocation(CoconutCrab animatable) {
+	public ResourceLocation getAnimationResource(CoconutCrab animatable) {
 		return new ResourceLocation(Ecologics.MOD_ID, "animations/coconut_crab.animation.json");
 	}
 

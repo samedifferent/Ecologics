@@ -18,7 +18,7 @@ import java.util.List;
 public class PenguinModel extends AnimatedGeoModel<Penguin> {
     
     @Override
-    public ResourceLocation getModelLocation(Penguin penguin) {
+    public ResourceLocation getModelResource(Penguin penguin) {
         if (penguin.isBaby()) {
             return new ResourceLocation(Ecologics.MOD_ID, "geo/baby_penguin.geo.json");
         } else {
@@ -27,7 +27,7 @@ public class PenguinModel extends AnimatedGeoModel<Penguin> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Penguin penguin) {
+    public ResourceLocation getTextureResource(Penguin penguin) {
         if (penguin.isBaby()) {
             return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/baby_penguin.png");
         } else {
@@ -36,7 +36,7 @@ public class PenguinModel extends AnimatedGeoModel<Penguin> {
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(Penguin penguin) {
+    public ResourceLocation getAnimationResource(Penguin penguin) {
         return new ResourceLocation(Ecologics.MOD_ID, "animations/penguin.animation.json");
     }
 

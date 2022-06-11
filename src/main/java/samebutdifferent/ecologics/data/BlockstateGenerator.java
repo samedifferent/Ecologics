@@ -17,6 +17,6 @@ public class BlockstateGenerator extends BlockStateProvider {
     }
 
     private void crossModel(Block plant) {
-        simpleBlock(plant, models().cross(plant.getRegistryName().getPath(), modLoc("block/" + plant.getRegistryName().getPath())));
+//        simpleBlock(plant, models().cross(plant.getRegistryName().getPath(), modLoc("block/" + plant.getRegistryName().getPath())));
     }
 }

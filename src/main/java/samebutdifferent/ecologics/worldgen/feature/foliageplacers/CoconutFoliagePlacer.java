@@ -4,8 +4,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -30,7 +32,7 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, Random pRandom, TreeConfiguration pConfig, int pMaxFreeTreeHeight, FoliageAttachment pAttachment, int pFoliageHeight, int pFoliageRadius, int pOffset) {
+    protected void createFoliage(LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, RandomSource pRandom, TreeConfiguration pConfig, int pMaxFreeTreeHeight, FoliageAttachment pAttachment, int pFoliageHeight, int pFoliageRadius, int pOffset) {
         BlockPos startingPos = pAttachment.pos();
 
         tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, startingPos);
@@ -42,28 +44,28 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    public int foliageHeight(Random pRandom, int pHeight, TreeConfiguration pConfig) {
+    public int foliageHeight(RandomSource pRandom, int pHeight, TreeConfiguration pConfig) {
         return 0;
     }
 
     @Override
-    protected boolean shouldSkipLocation(Random pRandom, int pLocalX, int pLocalY, int pLocalZ, int pRange, boolean pLarge) {
+    protected boolean shouldSkipLocation(RandomSource pRandom, int pLocalX, int pLocalY, int pLocalZ, int pRange, boolean pLarge) {
         return false;
     }
 
-    private static void createQuadrant(Direction direction, BlockPos startingPos, LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, Random pRandom, TreeConfiguration pConfig) {
+    private static void createQuadrant(Direction direction, BlockPos startingPos, LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, RandomSource pRandom, TreeConfiguration pConfig) {
         BlockPos.MutableBlockPos pos = startingPos.mutable();
         
         pos.move(direction);
         tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, pos);
 
         if (pRandom.nextInt(2) == 0) {
-            if (Feature.isAir(pLevel, pos.below())) {
+            if (pLevel.isStateAtPosition(pos.below(), BlockBehaviour.BlockStateBase::isAir)) {
                 pBlockSetter.accept(pos.below(), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
             }
         }
         if (pRandom.nextInt(2) == 0) {
-            if (Feature.isAir(pLevel, pos.below().relative(direction.getCounterClockWise()))) {
+            if (pLevel.isStateAtPosition(pos.below().relative(direction.getCounterClockWise()), BlockBehaviour.BlockStateBase::isAir)) {
                 pBlockSetter.accept(pos.below().relative(direction.getCounterClockWise()), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
             }
         }

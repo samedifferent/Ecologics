@@ -32,7 +32,7 @@ public class FloweringAzaleaLogBlock extends RotatedPillarBlock {
         if (itemstack.is(Items.SHEARS)) {
             if (!world.isClientSide) {
                 Direction direction = hitResult.getDirection().getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : hitResult.getDirection();
-                shearAzalea(world, player, pos, itemstack, hand, direction, (Objects.equals(this.getRegistryName(), ModBlocks.FLOWERING_AZALEA_LOG.get().getRegistryName()) ? ModBlocks.AZALEA_LOG.get() : ModBlocks.AZALEA_WOOD.get()).defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(AXIS)));
+                shearAzalea(world, player, pos, itemstack, hand, direction, (Objects.equals(this.getName(), ModBlocks.FLOWERING_AZALEA_LOG.get().getName()) ? ModBlocks.AZALEA_LOG.get() : ModBlocks.AZALEA_WOOD.get()).defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(AXIS)));
             }
 
             return InteractionResult.sidedSuccess(world.isClientSide);

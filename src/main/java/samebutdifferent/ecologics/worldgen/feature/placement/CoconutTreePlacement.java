@@ -2,6 +2,7 @@ package samebutdifferent.ecologics.worldgen.feature.placement;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -18,7 +19,7 @@ public class CoconutTreePlacement extends RepeatingPlacement {
     public static final Codec<CoconutTreePlacement> CODEC = Codec.unit(() -> INSTANCE);
 
     @Override
-    protected int count(Random random, BlockPos blockPos) {
+    protected int count(RandomSource random, BlockPos blockPos) {
         int countConfig = ModConfiguration.COCONUT_TREE_COUNT.get();
         float chanceConfig = ModConfiguration.COCONUT_TREE_EXTRA_COUNT_CHANCE.get().floatValue();
         int extraCountConfig = ModConfiguration.COCONUT_TREE_EXTRA_COUNT.get();

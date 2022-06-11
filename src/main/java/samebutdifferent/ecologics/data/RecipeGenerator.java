@@ -64,9 +64,9 @@ public class RecipeGenerator extends RecipeProvider {
         stonecutting(consumer, ModBlocks.ICE_BRICK_WALL.get(), ModBlocks.ICE_BRICKS.get());*/
     }
 
-    protected static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked) {
+/*    protected static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked) {
         nineBlockStorageRecipes(pFinishedRecipeConsumer, pUnpacked, pPacked, pPacked.asItem().getRegistryName().getPath(), null, pUnpacked.asItem().getRegistryName().getPath(), null);
-    }
+    }*/
 
     protected static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked, String pPackingRecipeName, @Nullable String pPackingRecipeGroup, String pUnpackingRecipeName, @Nullable String pUnpackingRecipeGroup) {
         ShapelessRecipeBuilder.shapeless(pUnpacked, 9).requires(pPacked).group(pUnpackingRecipeGroup).unlockedBy(getHasName(pPacked), has(pPacked)).save(pFinishedRecipeConsumer, new ResourceLocation(pUnpackingRecipeName));
@@ -77,9 +77,9 @@ public class RecipeGenerator extends RecipeProvider {
         SingleItemRecipeBuilder.stonecutting(Ingredient.of(pMaterial), pResult, 1).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, getConversionRecipeName(pResult, pMaterial) + "_stonecutting");
     }
 
-    protected static String getConversionRecipeName(ItemLike pResult, ItemLike pIngredient) {
+/*    protected static String getConversionRecipeName(ItemLike pResult, ItemLike pIngredient) {
         return pResult.asItem().getRegistryName().getPath() + "_from_" + pIngredient.asItem().getRegistryName().getPath();
-    }
+    }*/
 
     private static void cookRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, String pCookingMethod, SimpleCookingSerializer<?> pCookingSerializer, int pCookingTime, Item ingredient, Item output) {
         simpleCookingRecipe(pFinishedRecipeConsumer, pCookingMethod, pCookingSerializer, pCookingTime, ingredient, output, 0.35F);
@@ -157,7 +157,7 @@ public class RecipeGenerator extends RecipeProvider {
         return ShapedRecipeBuilder.shaped(trapdoor, 2).define('#', planks).pattern("###").pattern("###");
     }
 
-    protected static String getHasName(ItemLike item) {
+/*    protected static String getHasName(ItemLike item) {
         return "has_" + item.asItem().getRegistryName().getPath();
-    }
+    }*/
 }

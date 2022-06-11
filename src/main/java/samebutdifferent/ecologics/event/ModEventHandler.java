@@ -14,8 +14,6 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,7 +24,6 @@ import samebutdifferent.ecologics.entity.Camel;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.entity.Squirrel;
-import samebutdifferent.ecologics.loot.AddItemModifier;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
@@ -66,11 +63,6 @@ public class ModEventHandler {
         event.put(ModEntityTypes.CAMEL.get(), Camel.createAttributes().build());
         event.put(ModEntityTypes.PENGUIN.get(), Penguin.createAttributes().build());
         event.put(ModEntityTypes.SQUIRREL.get(), Squirrel.createAttributes().build());
-    }
-
-    @SubscribeEvent
-    public static void registerLootModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-        event.getRegistry().register(new AddItemModifier.Serializer().setRegistryName(Ecologics.MOD_ID, "add_item"));
     }
 
     private static void registerCompostables() {

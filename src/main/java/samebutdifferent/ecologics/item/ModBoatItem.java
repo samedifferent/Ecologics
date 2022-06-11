@@ -24,8 +24,8 @@ public class ModBoatItem extends BoatItem {
     private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
     private final String woodType;
 
-    public ModBoatItem(String woodType, Properties pProperties) {
-        super(null, pProperties);
+    public ModBoatItem(boolean hasChest, String woodType, Properties pProperties) {
+        super(hasChest, null, pProperties);
         this.woodType = woodType;
     }
 

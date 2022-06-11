@@ -6,13 +6,13 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -20,8 +20,6 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.client.model.CamelModel;
 import samebutdifferent.ecologics.client.renderer.entity.*;
-import samebutdifferent.ecologics.compat.mcwbridges.MBCompatClient;
-import samebutdifferent.ecologics.compat.quark.QuarkCompatClient;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
@@ -54,14 +52,11 @@ public class ClientEventHandler {
             Sheets.addWoodType(ModWoodType.AZALEA);
             Sheets.addWoodType(ModWoodType.FLOWERING_AZALEA);
         });
-        QuarkCompatClient.registerRenderLayers(event);
-        MBCompatClient.registerRenderLayers(event);
     }
 
     @SubscribeEvent
     public static void registerBlockColors(ColorHandlerEvent.Block event) {
         event.getBlockColors().register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ? BiomeColors.getAverageFoliageColor(pLevel, pPos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES.get());
-        QuarkCompatClient.registerBlockColors(event);
     }
 
     @SubscribeEvent
@@ -70,7 +65,6 @@ public class ClientEventHandler {
             BlockState blockstate = ((BlockItem)pStack.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, null, null, pTintIndex);
         }, ModBlocks.COCONUT_LEAVES.get());
-        QuarkCompatClient.registerItemColors(event);
     }
 
     @SubscribeEvent
@@ -78,23 +72,17 @@ public class ClientEventHandler {
         event.registerEntityRenderer(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrabRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.CAMEL.get(), CamelRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.PENGUIN.get(), PenguinRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.BOAT.get(), ModBoatRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.BOAT.get(), (context) -> new BoatRenderer(context, false));
         event.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN.get(), SignRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.SQUIRREL.get(), SquirrelRenderer::new);
-        QuarkCompatClient.registerRenderers(event);
     }
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
-        event.registerLayerDefinition(ModBoatRenderer.COCONUT_LAYER_LOCATION, BoatModel::createBodyModel);
-        event.registerLayerDefinition(ModBoatRenderer.WALNUT_LAYER_LOCATION, BoatModel::createBodyModel);
-        event.registerLayerDefinition(ModBoatRenderer.AZALEA_LAYER_LOCATION, BoatModel::createBodyModel);
-        event.registerLayerDefinition(ModBoatRenderer.FLOWERING_AZALEA_LAYER_LOCATION, BoatModel::createBodyModel);
-    }
-
-    @SubscribeEvent
-    public static void stitchTextures(TextureStitchEvent.Pre event) {
-        QuarkCompatClient.stitchTextures(event);
+        for (String woodType : ModBoatRenderer.woodTypes) {
+            event.registerLayerDefinition(ModBoatRenderer.createBoatModelName(woodType), () -> BoatModel.createBodyModel(false));
+            event.registerLayerDefinition(ModBoatRenderer.createChestBoatModelName(woodType), () -> BoatModel.createBodyModel(true));
+        }
     }
 }
