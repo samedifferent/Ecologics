@@ -214,13 +214,13 @@
   "itemGroup.ecologics": "Ecologics",
   "advancements.husbandry.sandcastle.title": "모래사장의 요새",
   "advancements.husbandry.sandcastle.description": "거북이 알을 보호하기 위해 모래성을 쌓으세요",
-  "advancements.husbandry.breed_penguin.title": "Happy Feet",
+  "advancements.husbandry.breed_penguin.title": "해피피트",
   "advancements.husbandry.breed_penguin.description": "펭귄을 교배시켜서 아기 펭귄에게서 깃털을 얻으세요",
-  "ecologics.subtitles.entity.camel.ambient": "Camel bleats",
-  "ecologics.subtitles.entity.camel.angry": "Camel bleats angrily",
-  "ecologics.subtitles.entity.camel.chest": "Camel Chest equips",
-  "ecologics.subtitles.entity.camel.death": "Camel dies",
-  "ecologics.subtitles.entity.camel.eat": "Camel eats",
-  "ecologics.subtitles.entity.camel.hurt": "Camel hurts",
-  "ecologics.subtitles.entity.camel.step": "Camel steps"
+  "ecologics.subtitles.entity.camel.ambient": "낙타가 욺",
+  "ecologics.subtitles.entity.camel.angry": "낙타가 화난 듯 욺",
+  "ecologics.subtitles.entity.camel.chest": "낙타가 상자를 ",
+  "ecologics.subtitles.entity.camel.death": "낙타가 죽음",
+  "ecologics.subtitles.entity.camel.eat": "낙타가 먹음",
+  "ecologics.subtitles.entity.camel.hurt": "낙타가 상처 입음",
+  "ecologics.subtitles.entity.camel.step": "낙타가 걸음"
 }
