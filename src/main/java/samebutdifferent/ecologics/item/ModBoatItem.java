@@ -22,11 +22,11 @@ import java.util.function.Predicate;
 
 public class ModBoatItem extends BoatItem {
     private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
-    private final String woodType;
+    private final ModBoat.Type type;
 
-    public ModBoatItem(boolean hasChest, String woodType, Properties pProperties) {
+    public ModBoatItem(boolean hasChest, ModBoat.Type type, Properties pProperties) {
         super(hasChest, null, pProperties);
-        this.woodType = woodType;
+        this.type = type;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ModBoatItem extends BoatItem {
 
             if (hitresult.getType() == HitResult.Type.BLOCK) {
                 ModBoat boat = new ModBoat(pLevel, hitresult.getLocation().x, hitresult.getLocation().y, hitresult.getLocation().z);
-                boat.setWoodType(this.woodType);
+                boat.setWoodType(this.type);
                 boat.setYRot(pPlayer.getYRot());
                 if (!pLevel.noCollision(boat, boat.getBoundingBox())) {
                     return InteractionResultHolder.fail(itemstack);

@@ -1,12 +1,14 @@
 package samebutdifferent.ecologics.event;
 
 import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.BoatRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,6 +22,7 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.client.model.CamelModel;
 import samebutdifferent.ecologics.client.renderer.entity.*;
+import samebutdifferent.ecologics.entity.ModBoat;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
@@ -72,7 +75,7 @@ public class ClientEventHandler {
         event.registerEntityRenderer(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrabRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.CAMEL.get(), CamelRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.PENGUIN.get(), PenguinRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.BOAT.get(), (context) -> new BoatRenderer(context, false));
+        event.registerEntityRenderer(ModEntityTypes.BOAT.get(), (context) -> new ModBoatRenderer(context, false));
         event.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN.get(), SignRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.SQUIRREL.get(), SquirrelRenderer::new);
     }
@@ -80,9 +83,9 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
-        for (String woodType : ModBoatRenderer.woodTypes) {
-            event.registerLayerDefinition(ModBoatRenderer.createBoatModelName(woodType), () -> BoatModel.createBodyModel(false));
-            event.registerLayerDefinition(ModBoatRenderer.createChestBoatModelName(woodType), () -> BoatModel.createBodyModel(true));
+        for (ModBoat.Type type : ModBoat.Type.values()) {
+            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
+            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));
         }
     }
 }
