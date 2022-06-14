@@ -1,6 +1,5 @@
 package samebutdifferent.ecologics.item;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -16,6 +15,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import samebutdifferent.ecologics.entity.ModBoat;
+import samebutdifferent.ecologics.entity.ModChestBoat;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -23,9 +23,11 @@ import java.util.function.Predicate;
 public class ModBoatItem extends BoatItem {
     private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
     private final ModBoat.Type type;
+    private final boolean hasChest;
 
     public ModBoatItem(boolean hasChest, ModBoat.Type type, Properties pProperties) {
         super(hasChest, null, pProperties);
+        this.hasChest = hasChest;
         this.type = type;
     }
 
@@ -51,7 +53,7 @@ public class ModBoatItem extends BoatItem {
             }
 
             if (hitresult.getType() == HitResult.Type.BLOCK) {
-                ModBoat boat = new ModBoat(pLevel, hitresult.getLocation().x, hitresult.getLocation().y, hitresult.getLocation().z);
+                ModBoat boat = this.getBoat(pLevel, hitresult);
                 boat.setWoodType(this.type);
                 boat.setYRot(pPlayer.getYRot());
                 if (!pLevel.noCollision(boat, boat.getBoundingBox())) {
@@ -59,7 +61,7 @@ public class ModBoatItem extends BoatItem {
                 } else {
                     if (!pLevel.isClientSide) {
                         pLevel.addFreshEntity(boat);
-                        pLevel.gameEvent(pPlayer, GameEvent.ENTITY_PLACE, new BlockPos(hitresult.getLocation()));
+                        pLevel.gameEvent(pPlayer, GameEvent.ENTITY_PLACE, hitresult.getLocation());
                         if (!pPlayer.getAbilities().instabuild) {
                             itemstack.shrink(1);
                         }
@@ -72,5 +74,9 @@ public class ModBoatItem extends BoatItem {
                 return InteractionResultHolder.pass(itemstack);
             }
         }
+    }
+
+    private ModBoat getBoat(Level level, HitResult hitResult) {
+        return this.hasChest ? new ModChestBoat(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z) : new ModBoat(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
     }
 }

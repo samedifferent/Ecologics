@@ -76,6 +76,7 @@ public class ClientEventHandler {
         event.registerEntityRenderer(ModEntityTypes.CAMEL.get(), CamelRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.PENGUIN.get(), PenguinRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.BOAT.get(), (context) -> new ModBoatRenderer(context, false));
+        event.registerEntityRenderer(ModEntityTypes.CHEST_BOAT.get(), (context) -> new ModBoatRenderer(context, true));
         event.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN.get(), SignRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.SQUIRREL.get(), SquirrelRenderer::new);
     }

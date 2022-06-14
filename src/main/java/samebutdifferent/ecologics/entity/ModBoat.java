@@ -91,7 +91,7 @@ public class ModBoat extends Boat {
 
         public ResourceLocation getTexture(boolean hasChest) {
             if (hasChest) {
-                return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/" + name + "_chest.png");
+                return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/chest_boat/" + name + ".png");
             }
             return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/" + name + ".png");
         }
