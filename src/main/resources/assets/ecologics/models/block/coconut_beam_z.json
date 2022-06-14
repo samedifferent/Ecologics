@@ -1,8 +1,0 @@
-{
-  "parent": "ecologics:block/decorative_blocks/beam_z",
-  "textures": {
-    "particle": "ecologics:block/coconut_beam_side",
-    "side": "ecologics:block/coconut_beam_side",
-    "end": "ecologics:block/coconut_beam_end"
-  }
-}

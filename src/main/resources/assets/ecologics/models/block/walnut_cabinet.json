@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "side": "ecologics:block/walnut_cabinet_side",
-    "front": "ecologics:block/walnut_cabinet_front",
-    "top": "ecologics:block/walnut_cabinet_top"
-  }
-}

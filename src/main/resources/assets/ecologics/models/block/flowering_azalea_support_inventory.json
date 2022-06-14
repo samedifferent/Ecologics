@@ -1,8 +1,0 @@
-{
-  "parent": "ecologics:block/decorative_blocks/support_inventory",
-  "textures": {
-    "particle": "ecologics:block/flowering_azalea_support_side",
-    "side": "ecologics:block/flowering_azalea_support_side",
-    "end": "ecologics:block/flowering_azalea_support_end"
-  }
-}

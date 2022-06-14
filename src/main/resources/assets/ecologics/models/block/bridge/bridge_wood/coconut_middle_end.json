@@ -1,8 +1,0 @@
-{
-	"parent": "ecologics:block/bridge/bridge_wood/parent/middle_end",
-	"textures": {
-		"0": "ecologics:block/coconut_log",
-		"1": "ecologics:block/coconut_planks",
-		"particle": "ecologics:block/coconut_log"
-	}
-}

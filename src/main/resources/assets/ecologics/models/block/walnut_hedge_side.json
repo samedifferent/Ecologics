@@ -1,6 +1,0 @@
-{
-  "parent": "ecologics:block/quark/hedge_side",
-  "textures": {
-    "leaf": "ecologics:block/walnut_leaves"
-  }
-}

@@ -1,9 +1,0 @@
-{
-	"parent": "ecologics:block/bridge/rope/parent/corner_clear",
-	"textures": {
-		"0": "ecologics:block/mcwbridges/lead_knot_vert",
-		"4": "ecologics:block/walnut_log",
-		"particle": "ecologics:block/walnut_log",
-		"1_4": "ecologics:block/mcwbridges/lead_knot"
-	}
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "ecologics:block/decorative_blocks/palisade_inventory",
-  "textures": {
-    "particle": "ecologics:block/walnut_palisade_side",
-    "side": "ecologics:block/walnut_palisade_side",
-    "end": "ecologics:block/walnut_palisade_end"
-  }
-}
