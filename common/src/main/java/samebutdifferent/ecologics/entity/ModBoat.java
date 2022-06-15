@@ -1,6 +1,5 @@
 package samebutdifferent.ecologics.entity;
 
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -11,14 +10,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 
+import java.util.function.Supplier;
+
 public class ModBoat extends Boat {
-    private static final EntityDataAccessor<String> WOOD_TYPE = SynchedEntityData.defineId(ModBoat.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<Integer> WOOD_TYPE = SynchedEntityData.defineId(ModBoat.class, EntityDataSerializers.INT);
 
     public ModBoat(EntityType<? extends Boat> type, Level level) {
         super(type, level);
@@ -36,51 +36,102 @@ public class ModBoat extends Boat {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(WOOD_TYPE, "coconut");
+        this.entityData.define(WOOD_TYPE, 0);
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         if (pCompound.contains("Type", 8)) {
-            this.setWoodType(pCompound.getString("Type"));
+            this.setWoodType(Type.byName(pCompound.getString("Type")));
         }
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putString("Type", this.getWoodType());
+        pCompound.putString("Type", this.getWoodType().getName());
     }
 
-    public String getWoodType() {
-        return this.entityData.get(WOOD_TYPE);
+    public Type getWoodType() {
+        return Type.byId(this.entityData.get(WOOD_TYPE));
     }
 
-    public void setWoodType(String wood) {
-        this.entityData.set(WOOD_TYPE, wood);
+    public void setWoodType(Type type) {
+        this.entityData.set(WOOD_TYPE, type.ordinal());
     }
 
     @Override
     public Item getDropItem() {
-        switch(this.getWoodType()) {
-            case "walnut":
-                return ModItems.WALNUT_BOAT.get();
-            case "azalea":
-                return ModItems.AZALEA_BOAT.get();
-            case "flowering_azalea":
-                return ModItems.FLOWERING_AZALEA_BOAT.get();
-            default:
-                return ModItems.COCONUT_BOAT.get();
-        }
-    }
-
-    @Override
-    public ItemStack getPickResult() {
-        return new ItemStack(Registry.ITEM.get(new ResourceLocation(Ecologics.MOD_ID, this.getWoodType() + "_boat")));
+        return this.getWoodType().getItem().get();
     }
 
     @Override
     public Packet<?> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
+    }
+
+    public enum Type {
+        COCONUT("coconut", () -> ModItems.COCONUT_BOAT.get(), () -> ModItems.COCONUT_CHEST_BOAT.get()),
+        WALNUT("walnut", () -> ModItems.WALNUT_BOAT.get(), () -> ModItems.WALNUT_CHEST_BOAT.get()),
+        AZALEA("azalea", () -> ModItems.AZALEA_BOAT.get(), () -> ModItems.AZALEA_CHEST_BOAT.get()),
+        FLOWERING_AZALEA("flowering_azalea", () -> ModItems.FLOWERING_AZALEA_BOAT.get(), () -> ModItems.FLOWERING_AZALEA_CHEST_BOAT.get());
+
+        private final String name;
+        private final Supplier<Item> item;
+        private final Supplier<Item> chestItem;
+
+        Type(String name, Supplier<Item> boatItem, Supplier<Item> chestBoatItem) {
+            this.name = name;
+            this.item = boatItem;
+            this.chestItem = chestBoatItem;
+        }
+
+        public ResourceLocation getTexture(boolean hasChest) {
+            if (hasChest) {
+                return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/chest_boat/" + name + ".png");
+            }
+            return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/" + name + ".png");
+        }
+
+        public String getModelLocation() {
+            return "boat/" + name;
+        }
+
+        public String getChestModelLocation() {
+            return "chest_boat/" + name;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public Supplier<Item> getItem() {
+            return item;
+        }
+
+        public Supplier<Item> getChestItem() {
+            return chestItem;
+        }
+
+        public static Type byId(int id) {
+            Type[] values = values();
+            if (id < 0 || id >= values.length) {
+                id = 0;
+            }
+
+            return values[id];
+        }
+
+        public static Type byName(String name) {
+            Type[] values = values();
+
+            for(int i = 0; i < values.length; ++i) {
+                if (values[i].getName().equals(name)) {
+                    return values[i];
+                }
+            }
+
+            return values[0];
+        }
     }
 }

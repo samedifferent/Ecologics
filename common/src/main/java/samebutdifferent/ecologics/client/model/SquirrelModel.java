@@ -1,9 +1,9 @@
 package samebutdifferent.ecologics.client.model;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.Squirrel;

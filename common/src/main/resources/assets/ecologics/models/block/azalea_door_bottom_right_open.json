@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/door_bottom_right_open",
+  "textures": {
+    "bottom": "ecologics:block/azalea_door_bottom"
+  }
+}

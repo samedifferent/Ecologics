@@ -1,8 +1,0 @@
-{
-  "parent": "ecologics:block/stair/wood/parent/base",
-  "textures": {
-    "2": "ecologics:block/azalea_planks",
-    "particle": "ecologics:block/azalea_log",
-    "1_1": "ecologics:block/azalea_log"
-  }
-}

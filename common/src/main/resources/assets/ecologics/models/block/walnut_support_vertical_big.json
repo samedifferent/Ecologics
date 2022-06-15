@@ -1,8 +1,0 @@
-{
-  "parent": "ecologics:block/decorative_blocks/support_vertical_big",
-  "textures": {
-    "particle": "ecologics:block/walnut_support_side",
-    "side": "ecologics:block/walnut_support_side",
-    "end": "ecologics:block/walnut_support_end"
-  }
-}

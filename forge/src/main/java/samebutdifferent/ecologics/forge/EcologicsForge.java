@@ -15,24 +15,27 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import samebutdifferent.ecologics.Ecologics;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import samebutdifferent.ecologics.registry.ModConfiguration;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
 import samebutdifferent.ecologics.registry.*;
-import samebutdifferent.ecologics.util.forge.CodecUtils;
+import samebutdifferent.ecologics.registry.forge.ModConfigForge;
 
 @Mod(Ecologics.MOD_ID)
 public class EcologicsForge {
     public EcologicsForge() {
         Ecologics.init();
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModConfigForge.COMMON_CONFIG);
+
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         CommonPlatformHelperImpl.BLOCKS.register(bus);
         CommonPlatformHelperImpl.ITEMS.register(bus);
@@ -50,18 +53,13 @@ public class EcologicsForge {
     }
 
     @SubscribeEvent
-    public static void onServerStarted(ServerStartedEvent event) {
-//        CodecUtils.clearCache();
-    }
-
-    @SubscribeEvent
     public static void onCropGrow(BlockEvent.CropGrowEvent.Post event) {
         BlockPos pos = event.getPos();
         LevelAccessor level = event.getWorld();
         BlockState state = event.getState();
         if (state.is(Blocks.CACTUS)) {
             if (level.getBlockState(pos.above()).is(Blocks.CACTUS) && level.getBlockState(pos.below()).is(Blocks.CACTUS)) {
-                if (level.isEmptyBlock(pos.above(2)) && level.getRandom().nextFloat() <= Ecologics.CONFIG.PRICKLY_PEAR_GROWTH_CHANCE) {
+                if (level.isEmptyBlock(pos.above(2)) && level.getRandom().nextFloat() <= ModConfigForge.PRICKLY_PEAR_GROWTH_CHANCE.get()) {
                     level.setBlock(pos.above(2), ModBlocks.PRICKLY_PEAR.get().defaultBlockState(), 2);
                     level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }

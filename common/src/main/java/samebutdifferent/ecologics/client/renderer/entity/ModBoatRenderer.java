@@ -1,46 +1,71 @@
 package samebutdifferent.ecologics.client.renderer.entity;
 
+import com.google.common.collect.Maps;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.Boat;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.ModBoat;
 
+import java.util.Map;
+
 public class ModBoatRenderer extends BoatRenderer {
-    public static final ModelLayerLocation COCONUT_LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, "boat/coconut"), "main");
-    public static final ModelLayerLocation WALNUT_LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, "boat/walnut"), "main");
-    public static final ModelLayerLocation AZALEA_LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, "boat/azalea"), "main");
-    public static final ModelLayerLocation FLOWERING_AZALEA_LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, "boat/flowering_azalea"), "main");
+    private final Map<ModBoat.Type, Pair<ResourceLocation, BoatModel>> boatResources = Maps.newHashMap();
 
-    private final Pair<ResourceLocation, BoatModel> coconut;
-    private final Pair<ResourceLocation, BoatModel> walnut;
-    private final Pair<ResourceLocation, BoatModel> azalea;
-    private final Pair<ResourceLocation, BoatModel> flowering_azalea;
+    public ModBoatRenderer(EntityRendererProvider.Context context, boolean hasChest) {
+        super(context, hasChest);
+        for(ModBoat.Type type : ModBoat.Type.values()) {
+            boatResources.put(type, Pair.of(type.getTexture(hasChest), new BoatModel(context.bakeLayer(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, hasChest ? type.getChestModelLocation() : type.getModelLocation()), "main")), hasChest)));
+        }
+    }
 
-    public ModBoatRenderer(EntityRendererProvider.Context context) {
-        super(context, false);
-        this.shadowRadius = 0.8F;
-        coconut = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/coconut.png"), new BoatModel(context.bakeLayer(COCONUT_LAYER_LOCATION), false));
-        walnut = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/walnut.png"), new BoatModel(context.bakeLayer(WALNUT_LAYER_LOCATION), false));
-        azalea = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/azalea.png"), new BoatModel(context.bakeLayer(AZALEA_LAYER_LOCATION), false));
-        flowering_azalea = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/flowering_azalea.png"), new BoatModel(context.bakeLayer(FLOWERING_AZALEA_LAYER_LOCATION), false));
+    @Override
+    public void render(Boat boat, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
+        float h;
+        matrixStack.pushPose();
+        matrixStack.translate(0.0, 0.375, 0.0);
+        matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0f - entityYaw));
+        float f = (float)boat.getHurtTime() - partialTicks;
+        float g = boat.getDamage() - partialTicks;
+        if (g < 0.0f) {
+            g = 0.0f;
+        }
+        if (f > 0.0f) {
+            matrixStack.mulPose(Vector3f.XP.rotationDegrees(Mth.sin(f) * f * g / 10.0f * (float)boat.getHurtDir()));
+        }
+        if (!Mth.equal(h = boat.getBubbleAngle(partialTicks), 0.0f)) {
+            matrixStack.mulPose(new Quaternion(new Vector3f(1.0f, 0.0f, 1.0f), boat.getBubbleAngle(partialTicks), true));
+        }
+        Pair<ResourceLocation, BoatModel> pair = this.boatResources.get(((ModBoat)boat).getWoodType());
+        ResourceLocation resourceLocation = pair.getFirst();
+        BoatModel boatModel = pair.getSecond();
+        matrixStack.scale(-1.0f, -1.0f, 1.0f);
+        matrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0f));
+        boatModel.setupAnim(boat, partialTicks, 0.0f, -0.1f, 0.0f, 0.0f);
+        VertexConsumer vertexConsumer = buffer.getBuffer(boatModel.renderType(resourceLocation));
+        boatModel.renderToBuffer(matrixStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+        if (!boat.isUnderWater()) {
+            VertexConsumer vertexConsumer2 = buffer.getBuffer(RenderType.waterMask());
+            boatModel.waterPatch().render(matrixStack, vertexConsumer2, packedLight, OverlayTexture.NO_OVERLAY);
+        }
+        matrixStack.popPose();
+        super.render(boat, entityYaw, partialTicks, matrixStack, buffer, packedLight);
     }
 
     @Override
     public ResourceLocation getTextureLocation(Boat boat) {
-        switch (((ModBoat)boat).getWoodType()) {
-            case "walnut":
-                return walnut.getFirst();
-            case "azalea":
-                return azalea.getFirst();
-            case "flowering_azalea":
-                return flowering_azalea.getFirst();
-            default:
-                return coconut.getFirst();
-        }
+        return boatResources.get(((ModBoat)boat).getWoodType()).getFirst();
     }
 }

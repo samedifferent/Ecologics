@@ -1,9 +1,0 @@
-{
-  "parent": "ecologics:block/bridge/rail/parent/side",
-  "textures": {
-    "0": "ecologics:block/flowering_azalea_log",
-    "2": "ecologics:block/flowering_azalea_planks",
-    "3": "ecologics:block/flowering_azalea_log_top",
-    "particle": "ecologics:block/flowering_azalea_planks"
-  }
-}

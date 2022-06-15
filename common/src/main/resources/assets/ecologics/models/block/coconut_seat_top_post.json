@@ -1,7 +1,0 @@
-{
-  "parent": "ecologics:block/decorative_blocks/seat_top_post",
-  "textures": {
-    "particle": "ecologics:block/coconut_seat",
-    "texture": "ecologics:block/coconut_seat"
-  }
-}
