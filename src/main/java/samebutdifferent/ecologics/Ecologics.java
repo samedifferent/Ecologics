@@ -38,9 +38,6 @@ public class Ecologics {
         ModFeatures.FEATURES.register(bus);
         ModTrunkPlacerTypes.TRUNK_PLACER_TYPES.register(bus);
         ModFoliagePlacerTypes.FOLIAGE_PLACER_TYPES.register(bus);
-        ModPlacementModifierTypes.PLACEMENT_MODIFIER_TYPES.register(bus);
-        ModConfiguredFeatures.CONFIGURED_FEATURES.register(bus);
-        ModPlacedFeatures.PLACED_FEATURES.register(bus);
         ModMobEffects.MOB_EFFECTS.register(bus);
         ModPotions.POTIONS.register(bus);
         ModGlobalLootModifiers.GLM.register(bus);
