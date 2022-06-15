@@ -110,6 +110,7 @@
   "entity.ecologics.penguin": "Penguin",
   "entity.ecologics.squirrel": "Squirrel",
   "entity.ecologics.boat": "Boat",
+  "entity.ecologics.chest_boat": "Boat with Chest",
   "effect.ecologics.slippery": "Slippery",
   "effect.ecologics.slippery.description": "Make affected entities slide on all blocks as if they were ice.",
   "item.ecologics.coconut_crab_spawn_egg": "Coconut Crab Spawn Egg",
