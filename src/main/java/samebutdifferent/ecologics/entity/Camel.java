@@ -218,7 +218,7 @@ public class Camel extends AbstractChestedHorse {
 
     @Override
     public int getInventoryColumns() {
-        return 3;
+        return 5;
     }
 
     @Override
