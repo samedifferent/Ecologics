@@ -20,7 +20,7 @@ public class AzaleaTreeGrowerMixin extends AbstractTreeGrower {
 
     @Nullable
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_204307_, boolean p_204308_) {
+    public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_204307_, boolean p_204308_) {
         if (ConfigPlatformHelper.replaceAzaleaTree()) {
             return null;
         } else {

@@ -59,6 +59,7 @@ public class EcologicsForge {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        Ecologics.registerEntityAttributes();
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
         });

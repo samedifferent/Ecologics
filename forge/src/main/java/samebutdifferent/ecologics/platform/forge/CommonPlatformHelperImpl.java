@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.ItemLike;
@@ -24,19 +25,24 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.mixin.forge.AxeItemAccessor;
 import samebutdifferent.ecologics.mixin.forge.FireBlockAccessor;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
-import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.util.forge.ModBrewingRecipe;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+@Mod.EventBusSubscriber(modid = Ecologics.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonPlatformHelperImpl {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Ecologics.MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Ecologics.MOD_ID);
@@ -50,6 +56,7 @@ public class CommonPlatformHelperImpl {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Ecologics.MOD_ID);
     public static final DeferredRegister<ConfiguredFeature<?,?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, Ecologics.MOD_ID);
     public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Ecologics.MOD_ID);
+    private static final Set<Consumer<EntityAttributeCreationEvent>> ATTRIBUTES = ConcurrentHashMap.newKeySet();
 
     public static <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> block) {
         return BLOCKS.register(name, block);
@@ -139,5 +146,14 @@ public class CommonPlatformHelperImpl {
 
     public static Supplier<RecordItem> registerRecordItem(String name, int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties properties) {
         return ITEMS.register(name, () -> new RecordItem(comparatorValue, soundSupplier, properties));
+    }
+
+    public static <T extends LivingEntity> void registerEntityAttributes(Supplier<EntityType<T>> entity, Supplier<AttributeSupplier.Builder> builder) {
+        ATTRIBUTES.add(event -> event.put(entity.get(), builder.get().build()));
+    }
+
+    @SubscribeEvent
+    public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
+        ATTRIBUTES.forEach(consumer -> consumer.accept(event));
     }
 }

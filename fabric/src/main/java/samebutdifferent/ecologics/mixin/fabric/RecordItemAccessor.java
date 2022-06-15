@@ -7,9 +7,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(RecordItem.class)
-public class RecordItemAccessor {
+public interface RecordItemAccessor {
     @Invoker("<init>")
-    public static RecordItem invokeConstructor(int analogOutput, SoundEvent soundEvent, Item.Properties properties) {
+    static RecordItem invokeConstructor(int analogOutput, SoundEvent soundEvent, Item.Properties properties) {
         throw new AssertionError();
     }
 }

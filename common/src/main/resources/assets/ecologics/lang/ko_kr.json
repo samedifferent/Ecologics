@@ -138,7 +138,7 @@
   "item.minecraft.lingering_potion.effect.sliding": "잔류형 미끄러짐의 물약",
   "item.minecraft.tipped_arrow.effect.sliding": "미끄러짐의 화살",
   "item.ecologics.walnut": "호두 나무",
-  "itemGroup.ecologics": "Ecologics",
+  "itemGroup.ecologics.tab": "Ecologics",
   "advancements.husbandry.sandcastle.title": "모래사장의 요새",
   "advancements.husbandry.sandcastle.description": "거북이 알을 보호하기 위해 모래성을 쌓으세요",
   "advancements.husbandry.breed_penguin.title": "해피피트",

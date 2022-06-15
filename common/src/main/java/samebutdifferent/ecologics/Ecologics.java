@@ -14,6 +14,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.Camel;
+import samebutdifferent.ecologics.entity.CoconutCrab;
+import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 import samebutdifferent.ecologics.registry.*;
 import software.bernie.geckolib3.GeckoLib;
@@ -23,7 +26,7 @@ import java.util.Map;
 public class Ecologics {
     public static final String MOD_ID = "ecologics";
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final CreativeModeTab TAB = CommonPlatformHelper.registerCreativeModeTab(new ResourceLocation(MOD_ID, "tab"), () -> new ItemStack(Items.APPLE));
+    public static final CreativeModeTab TAB = CommonPlatformHelper.registerCreativeModeTab(new ResourceLocation(MOD_ID, "tab"), () -> new ItemStack(ModBlocks.COCONUT_LOG.get()));
 
     public static void init() {
         ModBlocks.init();
@@ -128,5 +131,12 @@ public class Ecologics {
     public static void registerSpawnPlacements() {
         CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.CAMEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
         CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.SQUIRREL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+    }
+
+    public static void registerEntityAttributes() {
+        CommonPlatformHelper.registerEntityAttributes(ModEntityTypes.COCONUT_CRAB, CoconutCrab::createAttributes);
+        CommonPlatformHelper.registerEntityAttributes(ModEntityTypes.CAMEL, Camel::createAttributes);
+        CommonPlatformHelper.registerEntityAttributes(ModEntityTypes.PENGUIN, Penguin::createAttributes);
+        CommonPlatformHelper.registerEntityAttributes(ModEntityTypes.SQUIRREL, Squirrel::createAttributes);
     }
 }
