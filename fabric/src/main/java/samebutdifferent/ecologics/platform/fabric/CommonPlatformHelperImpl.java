@@ -20,6 +20,7 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.mixin.fabric.PotionBrewingInvoker;
+import samebutdifferent.ecologics.mixin.fabric.SpawnPlacementsInvoker;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 
 import java.util.function.Supplier;
@@ -103,5 +105,9 @@ public class CommonPlatformHelperImpl {
     public static <T extends Feature<?>> Supplier<T> registerFeature(String name, Supplier<T> feature) {
         var registry = Registry.register(Registry.FEATURE, new ResourceLocation(Ecologics.MOD_ID, name), feature.get());
         return () -> registry;
+    }
+
+    public static <T extends Mob> void registerSpawnPlacement(EntityType<T> entityType, SpawnPlacements.Type decoratorType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> decoratorPredicate) {
+        SpawnPlacementsInvoker.invokeRegister(entityType, decoratorType, heightMapType, decoratorPredicate);
     }
 }

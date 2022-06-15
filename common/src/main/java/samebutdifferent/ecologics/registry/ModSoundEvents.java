@@ -8,6 +8,8 @@ import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 import java.util.function.Supplier;
 
 public class ModSoundEvents {
+    public static void init() {}
+
     public static final Supplier<SoundEvent> COCONUT_SMASH = CommonPlatformHelper.registerSoundEvent("coconut_smash", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "block.coconut.smash")));
     public static final Supplier<SoundEvent> COCONUT_CRAB_AMBIENT = CommonPlatformHelper.registerSoundEvent("coconut_crab_ambient", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.coconut_crab.ambient")));
     public static final Supplier<SoundEvent> COCONUT_CRAB_DEATH = CommonPlatformHelper.registerSoundEvent("coconut_crab_death", () -> new SoundEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.coconut_crab.death")));

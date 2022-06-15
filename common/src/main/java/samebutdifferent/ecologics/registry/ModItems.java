@@ -15,6 +15,8 @@ import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 import java.util.function.Supplier;
 
 public class ModItems {
+    public static void init() {}
+
     public static final Supplier<Item> COCONUT_SLICE = CommonPlatformHelper.registerItem("coconut_slice", () -> new CoconutSliceItem(new Item.Properties().tab(Ecologics.TAB).food(Foods.SWEET_BERRIES)));
     public static final Supplier<Item> CRAB_CLAW = CommonPlatformHelper.registerItem("crab_claw", () -> new ShearsItem(new Item.Properties().tab(Ecologics.TAB).durability(50)));
     public static final Supplier<Item> CRAB_MEAT = CommonPlatformHelper.registerItem("crab_meat", () -> new Item(new Item.Properties().tab(Ecologics.TAB).food(Foods.COOKED_RABBIT)));

@@ -8,6 +8,7 @@ import samebutdifferent.ecologics.worldgen.feature.trunkplacers.SlantedTrunkPlac
 import java.util.function.Supplier;
 
 public class ModTrunkPlacerTypes {
-    public static final Supplier<TrunkPlacerType<SlantedTrunkPlacer>> SLANTED_TRUNK_PLACER = CommonPlatformHelper.registerTrunkPlacerType("slanted_trunk_placer", () -> TrunkPlacerTypeAccessor.invokeConstructor(SlantedTrunkPlacer.CODEC));
+    public static void init() {}
 
+    public static final Supplier<TrunkPlacerType<SlantedTrunkPlacer>> SLANTED_TRUNK_PLACER = CommonPlatformHelper.registerTrunkPlacerType("slanted_trunk_placer", () -> TrunkPlacerTypeAccessor.invokeConstructor(SlantedTrunkPlacer.CODEC));
 }

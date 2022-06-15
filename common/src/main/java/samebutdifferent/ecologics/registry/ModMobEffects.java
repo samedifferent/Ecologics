@@ -7,5 +7,7 @@ import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 import java.util.function.Supplier;
 
 public class ModMobEffects {
+    public static void init() {}
+
     public static final Supplier<MobEffect> SLIPPERY = CommonPlatformHelper.registerMobEffect("slippery", SlipperyMobEffect::new);
 }

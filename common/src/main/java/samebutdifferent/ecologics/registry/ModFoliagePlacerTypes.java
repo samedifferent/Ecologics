@@ -8,5 +8,7 @@ import samebutdifferent.ecologics.worldgen.feature.foliageplacers.CoconutFoliage
 import java.util.function.Supplier;
 
 public class ModFoliagePlacerTypes {
+    public static void init() {}
+
     public static final Supplier<FoliagePlacerType<CoconutFoliagePlacer>> COCONUT_FOLIAGE_PLACER = CommonPlatformHelper.registerFoliagePlacerType("coconut_foliage_placer", () -> FoliagePlacerTypeAccessor.invokeConstructor(CoconutFoliagePlacer.CODEC));
 }

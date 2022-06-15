@@ -1,6 +1,5 @@
 package samebutdifferent.ecologics.platform.forge;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -14,9 +13,9 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
@@ -28,8 +27,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.mixin.forge.FireBlockAccessor;
-import samebutdifferent.ecologics.util.forge.ModBrewingRecipe;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
+import samebutdifferent.ecologics.util.forge.ModBrewingRecipe;
 
 import java.util.function.Supplier;
 
@@ -112,8 +111,8 @@ public class CommonPlatformHelperImpl {
         return FEATURES.register(name, feature);
     }
 
-    public static <FC extends FeatureConfiguration, F extends Feature<FC>> Supplier<ConfiguredFeature<FC, ?>> registerConfiguredFeature(String name, F feature, FC config) {
-        return CONFIGURED_FEATURES.register(name, Holder.direct(new ConfiguredFeature<>(feature, config)));
+    public static <T extends Mob> void registerSpawnPlacement(EntityType<T> entityType, SpawnPlacements.Type decoratorType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> decoratorPredicate) {
+        SpawnPlacements.register(entityType, decoratorType, heightMapType, decoratorPredicate);
     }
 
 }

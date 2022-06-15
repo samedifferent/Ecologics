@@ -28,6 +28,7 @@ import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
 import samebutdifferent.ecologics.registry.*;
 import samebutdifferent.ecologics.registry.forge.ModConfigForge;
+import samebutdifferent.ecologics.registry.forge.ModGlobalLootModifiers;
 
 @Mod(Ecologics.MOD_ID)
 public class EcologicsForge {
@@ -49,6 +50,8 @@ public class EcologicsForge {
         CommonPlatformHelperImpl.PLACED_FEATURES.register(bus);
         CommonPlatformHelperImpl.MOB_EFFECTS.register(bus);
         CommonPlatformHelperImpl.POTIONS.register(bus);
+        ModGlobalLootModifiers.GLM.register(bus);
+
         MinecraftForge.EVENT_BUS.register(this);
     }
 

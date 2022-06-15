@@ -22,9 +22,9 @@ public class AddItemModifier extends LootModifier {
     }
 
     @Override
-    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> objectArrayList, LootContext arg) {
-        objectArrayList.add(new ItemStack(item));
-        return objectArrayList;
+    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+        generatedLoot.add(new ItemStack(item));
+        return generatedLoot;
     }
 
     public static class Serializer extends GlobalLootModifierSerializer<AddItemModifier>
