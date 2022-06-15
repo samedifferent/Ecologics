@@ -1,18 +1,18 @@
 package samebutdifferent.ecologics.mixin;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.TreeFeatures;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.grower.AzaleaTreeGrower;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.block.grower.ModAzaleaTreeGrower;
 import samebutdifferent.ecologics.registry.ModConfiguration;
 
 @Mixin(AzaleaTreeGrower.class)
@@ -22,9 +22,19 @@ public class MixinAzaleaTreeGrower extends AbstractTreeGrower {
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_204307_, boolean p_204308_) {
         if (ModConfiguration.REPLACE_AZALEA_TREE.get()) {
-            return BuiltinRegistries.CONFIGURED_FEATURE.getOrCreateHolderOrThrow(ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, new ResourceLocation(Ecologics.MOD_ID, "azalea_tree")));
+            return null;
         } else {
             return TreeFeatures.AZALEA_TREE;
+        }
+    }
+
+    @Override
+    public boolean growTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random) {
+        if (ModConfiguration.REPLACE_AZALEA_TREE.get()) {
+            ModAzaleaTreeGrower grower = new ModAzaleaTreeGrower();
+            return grower.growTree(level, chunkGenerator, pos, state, random);
+        } else {
+            return super.growTree(level, chunkGenerator, pos, state, random);
         }
     }
 }
