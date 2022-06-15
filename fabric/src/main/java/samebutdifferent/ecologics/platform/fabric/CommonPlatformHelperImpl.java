@@ -131,8 +131,4 @@ public class CommonPlatformHelperImpl {
     public static Supplier<RecordItem> registerRecordItem(String name, int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties properties) {
         return registerItem(name, () -> RecordItemAccessor.invokeConstructor(comparatorValue, soundSupplier.get(), properties));
     }
-
-    public static <T extends LivingEntity> void registerEntityAttributes(Supplier<EntityType<T>> entity, Supplier<AttributeSupplier.Builder> builder) {
-        FabricDefaultAttributeRegistry.register(entity.get(), builder.get());
-    }
 }

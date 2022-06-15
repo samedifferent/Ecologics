@@ -5,6 +5,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -14,6 +17,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -30,6 +34,9 @@ import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
 import samebutdifferent.ecologics.registry.*;
 import samebutdifferent.ecologics.registry.forge.ModConfigForge;
 import samebutdifferent.ecologics.registry.forge.ModGlobalLootModifiers;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Mod(Ecologics.MOD_ID)
 public class EcologicsForge {
@@ -52,11 +59,17 @@ public class EcologicsForge {
         CommonPlatformHelperImpl.MOB_EFFECTS.register(bus);
         CommonPlatformHelperImpl.POTIONS.register(bus);
         ModGlobalLootModifiers.GLM.register(bus);
-        Ecologics.registerEntityAttributes();
 
+        bus.addListener(this::registerEntityAttributes);
         bus.addListener(this::setup);
 
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    public void registerEntityAttributes(EntityAttributeCreationEvent event) {
+        Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> attributes = new HashMap<>();
+        Ecologics.registerEntityAttributes(attributes);
+        attributes.forEach((entity, builder) -> event.put(entity, builder.build()));
     }
 
     private void setup(final FMLCommonSetupEvent event) {

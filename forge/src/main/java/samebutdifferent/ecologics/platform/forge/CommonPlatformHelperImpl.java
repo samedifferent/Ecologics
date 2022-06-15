@@ -147,13 +147,4 @@ public class CommonPlatformHelperImpl {
     public static Supplier<RecordItem> registerRecordItem(String name, int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties properties) {
         return ITEMS.register(name, () -> new RecordItem(comparatorValue, soundSupplier, properties));
     }
-
-    public static <T extends LivingEntity> void registerEntityAttributes(Supplier<EntityType<T>> entity, Supplier<AttributeSupplier.Builder> builder) {
-        ATTRIBUTES.add(event -> event.put(entity.get(), builder.get().build()));
-    }
-
-    @SubscribeEvent
-    public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
-        ATTRIBUTES.forEach(consumer -> consumer.accept(event));
-    }
 }

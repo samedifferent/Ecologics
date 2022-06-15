@@ -144,9 +144,4 @@ public class CommonPlatformHelper {
     public static Supplier<RecordItem> registerRecordItem(String name, int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties properties) {
         throw new AssertionError();
     }
-
-    @ExpectPlatform
-    public static <T extends LivingEntity> void registerEntityAttributes(Supplier<EntityType<T>> entity, Supplier<AttributeSupplier.Builder> builder) {
-        throw new AssertionError();
-    }
 }
