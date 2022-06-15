@@ -67,7 +67,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
             if (age < 2) {
                 pLevel.setBlock(pPos, pState.setValue(AGE, age + 1), 2);
             } else if (pPos.getY() >= pLevel.getMinBuildHeight() && isFree(pLevel.getBlockState(pPos.below()))){
-                FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, (double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, pLevel.getBlockState(pPos));
+                FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(pLevel, pPos, pLevel.getBlockState(pPos));
                 this.falling(fallingblockentity);
                 pLevel.addFreshEntity(fallingblockentity);
                 pLevel.removeBlock(pPos, false);
@@ -140,7 +140,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRand) {
         if ((pLevel.isEmptyBlock(pPos.above()) && pPos.getY() >= pLevel.getMinBuildHeight() && isFree(pLevel.getBlockState(pPos.below())))) {
-            FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, (double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, pLevel.getBlockState(pPos));
+            FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(pLevel, pPos, pLevel.getBlockState(pPos));
             this.falling(fallingblockentity);
             pLevel.addFreshEntity(fallingblockentity);
             pLevel.removeBlock(pPos, false);
