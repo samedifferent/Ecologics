@@ -3,7 +3,7 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 15
+      "count": 4
     },
     {
       "type": "minecraft:in_square"
@@ -16,11 +16,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:matching_blocks",
-        "offset": [
-          0,
-          -1,
-          0
-        ],
+        "offset": [0, -1, 0],
         "blocks": "#minecraft:sand"
       }
     },

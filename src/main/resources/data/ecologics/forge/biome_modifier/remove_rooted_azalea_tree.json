@@ -1,0 +1,6 @@
+{
+  "type": "forge:remove_features",
+  "biomes": "minecraft:lush_caves",
+  "features": "minecraft:rooted_azalea_tree",
+  "step": "vegetal_decoration"
+}

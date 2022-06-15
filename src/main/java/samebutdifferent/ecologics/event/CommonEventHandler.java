@@ -14,7 +14,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,15 +22,9 @@ import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModConfiguration;
-import samebutdifferent.ecologics.util.CodecUtils;
 
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class CommonEventHandler {
-
-    @SubscribeEvent
-    public static void onServerStarted(ServerStartedEvent event) {
-        CodecUtils.clearCache();
-    }
 
     @SubscribeEvent
     public static void onCropGrow(BlockEvent.CropGrowEvent.Post event) {

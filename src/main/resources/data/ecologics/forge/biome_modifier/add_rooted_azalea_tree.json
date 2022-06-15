@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:lush_caves",
+  "features": "ecologics:rooted_azalea_tree",
+  "step": "vegetal_decoration"
+}

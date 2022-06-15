@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:plains",
+  "features": "ecologics:trees_walnut",
+  "step": "vegetal_decoration"
+}

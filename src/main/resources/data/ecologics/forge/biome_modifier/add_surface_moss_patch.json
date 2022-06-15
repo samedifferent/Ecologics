@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:lush_caves",
+  "features": "ecologics:surface_moss_patch",
+  "step": "vegetal_decoration"
+}

@@ -1,30 +1,6 @@
 {
   "type": "minecraft:root_system",
   "config": {
-    "required_vertical_space_for_tree": 3,
-    "root_radius": 3,
-    "root_placement_attempts": 20,
-    "root_column_max_height": 100,
-    "hanging_root_radius": 3,
-    "hanging_roots_vertical_span": 2,
-    "hanging_root_placement_attempts": 20,
-    "allowed_vertical_water_for_tree": 2,
-    "root_replaceable": "#minecraft:azalea_root_replaceable",
-    "root_state_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:rooted_dirt"
-      }
-    },
-    "hanging_root_state_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:hanging_roots",
-        "Properties": {
-          "waterlogged": "false"
-        }
-      }
-    },
     "allowed_tree_position": {
       "type": "minecraft:all_of",
       "predicates": [
@@ -61,9 +37,33 @@
         }
       ]
     },
+    "allowed_vertical_water_for_tree": 2,
     "feature": {
       "feature": "ecologics:azalea_tree",
       "placement": []
+    },
+    "hanging_root_placement_attempts": 20,
+    "hanging_root_radius": 3,
+    "hanging_root_state_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:hanging_roots",
+        "Properties": {
+          "waterlogged": "false"
+        }
+      }
+    },
+    "hanging_roots_vertical_span": 2,
+    "required_vertical_space_for_tree": 3,
+    "root_column_max_height": 100,
+    "root_placement_attempts": 20,
+    "root_radius": 3,
+    "root_replaceable": "#minecraft:azalea_root_replaceable",
+    "root_state_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:rooted_dirt"
+      }
     }
   }
 }

@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:desert",
+  "features": "ecologics:desert_ruin",
+  "step": "surface_structures"
+}
