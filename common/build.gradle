@@ -9,6 +9,10 @@ architectury {
     common(rootProject.enabled_platforms.split(","))
 }
 
+loom {
+    accessWidenerPath.set(file("src/main/resources/ecologics.accesswidener"))
+}
+
 publishing {
     publications {
         mavenCommon(MavenPublication) {

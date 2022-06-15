@@ -42,6 +42,13 @@ public class EcologicsClient {
         ClientPlatformHelper.registerBlockColors((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
         ClientPlatformHelper.registerItemColors((stack, tintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
 
+        // Layer Definitions
+        ClientPlatformHelper.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
+        for (ModBoat.Type type : ModBoat.Type.values()) {
+            ClientPlatformHelper.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
+            ClientPlatformHelper.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));
+        }
+
         // Entity Renderers
         ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.COCONUT_CRAB, CoconutCrabRenderer::new);
         ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.CAMEL, CamelRenderer::new);
@@ -52,13 +59,6 @@ public class EcologicsClient {
 
         // Block Entity Renderers
         ClientPlatformHelper.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN, SignRenderer::new);
-
-        // Layer Definitions
-        ClientPlatformHelper.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
-        for (ModBoat.Type type : ModBoat.Type.values()) {
-            ClientPlatformHelper.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
-            ClientPlatformHelper.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));
-        }
     }
 
     public static void addWoodTypes() {

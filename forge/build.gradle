@@ -10,9 +10,12 @@ architectury {
 }
 
 loom {
+    accessWidenerPath.set(project(":common").file("src/main/resources/ecologics.accesswidener"))
+
     forge {
         mixinConfig "ecologics-common.mixins.json"
         mixinConfig "ecologics.mixins.json"
+        convertAccessWideners.set(true)
     }
 }
 

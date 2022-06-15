@@ -24,7 +24,6 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.entity.CoconutCrab;
-import samebutdifferent.ecologics.mixin.DamageSourceAccessor;
 import samebutdifferent.ecologics.platform.ConfigPlatformHelper;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
@@ -116,7 +115,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     public DamageSource getFallDamageSource() {
-        return DamageSourceAccessor.invokeConstructor("coconut");
+        return new DamageSource("coconut");
     }
 
     @Override
