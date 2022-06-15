@@ -11,5 +11,6 @@ public class EcologicsFabric implements ModInitializer {
     public void onInitialize() {
         AutoConfig.register(ModConfigFabric.class, GsonConfigSerializer::new);
         Ecologics.init();
+        Ecologics.commonSetup();
     }
 }

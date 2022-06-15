@@ -1,18 +1,19 @@
 package samebutdifferent.ecologics.platform.forge;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -26,10 +27,14 @@ import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.block.properties.ModWoodType;
+import samebutdifferent.ecologics.mixin.forge.AxeItemAccessor;
 import samebutdifferent.ecologics.mixin.forge.FireBlockAccessor;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
+import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.util.forge.ModBrewingRecipe;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class CommonPlatformHelperImpl {
@@ -115,4 +120,24 @@ public class CommonPlatformHelperImpl {
         SpawnPlacements.register(entityType, decoratorType, heightMapType, decoratorPredicate);
     }
 
+    public static WoodType createWoodType(String name) {
+        return WoodType.create(name);
+    }
+
+    public static WoodType registerWoodType(WoodType woodType) {
+        return WoodType.register(woodType);
+    }
+
+    public static void registerCompostable(float chance, ItemLike item) {
+        ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
+    }
+
+    public static void registerStrippables(Map<Block, Block> blockMap) {
+        Map<Block, Block> strippables = new ImmutableMap.Builder<Block, Block>().putAll(AxeItemAccessor.getStrippables()).putAll(blockMap).build();
+        AxeItemAccessor.setStrippables(strippables);
+    }
+
+    public static Supplier<RecordItem> registerRecordItem(String name, int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties properties) {
+        return ITEMS.register(name, () -> new RecordItem(comparatorValue, soundSupplier, properties));
+    }
 }

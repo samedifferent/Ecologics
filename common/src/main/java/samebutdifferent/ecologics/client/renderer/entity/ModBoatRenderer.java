@@ -10,29 +10,28 @@ import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.BoatRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.vehicle.Boat;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.ModBoat;
 
 import java.util.Map;
 
-public class ModBoatRenderer extends BoatRenderer {
+public class ModBoatRenderer<T extends ModBoat> extends EntityRenderer<T> {
     private final Map<ModBoat.Type, Pair<ResourceLocation, BoatModel>> boatResources = Maps.newHashMap();
 
     public ModBoatRenderer(EntityRendererProvider.Context context, boolean hasChest) {
-        super(context, hasChest);
+        super(context);
         for(ModBoat.Type type : ModBoat.Type.values()) {
             boatResources.put(type, Pair.of(type.getTexture(hasChest), new BoatModel(context.bakeLayer(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, hasChest ? type.getChestModelLocation() : type.getModelLocation()), "main")), hasChest)));
         }
     }
 
     @Override
-    public void render(Boat boat, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
+    public void render(T boat, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
         float h;
         matrixStack.pushPose();
         matrixStack.translate(0.0, 0.375, 0.0);
@@ -48,7 +47,7 @@ public class ModBoatRenderer extends BoatRenderer {
         if (!Mth.equal(h = boat.getBubbleAngle(partialTicks), 0.0f)) {
             matrixStack.mulPose(new Quaternion(new Vector3f(1.0f, 0.0f, 1.0f), boat.getBubbleAngle(partialTicks), true));
         }
-        Pair<ResourceLocation, BoatModel> pair = this.boatResources.get(((ModBoat)boat).getWoodType());
+        Pair<ResourceLocation, BoatModel> pair = this.boatResources.get(boat.getWoodType());
         ResourceLocation resourceLocation = pair.getFirst();
         BoatModel boatModel = pair.getSecond();
         matrixStack.scale(-1.0f, -1.0f, 1.0f);
@@ -65,7 +64,7 @@ public class ModBoatRenderer extends BoatRenderer {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Boat boat) {
-        return boatResources.get(((ModBoat)boat).getWoodType()).getFirst();
+    public ResourceLocation getTextureLocation(ModBoat boat) {
+        return boatResources.get(boat.getWoodType()).getFirst();
     }
 }

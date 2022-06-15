@@ -9,7 +9,6 @@
     "DamageSourceAccessor",
     "FallingBlockEntityAccessor",
     "FoliagePlacerTypeAccessor",
-    "RecordItemAccessor",
     "TrunkPlacerTypeAccessor"
   ],
   "client": [

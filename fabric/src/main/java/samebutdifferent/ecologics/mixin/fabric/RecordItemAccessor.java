@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.mixin;
+package samebutdifferent.ecologics.mixin.fabric;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;

@@ -3,36 +3,35 @@ package samebutdifferent.ecologics.platform.fabric;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.minecraft.core.Holder;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.mixin.fabric.RecordItemAccessor;
 import samebutdifferent.ecologics.mixin.fabric.PotionBrewingInvoker;
 import samebutdifferent.ecologics.mixin.fabric.SpawnPlacementsInvoker;
+import samebutdifferent.ecologics.mixin.fabric.WoodTypeAccessor;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class CommonPlatformHelperImpl {
@@ -109,5 +108,25 @@ public class CommonPlatformHelperImpl {
 
     public static <T extends Mob> void registerSpawnPlacement(EntityType<T> entityType, SpawnPlacements.Type decoratorType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> decoratorPredicate) {
         SpawnPlacementsInvoker.invokeRegister(entityType, decoratorType, heightMapType, decoratorPredicate);
+    }
+
+    public static WoodType createWoodType(String name) {
+        return WoodTypeAccessor.invokeConstructor(name);
+    }
+
+    public static WoodType registerWoodType(WoodType woodType) {
+        return WoodTypeAccessor.invokeRegister(woodType);
+    }
+
+    public static void registerCompostable(float chance, ItemLike item) {
+        CompostingChanceRegistry.INSTANCE.add(item, chance);
+    }
+
+    public static void registerStrippables(Map<Block, Block> blockMap) {
+        blockMap.forEach(StrippableBlockRegistry::register);
+    }
+
+    public static Supplier<RecordItem> registerRecordItem(String name, int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties properties) {
+        return registerItem(name, () -> RecordItemAccessor.invokeConstructor(comparatorValue, soundSupplier.get(), properties));
     }
 }

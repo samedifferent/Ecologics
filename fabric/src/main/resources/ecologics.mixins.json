@@ -4,9 +4,12 @@
   "package": "samebutdifferent.ecologics.mixin.fabric",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BlockEntityTypeMixin",
+    "LivingEntityMixin",
     "PotionBrewingInvoker",
+    "RecordItemAccessor",
     "SpawnPlacementsInvoker",
-    "LivingEntityMixin"
+    "WoodTypeAccessor"
   ],
   "client": [
   ],
