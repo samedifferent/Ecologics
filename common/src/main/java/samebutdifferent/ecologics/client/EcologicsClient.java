@@ -38,10 +38,6 @@ public class EcologicsClient {
         ClientPlatformHelper.setRenderLayer(ModBlocks.POTTED_AZALEA_FLOWER, RenderType.cutout());
         ClientPlatformHelper.setRenderLayer(ModBlocks.SURFACE_MOSS, RenderType.cutoutMipped());
 
-        // Colors
-        ClientPlatformHelper.registerBlockColors((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
-        ClientPlatformHelper.registerItemColors((stack, tintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
-
         // Layer Definitions
         ClientPlatformHelper.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
         for (ModBoat.Type type : ModBoat.Type.values()) {
@@ -59,6 +55,10 @@ public class EcologicsClient {
 
         // Block Entity Renderers
         ClientPlatformHelper.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN, SignRenderer::new);
+
+        // Colors
+        ClientPlatformHelper.registerBlockColors((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
+        ClientPlatformHelper.registerItemColors((stack, tintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
     }
 
     public static void addWoodTypes() {

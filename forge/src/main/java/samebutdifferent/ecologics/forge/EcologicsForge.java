@@ -52,6 +52,7 @@ public class EcologicsForge {
         CommonPlatformHelperImpl.MOB_EFFECTS.register(bus);
         CommonPlatformHelperImpl.POTIONS.register(bus);
         ModGlobalLootModifiers.GLM.register(bus);
+        Ecologics.registerEntityAttributes();
 
         bus.addListener(this::setup);
 
@@ -59,7 +60,6 @@ public class EcologicsForge {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        Ecologics.registerEntityAttributes();
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
         });

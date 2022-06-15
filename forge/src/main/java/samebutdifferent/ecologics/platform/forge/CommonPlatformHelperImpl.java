@@ -128,7 +128,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static WoodType createWoodType(String name) {
-        return WoodType.create(name);
+        return WoodType.create(new ResourceLocation(Ecologics.MOD_ID, name).toString());
     }
 
     public static WoodType registerWoodType(WoodType woodType) {
