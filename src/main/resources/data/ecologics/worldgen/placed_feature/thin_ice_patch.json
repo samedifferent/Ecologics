@@ -13,13 +13,6 @@
       "heightmap": "MOTION_BLOCKING"
     },
     {
-      "type": "minecraft:block_predicate_filter",
-      "predicate": {
-        "type": "minecraft:matching_blocks",
-        "blocks": "minecraft:ice"
-      }
-    },
-    {
       "type": "minecraft:biome"
     }
   ]
