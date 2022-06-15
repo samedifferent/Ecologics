@@ -26,6 +26,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.CoconutCrab;
+import samebutdifferent.ecologics.mixin.DamageSourceAccessor;
+import samebutdifferent.ecologics.mixin.FallingBlockEntityAccessor;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
@@ -67,7 +69,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
             if (age < 2) {
                 serverLevel.setBlock(blockPos, blockState.setValue(AGE, age + 1), 2);
             } else if (blockPos.getY() >= serverLevel.getMinBuildHeight() && isFree(serverLevel.getBlockState(blockPos.below()))){
-                FallingBlockEntity fallingblockentity = new FallingBlockEntity(serverLevel, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, serverLevel.getBlockState(blockPos));
+                FallingBlockEntity fallingblockentity = FallingBlockEntityAccessor.invokeConstructor(serverLevel, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, serverLevel.getBlockState(blockPos));
                 this.falling(fallingblockentity);
                 serverLevel.addFreshEntity(fallingblockentity);
                 serverLevel.removeBlock(blockPos, false);
@@ -117,7 +119,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     public DamageSource getFallDamageSource() {
-        return new DamageSource("coconut").damageHelmet();
+        return DamageSourceAccessor.invokeConstructor("coconut");
     }
 
     @Override
@@ -140,7 +142,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     @Override
     public void tick(@NotNull BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, @NotNull RandomSource randomSource) {
         if ((serverLevel.isEmptyBlock(blockPos.above()) && blockPos.getY() >= serverLevel.getMinBuildHeight() && isFree(serverLevel.getBlockState(blockPos.below())))) {
-            FallingBlockEntity fallingblockentity = new FallingBlockEntity(serverLevel, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, serverLevel.getBlockState(blockPos));
+            FallingBlockEntity fallingblockentity = FallingBlockEntityAccessor.invokeConstructor(serverLevel, blockPos.getX() + 0.5D, blockPos.getY(), blockPos.getZ() + 0.5D, serverLevel.getBlockState(blockPos));
             this.falling(fallingblockentity);
             serverLevel.addFreshEntity(fallingblockentity);
             serverLevel.removeBlock(blockPos, false);

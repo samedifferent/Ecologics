@@ -19,12 +19,12 @@ public class ClientPlatformHelper {
     }
 
     @ExpectPlatform
-    public static void setRenderLayer(Supplier<Block> block, RenderType type) {
+    public static <T extends Block> void setRenderLayer(Supplier<T> block, RenderType type) {
         throw new AssertionError();
     }
 
     @ExpectPlatform
-    public static <T extends Entity> void registerEntityRenderers(Supplier<EntityType<T>> type, EntityRendererProvider<T> renderProvider) {
+    public static <T extends Entity> void registerEntityRenderer(Supplier<EntityType<T>> type, EntityRendererProvider<T> renderProvider) {
         throw new AssertionError();
     }
 }

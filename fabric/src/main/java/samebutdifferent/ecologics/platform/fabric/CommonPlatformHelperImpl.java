@@ -4,7 +4,9 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -18,6 +20,9 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
@@ -92,6 +97,11 @@ public class CommonPlatformHelperImpl {
 
     public static <T extends MobEffect> Supplier<T> registerMobEffect(String name, Supplier<T> mobEffect) {
         var registry = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(Ecologics.MOD_ID, name), mobEffect.get());
+        return () -> registry;
+    }
+
+    public static <T extends Feature<?>> Supplier<T> registerFeature(String name, Supplier<T> feature) {
+        var registry = Registry.register(Registry.FEATURE, new ResourceLocation(Ecologics.MOD_ID, name), feature.get());
         return () -> registry;
     }
 }

@@ -1,17 +1,16 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
 }
+
+archivesBaseName = "${rootProject.archives_base_name}-${project.name}"
+
 architectury {
     platformSetupLoomIde()
     forge()
 }
 
 loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
-
     forge {
-        convertAccessWideners = true
-        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
         mixinConfig "ecologics-common.mixins.json"
         mixinConfig "ecologics.mixins.json"
     }
@@ -28,17 +27,15 @@ configurations {
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
     modImplementation ("software.bernie.geckolib:geckolib-forge-${rootProject.minecraft_version}:${rootProject.geckolib_forge_version}")
-    modApi("me.shedaniel.cloth:cloth-config-forge:${rootProject.cloth_config_version}")
-
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
 
 processResources {
-    inputs.property "version", project.version
+    inputs.property "version", rootProject.mod_version
 
     filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
+        expand "version": rootProject.mod_version
     }
 }
 

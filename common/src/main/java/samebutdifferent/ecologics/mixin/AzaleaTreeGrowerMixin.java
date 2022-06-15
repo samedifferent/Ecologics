@@ -11,16 +11,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModConfiguredFeatures;
 
-import java.util.Random;
-
 @Mixin(AzaleaTreeGrower.class)
-public class MixinAzaleaTreeGrower extends AbstractTreeGrower {
+public class AzaleaTreeGrowerMixin extends AbstractTreeGrower {
 
     @Nullable
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource randomSource, boolean bl) {
         if (Ecologics.CONFIG.REPLACE_AZALEA_TREE) {
-            return ModConfiguredFeatures.AZALEA_TREE.getHolder().orElseThrow();
+            return Holder.direct(ModConfiguredFeatures.AZALEA_TREE.get());
         } else {
             return TreeFeatures.AZALEA_TREE;
         }

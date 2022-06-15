@@ -1,7 +1,8 @@
-package samebutdifferent.ecologics;
+package samebutdifferent.ecologics.registry;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import samebutdifferent.ecologics.Ecologics;
 
 @Config(name = Ecologics.MOD_ID)
 public class ModConfiguration implements ConfigData {

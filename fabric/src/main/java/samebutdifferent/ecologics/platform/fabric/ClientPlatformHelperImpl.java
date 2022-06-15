@@ -15,11 +15,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import java.util.function.Supplier;
 
 public class ClientPlatformHelperImpl {
-    public static void setRenderLayer(Supplier<Block> block, RenderType type) {
+    public static <T extends Block> void setRenderLayer(Supplier<T> block, RenderType type) {
         BlockRenderLayerMap.INSTANCE.putBlock(block.get(), type);
     }
 
-    public static <T extends Entity> void registerEntityRenderers(Supplier<EntityType<T>> type, EntityRendererProvider<T> renderProvider) {
+    public static <T extends Entity> void registerEntityRenderer(Supplier<EntityType<T>> type, EntityRendererProvider<T> renderProvider) {
         EntityRendererRegistry.register(type.get(), renderProvider);
     }
 

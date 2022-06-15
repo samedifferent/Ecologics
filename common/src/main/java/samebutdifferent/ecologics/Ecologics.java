@@ -9,9 +9,7 @@ import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import samebutdifferent.ecologics.registry.ModConfiguration;
 
 public class Ecologics {
     public static final String MOD_ID = "ecologics";

@@ -22,30 +22,12 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.COCONUT_HUSK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.COCONUT_DOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.COCONUT_TRAPDOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.SANDCASTLE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.COCONUT_LEAVES.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_COCONUT_HUSK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.THIN_ICE.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.WALNUT_SAPLING.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.WALNUT_DOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_WALNUT_SAPLING.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.AZALEA_FLOWER.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.AZALEA_DOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLOWERING_AZALEA_DOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.AZALEA_TRAPDOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLOWERING_AZALEA_TRAPDOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_AZALEA_FLOWER.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.SURFACE_MOSS.get(), RenderType.cutoutMipped());
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.COCONUT);
             Sheets.addWoodType(ModWoodType.WALNUT);
             Sheets.addWoodType(ModWoodType.AZALEA);
             Sheets.addWoodType(ModWoodType.FLOWERING_AZALEA);
         });
-        QuarkCompatClient.registerRenderLayers(event);
-        MBCompatClient.registerRenderLayers(event);
     }
 
     public static void registerBlockColors(ColorHandlerEvent.Block event) {
@@ -62,12 +44,6 @@ public class ClientEventHandler {
     }
 
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrabRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.CAMEL.get(), CamelRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.PENGUIN.get(), PenguinRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.BOAT.get(), ModBoatRenderer::new);
-        event.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN.get(), SignRenderer::new);
-        event.registerEntityRenderer(ModEntityTypes.SQUIRREL.get(), SquirrelRenderer::new);
         QuarkCompatClient.registerRenderers(event);
     }
 

@@ -128,7 +128,7 @@ public class Squirrel extends Animal implements IAnimatable {
         if (!this.isTrusting() && TEMPT_INGREDIENT.test(itemstack)) {
             this.usePlayerItem(pPlayer, pHand, itemstack);
             if (!this.level.isClientSide) {
-                if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+                if (this.random.nextInt(3) == 0) {
                     this.setTrusting(true);
                     this.spawnTrustingParticles(true);
                     this.level.broadcastEntityEvent(this, (byte)41);

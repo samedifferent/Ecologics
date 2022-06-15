@@ -8,6 +8,7 @@ import samebutdifferent.ecologics.item.CoconutSliceItem;
 import samebutdifferent.ecologics.item.ModBoatItem;
 import samebutdifferent.ecologics.item.PricklyPearItem;
 import samebutdifferent.ecologics.item.SandcastleBlockItem;
+import samebutdifferent.ecologics.mixin.RecordItemAccessor;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 
 import java.util.function.Supplier;
@@ -22,7 +23,7 @@ public class ModItems {
     public static final Supplier<Item> PENGUIN_SPAWN_EGG = CommonPlatformHelper.registerSpawnEggItem("penguin_spawn_egg", ModEntityTypes.PENGUIN, 1315860, 16382457);
     public static final Supplier<Item> SQUIRREL_SPAWN_EGG = CommonPlatformHelper.registerSpawnEggItem("squirrel_spawn_egg", ModEntityTypes.SQUIRREL, 10051392, 15720061);
     public static final Supplier<Item> SANDCASTLE = CommonPlatformHelper.registerItem("sandcastle", SandcastleBlockItem::new);
-    public static final Supplier<Item> MUSIC_DISC_COCONUT = CommonPlatformHelper.registerItem("music_disc_coconut", () -> new RecordItem(10, ModSoundEvents.MUSIC_DISC_COCONUT.get(), new Item.Properties().stacksTo(1).tab(Ecologics.TAB).rarity(Rarity.RARE)));
+    public static final Supplier<Item> MUSIC_DISC_COCONUT = CommonPlatformHelper.registerItem("music_disc_coconut", () -> RecordItemAccessor.invokeConstructor(10, ModSoundEvents.MUSIC_DISC_COCONUT.get(), new Item.Properties().stacksTo(1).tab(Ecologics.TAB).rarity(Rarity.RARE)));
     public static final Supplier<Item> COCONUT_SIGN = CommonPlatformHelper.registerItem("coconut_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(Ecologics.TAB), ModBlocks.COCONUT_SIGN.get(), ModBlocks.COCONUT_WALL_SIGN.get()));
     public static final Supplier<Item> COCONUT_BOAT = CommonPlatformHelper.registerItem("coconut_boat", () -> new ModBoatItem("coconut", new Item.Properties().stacksTo(1).tab(Ecologics.TAB)));
     public static final Supplier<Item> PRICKLY_PEAR = CommonPlatformHelper.registerItem("prickly_pear", PricklyPearItem::new);

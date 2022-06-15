@@ -17,9 +17,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
 @Mixin(CarpetBlock.class)
-public abstract class MixinCarpetBlock extends Block {
+public abstract class CarpetBlockMixin extends Block {
 
-    public MixinCarpetBlock(Properties properties) {
+    public CarpetBlockMixin(Properties properties) {
         super(properties);
     }
 

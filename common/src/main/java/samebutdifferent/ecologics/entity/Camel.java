@@ -117,7 +117,7 @@ public class Camel extends AbstractChestedHorse {
         }
 
         if (willEat) {
-            this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+            this.gameEvent(GameEvent.EAT);
             if (!this.isSilent()) {
                 SoundEvent soundevent = this.getEatingSound();
                 if (soundevent != null) {
@@ -151,7 +151,7 @@ public class Camel extends AbstractChestedHorse {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (!this.isBaby()) {
             if (this.isTamed() && pPlayer.isSecondaryUseActive()) {
-                this.openInventory(pPlayer);
+                this.openCustomInventoryScreen(pPlayer);
                 return InteractionResult.sidedSuccess(this.level.isClientSide);
             }
 
@@ -182,7 +182,7 @@ public class Camel extends AbstractChestedHorse {
             }
 
             if (!this.isBaby() && !this.isSaddled() && itemstack.is(Items.SADDLE)) {
-                this.openInventory(pPlayer);
+                this.openCustomInventoryScreen(pPlayer);
                 return InteractionResult.sidedSuccess(this.level.isClientSide);
             }
         }

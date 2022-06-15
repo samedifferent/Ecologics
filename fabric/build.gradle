@@ -2,13 +2,11 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
+archivesBaseName = "${rootProject.archives_base_name}-${project.name}"
+
 architectury {
     platformSetupLoomIde()
     fabric()
-}
-
-loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
 configurations {
@@ -19,23 +17,30 @@ configurations {
     developmentFabric.extendsFrom common
 }
 
+repositories {
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://maven.terraformersmc.com/releases" }
+}
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
     modImplementation ("software.bernie.geckolib:geckolib-fabric-${rootProject.minecraft_version}:${rootProject.geckolib_fabric_version}")
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") {
+    modApi include("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_fabric_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
+        exclude module: "fabric-api"
+    }
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
 
 processResources {
-    inputs.property "version", project.version
+    inputs.property "version", rootProject.mod_version
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": rootProject.mod_version
     }
 }
 
@@ -45,7 +50,6 @@ shadowJar {
 }
 
 remapJar {
-    injectAccessWidener = true
     input.set shadowJar.archiveFile
     dependsOn shadowJar
     classifier null

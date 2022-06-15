@@ -22,25 +22,25 @@ public class ModBoatRenderer extends BoatRenderer {
     private final Pair<ResourceLocation, BoatModel> flowering_azalea;
 
     public ModBoatRenderer(EntityRendererProvider.Context context) {
-        super(context);
+        super(context, false);
         this.shadowRadius = 0.8F;
-        coconut = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/coconut.png"), new BoatModel(context.bakeLayer(COCONUT_LAYER_LOCATION)));
-        walnut = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/walnut.png"), new BoatModel(context.bakeLayer(WALNUT_LAYER_LOCATION)));
-        azalea = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/azalea.png"), new BoatModel(context.bakeLayer(AZALEA_LAYER_LOCATION)));
-        flowering_azalea = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/flowering_azalea.png"), new BoatModel(context.bakeLayer(FLOWERING_AZALEA_LAYER_LOCATION)));
+        coconut = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/coconut.png"), new BoatModel(context.bakeLayer(COCONUT_LAYER_LOCATION), false));
+        walnut = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/walnut.png"), new BoatModel(context.bakeLayer(WALNUT_LAYER_LOCATION), false));
+        azalea = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/azalea.png"), new BoatModel(context.bakeLayer(AZALEA_LAYER_LOCATION), false));
+        flowering_azalea = new Pair<>(new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/flowering_azalea.png"), new BoatModel(context.bakeLayer(FLOWERING_AZALEA_LAYER_LOCATION), false));
     }
 
     @Override
-    public Pair<ResourceLocation, BoatModel> getModelWithLocation(Boat boat) {
+    public ResourceLocation getTextureLocation(Boat boat) {
         switch (((ModBoat)boat).getWoodType()) {
             case "walnut":
-                return walnut;
+                return walnut.getFirst();
             case "azalea":
-                return azalea;
+                return azalea.getFirst();
             case "flowering_azalea":
-                return flowering_azalea;
+                return flowering_azalea.getFirst();
             default:
-                return coconut;
+                return coconut.getFirst();
         }
     }
 }

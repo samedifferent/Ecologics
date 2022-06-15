@@ -4,9 +4,13 @@
   "package": "samebutdifferent.ecologics.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MixinAzaleaTreeGrower",
-    "MixinCarpetBlock",
-    "MixinLivingEntity"
+    "AzaleaTreeGrowerMixin",
+    "CarpetBlockMixin",
+    "DamageSourceAccessor",
+    "FallingBlockEntityAccessor",
+    "FoliagePlacerTypeAccessor",
+    "RecordItemAccessor",
+    "TrunkPlacerTypeAccessor"
   ],
   "client": [
   ],

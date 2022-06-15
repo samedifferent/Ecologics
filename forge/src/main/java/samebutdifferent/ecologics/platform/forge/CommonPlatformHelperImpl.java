@@ -1,5 +1,6 @@
 package samebutdifferent.ecologics.platform.forge;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -13,10 +14,14 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.registries.DeferredRegister;
@@ -38,6 +43,9 @@ public class CommonPlatformHelperImpl {
     public static final DeferredRegister<TrunkPlacerType<?>> TRUNK_PLACER_TYPES = DeferredRegister.create(Registry.TRUNK_PLACER_TYPE_REGISTRY, Ecologics.MOD_ID);
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, Ecologics.MOD_ID);
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Ecologics.MOD_ID);
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Ecologics.MOD_ID);
+    public static final DeferredRegister<ConfiguredFeature<?,?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, Ecologics.MOD_ID);
+    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Ecologics.MOD_ID);
 
     public static <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> block) {
         return BLOCKS.register(name, block);
@@ -98,6 +106,14 @@ public class CommonPlatformHelperImpl {
 
     public static <T extends MobEffect> Supplier<T> registerMobEffect(String name, Supplier<T> mobEffect) {
         return MOB_EFFECTS.register(name, mobEffect);
+    }
+
+    public static <T extends Feature<?>> Supplier<T> registerFeature(String name, Supplier<T> feature) {
+        return FEATURES.register(name, feature);
+    }
+
+    public static <FC extends FeatureConfiguration, F extends Feature<FC>> Supplier<ConfiguredFeature<FC, ?>> registerConfiguredFeature(String name, F feature, FC config) {
+        return CONFIGURED_FEATURES.register(name, Holder.direct(new ConfiguredFeature<>(feature, config)));
     }
 
 }
