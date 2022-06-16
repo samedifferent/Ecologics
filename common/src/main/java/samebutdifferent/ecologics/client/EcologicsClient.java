@@ -1,17 +1,9 @@
 package samebutdifferent.ecologics.client;
 
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.FoliageColor;
-import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
-import samebutdifferent.ecologics.client.model.CamelModel;
 import samebutdifferent.ecologics.client.renderer.entity.*;
-import samebutdifferent.ecologics.entity.ModBoat;
 import samebutdifferent.ecologics.platform.ClientPlatformHelper;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
@@ -38,13 +30,6 @@ public class EcologicsClient {
         ClientPlatformHelper.setRenderLayer(ModBlocks.POTTED_AZALEA_FLOWER, RenderType.cutout());
         ClientPlatformHelper.setRenderLayer(ModBlocks.SURFACE_MOSS, RenderType.cutoutMipped());
 
-        // Layer Definitions
-        ClientPlatformHelper.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
-        for (ModBoat.Type type : ModBoat.Type.values()) {
-            ClientPlatformHelper.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
-            ClientPlatformHelper.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));
-        }
-
         // Entity Renderers
         ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.COCONUT_CRAB, CoconutCrabRenderer::new);
         ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.CAMEL, CamelRenderer::new);
@@ -55,10 +40,6 @@ public class EcologicsClient {
 
         // Block Entity Renderers
         ClientPlatformHelper.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN, SignRenderer::new);
-
-        // Colors
-        ClientPlatformHelper.registerBlockColors((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
-        ClientPlatformHelper.registerItemColors((stack, tintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
     }
 
     public static void addWoodTypes() {

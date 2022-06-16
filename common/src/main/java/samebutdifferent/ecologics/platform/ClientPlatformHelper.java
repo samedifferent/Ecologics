@@ -38,21 +38,4 @@ public class ClientPlatformHelper {
     public static void addWoodType(WoodType woodType) {
         throw new AssertionError();
     }
-
-    @SafeVarargs
-    @ExpectPlatform
-    public static <T extends Block> void registerBlockColors(BlockColor blockColor, Supplier<T>... blocks) {
-        throw new AssertionError();
-    }
-
-    @SafeVarargs
-    @ExpectPlatform
-    public static <T extends ItemLike> void registerItemColors(ItemColor itemColor, Supplier<T>... items) {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static void registerLayerDefinition(ModelLayerLocation layerLocation, Supplier<LayerDefinition> supplier) {
-        throw new AssertionError();
-    }
 }

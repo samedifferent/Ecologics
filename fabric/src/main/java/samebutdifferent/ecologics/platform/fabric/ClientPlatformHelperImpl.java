@@ -43,18 +43,4 @@ public class ClientPlatformHelperImpl {
     public static void addWoodType(WoodType woodType) {
         Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID, "entity/signs/" + woodType.name())));
     }
-
-    @SafeVarargs
-    public static <T extends Block> void registerBlockColors(BlockColor blockColor, Supplier<T>... blocks) {
-        Arrays.stream(blocks).forEach(block -> ColorProviderRegistry.BLOCK.register(blockColor, block.get()));
-    }
-
-    @SafeVarargs
-    public static <T extends ItemLike> void registerItemColors(ItemColor itemColor, Supplier<T>... items) {
-        Arrays.stream(items).forEach(item -> ColorProviderRegistry.ITEM.register(itemColor, item.get()));
-    }
-
-    public static void registerLayerDefinition(ModelLayerLocation layerLocation, Supplier<LayerDefinition> supplier) {
-        EntityModelLayerRegistry.registerModelLayer(layerLocation, supplier::get);
-    }
 }
