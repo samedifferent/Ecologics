@@ -5,10 +5,11 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BlockEntityTypeMixin",
+    "CropBlockMixin",
     "LivingEntityMixin",
-    "PotionBrewingInvoker",
+    "PotionBrewingAccessor",
     "RecordItemAccessor",
-    "SpawnPlacementsInvoker",
+    "SpawnPlacementsAccessor",
     "WoodTypeAccessor"
   ],
   "client": [

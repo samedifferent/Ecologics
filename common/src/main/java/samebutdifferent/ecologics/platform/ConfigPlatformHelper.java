@@ -9,11 +9,6 @@ public class ConfigPlatformHelper {
     }
 
     @ExpectPlatform
-    public static double pricklyPearGrowthChance() {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
     public static boolean replaceAzaleaTree() {
         throw new AssertionError();
     }

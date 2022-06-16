@@ -10,10 +10,6 @@ public class ConfigPlatformHelperImpl {
         return config.beach.coconutCrabSpawnChance;
     }
 
-    public static double pricklyPearGrowthChance() {
-        return config.desert.pricklyPearGrowthChance;
-    }
-
     public static boolean replaceAzaleaTree() {
         return config.lushCaves.replaceAzaleaTree;
     }

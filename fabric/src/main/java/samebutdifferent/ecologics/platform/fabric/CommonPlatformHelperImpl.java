@@ -2,7 +2,6 @@ package samebutdifferent.ecologics.platform.fabric;
 
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -12,7 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.ItemLike;
@@ -28,8 +26,8 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.mixin.fabric.RecordItemAccessor;
-import samebutdifferent.ecologics.mixin.fabric.PotionBrewingInvoker;
-import samebutdifferent.ecologics.mixin.fabric.SpawnPlacementsInvoker;
+import samebutdifferent.ecologics.mixin.fabric.PotionBrewingAccessor;
+import samebutdifferent.ecologics.mixin.fabric.SpawnPlacementsAccessor;
 import samebutdifferent.ecologics.mixin.fabric.WoodTypeAccessor;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 
@@ -81,7 +79,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static void registerBrewingRecipe(Potion input, Item ingredient, Potion output) {
-        PotionBrewingInvoker.invokeAddMix(input, ingredient, output);
+        PotionBrewingAccessor.invokeAddMix(input, ingredient, output);
     }
 
     public static <T extends FoliagePlacer> Supplier<FoliagePlacerType<T>> registerFoliagePlacerType(String name, Supplier<FoliagePlacerType<T>> foliagePlacerType) {
@@ -109,7 +107,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static <T extends Mob> void registerSpawnPlacement(EntityType<T> entityType, SpawnPlacements.Type decoratorType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> decoratorPredicate) {
-        SpawnPlacementsInvoker.invokeRegister(entityType, decoratorType, heightMapType, decoratorPredicate);
+        SpawnPlacementsAccessor.invokeRegister(entityType, decoratorType, heightMapType, decoratorPredicate);
     }
 
     public static WoodType createWoodType(String name) {

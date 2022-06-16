@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(SpawnPlacements.class)
-public interface SpawnPlacementsInvoker {
+public interface SpawnPlacementsAccessor {
     @Invoker("register")
     static <T extends Mob> void invokeRegister(EntityType<T> entityType, SpawnPlacements.Type decoratorType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> decoratorPredicate) {
         throw new AssertionError();

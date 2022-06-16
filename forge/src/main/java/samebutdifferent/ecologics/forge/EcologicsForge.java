@@ -111,7 +111,7 @@ public class EcologicsForge {
                 level.setBlockAndUpdate(pos, state.cycle(PotBlock.CHISEL));
                 level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
                 player.swing(InteractionHand.OFF_HAND);
-                player.getOffhandItem().hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+                player.getOffhandItem().hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(InteractionHand.OFF_HAND));
             }
         }
         if (!event.getWorld().isClientSide) {
