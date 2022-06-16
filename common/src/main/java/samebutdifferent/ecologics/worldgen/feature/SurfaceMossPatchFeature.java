@@ -9,15 +9,15 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import samebutdifferent.ecologics.block.SurfaceMossBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
-import samebutdifferent.ecologics.worldgen.feature.configurations.MossPatchFeatureConfiguration;
+import samebutdifferent.ecologics.worldgen.feature.configurations.SurfaceMossPatchFeatureConfiguration;
 
-public class MossPatchFeature extends Feature<MossPatchFeatureConfiguration> {
-    public MossPatchFeature(Codec<MossPatchFeatureConfiguration> pCodec) {
+public class SurfaceMossPatchFeature extends Feature<SurfaceMossPatchFeatureConfiguration> {
+    public SurfaceMossPatchFeature(Codec<SurfaceMossPatchFeatureConfiguration> pCodec) {
         super(pCodec);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<MossPatchFeatureConfiguration> pContext) {
+    public boolean place(FeaturePlaceContext<SurfaceMossPatchFeatureConfiguration> pContext) {
         WorldGenLevel level = pContext.level();
         BlockPos pos = pContext.origin();
         if (level.isEmptyBlock(pos)) {
