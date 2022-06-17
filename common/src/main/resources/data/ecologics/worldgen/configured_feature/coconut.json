@@ -30,6 +30,7 @@
         "Name": "ecologics:coconut_leaves",
         "Properties": {
           "distance": "7",
+          "distance_9": "9",
           "persistent": "false",
           "waterlogged": "false"
         }

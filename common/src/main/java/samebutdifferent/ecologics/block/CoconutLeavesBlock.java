@@ -26,6 +26,19 @@ public class CoconutLeavesBlock extends LeavesBlock {
     }
 
     @Override
+    public boolean isRandomlyTicking(BlockState state) {
+        return state.getValue(DISTANCE_9) == 9 && !state.getValue(PERSISTENT);
+    }
+
+    @Override
+    public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
+        if (this.decaying(blockState)) {
+            LeavesBlock.dropResources(blockState, serverLevel, blockPos);
+            serverLevel.removeBlock(blockPos, false);
+        }
+    }
+
+    @Override
     protected boolean decaying(BlockState pState) {
         return !pState.getValue(PERSISTENT) && pState.getValue(DISTANCE_9) == 9;
     }
