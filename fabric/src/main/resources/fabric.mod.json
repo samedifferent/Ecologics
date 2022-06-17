@@ -26,6 +26,9 @@
     ],
     "client": [
       "samebutdifferent.ecologics.client.fabric.EcologicsFabricClient"
+    ],
+    "modmenu": [
+      "samebutdifferent.ecologics.integration.fabric.ModMenuIntegration"
     ]
   },
   "mixins": [

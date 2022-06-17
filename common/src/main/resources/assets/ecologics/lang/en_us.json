@@ -143,5 +143,25 @@
   "advancements.husbandry.sandcastle.title": "Fortress of Sanditude",
   "advancements.husbandry.sandcastle.description": "Build a sandcastle to protect turtle eggs.",
   "advancements.husbandry.breed_penguin.title": "Happy Feet",
-  "advancements.husbandry.breed_penguin.description": "Breed penguins to obtain a penguin feather from the baby."
+  "advancements.husbandry.breed_penguin.description": "Breed penguins to obtain a penguin feather from the baby.",
+
+  "text.autoconfig.ecologics.title": "Ecologics Config",
+  "text.autoconfig.ecologics.option.beach": "Beach Biome",
+  "text.autoconfig.ecologics.option.desert": "Desert Biome",
+  "text.autoconfig.ecologics.option.snowy": "Snowy Biome",
+  "text.autoconfig.ecologics.option.plains": "Plains Biome",
+  "text.autoconfig.ecologics.option.lushCaves": "Lush Caves Biome",
+  "text.autoconfig.ecologics.option.beach.coconutCrabSpawnChance": "How often (in percentage) should Coconut Crabs spawn when a coconut breaks?",
+  "text.autoconfig.ecologics.option.beach.generateCoconutTrees": "Generate coconut trees",
+  "text.autoconfig.ecologics.option.beach.generateSeashells": "Generate seashells",
+  "text.autoconfig.ecologics.option.desert.spawnCamels": "Spawn camels",
+  "text.autoconfig.ecologics.option.desert.generatePricklyPears": "Generate prickly pears on top of naturally generated cacti",
+  "text.autoconfig.ecologics.option.desert.pricklyPearGrowthChance": "How often (in percentage) should prickly pears grow when a cactus reaches full height?",
+  "text.autoconfig.ecologics.option.desert.generateDesertRuins": "Generate desert ruins",
+  "text.autoconfig.ecologics.option.snowy.spawnPenguins": "Spawn penguins",
+  "text.autoconfig.ecologics.option.snowy.generateThinIcePatches": "Generate thin ice patches",
+  "text.autoconfig.ecologics.option.plains.spawnSquirrels": "Spawn squirrels",
+  "text.autoconfig.ecologics.option.plains.generateWalnutTrees": "Generate walnut trees",
+  "text.autoconfig.ecologics.option.lushCaves.replaceAzaleaTree": "Replace oak logs on vanilla azalea trees with azalea logs",
+  "text.autoconfig.ecologics.option.lushCaves.generateSurfaceMoss": "Generate surface moss"
 }
