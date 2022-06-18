@@ -9,8 +9,8 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.client.animation.definitions.CoconutCrabAnimation;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 
 @Environment(EnvType.CLIENT)
@@ -19,12 +19,28 @@ public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart shell;
+    private final ModelPart leftHindLeg;
+    private final ModelPart rightHindLeg;
+    private final ModelPart leftFrontLeg;
+    private final ModelPart rightFrontLeg;
+    private final ModelPart leftMiddleLeg;
+    private final ModelPart rightMiddleLeg;
+    private final ModelPart rightClaw;
+    private final ModelPart leftClaw;
 
     public CoconutCrabModel(ModelPart root) {
         super(RenderType::entityCutoutNoCull);
         this.root = root.getChild("root");
         this.head = this.root.getChild("head");
         this.shell = this.root.getChild("shell");
+        this.leftHindLeg = this.root.getChild("leftHindLeg");
+        this.rightHindLeg = this.root.getChild("rightHindLeg");
+        this.leftFrontLeg = this.root.getChild("leftFrontLeg");
+        this.rightFrontLeg = this.root.getChild("rightFrontLeg");
+        this.leftMiddleLeg = this.root.getChild("leftMiddleLeg");
+        this.rightMiddleLeg = this.root.getChild("rightMiddleLeg");
+        this.rightClaw = this.root.getChild("rightClaw");
+        this.leftClaw = this.root.getChild("leftClaw");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -50,11 +66,33 @@ public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
     @Override
     public void setupAnim(CoconutCrab entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.head.xRot = headPitch * Mth.DEG_TO_RAD;
+        this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
         this.shell.visible = entity.hasCoconut();
-        this.animate(entity.walkAnimationState, CoconutCrabAnimation.WALK, ageInTicks);
-        this.animate(entity.idleAnimationState, CoconutCrabAnimation.IDLE, ageInTicks);
+        float swingSlowdownFactor = 0.2F;
+        this.shell.xRot += Mth.cos((float) (Math.toRadians(-360) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
+        this.shell.zRot += Mth.cos((float) (Math.toRadians(-60) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
+
+        float legLimbSwingAmount = Math.min(limbSwingAmount, 0.6F);
+        this.leftHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+
+        this.leftFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+
+        this.leftMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+
+        this.leftClaw.xRot += -Mth.cos((float) (Math.toRadians(-20) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftClaw.zRot += -Mth.cos((float) (Math.toRadians(-20) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightClaw.xRot += Mth.cos((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightClaw.zRot += Mth.cos((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
     }
 
     @Override

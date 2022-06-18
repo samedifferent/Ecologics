@@ -40,8 +40,6 @@ public class CoconutCrab extends Animal implements NeutralMob {
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private int remainingPersistentAngerTime;
     @Nullable private UUID persistentAngerTarget;
-    public final AnimationState walkAnimationState = new AnimationState();
-    public final AnimationState idleAnimationState = new AnimationState();
 
     public CoconutCrab(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -87,19 +85,6 @@ public class CoconutCrab extends Animal implements NeutralMob {
         if (this.getHealth() <= this.getMaxHealth() / 2 && this.hasCoconut()) {
             this.breakCoconut();
         }
-        if (this.level.isClientSide()) {
-            if (this.isMoving()) {
-                this.idleAnimationState.stop();
-                this.walkAnimationState.startIfStopped(this.tickCount);
-            } else {
-                this.walkAnimationState.stop();
-                this.idleAnimationState.startIfStopped(this.tickCount);
-            }
-        }
-    }
-
-    private boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6;
     }
 
     private void breakCoconut() {
