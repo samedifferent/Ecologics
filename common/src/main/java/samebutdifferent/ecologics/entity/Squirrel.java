@@ -36,6 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import samebutdifferent.ecologics.entity.ai.navigation.BetterWallClimberNavigation;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
@@ -212,7 +213,7 @@ public class Squirrel extends Animal implements IAnimatable {
 
     @Override
     protected PathNavigation createNavigation(Level pLevel) {
-        return new WallClimberNavigation(this, pLevel);
+        return new BetterWallClimberNavigation(this, pLevel);
     }
 
     @Override
@@ -285,8 +286,8 @@ public class Squirrel extends Animal implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+        data.setResetSpeedInTicks(5);
+        data.addAnimationController(new AnimationController<>(this, "controller", 5, this::predicate));
     }
 
     @Override
