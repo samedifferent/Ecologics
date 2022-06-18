@@ -53,7 +53,6 @@ public class Squirrel extends Animal {
     private static final Ingredient TEMPT_INGREDIENT = Ingredient.of(ModItems.WALNUT.get());
     public final AnimationState moveAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState climbAnimationState = new AnimationState();
 
     public Squirrel(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -221,17 +220,11 @@ public class Squirrel extends Animal {
             this.setClimbing(this.horizontalCollision);
         }
         if (this.level.isClientSide) {
-            if (this.isClimbing()) {
+            if (this.isMoving()) {
                 this.idleAnimationState.stop();
-                this.moveAnimationState.stop();
-                this.climbAnimationState.startIfStopped(this.tickCount);
-            } else if (this.isMoving() || this.isInWater()) {
-                this.idleAnimationState.stop();
-                this.climbAnimationState.stop();
                 this.moveAnimationState.startIfStopped(this.tickCount);
             } else {
                 this.moveAnimationState.stop();
-                this.climbAnimationState.stop();
                 this.idleAnimationState.startIfStopped(this.tickCount);
             }
         }

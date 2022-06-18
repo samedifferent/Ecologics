@@ -61,7 +61,6 @@ public class SquirrelModel extends HierarchicalModel<Squirrel> {
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
         this.animate(entity.moveAnimationState, SquirrelAnimation.MOVE, ageInTicks);
         this.animate(entity.idleAnimationState, SquirrelAnimation.IDLE, ageInTicks);
-        this.animate(entity.climbAnimationState, SquirrelAnimation.CLIMB, ageInTicks);
     }
 
     @Override
