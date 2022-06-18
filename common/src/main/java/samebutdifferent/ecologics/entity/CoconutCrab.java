@@ -69,7 +69,7 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new CrabHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new CrabNearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, false));
     }
@@ -88,6 +88,9 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         super.tick();
         if (this.getHealth() <= this.getMaxHealth() / 2 && this.hasCoconut()) {
             this.breakCoconut();
+        }
+        if (!this.level.isClientSide) {
+            this.updatePersistentAnger((ServerLevel)this.level, true);
         }
     }
 
@@ -119,6 +122,11 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
     @Override
     public boolean canBeLeashed(Player pPlayer) {
         return false;
+    }
+
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+        return this.getBbHeight() * 0.5F;
     }
 
     public void setHasCoconut(boolean hasCoconut) {
@@ -216,7 +224,6 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
-
     static class CrabMeleeAttackGoal extends MeleeAttackGoal {
         private final CoconutCrab crab;
 
@@ -236,13 +243,27 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         }
 
         @Override
-        public void start() {
-            if (!crab.hasCoconut()) {
-                crab.setAggressive(false);
-                this.stop();
-            } else {
-                super.start();
-            }
+        protected double getAttackReachSqr(LivingEntity attackTarget) {
+            return 4.0f + attackTarget.getBbWidth();
+        }
+    }
+
+    static class CrabHurtByTargetGoal extends HurtByTargetGoal {
+        private final CoconutCrab crab;
+
+        public CrabHurtByTargetGoal(CoconutCrab pMob) {
+            super(pMob);
+            this.crab = pMob;
+        }
+
+        @Override
+        public boolean canUse() {
+            return crab.hasCoconut() && super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return crab.hasCoconut() && super.canContinueToUse();
         }
     }
 
@@ -258,6 +279,11 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         public boolean canUse() {
             return !this.crab.hasCoconut() && super.canUse();
         }
+
+        @Override
+        public boolean canContinueToUse() {
+            return !this.crab.hasCoconut() && super.canContinueToUse();
+        }
     }
 
     static class CrabNearestAttackableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
@@ -271,6 +297,11 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         @Override
         public boolean canUse() {
             return this.crab.hasCoconut() && super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.crab.hasCoconut() && super.canContinueToUse();
         }
     }
 }
