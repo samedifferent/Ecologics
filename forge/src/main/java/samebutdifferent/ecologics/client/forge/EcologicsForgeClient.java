@@ -16,6 +16,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.EcologicsClient;
 import samebutdifferent.ecologics.client.model.CamelModel;
+import samebutdifferent.ecologics.client.model.CoconutCrabModel;
+import samebutdifferent.ecologics.client.model.SquirrelModel;
 import samebutdifferent.ecologics.entity.ModBoat;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
@@ -45,6 +47,8 @@ public class EcologicsForgeClient {
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
+        event.registerLayerDefinition(CoconutCrabModel.LAYER_LOCATION, CoconutCrabModel::createBodyLayer);
+        event.registerLayerDefinition(SquirrelModel.LAYER_LOCATION, SquirrelModel::createBodyLayer);
         for (ModBoat.Type type : ModBoat.Type.values()) {
             event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
             event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));

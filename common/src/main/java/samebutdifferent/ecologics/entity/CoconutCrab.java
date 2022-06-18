@@ -30,20 +30,18 @@ import samebutdifferent.ecologics.registry.ModSoundEvents;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
+public class CoconutCrab extends Animal implements NeutralMob {
     private static final EntityDataAccessor<Boolean> HAS_COCONUT = SynchedEntityData.defineId(CoconutCrab.class, EntityDataSerializers.BOOLEAN);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private int remainingPersistentAngerTime;
     @Nullable private UUID persistentAngerTarget;
-    private final AnimationFactory factory = new AnimationFactory(this);
+    public final AnimationState walkAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
 
     public CoconutCrab(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -89,6 +87,19 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
         if (this.getHealth() <= this.getMaxHealth() / 2 && this.hasCoconut()) {
             this.breakCoconut();
         }
+        if (this.level.isClientSide()) {
+            if (this.isMoving()) {
+                this.idleAnimationState.stop();
+                this.walkAnimationState.startIfStopped(this.tickCount);
+            } else {
+                this.walkAnimationState.stop();
+                this.idleAnimationState.startIfStopped(this.tickCount);
+            }
+        }
+    }
+
+    private boolean isMoving() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6;
     }
 
     private void breakCoconut() {
@@ -178,16 +189,6 @@ public class CoconutCrab extends Animal implements IAnimatable, NeutralMob {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coconut_crab.idle", true));
         }
         return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 5, CoconutCrab::predicate));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
     }
 
     @Override

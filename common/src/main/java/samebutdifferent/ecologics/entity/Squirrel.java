@@ -16,10 +16,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -50,11 +47,13 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.EnumSet;
 import java.util.List;
 
-public class Squirrel extends Animal implements IAnimatable {
+public class Squirrel extends Animal {
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Squirrel.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> DATA_TRUSTING = SynchedEntityData.defineId(Squirrel.class, EntityDataSerializers.BOOLEAN);
     private static final Ingredient TEMPT_INGREDIENT = Ingredient.of(ModItems.WALNUT.get());
-    private final AnimationFactory factory = new AnimationFactory(this);
+    public final AnimationState moveAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState climbAnimationState = new AnimationState();
 
     public Squirrel(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -221,6 +220,25 @@ public class Squirrel extends Animal implements IAnimatable {
         if (!this.level.isClientSide) {
             this.setClimbing(this.horizontalCollision);
         }
+        if (this.level.isClientSide) {
+            if (this.isClimbing()) {
+                this.idleAnimationState.stop();
+                this.moveAnimationState.stop();
+                this.climbAnimationState.startIfStopped(this.tickCount);
+            } else if (this.isMoving() || this.isInWater()) {
+                this.idleAnimationState.stop();
+                this.climbAnimationState.stop();
+                this.moveAnimationState.startIfStopped(this.tickCount);
+            } else {
+                this.moveAnimationState.stop();
+                this.climbAnimationState.stop();
+                this.idleAnimationState.startIfStopped(this.tickCount);
+            }
+        }
+    }
+
+    private boolean isMoving() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6;
     }
 
     @Override
@@ -269,29 +287,6 @@ public class Squirrel extends Animal implements IAnimatable {
     @Override
     protected SoundEvent getDeathSound() {
         return ModSoundEvents.SQUIRREL_DEATH.get();
-    }
-
-
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (this.isClimbing()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.squirrel.climb", true));
-        } else if (event.isMoving() && this.isOnGround() || this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.squirrel.run", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.squirrel.idle", true));
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(10);
-        data.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
     }
 
     static class SquirrelSearchForSaplingsGoal extends Goal {
