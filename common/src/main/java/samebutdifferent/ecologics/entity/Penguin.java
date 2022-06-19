@@ -90,8 +90,8 @@ public class Penguin extends Animal {
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new PenguinMeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new PenguinSearchForCodItemGoal(this));
-        this.goalSelector.addGoal(7, new PenguinRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new PenguinRandomSwimmingGoal(this, 1.0D, 120));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new PenguinRandomSwimmingGoal(this, 1.0D, 1));
         this.goalSelector.addGoal(8, new PenguinFillBarrelGoal(this, 1.0F, 30, 20));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
@@ -310,7 +310,7 @@ public class Penguin extends Animal {
 
     private void updateSwimmingAnimation() {
         this.lastSwimAnimationProgress = this.swimAnimationProgress;
-        this.swimAnimationProgress = this.isUnderWater() || (this.isInWater() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) ? Math.min(1.0f, this.swimAnimationProgress + 0.15f) : Math.max(0.0f, this.swimAnimationProgress - 0.15f);
+        this.swimAnimationProgress = this.isInWater() ? Math.min(1.0f, this.swimAnimationProgress + 0.15f) : Math.max(0.0f, this.swimAnimationProgress - 0.15f);
     }
 
     public float getSwimmingAnimationProgress(float ticks) {
@@ -366,24 +366,6 @@ public class Penguin extends Animal {
         @Override
         public boolean canUse() {
             if (penguin.isBaby() || penguin.isPregnant() || !penguin.getMainHandItem().isEmpty()) {
-                return false;
-            } else {
-                return super.canUse();
-            }
-        }
-    }
-
-    static class PenguinRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
-        private final Penguin penguin;
-
-        public PenguinRandomStrollGoal(Penguin pMob, double pSpeedModifier) {
-            super(pMob, pSpeedModifier);
-            this.penguin = pMob;
-        }
-
-        @Override
-        public boolean canUse() {
-            if (!penguin.getMainHandItem().isEmpty()) {
                 return false;
             } else {
                 return super.canUse();
