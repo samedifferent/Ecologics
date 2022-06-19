@@ -12,6 +12,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -59,8 +60,9 @@ import java.util.List;
 
 public class Penguin extends Animal {
     private static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> SLIDING = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
     private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.COD, Items.COOKED_COD);
+    private float slideAnimationProgress;
+    private float lastSlideAnimationProgress;
 
     public Penguin(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -144,19 +146,10 @@ public class Penguin extends Animal {
         this.entityData.set(PREGNANT, isPregnant);
     }
 
-    public boolean isSliding() {
-        return this.entityData.get(SLIDING);
-    }
-
-    public void setSliding(boolean isSliding) {
-        this.entityData.set(SLIDING, isSliding);
-    }
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(PREGNANT, false);
-        this.entityData.define(SLIDING, false);
     }
 
     @Override
@@ -291,6 +284,25 @@ public class Penguin extends Animal {
             }
         }
         return false;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.updateSlidingAnimation();
+    }
+
+    public boolean canSlide() {
+        return this.level.getBlockState(this.blockPosition().below()).is(Blocks.ICE) && !this.isInLove() && !this.isPregnant() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6;
+    }
+
+    private void updateSlidingAnimation() {
+        this.lastSlideAnimationProgress = this.slideAnimationProgress;
+        this.slideAnimationProgress = this.canSlide() ? Math.min(1.0f, this.slideAnimationProgress + 0.15f) : Math.max(0.0f, this.slideAnimationProgress - 0.15f);
+    }
+
+    public float getSlidingAnimationProgress(float ticks) {
+        return Mth.lerp(ticks, this.lastSlideAnimationProgress, this.slideAnimationProgress);
     }
 
     static class PenguinPathNavigation extends WaterBoundPathNavigation {

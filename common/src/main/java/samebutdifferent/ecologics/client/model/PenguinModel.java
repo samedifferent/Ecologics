@@ -1,6 +1,9 @@
 package samebutdifferent.ecologics.client.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.ModelUtils;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -8,19 +11,8 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.world.entity.animal.PolarBear;
-import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.Penguin;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
-
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class PenguinModel extends HierarchicalModel<Penguin> {
@@ -33,6 +25,7 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     private final ModelPart egg;
     private final ModelPart leftFoot;
     private final ModelPart rightFoot;
+    private float slidingAnimationProgress;
 
     public PenguinModel(ModelPart root) {
         super(RenderType::entityCutoutNoCull);
@@ -62,22 +55,28 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     }
 
     @Override
-    public void setupAnim(Penguin penguin, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void prepareMobModel(Penguin entity, float limbSwing, float limbSwingAmount, float partialTick) {
+        super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
+        this.slidingAnimationProgress = entity.getSlidingAnimationProgress(partialTick);
+    }
+
+    @Override
+    public void setupAnim(Penguin entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.egg.visible = penguin.isPregnant();
+        this.egg.visible = entity.isPregnant();
 
         float swingSlowdownFactor = 0.3F; // 10
 
-        if (penguin.level.getBlockState(penguin.blockPosition().below()).is(Blocks.ICE) && !penguin.isInLove() && !penguin.isPregnant()) {
-            this.body.xRot += Math.toRadians(90F);
+        if (slidingAnimationProgress > 0) {
+            this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
             this.body.z += (Math.toRadians(-2) - Mth.cos(2F * limbSwing)) * swingSlowdownFactor * limbSwingAmount;
 
-            this.head.xRot += Math.toRadians(-90F);
+            this.head.xRot += ModelUtils.rotlerpRad(this.head.xRot, (float) Math.toRadians(-90), this.slidingAnimationProgress);
             this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
             this.head.z += -Mth.cos(2F * limbSwing) * swingSlowdownFactor * limbSwingAmount;
 
-            this.leftFoot.xRot += Math.toRadians(90F);
-            this.rightFoot.xRot += Math.toRadians(90F);
+            this.leftFoot.xRot += ModelUtils.rotlerpRad(this.leftFoot.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
+            this.rightFoot.xRot += ModelUtils.rotlerpRad(this.rightFoot.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
 
             this.leftFlipper.zRot += (Math.toRadians(-2.5) - Mth.cos(2F * limbSwing)) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
             this.rightFlipper.zRot += (Math.toRadians(2.5) - Mth.cos(2F * limbSwing)) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
