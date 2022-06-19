@@ -1,5 +1,7 @@
 package samebutdifferent.ecologics.client.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;
@@ -119,5 +121,17 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     @Override
     public ModelPart root() {
         return root;
+    }
+
+    @Override
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        if (this.young) {
+            poseStack.scale(0.5F, 0.5F, 0.5F);
+            this.head.xScale = 2F;
+            this.head.yScale = 2F;
+            this.head.zScale = 2F;
+            poseStack.translate(0, 24F / 16F, 0);
+        }
+        super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }
