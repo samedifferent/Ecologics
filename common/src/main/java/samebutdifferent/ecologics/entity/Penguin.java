@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -56,10 +57,10 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.EnumSet;
 import java.util.List;
 
-public class Penguin extends Animal implements IAnimatable {
+public class Penguin extends Animal {
     private static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SLIDING = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
     private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.COD, Items.COOKED_COD);
-    private final AnimationFactory factory = new AnimationFactory(this);
 
     public Penguin(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -143,10 +144,19 @@ public class Penguin extends Animal implements IAnimatable {
         this.entityData.set(PREGNANT, isPregnant);
     }
 
+    public boolean isSliding() {
+        return this.entityData.get(SLIDING);
+    }
+
+    public void setSliding(boolean isSliding) {
+        this.entityData.set(SLIDING, isSliding);
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(PREGNANT, false);
+        this.entityData.define(SLIDING, false);
     }
 
     @Override
@@ -283,40 +293,6 @@ public class Penguin extends Animal implements IAnimatable {
         return false;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (this.isInWater()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.swim", true));
-        } else if (this.isBaby()) {
-            if (event.isMoving()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.waddle", true));
-            } else if (this.babyIsNearAdult()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.huddle", true));
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.baby_penguin.idle", true));
-            }
-        } else if (event.isMoving()) {
-            if (this.level.getBlockState(this.blockPosition().below()).is(Blocks.ICE) && !this.isInLove() && !this.isPregnant()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.slide", true));
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.waddle", true));
-            }
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.penguin.idle", true));
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.setResetSpeedInTicks(5);
-        data.addAnimationController(new AnimationController<>(this, "controller", 5, this::predicate));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
-    }
-
     static class PenguinPathNavigation extends WaterBoundPathNavigation {
 
         public PenguinPathNavigation(Penguin penguin, Level level) {
@@ -336,6 +312,7 @@ public class Penguin extends Animal implements IAnimatable {
             return !this.level.getBlockState(p_149224_.below()).isAir();
         }
     }
+
     static class PenguinAttackTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
         private final Penguin penguin;
 

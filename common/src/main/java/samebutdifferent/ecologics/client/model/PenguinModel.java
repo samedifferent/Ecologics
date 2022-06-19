@@ -5,10 +5,13 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.Penguin;
@@ -32,6 +35,7 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     private final ModelPart rightFoot;
 
     public PenguinModel(ModelPart root) {
+        super(RenderType::entityCutoutNoCull);
         this.root = root.getChild("root");
         this.body = this.root.getChild("body");
         this.head = this.body.getChild("head");
@@ -58,25 +62,41 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     }
 
     @Override
-    public void setupAnim(Penguin entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(Penguin penguin, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * Mth.DEG_TO_RAD;
-        this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
-        this.egg.visible = entity.isPregnant();
+        this.egg.visible = penguin.isPregnant();
 
         float swingSlowdownFactor = 0.3F; // 10
 
-        this.body.yRot += Mth.cos((float) (Math.toRadians(-20) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
-        this.body.zRot += Mth.cos(limbSwing) * (swingSlowdownFactor / 2F) * limbSwingAmount;
+        if (penguin.level.getBlockState(penguin.blockPosition().below()).is(Blocks.ICE) && !penguin.isInLove() && !penguin.isPregnant()) {
+            this.body.xRot += Math.toRadians(90F);
+            this.body.z += (Math.toRadians(-2) - Mth.cos(2F * limbSwing)) * swingSlowdownFactor * limbSwingAmount;
 
-        this.head.yRot += -Mth.cos((float) (Math.toRadians(-80) + limbSwing)) * (swingSlowdownFactor / 2F) * limbSwingAmount;
-        this.head.zRot += -Mth.cos((float) (Math.toRadians(-40) + limbSwing)) * (swingSlowdownFactor / 2F) * limbSwingAmount;
+            this.head.xRot += Math.toRadians(-90F);
+            this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
+            this.head.z += -Mth.cos(2F * limbSwing) * swingSlowdownFactor * limbSwingAmount;
 
-        this.leftFlipper.zRot += (Math.toRadians(-10) + Mth.cos((float) (Math.toRadians(-40) + limbSwing))) * (swingSlowdownFactor * 0.8F) * limbSwingAmount;
-        this.rightFlipper.zRot += (Math.toRadians(10) + Mth.cos((float) (Math.toRadians(-40) + limbSwing))) * (swingSlowdownFactor * 0.8F) * limbSwingAmount;
+            this.leftFoot.xRot += Math.toRadians(90F);
+            this.rightFoot.xRot += Math.toRadians(90F);
 
-        this.leftFoot.xRot += (Math.toRadians(-10) + Mth.cos(limbSwing)) * (swingSlowdownFactor * 2F) * limbSwingAmount;
-        this.rightFoot.xRot += (Math.toRadians(-10) - Mth.cos(limbSwing)) * (swingSlowdownFactor * 2F) * limbSwingAmount;
+            this.leftFlipper.zRot += (Math.toRadians(-2.5) - Mth.cos(2F * limbSwing)) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
+            this.rightFlipper.zRot += (Math.toRadians(2.5) - Mth.cos(2F * limbSwing)) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
+        } else {
+            this.head.xRot = headPitch * Mth.DEG_TO_RAD;
+            this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
+
+            this.body.yRot += Mth.cos((float)Math.toRadians(-20) + limbSwing) * swingSlowdownFactor * limbSwingAmount;
+            this.body.zRot += Mth.cos(limbSwing) * (swingSlowdownFactor / 2F) * limbSwingAmount;
+
+            this.head.yRot += -Mth.cos((float)Math.toRadians(-80) + limbSwing) * (swingSlowdownFactor / 2F) * limbSwingAmount;
+            this.head.zRot += -Mth.cos((float)Math.toRadians(-40) + limbSwing) * (swingSlowdownFactor / 2F) * limbSwingAmount;
+
+            this.leftFlipper.zRot += (Math.toRadians(-10) + Mth.cos((float)Math.toRadians(-40) + limbSwing)) * (swingSlowdownFactor * 0.8F) * limbSwingAmount;
+            this.rightFlipper.zRot += (Math.toRadians(10) + Mth.cos((float)Math.toRadians(-40) + limbSwing)) * (swingSlowdownFactor * 0.8F) * limbSwingAmount;
+
+            this.leftFoot.xRot += (Math.toRadians(-10) + Mth.cos(limbSwing)) * (swingSlowdownFactor * 2F) * limbSwingAmount;
+            this.rightFoot.xRot += (Math.toRadians(-10) - Mth.cos(limbSwing)) * (swingSlowdownFactor * 2F) * limbSwingAmount;
+        }
     }
 
     @Override
