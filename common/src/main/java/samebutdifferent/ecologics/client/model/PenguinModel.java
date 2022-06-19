@@ -21,7 +21,7 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, "penguin"), "main");
     private final ModelPart root;
     private final ModelPart body;
-    private final ModelPart head;
+    public final ModelPart head;
     private final ModelPart leftFlipper;
     private final ModelPart rightFlipper;
     private final ModelPart egg;
