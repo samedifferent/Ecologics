@@ -1,35 +1,27 @@
 package samebutdifferent.ecologics.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.model.PenguinModel;
 import samebutdifferent.ecologics.entity.Penguin;
-import software.bernie.geckolib3.geo.render.built.GeoBone;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 @Environment(EnvType.CLIENT)
-public class PenguinRenderer extends GeoEntityRenderer<Penguin> {
+public class PenguinRenderer extends MobRenderer<Penguin, PenguinModel> {
 
-    public PenguinRenderer(EntityRendererProvider.Context renderManager) {
-        super(renderManager, new PenguinModel());
-        this.shadowRadius = 0.4F;
+    public PenguinRenderer(EntityRendererProvider.Context context) {
+        super(context, new PenguinModel(context.bakeLayer(PenguinModel.LAYER_LOCATION)), 0.4F);
     }
 
     @Override
     public ResourceLocation getTextureLocation(Penguin entity) {
-        return getTextureResource(entity);
+        return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/penguin.png");
     }
 
-    @Override
-    public void renderRecursively(GeoBone bone, PoseStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+/*    public void renderRecursively(GeoBone bone, PoseStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         if (bone.getName().equals("beak")) {
             stack.pushPose();
             stack.mulPose(Vector3f.XP.rotationDegrees(-90));
@@ -42,5 +34,5 @@ public class PenguinRenderer extends GeoEntityRenderer<Penguin> {
             bufferIn = rtb.getBuffer(RenderType.entityTranslucent(whTexture));
         }
         super.renderRecursively(bone, stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    }
+    }*/
 }

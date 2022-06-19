@@ -12,6 +12,7 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.EcologicsClient;
 import samebutdifferent.ecologics.client.model.CamelModel;
 import samebutdifferent.ecologics.client.model.CoconutCrabModel;
+import samebutdifferent.ecologics.client.model.PenguinModel;
 import samebutdifferent.ecologics.client.model.SquirrelModel;
 import samebutdifferent.ecologics.entity.ModBoat;
 import samebutdifferent.ecologics.registry.ModBlocks;
@@ -26,6 +27,7 @@ public class EcologicsFabricClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CoconutCrabModel.LAYER_LOCATION, CoconutCrabModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(SquirrelModel.LAYER_LOCATION, SquirrelModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(PenguinModel.LAYER_LOCATION, PenguinModel::createBodyLayer);
         for (ModBoat.Type type : ModBoat.Type.values()) {
             EntityModelLayerRegistry.registerModelLayer(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
             EntityModelLayerRegistry.registerModelLayer(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));
