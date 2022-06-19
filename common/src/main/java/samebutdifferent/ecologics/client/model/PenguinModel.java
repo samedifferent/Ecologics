@@ -26,6 +26,7 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     private final ModelPart leftFoot;
     private final ModelPart rightFoot;
     private float slidingAnimationProgress;
+    private float swimmingAnimationProgress;
 
     public PenguinModel(ModelPart root) {
         super(RenderType::entityCutoutNoCull);
@@ -58,6 +59,7 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     public void prepareMobModel(Penguin entity, float limbSwing, float limbSwingAmount, float partialTick) {
         super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
         this.slidingAnimationProgress = entity.getSlidingAnimationProgress(partialTick);
+        this.swimmingAnimationProgress = entity.getSwimmingAnimationProgress(partialTick);
     }
 
     @Override
@@ -67,9 +69,24 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
 
         float swingSlowdownFactor = 0.3F; // 10
 
-        if (slidingAnimationProgress > 0) {
+        if (swimmingAnimationProgress > 0) {
+            this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.swimmingAnimationProgress)
+                    - Mth.cos(0.8F * limbSwing) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
+            this.body.y += -Mth.cos(0.8F * limbSwing) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
+
+            this.head.xRot += ModelUtils.rotlerpRad(this.head.xRot, (float) Math.toRadians(-90), this.swimmingAnimationProgress)
+                    + Mth.cos(0.8F * ((float) Math.toRadians(-40) + limbSwing)) * (swingSlowdownFactor * 0.6F) * limbSwingAmount;
+
+            this.leftFoot.xRot += (Math.toRadians(17.5) - Mth.cos((float) Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
+            this.rightFoot.xRot += (Math.toRadians(17.5) - Mth.sin((float) Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
+
+            this.leftFlipper.xRot += Mth.cos((float) Math.toRadians(-80) + limbSwing) * (swingSlowdownFactor * 0.4F) * limbSwingAmount;
+            this.leftFlipper.zRot += (Math.toRadians(-5) - Mth.cos((float) Math.toRadians(-80) + limbSwing)) *  (swingSlowdownFactor * 0.5F) * limbSwingAmount;
+            this.rightFlipper.xRot += Mth.cos((float) Math.toRadians(-80) + limbSwing) * (swingSlowdownFactor * 0.4F) * limbSwingAmount;
+            this.rightFlipper.zRot += (Math.toRadians(5) - Mth.cos((float) Math.toRadians(-80) + limbSwing)) *  (swingSlowdownFactor * 0.5F) * limbSwingAmount;
+        } else if (slidingAnimationProgress > 0) {
             this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
-            this.body.z += (Math.toRadians(-2) - Mth.cos(2F * limbSwing)) * swingSlowdownFactor * limbSwingAmount;
+            this.body.z += (-Mth.cos(2F * limbSwing)) * swingSlowdownFactor * limbSwingAmount;
 
             this.head.xRot += ModelUtils.rotlerpRad(this.head.xRot, (float) Math.toRadians(-90), this.slidingAnimationProgress);
             this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;

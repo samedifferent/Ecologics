@@ -63,6 +63,8 @@ public class Penguin extends Animal {
     private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.COD, Items.COOKED_COD);
     private float slideAnimationProgress;
     private float lastSlideAnimationProgress;
+    private float swimAnimationProgress;
+    private float lastSwimAnimationProgress;
 
     public Penguin(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -289,6 +291,7 @@ public class Penguin extends Animal {
     @Override
     public void tick() {
         super.tick();
+        this.updateSwimmingAnimation();
         this.updateSlidingAnimation();
     }
 
@@ -303,6 +306,15 @@ public class Penguin extends Animal {
 
     public float getSlidingAnimationProgress(float ticks) {
         return Mth.lerp(ticks, this.lastSlideAnimationProgress, this.slideAnimationProgress);
+    }
+
+    private void updateSwimmingAnimation() {
+        this.lastSwimAnimationProgress = this.swimAnimationProgress;
+        this.swimAnimationProgress = this.isInWater() ? Math.min(1.0f, this.swimAnimationProgress + 0.15f) : Math.max(0.0f, this.swimAnimationProgress - 0.15f);
+    }
+
+    public float getSwimmingAnimationProgress(float ticks) {
+        return Mth.lerp(ticks, this.lastSwimAnimationProgress, this.swimAnimationProgress);
     }
 
     static class PenguinPathNavigation extends WaterBoundPathNavigation {
