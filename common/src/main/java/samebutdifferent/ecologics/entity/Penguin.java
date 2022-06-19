@@ -310,7 +310,7 @@ public class Penguin extends Animal {
 
     private void updateSwimmingAnimation() {
         this.lastSwimAnimationProgress = this.swimAnimationProgress;
-        this.swimAnimationProgress = this.isInWater() ? Math.min(1.0f, this.swimAnimationProgress + 0.15f) : Math.max(0.0f, this.swimAnimationProgress - 0.15f);
+        this.swimAnimationProgress = this.isUnderWater() || (this.isInWater() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) ? Math.min(1.0f, this.swimAnimationProgress + 0.15f) : Math.max(0.0f, this.swimAnimationProgress - 0.15f);
     }
 
     public float getSwimmingAnimationProgress(float ticks) {
