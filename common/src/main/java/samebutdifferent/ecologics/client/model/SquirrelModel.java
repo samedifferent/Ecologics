@@ -1,25 +1,15 @@
 package samebutdifferent.ecologics.client.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.client.animation.definitions.CoconutCrabAnimation;
-import samebutdifferent.ecologics.client.animation.definitions.SquirrelAnimation;
 import samebutdifferent.ecologics.entity.Squirrel;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
-
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class SquirrelModel extends HierarchicalModel<Squirrel> {
@@ -62,9 +52,6 @@ public class SquirrelModel extends HierarchicalModel<Squirrel> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.head.xRot = headPitch * ((float)Math.PI / 180F);
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-        this.animate(entity.moveAnimationState, SquirrelAnimation.MOVE, ageInTicks);
-        this.animate(entity.idleAnimationState, SquirrelAnimation.IDLE, ageInTicks);
-        this.animate(entity.climbAnimationState, SquirrelAnimation.CLIMB, ageInTicks);
     }
 
     @Override

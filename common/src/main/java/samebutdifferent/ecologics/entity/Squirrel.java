@@ -44,9 +44,6 @@ public class Squirrel extends Animal {
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Squirrel.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> DATA_TRUSTING = SynchedEntityData.defineId(Squirrel.class, EntityDataSerializers.BOOLEAN);
     private static final Ingredient TEMPT_INGREDIENT = Ingredient.of(ModItems.WALNUT.get());
-    public final AnimationState moveAnimationState = new AnimationState();
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState climbAnimationState = new AnimationState();
 
     public Squirrel(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -212,21 +209,6 @@ public class Squirrel extends Animal {
         super.tick();
         if (!this.level.isClientSide) {
             this.setClimbing(this.horizontalCollision);
-        }
-        if (this.level.isClientSide) {
-            if (this.isClimbing()) {
-                this.idleAnimationState.stop();
-                this.moveAnimationState.stop();
-                this.climbAnimationState.startIfStopped(this.tickCount);
-            } else if (this.isMoving() || this.isInWater()) {
-                this.idleAnimationState.stop();
-                this.climbAnimationState.stop();
-                this.moveAnimationState.startIfStopped(this.tickCount);
-            } else {
-                this.moveAnimationState.stop();
-                this.climbAnimationState.stop();
-                this.idleAnimationState.startIfStopped(this.tickCount);
-            }
         }
     }
 
