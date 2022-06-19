@@ -20,6 +20,9 @@ public class PenguinRenderer extends MobRenderer<Penguin, PenguinModel> {
 
     @Override
     public ResourceLocation getTextureLocation(Penguin entity) {
+        if (entity.isBaby()) {
+            return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/baby_penguin.png");
+        }
         return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/penguin.png");
     }
 

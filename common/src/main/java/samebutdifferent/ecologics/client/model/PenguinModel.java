@@ -130,7 +130,7 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
             this.head.xScale = 2F;
             this.head.yScale = 2F;
             this.head.zScale = 2F;
-            poseStack.translate(0, 24F / 16F, 0);
+            poseStack.translate(0, 1.5F, 0);
         }
         super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
