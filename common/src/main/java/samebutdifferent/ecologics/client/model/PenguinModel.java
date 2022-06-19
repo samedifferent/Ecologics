@@ -70,6 +70,7 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
         float swingSlowdownFactor = 0.3F; // 10
 
         if (swimmingAnimationProgress > 0) {
+            this.body.setRotation((float) Math.toRadians(headPitch), (float) Math.toRadians(netHeadYaw), 0.0f);
             this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.swimmingAnimationProgress)
                     - Mth.cos(0.8F * limbSwing) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
             this.body.y += -Mth.cos(0.8F * limbSwing) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
