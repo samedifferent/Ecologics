@@ -349,6 +349,31 @@ public class Penguin extends Animal {
         return Mth.lerp(ticks, this.lastSwimAnimationProgress, this.swimAnimationProgress);
     }
 
+    @Override
+    public void customServerAiStep() {
+        if (this.swimAnimationProgress > 0) {
+            this.setPose(Pose.SWIMMING);
+        } else if(this.slideAnimationProgress > 0) {
+            this.setPose(Pose.CROUCHING);
+        } else {
+            this.setPose(Pose.STANDING);
+        }
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pose) {
+        if (pose.equals(Pose.SWIMMING) || pose.equals(Pose.CROUCHING)) {
+            return EntityDimensions.scalable(0.8F, 0.4F);
+        }
+        return super.getDimensions(pose);
+    }
+
+    @Override
+    public int getMaxHeadYRot() {
+        return 40;
+    }
+
+
     static class PenguinPathNavigation extends WaterBoundPathNavigation {
 
         public PenguinPathNavigation(Penguin penguin, Level level) {
