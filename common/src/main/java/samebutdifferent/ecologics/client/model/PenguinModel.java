@@ -1,9 +1,11 @@
 package samebutdifferent.ecologics.client.model;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.ModelUtils;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -17,9 +19,8 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.Penguin;
 
 @Environment(EnvType.CLIENT)
-public class PenguinModel extends HierarchicalModel<Penguin> {
+public class PenguinModel extends AgeableListModel<Penguin> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, "penguin"), "main");
-    private final ModelPart root;
     private final ModelPart body;
     public final ModelPart head;
     private final ModelPart leftFlipper;
@@ -31,9 +32,8 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     private float swimmingAnimationProgress;
 
     public PenguinModel(ModelPart root) {
-        super(RenderType::entityCutoutNoCull);
-        this.root = root.getChild("root");
-        this.body = this.root.getChild("body");
+        super();
+        this.body = root.getChild("body");
         this.head = this.body.getChild("head");
         this.leftFlipper = this.body.getChild("leftFlipper");
         this.rightFlipper = this.body.getChild("rightFlipper");
@@ -45,8 +45,7 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
-        PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
-        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -9.0F, -3.0F, 8.0F, 9.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -9.0F, -3.0F, 8.0F, 9.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
         PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-3.0F, -5.0F, -3.0F, 6.0F, 5.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(23, 0).addBox(-1.0F, -2.0F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -9.0F, 0.0F));
         PartDefinition leftFlipper = body.addOrReplaceChild("leftFlipper", CubeListBuilder.create().texOffs(18, 21).addBox(0.0F, -1.0F, -3.0F, 1.0F, 8.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -8.0F, 0.0F));
@@ -66,7 +65,7 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
 
     @Override
     public void setupAnim(Penguin entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.body.getAllParts().forEach(ModelPart::resetPose);
         this.egg.visible = entity.isPregnant();
 
         float swingSlowdownFactor = 0.3F; // 10
@@ -119,11 +118,6 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
     }
 
     @Override
-    public ModelPart root() {
-        return root;
-    }
-
-    @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (this.young) {
             poseStack.scale(0.5F, 0.5F, 0.5F);
@@ -132,6 +126,16 @@ public class PenguinModel extends HierarchicalModel<Penguin> {
             this.head.zScale = 2F;
             poseStack.translate(0, 1.5F, 0);
         }
-        super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        this.bodyParts().forEach(modelPart -> modelPart.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha));
+    }
+
+    @Override
+    protected Iterable<ModelPart> headParts() {
+        return ImmutableList.of();
+    }
+
+    @Override
+    protected Iterable<ModelPart> bodyParts() {
+        return ImmutableList.of(this.body);
     }
 }
