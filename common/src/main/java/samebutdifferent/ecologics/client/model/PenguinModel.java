@@ -73,8 +73,8 @@ public class PenguinModel extends AgeableListModel<Penguin> {
                     - Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.25F);
             this.body.y += -Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.025F);
 
-            this.head.y = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().y, 24);
-            this.head.z = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().z, -9);
+            this.head.y = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 22 : 24);
+            this.head.z = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().z, entity.isBaby() ? -7 : -9);
             this.head.xRot += Mth.cos(0.7F * ((float) Math.toRadians(-40) + ageInTicks)) * (swingSlowdownFactor * 0.3F);
 
             this.leftFoot.xRot += (Math.toRadians(17.5) - Mth.cos((float) Math.toRadians(-40) + ageInTicks)) * swingSlowdownFactor;
@@ -89,8 +89,8 @@ public class PenguinModel extends AgeableListModel<Penguin> {
             this.body.z += (-Mth.cos(2F * limbSwing)) * swingSlowdownFactor * limbSwingAmount;
 
             this.head.x = 0;
-            this.head.y = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().y, 24);
-            this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z, -11);
+            this.head.y = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 22 : 24);
+            this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z, entity.isBaby() ? -8 : -11);
             this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
             this.head.z += -Mth.cos(2F * limbSwing) * swingSlowdownFactor * limbSwingAmount;
 
