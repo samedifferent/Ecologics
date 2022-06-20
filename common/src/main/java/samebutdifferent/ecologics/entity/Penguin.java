@@ -2,6 +2,8 @@ package samebutdifferent.ecologics.entity;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,12 +27,11 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cod;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -40,31 +41,26 @@ import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import samebutdifferent.ecologics.registry.ModTags;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Penguin extends Animal {
     private static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
-    private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.COD, Items.COOKED_COD);
+    private static final Ingredient FOOD_ITEMS = Ingredient.of(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS);
     private float slideAnimationProgress;
     private float lastSlideAnimationProgress;
     private float swimAnimationProgress;
     private float lastSwimAnimationProgress;
+    private int ticksSinceEaten;
 
     public Penguin(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -95,7 +91,7 @@ public class Penguin extends Animal {
         this.goalSelector.addGoal(8, new PenguinFillBarrelGoal(this, 1.0F, 30, 20));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, Cod.class, false));
+        this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, AbstractFish.class, 10, true, false, living -> living.getType().is(ModTags.EntityTypeTags.PENGUIN_HUNT_TARGETS)));
     }
 
     // MOVEMENT
@@ -217,7 +213,42 @@ public class Penguin extends Animal {
                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, true, true));
             }
         }
+        if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
+            ++this.ticksSinceEaten;
+            ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+            if (this.canEat(stack)) {
+                if (this.ticksSinceEaten > 600) {
+                    ItemStack finishedStack = stack.finishUsingItem(this.level, this);
+                    if (!finishedStack.isEmpty()) {
+                        this.setItemSlot(EquipmentSlot.MAINHAND, finishedStack);
+                    }
+                    this.ticksSinceEaten = 0;
+                } else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1f) {
+                    this.playSound(this.getEatingSound(stack), 1.0f, 1.0f);
+                    this.level.broadcastEntityEvent(this, (byte)45);
+                }
+            }
+        }
         super.aiStep();
+    }
+
+    private boolean canEat(ItemStack itemStack) {
+        return itemStack.getItem().isEdible() && this.getTarget() == null && this.onGround;
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 45) {
+            ItemStack itemStack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+            if (!itemStack.isEmpty()) {
+                for (int i = 0; i < 8; ++i) {
+                    Vec3 vec3 = new Vec3(((double)this.random.nextFloat() - 0.5) * 0.1, Math.random() * 0.1 + 0.1, 0.0).xRot(-this.getXRot() * ((float)Math.PI / 180)).yRot(-this.getYRot() * ((float)Math.PI / 180));
+                    this.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemStack), this.getX() + this.getLookAngle().x / 2.0, this.getY(), this.getZ() + this.getLookAngle().z / 2.0, vec3.x, vec3.y + 0.05, vec3.z);
+                }
+            }
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 
     // FISH
@@ -235,7 +266,7 @@ public class Penguin extends Animal {
     @Override
     public boolean canHoldItem(ItemStack pStack) {
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-        return itemstack.isEmpty() && pStack.is(Items.COD) && !this.isBaby();
+        return itemstack.isEmpty() && pStack.is(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS) && !this.isBaby();
     }
 
     @Override
@@ -252,6 +283,7 @@ public class Penguin extends Animal {
             this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 2.0F;
             this.take(pItemEntity, itemstack.getCount());
             pItemEntity.discard();
+            this.ticksSinceEaten = 0;
         }
     }
 
@@ -340,8 +372,8 @@ public class Penguin extends Animal {
     static class PenguinAttackTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
         private final Penguin penguin;
 
-        public PenguinAttackTargetGoal(Penguin pMob, Class<T> pTargetType, boolean pMustSee) {
-            super(pMob, pTargetType, pMustSee);
+        public PenguinAttackTargetGoal(Penguin pMob, Class<T> pTargetType, int pRandomInterval, boolean pMustSee, boolean pMustReach, @Nullable Predicate<LivingEntity> pPredicate) {
+            super(pMob, pTargetType, pRandomInterval, pMustSee, pMustReach, pPredicate);
             this.penguin = pMob;
         }
 
@@ -468,14 +500,14 @@ public class Penguin extends Animal {
             if (!penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || penguin.isBaby() || penguin.isPregnant()) {
                 return false;
             } else {
-                List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(Items.COD));
+                List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS));
                 return !list.isEmpty() && penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
             }
         }
         
         @Override
         public void tick() {
-            List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(Items.COD));
+            List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS));
             ItemStack itemstack = penguin.getItemBySlot(EquipmentSlot.MAINHAND);
             if (itemstack.isEmpty() && !list.isEmpty()) {
                 penguin.getNavigation().moveTo(list.get(0), 1.0F);
@@ -485,7 +517,7 @@ public class Penguin extends Animal {
         
         @Override
         public void start() {
-            List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(Items.COD));
+            List<ItemEntity> list = penguin.level.getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS));
             if (!list.isEmpty()) {
                 penguin.getNavigation().moveTo(list.get(0), 1.0F);
             }
