@@ -27,7 +27,7 @@ public class PenguinHeldItemLayer extends RenderLayer<Penguin, PenguinModel> {
     public void render(PoseStack matrixStack, MultiBufferSource buffer, int packedLight, Penguin livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         matrixStack.pushPose();
         this.getParentModel().head.translateAndRotate(matrixStack);
-        matrixStack.translate(0.06f, 1.46f, -0.25);
+        matrixStack.translate(0.1f, -0.05f, -0.2f);
         matrixStack.mulPose(Vector3f.XP.rotationDegrees(90f));
         matrixStack.mulPose(Vector3f.ZP.rotationDegrees(135f));
         ItemStack itemStack = livingEntity.getItemBySlot(EquipmentSlot.MAINHAND);
