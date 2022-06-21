@@ -210,6 +210,9 @@ public class Squirrel extends Animal {
         if (!this.level.isClientSide) {
             this.setClimbing(this.horizontalCollision);
         }
+        if (this.level.isClientSide) {
+            this.refreshDimensions();
+        }
     }
 
     private boolean isMoving() {
@@ -249,7 +252,12 @@ public class Squirrel extends Animal {
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-        return size.height * 0.7f;
+        return size.height * (this.isBaby() ? 0.6f : 0.7f);
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pose) {
+        return super.getDimensions(pose).scale(1.0f, this.isBaby() ? 1.4f : 1.0f);
     }
 
     // SOUNDS
