@@ -43,12 +43,12 @@ public class PenguinModel extends AgeableListModel<Penguin> {
         PartDefinition partdefinition = meshdefinition.getRoot();
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-3.0F, -5.0F, -3.0F, 6.0F, 5.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(23, 0).addBox(-1.0F, -2.0F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 15.0F, 0.0F));
-        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -9.0F, -3.0F, 8.0F, 9.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
-        PartDefinition leftFlipper = body.addOrReplaceChild("leftFlipper", CubeListBuilder.create().texOffs(18, 21).addBox(0.0F, -1.0F, -3.0F, 1.0F, 8.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -8.0F, 0.0F));
-        PartDefinition rightFlipper = body.addOrReplaceChild("rightFlipper", CubeListBuilder.create().texOffs(18, 21).mirror().addBox(-1.0F, -1.0F, -3.0F, 1.0F, 8.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-4.0F, -8.0F, 0.0F));
-        PartDefinition egg = body.addOrReplaceChild("egg", CubeListBuilder.create().texOffs(31, 0).addBox(-1.5F, -4.0F, -6.0F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-        PartDefinition leftFoot = body.addOrReplaceChild("leftFoot", CubeListBuilder.create().texOffs(16, 16).addBox(-1.0F, 0.0F, -2.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 0.0F, -3.0F));
-        PartDefinition rightFoot = body.addOrReplaceChild("rightFoot", CubeListBuilder.create().texOffs(16, 16).mirror().addBox(-2.0F, 0.0F, -2.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.0F, 0.0F, -3.0F));
+        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -2.0F, -3.0F, 8.0F, 9.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 17.0F, 0.0F));
+        PartDefinition leftFlipper = body.addOrReplaceChild("leftFlipper", CubeListBuilder.create().texOffs(18, 21).addBox(0.0F, -1.0F, -3.0F, 1.0F, 8.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -1.0F, 0.0F));
+        PartDefinition rightFlipper = body.addOrReplaceChild("rightFlipper", CubeListBuilder.create().texOffs(18, 21).mirror().addBox(-1.0F, -1.0F, -3.0F, 1.0F, 8.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-4.0F, -1.0F, 0.0F));
+        PartDefinition egg = body.addOrReplaceChild("egg", CubeListBuilder.create().texOffs(31, 0).addBox(-1.5F, -4.0F, -6.0F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 7.0F, 0.0F));
+        PartDefinition leftFoot = body.addOrReplaceChild("leftFoot", CubeListBuilder.create().texOffs(16, 16).addBox(-1.0F, 0.0F, -2.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 7.0F, -3.0F));
+        PartDefinition rightFoot = body.addOrReplaceChild("rightFoot", CubeListBuilder.create().texOffs(16, 16).mirror().addBox(-2.0F, 0.0F, -2.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.0F, 7.0F, -3.0F));
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
@@ -71,12 +71,13 @@ public class PenguinModel extends AgeableListModel<Penguin> {
 //            this.body.setRotation((float) Math.toRadians(headPitch), (float) Math.toRadians(netHeadYaw), 0.0f);
             this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.swimmingAnimationProgress)
                     - Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.25F);
+            this.body.y = Mth.lerp(this.swimmingAnimationProgress, this.body.getInitialPose().y, this.body.getInitialPose().y + 7);
             this.body.y += -Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.025F);
 
             this.head.xRot = Mth.lerp(this.swimmingAnimationProgress, headPitch * Mth.DEG_TO_RAD, 0);
             this.head.yRot = Mth.lerp(this.swimmingAnimationProgress, netHeadYaw * Mth.DEG_TO_RAD, 0);
             this.head.y = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 21 : 24);
-            this.head.z = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().z, entity.isBaby() ? -7 : -9);
+            this.head.z = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().z, -2);
             this.head.xRot += Mth.cos(0.7F * ((float) Math.toRadians(-40) + ageInTicks)) * (swingSlowdownFactor * 0.3F);
 
             this.leftFoot.xRot += (Math.toRadians(17.5) - Mth.cos((float) Math.toRadians(-40) + ageInTicks)) * swingSlowdownFactor;
@@ -88,12 +89,13 @@ public class PenguinModel extends AgeableListModel<Penguin> {
             this.rightFlipper.zRot += (Math.toRadians(5) - Mth.cos((float) Math.toRadians(-80) + ageInTicks)) *  (swingSlowdownFactor * 0.25F);
         } else if (slidingAnimationProgress > 0) {
             this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
+            this.body.y = Mth.lerp(this.slidingAnimationProgress, this.body.getInitialPose().y, this.body.getInitialPose().y + 7);
             this.body.z += (-Mth.cos(2F * limbSwing)) * swingSlowdownFactor * limbSwingAmount;
 
             this.head.xRot = Mth.lerp(this.slidingAnimationProgress, headPitch * Mth.DEG_TO_RAD, 0);
             this.head.yRot = Mth.lerp(this.slidingAnimationProgress, netHeadYaw * Mth.DEG_TO_RAD, 0);
             this.head.y = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 20 : 24);
-            this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z, entity.isBaby() ? -7 : -11);
+            this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z, -4);
             this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
             this.head.z += -Mth.cos(2F * limbSwing) * swingSlowdownFactor * limbSwingAmount;
 
