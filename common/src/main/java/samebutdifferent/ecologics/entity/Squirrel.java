@@ -247,6 +247,11 @@ public class Squirrel extends Animal {
         return this.isTrusting();
     }
 
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+        return size.height * 0.7f;
+    }
+
     // SOUNDS
 
     @Override
