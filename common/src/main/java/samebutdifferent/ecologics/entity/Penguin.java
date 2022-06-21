@@ -88,8 +88,8 @@ public class Penguin extends Animal {
         this.goalSelector.addGoal(5, new PenguinMeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new PenguinSearchForCodItemGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new PenguinRandomSwimmingGoal(this, 1.0D, 1));
-        this.goalSelector.addGoal(8, new PenguinFillBarrelGoal(this, 1.0F, 30, 20));
+        this.goalSelector.addGoal(8, new PenguinRandomSwimmingGoal(this, 1.0D, 60));
+        this.goalSelector.addGoal(9, new PenguinFillBarrelGoal(this, 1.0F, 30, 20));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, AbstractFish.class, 10, true, false, living -> living.getType().is(ModTags.EntityTypeTags.PENGUIN_HUNT_TARGETS)));
