@@ -324,6 +324,11 @@ public class Penguin extends Animal {
     @Override
     public void tick() {
         super.tick();
+        if (this.level.isClientSide) {
+            if (this.slideAnimationProgress != this.lastSlideAnimationProgress || this.swimAnimationProgress != this.lastSwimAnimationProgress) {
+                this.refreshDimensions();
+            }
+        }
         this.updateSwimmingAnimation();
         this.updateSlidingAnimation();
     }
@@ -363,17 +368,17 @@ public class Penguin extends Animal {
 
     @Override
     public EntityDimensions getDimensions(Pose pose) {
-        if (pose.equals(Pose.SWIMMING) || pose.equals(Pose.CROUCHING)) {
-            return EntityDimensions.scalable(0.8F, 0.4F);
+        float progress = this.slideAnimationProgress > 0 ? slideAnimationProgress : this.swimAnimationProgress > 0 ? swimAnimationProgress : 0.0f;
+        if (progress > 0) {
+            return super.getDimensions(pose).scale(this.isBaby() ? 1.0f + progress : 1.0f + progress * 0.3F, 1.0f - progress / 2);
         }
-        return super.getDimensions(pose);
+        return super.getDimensions(pose).scale(1.0f, this.isBaby() ? 1.4f : 1.0f);
     }
 
     @Override
     public int getMaxHeadYRot() {
         return 40;
     }
-
 
     static class PenguinPathNavigation extends WaterBoundPathNavigation {
 
