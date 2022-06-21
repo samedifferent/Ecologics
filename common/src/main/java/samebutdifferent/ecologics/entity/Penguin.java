@@ -21,6 +21,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
@@ -66,7 +67,7 @@ public class Penguin extends Animal {
         super(type, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 20);
+        this.lookControl = new PenguinLookControl(this, 20);
         this.maxUpStep = 1.0F;
         this.setCanPickUpLoot(true);
     }
@@ -391,6 +392,37 @@ public class Penguin extends Animal {
 
         public boolean isStableDestination(BlockPos p_149224_) {
             return !this.level.getBlockState(p_149224_.below()).isAir();
+        }
+    }
+
+    static class PenguinLookControl extends LookControl {
+        private final int maxYRotFromCenter;
+
+        public PenguinLookControl(Mob mob, int maxYRotFromCenter) {
+            super(mob);
+            this.maxYRotFromCenter = maxYRotFromCenter;
+        }
+
+        @Override
+        public void tick() {
+            if (this.lookAtCooldown > 0) {
+                --this.lookAtCooldown;
+                this.getYRotD().ifPresent(yHeadRot -> {
+                    this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, yHeadRot, this.yMaxRotSpeed);
+                });
+                this.getXRotD().ifPresent(xRot -> this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), xRot, this.xMaxRotAngle)));
+            } else {
+                if (this.mob.getNavigation().isDone()) {
+                    this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), 0.0f, 5.0f));
+                }
+                this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, this.mob.yBodyRot, this.yMaxRotSpeed);
+            }
+            float f = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
+            if (f < (float)(-this.maxYRotFromCenter)) {
+                this.mob.yBodyRot -= 4.0f;
+            } else if (f > (float)this.maxYRotFromCenter) {
+                this.mob.yBodyRot += 4.0f;
+            }
         }
     }
 

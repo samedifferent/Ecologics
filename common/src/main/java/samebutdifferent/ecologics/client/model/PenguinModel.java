@@ -28,7 +28,7 @@ public class PenguinModel extends AgeableListModel<Penguin> {
     private float swimmingAnimationProgress;
 
     public PenguinModel(ModelPart root) {
-        super(true, 11.1F, 0.0F);
+        super(true, 4.75F, 0.0F, 1.5f, 2.0f, 24.0f);
         this.body = root.getChild("body");
         this.head = root.getChild("head");
         this.leftFlipper = this.body.getChild("leftFlipper");
@@ -73,7 +73,9 @@ public class PenguinModel extends AgeableListModel<Penguin> {
                     - Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.25F);
             this.body.y += -Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.025F);
 
-            this.head.y = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 22 : 24);
+            this.head.xRot = Mth.lerp(this.swimmingAnimationProgress, headPitch * Mth.DEG_TO_RAD, 0);
+            this.head.yRot = Mth.lerp(this.swimmingAnimationProgress, netHeadYaw * Mth.DEG_TO_RAD, 0);
+            this.head.y = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 21 : 24);
             this.head.z = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().z, entity.isBaby() ? -7 : -9);
             this.head.xRot += Mth.cos(0.7F * ((float) Math.toRadians(-40) + ageInTicks)) * (swingSlowdownFactor * 0.3F);
 
@@ -88,9 +90,10 @@ public class PenguinModel extends AgeableListModel<Penguin> {
             this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
             this.body.z += (-Mth.cos(2F * limbSwing)) * swingSlowdownFactor * limbSwingAmount;
 
-            this.head.x = 0;
-            this.head.y = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 22 : 24);
-            this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z, entity.isBaby() ? -8 : -11);
+            this.head.xRot = Mth.lerp(this.slidingAnimationProgress, headPitch * Mth.DEG_TO_RAD, 0);
+            this.head.yRot = Mth.lerp(this.slidingAnimationProgress, netHeadYaw * Mth.DEG_TO_RAD, 0);
+            this.head.y = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 20 : 24);
+            this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z, entity.isBaby() ? -7 : -11);
             this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
             this.head.z += -Mth.cos(2F * limbSwing) * swingSlowdownFactor * limbSwingAmount;
 
