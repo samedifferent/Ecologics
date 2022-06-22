@@ -52,8 +52,7 @@ public class EcologicsForgeClient {
         event.registerLayerDefinition(SquirrelModel.LAYER_LOCATION, SquirrelModel::createBodyLayer);
         event.registerLayerDefinition(PenguinModel.LAYER_LOCATION, PenguinModel::createBodyLayer);
         for (ModBoat.Type type : ModBoat.Type.values()) {
-            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
-            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));
+            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
         }
     }
 }

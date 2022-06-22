@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.Squirrel;
+import samebutdifferent.ecologics.util.AnimationUtil;
 
 @Environment(EnvType.CLIENT)
 public class SquirrelModel extends AgeableListModel<Squirrel> {
@@ -66,8 +67,7 @@ public class SquirrelModel extends AgeableListModel<Squirrel> {
 
     @Override
     public void setupAnim(Squirrel entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.body.getAllParts().forEach(ModelPart::resetPose);
-        this.head.resetPose();
+        this.setupInitialAnimationValues();
 
         float swingCorrectionFactor = 0.1F; // 10
         float correctedLimbSwing = entity.isBaby() ? limbSwing / 3 : limbSwing;
@@ -122,4 +122,19 @@ public class SquirrelModel extends AgeableListModel<Squirrel> {
     protected Iterable<ModelPart> bodyParts() {
         return ImmutableList.of(this.body);
     }
+
+    private void setupInitialAnimationValues() {
+        AnimationUtil.setInitialValue(this.head, 0.0F, 18.0F, -3.8333F);
+        AnimationUtil.setInitialValue(this.body, 0.0F, 18.5F, 2.0F);
+        AnimationUtil.setInitialValue(this.leftArm, 3.0F, 0.5F, -3.5F);
+        AnimationUtil.setInitialValue(this.rightArm, -3.0F, 0.5F, -3.5F);
+        AnimationUtil.setInitialValue(this.leftLeg, 0.0F, 5.5F, -2.0F);
+        AnimationUtil.setInitialValue(this.leftThigh, 3.0F, -4.0F, 4.5F);
+        AnimationUtil.setInitialValue(this.leftFoot, 0.0F, 3.5F, 3.0F);
+        AnimationUtil.setInitialValue(this.rightLeg, 0.0F, 5.5F, -2.0F);
+        AnimationUtil.setInitialValue(this.rightThigh,-3.0F, -4.0F, 4.5F );
+        AnimationUtil.setInitialValue(this.rightFoot, 0.0F, 3.5F, 1.5F);
+        AnimationUtil.setInitialValue(this.tail, 0.0F, -2.5F, 4.0F, -0.7854F, 0.0F, 0.0F);
+    }
+
 }

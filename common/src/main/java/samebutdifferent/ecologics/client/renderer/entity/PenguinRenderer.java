@@ -15,7 +15,7 @@ public class PenguinRenderer extends MobRenderer<Penguin, PenguinModel> {
 
     public PenguinRenderer(EntityRendererProvider.Context context) {
         super(context, new PenguinModel(context.bakeLayer(PenguinModel.LAYER_LOCATION)), 0.4F);
-        this.addLayer(new PenguinHeldItemLayer(this, context.getItemInHandRenderer()));
+        this.addLayer(new PenguinHeldItemLayer(this));
     }
 
     @Override

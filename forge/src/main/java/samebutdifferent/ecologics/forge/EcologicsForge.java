@@ -2,11 +2,16 @@ package samebutdifferent.ecologics.forge;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.placement.CavePlacements;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -14,11 +19,17 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,6 +45,7 @@ import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
 import samebutdifferent.ecologics.registry.*;
 import samebutdifferent.ecologics.registry.forge.ModConfigForge;
 import samebutdifferent.ecologics.registry.forge.ModGlobalLootModifiers;
+import samebutdifferent.ecologics.util.forge.CodecUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -126,6 +138,48 @@ public class EcologicsForge {
                     FloweringAzaleaLogBlock.shearAzalea(level, player, pos, stack, hand, direction, Blocks.AZALEA_LEAVES.defaultBlockState());
                     player.swing(hand, true);
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onServerStarted(ServerStartedEvent event) {
+        CodecUtils.clearCache();
+    }
+
+    @SubscribeEvent
+    public static void onBiomeLoad(BiomeLoadingEvent event) {
+        BiomeGenerationSettingsBuilder builder = event.getGeneration();
+        ResourceLocation biomeName = event.getName();
+        if (biomeName != null) {
+            if (biomeName.equals(Biomes.BEACH.location())) {
+                if (ModConfigForge.GENERATE_COCONUT_TREES.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, BuiltinRegistries.PLACED_FEATURE.getOrCreateHolder(new ).TREES_BEACH.getHolder().orElseThrow());
+                if (ModConfigForge.GENERATE_SEASHELLS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SEASHELL.getHolder().orElseThrow());
+            }
+            if (biomeName.equals(Biomes.DESERT.location())) {
+                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.CAMEL.get(), ModConfigForge.CAMEL_SPAWN_WEIGHT.get(), 1, 1));
+                if (ModConfigForge.GENERATE_PRICKLY_PEARS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.PRICKLY_PEAR.getHolder().orElseThrow());
+                if (ModConfigForge.GENERATE_DESERT_RUINS.get()) builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, ModPlacedFeatures.DESERT_RUIN.getHolder().orElseThrow());
+            }
+            if (biomeName.equals(Biomes.FROZEN_RIVER.location()) || biomeName.equals(Biomes.FROZEN_OCEAN.location()) || biomeName.equals(Biomes.SNOWY_PLAINS.location())) {
+                if (ModConfigForge.GENERATE_THIN_ICE_PATCHES.get()) builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModPlacedFeatures.THIN_ICE_PATCH.getHolder().orElseThrow());
+                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), ModConfigForge.PENGUIN_SPAWN_WEIGHT.get(), 4, 7));
+            }
+            if (biomeName.equals(Biomes.LUSH_CAVES.location())) {
+                if (ModConfigForge.GENERATE_SURFACE_MOSS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SURFACE_MOSS_PATCH.getHolder().orElseThrow());
+                if (ModConfigForge.REPLACE_AZALEA_TREE.get()) {
+                    builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), CavePlacements.ROOTED_AZALEA_TREE.value()));
+                    builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.ROOTED_AZALEA_TREE.getHolder().orElseThrow());
+                }
+            }
+            if (biomeName.equals(Biomes.PLAINS.location())) {
+                if (ModConfigForge.REMOVE_PLAINS_OAK_TREES.get()) {
+                    builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), VegetationPlacements.TREES_PLAINS.value()));
+                }
+                if (ModConfigForge.GENERATE_WALNUT_TREES.get()) {
+                    builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.TREES_WALNUT.getHolder().orElseThrow());
+                }
+                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.SQUIRREL.get(), ModConfigForge.SQUIRREL_SPAWN_WEIGHT.get(), 2, 3));
             }
         }
     }

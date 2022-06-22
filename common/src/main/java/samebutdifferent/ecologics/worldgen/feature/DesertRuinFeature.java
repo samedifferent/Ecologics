@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -16,9 +15,9 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import samebutdifferent.ecologics.Ecologics;
 
 import java.util.Optional;
@@ -45,7 +44,7 @@ public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> pContext) {
         WorldGenLevel level = pContext.level();
         BlockPos origin = pContext.origin();
-        RandomSource random = pContext.random();
+        Random random = pContext.random();
 
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos().set(origin);
         for (mutable.move(Direction.UP); level.isEmptyBlock(mutable) && mutable.getY() > 2;) {
@@ -59,7 +58,7 @@ public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
         }
 
         BlockPos.MutableBlockPos blockpos$Mutable = new BlockPos.MutableBlockPos();
-        StructureTemplateManager templatemanager = level.getLevel().getServer().getStructureManager();
+        StructureManager templatemanager = level.getLevel().getServer().getStructureManager();
         ResourceLocation nbtRL = pieces[random.nextInt(pieces.length)];
         Optional<StructureTemplate> template = templatemanager.get(nbtRL);
 

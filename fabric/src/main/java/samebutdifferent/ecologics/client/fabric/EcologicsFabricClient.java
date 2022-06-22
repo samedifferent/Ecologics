@@ -29,8 +29,7 @@ public class EcologicsFabricClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(SquirrelModel.LAYER_LOCATION, SquirrelModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(PenguinModel.LAYER_LOCATION, PenguinModel::createBodyLayer);
         for (ModBoat.Type type : ModBoat.Type.values()) {
-            EntityModelLayerRegistry.registerModelLayer(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
-            EntityModelLayerRegistry.registerModelLayer(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));
+            EntityModelLayerRegistry.registerModelLayer(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
         }
 
         ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES.get());

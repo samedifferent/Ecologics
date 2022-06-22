@@ -34,8 +34,7 @@ public class EcologicsClient {
         ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.COCONUT_CRAB, CoconutCrabRenderer::new);
         ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.CAMEL, CamelRenderer::new);
         ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.PENGUIN, PenguinRenderer::new);
-        ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.BOAT, context -> new ModBoatRenderer<>(context, false));
-        ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.CHEST_BOAT, context -> new ModBoatRenderer<>(context, true));
+        ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.BOAT, ModBoatRenderer::new);
         ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.SQUIRREL, SquirrelRenderer::new);
 
         // Block Entity Renderers

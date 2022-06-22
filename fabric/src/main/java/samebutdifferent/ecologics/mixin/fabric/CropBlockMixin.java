@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,10 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.fabric.ModConfigFabric;
 
+import java.util.Random;
+
 @Mixin(CropBlock.class)
 public abstract class CropBlockMixin {
     @Inject(at = @At("TAIL"), method = "performBonemeal")
-    public void onGrow(ServerLevel world, RandomSource random, BlockPos pos, BlockState state, CallbackInfo ci) {
+    public void onGrow(ServerLevel world, Random random, BlockPos pos, BlockState state, CallbackInfo ci) {
         if (state.is(Blocks.CACTUS)) {
             if (world.getBlockState(pos.above()).is(Blocks.CACTUS) && world.getBlockState(pos.below()).is(Blocks.CACTUS)) {
                 ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();

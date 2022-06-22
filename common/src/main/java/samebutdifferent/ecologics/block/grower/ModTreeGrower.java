@@ -6,7 +6,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -14,18 +13,19 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.Random;
 
 public abstract class ModTreeGrower extends AbstractTreeGrower {
     @Nullable
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_222910_, boolean p_222911_) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random p_222910_, boolean p_222911_) {
         return null;
     }
 
     protected abstract ResourceLocation getConfiguredFeatureLocation();
 
     @Override
-    public boolean growTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random) {
+    public boolean growTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, Random random) {
         Optional<Holder<ConfiguredFeature<?, ?>>> optional = level.registryAccess().registryOrThrow(Registry.CONFIGURED_FEATURE_REGISTRY).getHolder(
                 ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, getConfiguredFeatureLocation()));
         if (optional.isEmpty()) {

@@ -3,7 +3,6 @@ package samebutdifferent.ecologics.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -25,7 +24,7 @@ public class AzaleaLogBlock extends RotatedPillarBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
         if (random.nextInt(25) == 0) {
             world.setBlock(pos, ModBlocks.FLOWERING_AZALEA_LOG.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(AXIS)), 2);
         }

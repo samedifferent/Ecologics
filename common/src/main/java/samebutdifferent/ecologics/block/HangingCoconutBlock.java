@@ -6,7 +6,6 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.BlockGetter;
@@ -28,6 +27,8 @@ import samebutdifferent.ecologics.platform.ConfigPlatformHelper;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
+
+import java.util.Random;
 
 public class HangingCoconutBlock extends FallingBlock implements BonemealableBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
@@ -59,7 +60,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     }
 
     @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
         int age = pState.getValue(AGE);
         if (pRandom.nextInt(3) == 0) {
             if (age < 2) {
@@ -89,12 +90,12 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     }
 
     @Override
-    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+    public boolean isBonemealSuccess(Level pLevel, Random pRandom, BlockPos pPos, BlockState pState) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+    public void performBonemeal(ServerLevel pLevel, Random pRandom, BlockPos pPos, BlockState pState) {
         pLevel.setBlock(pPos, pState.setValue(AGE, pState.getValue(AGE) + 1), 2);
     }
 
@@ -119,7 +120,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     }
 
     @Override
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, Random pRand) {
         if (pRand.nextInt(16) == 0) {
             if (pState.getValue(AGE) == 2) {
                 double x = (double)pPos.getX() + pRand.nextDouble();
@@ -136,7 +137,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     }
 
     @Override
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRand) {
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRand) {
         if ((pLevel.isEmptyBlock(pPos.above()) && pPos.getY() >= pLevel.getMinBuildHeight() && isFree(pLevel.getBlockState(pPos.below())))) {
             FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(pLevel, pPos, pLevel.getBlockState(pPos));
             this.falling(fallingblockentity);

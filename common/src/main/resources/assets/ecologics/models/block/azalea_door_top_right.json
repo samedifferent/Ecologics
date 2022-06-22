@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_right",
-  "textures": {
-    "top": "ecologics:block/azalea_door_top"
-  }
-}

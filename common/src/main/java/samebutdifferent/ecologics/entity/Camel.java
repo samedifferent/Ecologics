@@ -5,7 +5,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -31,6 +30,8 @@ import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
+import java.util.Random;
+
 public class Camel extends AbstractChestedHorse {
     public Camel(EntityType<? extends AbstractChestedHorse> type, Level level) {
         super(type, level);
@@ -38,7 +39,7 @@ public class Camel extends AbstractChestedHorse {
 
     // ATTRIBUTES & BREEDING
 
-    public static boolean checkCamelSpawnRules(EntityType<Camel> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkCamelSpawnRules(EntityType<Camel> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, Random random) {
         return level.getBlockState(pos.below()).is(BlockTags.SAND) && isBrightEnoughToSpawn(level, pos);
     }
 
@@ -150,7 +151,7 @@ public class Camel extends AbstractChestedHorse {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (!this.isBaby()) {
             if (this.isTamed() && pPlayer.isSecondaryUseActive()) {
-                this.openCustomInventoryScreen(pPlayer);
+                this.openInventory(pPlayer);
                 return InteractionResult.sidedSuccess(this.level.isClientSide);
             }
 
@@ -181,7 +182,7 @@ public class Camel extends AbstractChestedHorse {
             }
 
             if (!this.isBaby() && !this.isSaddled() && itemstack.is(Items.SADDLE)) {
-                this.openCustomInventoryScreen(pPlayer);
+                this.openInventory(pPlayer);
                 return InteractionResult.sidedSuccess(this.level.isClientSide);
             }
         }

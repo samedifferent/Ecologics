@@ -71,34 +71,25 @@ public class ModBoat extends Boat {
     }
 
     public enum Type {
-        COCONUT("coconut", () -> ModItems.COCONUT_BOAT.get(), () -> ModItems.COCONUT_CHEST_BOAT.get()),
-        WALNUT("walnut", () -> ModItems.WALNUT_BOAT.get(), () -> ModItems.WALNUT_CHEST_BOAT.get()),
-        AZALEA("azalea", () -> ModItems.AZALEA_BOAT.get(), () -> ModItems.AZALEA_CHEST_BOAT.get()),
-        FLOWERING_AZALEA("flowering_azalea", () -> ModItems.FLOWERING_AZALEA_BOAT.get(), () -> ModItems.FLOWERING_AZALEA_CHEST_BOAT.get());
+        COCONUT("coconut", () -> ModItems.COCONUT_BOAT.get()),
+        WALNUT("walnut", () -> ModItems.WALNUT_BOAT.get()),
+        AZALEA("azalea", () -> ModItems.AZALEA_BOAT.get()),
+        FLOWERING_AZALEA("flowering_azalea", () -> ModItems.FLOWERING_AZALEA_BOAT.get());
 
         private final String name;
         private final Supplier<Item> item;
-        private final Supplier<Item> chestItem;
 
-        Type(String name, Supplier<Item> boatItem, Supplier<Item> chestBoatItem) {
+        Type(String name, Supplier<Item> boatItem) {
             this.name = name;
             this.item = boatItem;
-            this.chestItem = chestBoatItem;
         }
 
-        public ResourceLocation getTexture(boolean hasChest) {
-            if (hasChest) {
-                return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/chest_boat/" + name + ".png");
-            }
+        public ResourceLocation getTexture() {
             return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/" + name + ".png");
         }
 
         public String getModelLocation() {
             return "boat/" + name;
-        }
-
-        public String getChestModelLocation() {
-            return "chest_boat/" + name;
         }
 
         public String getName() {
@@ -107,10 +98,6 @@ public class ModBoat extends Boat {
 
         public Supplier<Item> getItem() {
             return item;
-        }
-
-        public Supplier<Item> getChestItem() {
-            return chestItem;
         }
 
         public static Type byId(int id) {

@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.CoconutCrab;
+import samebutdifferent.ecologics.util.AnimationUtil;
 
 @Environment(EnvType.CLIENT)
 public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
@@ -65,7 +66,7 @@ public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
 
     @Override
     public void setupAnim(CoconutCrab entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.setupInitialAnimationValues();
         this.head.xRot = headPitch * Mth.DEG_TO_RAD;
         this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
         this.shell.visible = entity.hasCoconut();
@@ -98,5 +99,19 @@ public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
     @Override
     public ModelPart root() {
         return root;
+    }
+
+    private void setupInitialAnimationValues() {
+        AnimationUtil.setInitialValue(this.root, 0.0F, 24.0F, 0.0F);
+        AnimationUtil.setInitialValue(this.head,0.0f, -6.25f, -4.0f);
+        AnimationUtil.setInitialValue(this.shell, 0.0F, -8.4F, 6.0F, -0.7854F, 0.0F, 0.0F);
+        AnimationUtil.setInitialValue(this.leftHindLeg, -3.0F, -6.0F, -1.0F, 0.0F, -0.2618F, 0.3927F);
+        AnimationUtil.setInitialValue(this.rightHindLeg, 3.0F, -6.0F, -1.0F, 0.0F, 0.2618F, -0.3927F);
+        AnimationUtil.setInitialValue(this.leftFrontLeg, -3.0F, -6.0F, -1.0F, 0.0F, 0.2618F, 0.3927F);
+        AnimationUtil.setInitialValue(this.rightFrontLeg, 3.0F, -6.0F, -1.0F, 0.0F, -0.2618F, -0.3927F);
+        AnimationUtil.setInitialValue(this.leftMiddleLeg, -3.0F, -6.0F, -1.0F, 0.0F, 0.0F, 0.3927F);
+        AnimationUtil.setInitialValue(this.rightMiddleLeg, 3.0F, -6.0F, -1.0F, 0.0F, 0.0F, -0.3927F);
+        AnimationUtil.setInitialValue(this.rightClaw);
+        AnimationUtil.setInitialValue(this.leftClaw, 3.2277F, -4.1522F, -5.5809F);
     }
 }

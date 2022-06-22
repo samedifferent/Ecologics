@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.util.AnimationUtil;
 
 @Environment(EnvType.CLIENT)
 public class PenguinModel extends AgeableListModel<Penguin> {
@@ -61,9 +62,8 @@ public class PenguinModel extends AgeableListModel<Penguin> {
 
     @Override
     public void setupAnim(Penguin entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.body.getAllParts().forEach(ModelPart::resetPose);
+        this.setupInitialAnimationValues();
         this.egg.visible = entity.isPregnant();
-        this.head.resetPose();
 
         float swingSlowdownFactor = 0.3F; // 10
 
@@ -71,13 +71,13 @@ public class PenguinModel extends AgeableListModel<Penguin> {
 //            this.body.setRotation((float) Math.toRadians(headPitch), (float) Math.toRadians(netHeadYaw), 0.0f);
             this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.swimmingAnimationProgress)
                     - Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.25F);
-            this.body.y = Mth.lerp(this.swimmingAnimationProgress, this.body.getInitialPose().y, this.body.getInitialPose().y + 7);
+            this.body.y = Mth.lerp(this.swimmingAnimationProgress, 17, 24);
             this.body.y += -Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.025F);
 
             this.head.xRot = Mth.lerp(this.swimmingAnimationProgress, headPitch * Mth.DEG_TO_RAD, 0);
             this.head.yRot = Mth.lerp(this.swimmingAnimationProgress, netHeadYaw * Mth.DEG_TO_RAD, 0);
-            this.head.y = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 21 : 24);
-            this.head.z = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().z, -2);
+            this.head.y = Mth.lerp(this.swimmingAnimationProgress, 15, entity.isBaby() ? 21 : 24);
+            this.head.z = Mth.lerp(this.swimmingAnimationProgress, 0, -2);
             this.head.xRot += Mth.cos(0.7F * ((float) Math.toRadians(-40) + ageInTicks)) * (swingSlowdownFactor * 0.3F);
 
             this.leftFoot.xRot += (Math.toRadians(17.5) - Mth.cos((float) Math.toRadians(-40) + ageInTicks)) * swingSlowdownFactor;
@@ -89,13 +89,13 @@ public class PenguinModel extends AgeableListModel<Penguin> {
             this.rightFlipper.zRot += (Math.toRadians(5) - Mth.cos((float) Math.toRadians(-80) + ageInTicks)) *  (swingSlowdownFactor * 0.25F);
         } else if (slidingAnimationProgress > 0) {
             this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
-            this.body.y = Mth.lerp(this.slidingAnimationProgress, this.body.getInitialPose().y, this.body.getInitialPose().y + 7);
+            this.body.y = Mth.lerp(this.slidingAnimationProgress, 17, 24);
             this.body.z += (-Mth.cos(2F * limbSwing)) * swingSlowdownFactor * limbSwingAmount;
 
             this.head.xRot = Mth.lerp(this.slidingAnimationProgress, headPitch * Mth.DEG_TO_RAD, 0);
             this.head.yRot = Mth.lerp(this.slidingAnimationProgress, netHeadYaw * Mth.DEG_TO_RAD, 0);
-            this.head.y = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 20 : 24);
-            this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z, -4);
+            this.head.y = Mth.lerp(this.slidingAnimationProgress, 15, entity.isBaby() ? 20 : 24);
+            this.head.z = Mth.lerp(this.slidingAnimationProgress, 0, -4);
             this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
             this.head.z += -Mth.cos(2F * limbSwing) * swingSlowdownFactor * limbSwingAmount;
 
@@ -130,5 +130,15 @@ public class PenguinModel extends AgeableListModel<Penguin> {
     @Override
     protected Iterable<ModelPart> bodyParts() {
         return ImmutableList.of(this.body);
+    }
+
+    private void setupInitialAnimationValues() {
+        AnimationUtil.setInitialValue(this.body, 0.0F, 17.0F, 0.0F);
+        AnimationUtil.setInitialValue(this.head, 0.0F, 15.0F, 0.0F);
+        AnimationUtil.setInitialValue(this.leftFlipper, 4.0F, -1.0F, 0.0F);
+        AnimationUtil.setInitialValue(this.rightFlipper, -4.0F, -1.0F, 0.0F);
+        AnimationUtil.setInitialValue(this.egg, 0.0F, 7.0F, 0.0F);
+        AnimationUtil.setInitialValue(this.leftFoot, 2.0F, 7.0F, -3.0F);
+        AnimationUtil.setInitialValue(this.rightFoot, -2.0F, 7.0F, -3.0F);
     }
 }

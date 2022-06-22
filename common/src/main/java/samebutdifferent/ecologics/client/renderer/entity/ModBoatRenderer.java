@@ -23,10 +23,10 @@ import java.util.Map;
 public class ModBoatRenderer<T extends ModBoat> extends EntityRenderer<T> {
     private final Map<ModBoat.Type, Pair<ResourceLocation, BoatModel>> boatResources = Maps.newHashMap();
 
-    public ModBoatRenderer(EntityRendererProvider.Context context, boolean hasChest) {
+    public ModBoatRenderer(EntityRendererProvider.Context context) {
         super(context);
         for(ModBoat.Type type : ModBoat.Type.values()) {
-            boatResources.put(type, Pair.of(type.getTexture(hasChest), new BoatModel(context.bakeLayer(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, hasChest ? type.getChestModelLocation() : type.getModelLocation()), "main")), hasChest)));
+            boatResources.put(type, Pair.of(type.getTexture(), new BoatModel(context.bakeLayer(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main")))));
         }
     }
 

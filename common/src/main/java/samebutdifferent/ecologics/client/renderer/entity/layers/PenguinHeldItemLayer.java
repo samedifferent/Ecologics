@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -16,11 +17,8 @@ import samebutdifferent.ecologics.entity.Penguin;
 
 @Environment(EnvType.CLIENT)
 public class PenguinHeldItemLayer extends RenderLayer<Penguin, PenguinModel> {
-    private final ItemInHandRenderer itemInHandRenderer;
-
-    public PenguinHeldItemLayer(RenderLayerParent<Penguin, PenguinModel> renderLayerParent, ItemInHandRenderer itemInHandRenderer) {
+    public PenguinHeldItemLayer(RenderLayerParent<Penguin, PenguinModel> renderLayerParent) {
         super(renderLayerParent);
-        this.itemInHandRenderer = itemInHandRenderer;
     }
 
     @Override
@@ -31,7 +29,7 @@ public class PenguinHeldItemLayer extends RenderLayer<Penguin, PenguinModel> {
         matrixStack.mulPose(Vector3f.XP.rotationDegrees(90f));
         matrixStack.mulPose(Vector3f.ZP.rotationDegrees(135f));
         ItemStack itemStack = livingEntity.getItemBySlot(EquipmentSlot.MAINHAND);
-        this.itemInHandRenderer.renderItem(livingEntity, itemStack, ItemTransforms.TransformType.GROUND, false, matrixStack, buffer, packedLight);
+        Minecraft.getInstance().getItemInHandRenderer().renderItem(livingEntity, itemStack, ItemTransforms.TransformType.GROUND, false, matrixStack, buffer, packedLight);
         matrixStack.popPose();
     }
 }
