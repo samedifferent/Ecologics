@@ -27,10 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -173,15 +169,6 @@ public class CoconutCrab extends Animal implements NeutralMob {
 
     protected void playCoconutSmashSound() {
         this.playSound(ModSoundEvents.COCONUT_SMASH.get(), 0.2F, 1.0F);
-    }
-
-    private static  <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coconut_crab.walk", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coconut_crab.idle", true));
-        }
-        return PlayState.CONTINUE;
     }
 
     @Override

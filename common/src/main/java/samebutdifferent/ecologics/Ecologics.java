@@ -22,7 +22,6 @@ import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 import samebutdifferent.ecologics.registry.*;
-import software.bernie.geckolib3.GeckoLib;
 
 import java.util.Map;
 
@@ -42,7 +41,6 @@ public class Ecologics {
         ModFoliagePlacerTypes.init();
         ModMobEffects.init();
         ModPotions.init();
-        GeckoLib.initialize();
     }
 
     public static void commonSetup() {

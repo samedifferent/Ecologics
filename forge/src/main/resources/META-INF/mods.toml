@@ -27,10 +27,3 @@ mandatory = true
 versionRange = "[1.19,1.20)"
 ordering = "NONE"
 side = "BOTH"
-
-[[dependencies.ecologics]]
-modId = "geckolib3"
-mandatory = true
-versionRange="[3.1.0,)"
-ordering = "AFTER"
-side = "BOTH"
