@@ -1,9 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#W#",
-    "#W#"
-  ],
+  "group": "wooden_fence_gate",
   "key": {
     "#": {
       "item": "minecraft:stick"
@@ -12,6 +9,10 @@
       "item": "ecologics:walnut_planks"
     }
   },
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
   "result": {
     "item": "ecologics:walnut_fence_gate"
   }

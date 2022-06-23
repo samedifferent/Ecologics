@@ -1,15 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###"
-  ],
+  "group": "wooden_slab",
   "key": {
     "#": {
       "item": "ecologics:walnut_planks"
     }
   },
+  "pattern": [
+    "###"
+  ],
   "result": {
-    "item": "ecologics:walnut_slab",
-    "count": 6
+    "count": 6,
+    "item": "ecologics:walnut_slab"
   }
 }

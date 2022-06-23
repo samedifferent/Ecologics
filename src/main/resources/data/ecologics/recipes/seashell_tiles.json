@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SS",
-    "SS"
-  ],
   "key": {
     "S": {
       "item": "ecologics:seashell"
     }
   },
+  "pattern": [
+    "SS",
+    "SS"
+  ],
   "result": {
-    "item": "ecologics:seashell_tiles",
-    "count": 4
+    "count": 4,
+    "item": "ecologics:seashell_tiles"
   }
 }

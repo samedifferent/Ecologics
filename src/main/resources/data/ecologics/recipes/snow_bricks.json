@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SS",
-    "SS"
-  ],
   "key": {
     "S": {
       "item": "minecraft:snow_block"
     }
   },
+  "pattern": [
+    "SS",
+    "SS"
+  ],
   "result": {
-    "item": "ecologics:snow_bricks",
-    "count": 4
+    "count": 4,
+    "item": "ecologics:snow_bricks"
   }
 }

@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#  ",
-    "## ",
-    "###"
-  ],
+  "group": "wooden_stairs",
   "key": {
     "#": {
       "item": "ecologics:coconut_planks"
     }
   },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
   "result": {
-    "item": "ecologics:coconut_stairs",
-    "count": 4
+    "count": 4,
+    "item": "ecologics:coconut_stairs"
   }
 }

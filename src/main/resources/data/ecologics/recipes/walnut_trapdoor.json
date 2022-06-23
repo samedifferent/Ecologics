@@ -1,16 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###",
-    "###"
-  ],
+  "group": "wooden_trapdoor",
   "key": {
     "#": {
       "item": "ecologics:walnut_planks"
     }
   },
+  "pattern": [
+    "###",
+    "###"
+  ],
   "result": {
-    "item": "ecologics:walnut_trapdoor",
-    "count": 2
+    "count": 2,
+    "item": "ecologics:walnut_trapdoor"
   }
 }

@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "bark",
-  "pattern": [
-    "##",
-    "##"
-  ],
   "key": {
     "#": {
       "item": "ecologics:coconut_log"
     }
   },
+  "pattern": [
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "ecologics:coconut_wood",
-    "count": 3
+    "count": 3,
+    "item": "ecologics:coconut_wood"
   }
 }

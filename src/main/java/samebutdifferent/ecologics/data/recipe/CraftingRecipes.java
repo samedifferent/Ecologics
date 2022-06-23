@@ -4,10 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeBuilder;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -17,11 +14,13 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.data.ModBlockFamilies;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModTags;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -76,9 +75,32 @@ public class CraftingRecipes {
 
         planksFromLogs(pFinishedRecipeConsumer, ModBlocks.FLOWERING_AZALEA_PLANKS.get(), ModTags.ModItemTags.FLOWERING_AZALEA_LOGS);
         woodFromLogs(pFinishedRecipeConsumer, ModBlocks.FLOWERING_AZALEA_WOOD.get(), ModBlocks.FLOWERING_AZALEA_LOG.get());
-        woodFromLogs(pFinishedRecipeConsumer, ModBlocks.STRIPPED_AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_LOG.get());
         woodenBoat(pFinishedRecipeConsumer, ModItems.FLOWERING_AZALEA_BOAT.get(), ModBlocks.FLOWERING_AZALEA_PLANKS.get());
         chestBoat(pFinishedRecipeConsumer, ModItems.FLOWERING_AZALEA_CHEST_BOAT.get(), ModItems.FLOWERING_AZALEA_BOAT.get());
+
+        stonecutterResultFromBase(pFinishedRecipeConsumer, ModBlocks.SEASHELL_TILE_STAIRS.get(), ModBlocks.SEASHELL_TILES.get());
+        stonecutterResultFromBase(pFinishedRecipeConsumer, ModBlocks.SEASHELL_TILE_SLAB.get(), ModBlocks.SEASHELL_TILES.get(), 2);
+        stonecutterResultFromBase(pFinishedRecipeConsumer, ModBlocks.SEASHELL_TILE_WALL.get(), ModBlocks.SEASHELL_TILES.get());
+
+        stonecutterResultFromBase(pFinishedRecipeConsumer, ModBlocks.ICE_BRICK_STAIRS.get(), ModBlocks.ICE_BRICKS.get());
+        stonecutterResultFromBase(pFinishedRecipeConsumer, ModBlocks.ICE_BRICK_SLAB.get(), ModBlocks.ICE_BRICKS.get(), 2);
+        stonecutterResultFromBase(pFinishedRecipeConsumer, ModBlocks.ICE_BRICK_WALL.get(), ModBlocks.ICE_BRICKS.get());
+
+        stonecutterResultFromBase(pFinishedRecipeConsumer, ModBlocks.SNOW_BRICK_STAIRS.get(), ModBlocks.SNOW_BRICKS.get());
+        stonecutterResultFromBase(pFinishedRecipeConsumer, ModBlocks.SNOW_BRICK_SLAB.get(), ModBlocks.SNOW_BRICKS.get(), 2);
+        stonecutterResultFromBase(pFinishedRecipeConsumer, ModBlocks.SNOW_BRICK_WALL.get(), ModBlocks.SNOW_BRICKS.get());
+
+        nineBlockStorageRecipes(pFinishedRecipeConsumer, ModBlocks.SEASHELL.get(), ModBlocks.SEASHELL_BLOCK.get());
+        nineBlockStorageRecipes(pFinishedRecipeConsumer, ModBlocks.SURFACE_MOSS.get(), Blocks.MOSS_BLOCK);
+
+        ShapelessRecipeBuilder.shapeless(ModItems.TROPICAL_STEW.get(), 1)
+                .requires(ModItems.COCONUT_SLICE.get())
+                .requires(ModItems.CRAB_MEAT.get())
+                .unlockedBy("has_crab_meat", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.CRAB_MEAT.get()))
+                .save(pFinishedRecipeConsumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.POT.get()).define('#', ItemTags.TERRACOTTA).pattern("# #").pattern("# #").pattern("###").unlockedBy("has_terracotta", has(ItemTags.TERRACOTTA)).save(pFinishedRecipeConsumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.SANDCASTLE.get()).define('A', Items.SAND).define('B', ModBlocks.SEASHELL.get()).define('C', Items.STICK).pattern(" C ").pattern("ABA").pattern("AAA").unlockedBy("has_seashell", has(ModBlocks.SEASHELL.get())).save(pFinishedRecipeConsumer);
     }
 
     protected static void generateRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, BlockFamily pFamily) {
@@ -178,6 +200,31 @@ public class CraftingRecipes {
 
     public static RecipeBuilder polishedBuilder(ItemLike pResult, Ingredient pMaterial) {
         return ShapedRecipeBuilder.shaped(pResult, 4).define('S', pMaterial).pattern("SS").pattern("SS");
+    }
+
+    protected static void stonecutterResultFromBase(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pMaterial) {
+        stonecutterResultFromBase(pFinishedRecipeConsumer, pResult, pMaterial, 1);
+    }
+
+    protected static void stonecutterResultFromBase(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, ItemLike pMaterial, int pResultCount) {
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(pMaterial), pResult, pResultCount).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer, new ResourceLocation(Ecologics.MOD_ID, getConversionRecipeName(pResult, pMaterial) + "_stonecutting"));
+    }
+
+    protected static String getConversionRecipeName(ItemLike pResult, ItemLike pIngredient) {
+        return getItemName(pResult) + "_from_" + getItemName(pIngredient);
+    }
+    
+    protected static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked) {
+        nineBlockStorageRecipes(pFinishedRecipeConsumer, pUnpacked, pPacked, getSimpleRecipeName(pPacked), null, getSimpleRecipeName(pUnpacked), null);
+    }
+
+    protected static void nineBlockStorageRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pUnpacked, ItemLike pPacked, String pPackingRecipeName, @Nullable String pPackingRecipeGroup, String pUnpackingRecipeName, @Nullable String pUnpackingRecipeGroup) {
+        ShapelessRecipeBuilder.shapeless(pUnpacked, 9).requires(pPacked).group(pUnpackingRecipeGroup).unlockedBy(getHasName(pPacked), has(pPacked)).save(pFinishedRecipeConsumer, new ResourceLocation(Ecologics.MOD_ID, pUnpackingRecipeName));
+        ShapedRecipeBuilder.shaped(pPacked).define('#', pUnpacked).pattern("###").pattern("###").pattern("###").group(pPackingRecipeGroup).unlockedBy(getHasName(pUnpacked), has(pUnpacked)).save(pFinishedRecipeConsumer, new ResourceLocation(Ecologics.MOD_ID, pPackingRecipeName));
+    }
+
+    protected static String getSimpleRecipeName(ItemLike pItemLike) {
+        return getItemName(pItemLike);
     }
 
     protected static String getHasName(ItemLike pItemLike) {
