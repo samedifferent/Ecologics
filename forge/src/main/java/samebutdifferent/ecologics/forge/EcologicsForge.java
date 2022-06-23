@@ -54,8 +54,6 @@ public class EcologicsForge {
         CommonPlatformHelperImpl.FEATURES.register(bus);
         CommonPlatformHelperImpl.TRUNK_PLACER_TYPES.register(bus);
         CommonPlatformHelperImpl.FOLIAGE_PLACER_TYPES.register(bus);
-        CommonPlatformHelperImpl.CONFIGURED_FEATURES.register(bus);
-        CommonPlatformHelperImpl.PLACED_FEATURES.register(bus);
         CommonPlatformHelperImpl.MOB_EFFECTS.register(bus);
         CommonPlatformHelperImpl.POTIONS.register(bus);
         ModGlobalLootModifiers.GLM.register(bus);
