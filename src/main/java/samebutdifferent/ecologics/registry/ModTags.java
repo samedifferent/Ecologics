@@ -24,6 +24,8 @@ public class ModTags {
 
         public static final TagKey<Item> COCONUT_LOGS = createTag("coconut_logs");
         public static final TagKey<Item> WALNUT_LOGS = createTag("walnut_logs");
+        public static final TagKey<Item> AZALEA_LOGS = createTag("azalea_logs");
+        public static final TagKey<Item> FLOWERING_AZALEA_LOGS = createTag("flowering_azalea_logs");
 
         private static TagKey<Item> createTag(String name) {
             return ItemTags.create(new ResourceLocation(Ecologics.MOD_ID, name));
