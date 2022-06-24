@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 1,
   "ingredient": {
     "item": "ecologics:seashell_tiles"
   },
-  "result": "ecologics:seashell_tile_wall",
-  "count": 1
+  "result": "ecologics:seashell_tile_wall"
 }

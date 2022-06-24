@@ -1,16 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##",
-    "##"
-  ],
+  "group": "bark",
   "key": {
     "#": {
       "item": "ecologics:stripped_azalea_log"
     }
   },
+  "pattern": [
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "ecologics:stripped_azalea_wood",
-    "count": 3
+    "count": 3,
+    "item": "ecologics:stripped_azalea_wood"
   }
 }

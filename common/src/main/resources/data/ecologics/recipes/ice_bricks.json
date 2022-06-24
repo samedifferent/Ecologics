@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:ice"
+    }
+  },
   "pattern": [
     "SS",
     "SS"
   ],
-  "key": {
-    "S": {
-      "item": "minecraft:packed_ice"
-    }
-  },
   "result": {
-    "item": "ecologics:ice_bricks",
-    "count": 4
+    "count": 4,
+    "item": "ecologics:ice_bricks"
   }
 }

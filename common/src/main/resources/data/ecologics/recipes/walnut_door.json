@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##",
-    "##",
-    "##"
-  ],
+  "group": "wooden_door",
   "key": {
     "#": {
       "item": "ecologics:walnut_planks"
     }
   },
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "ecologics:walnut_door",
-    "count": 3
+    "count": 3,
+    "item": "ecologics:walnut_door"
   }
 }

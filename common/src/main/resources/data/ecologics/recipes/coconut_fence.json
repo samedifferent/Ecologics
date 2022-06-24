@@ -1,19 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "wooden_fence",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "ecologics:coconut_planks"
+    }
+  },
   "pattern": [
     "W#W",
     "W#W"
   ],
-  "key": {
-    "W": {
-      "item": "ecologics:coconut_planks"
-    },
-    "#": {
-      "item": "minecraft:stick"
-    }
-  },
   "result": {
-    "item": "ecologics:coconut_fence",
-    "count": 3
+    "count": 3,
+    "item": "ecologics:coconut_fence"
   }
 }

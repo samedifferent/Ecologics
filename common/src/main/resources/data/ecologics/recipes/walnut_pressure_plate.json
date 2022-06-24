@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##"
-  ],
+  "group": "wooden_pressure_plate",
   "key": {
     "#": {
       "item": "ecologics:walnut_planks"
     }
   },
+  "pattern": [
+    "##"
+  ],
   "result": {
     "item": "ecologics:walnut_pressure_plate"
   }

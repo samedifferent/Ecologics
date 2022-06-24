@@ -1,9 +1,9 @@
 {
   "type": "minecraft:campfire_cooking",
+  "cookingtime": 600,
+  "experience": 0.35,
   "ingredient": {
     "item": "ecologics:crab_claw"
   },
-  "result": "ecologics:crab_meat",
-  "experience": 0.35,
-  "cookingtime": 600
+  "result": "ecologics:crab_meat"
 }
