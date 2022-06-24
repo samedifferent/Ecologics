@@ -21,7 +21,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -35,8 +34,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.entity.ai.navigation.BetterWallClimberNavigation;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
-import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
+import samebutdifferent.ecologics.registry.ModTags;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -44,7 +43,7 @@ import java.util.List;
 public class Squirrel extends Animal {
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Squirrel.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> DATA_TRUSTING = SynchedEntityData.defineId(Squirrel.class, EntityDataSerializers.BOOLEAN);
-    private static final Ingredient TEMPT_INGREDIENT = Ingredient.of(ModItems.WALNUT.get());
+    private static final Ingredient TEMPT_INGREDIENT = Ingredient.of(ModTags.ItemTags.SQUIRREL_TEMPT_ITEMS);
 
     public Squirrel(EntityType<? extends Animal> type, Level level) {
         super(type, level);
