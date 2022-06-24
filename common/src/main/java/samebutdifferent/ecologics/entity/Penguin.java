@@ -209,9 +209,11 @@ public class Penguin extends Animal {
                 }
             }
         }
-        if (this.level.getEntitiesOfClass(Penguin.class, this.getBoundingBox().inflate(20.0D)).size() > 4) {
-            for(Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(10.0D))) {
-                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, true, true));
+        if (level.getGameTime() % 80L == 0L) {
+            if (this.level.getEntitiesOfClass(Penguin.class, this.getBoundingBox().inflate(20.0D)).size() > 4) {
+                for (Player player : this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(10.0D))) {
+                    player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, true, true));
+                }
             }
         }
         if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
