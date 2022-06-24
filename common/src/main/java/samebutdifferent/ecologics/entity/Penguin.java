@@ -22,7 +22,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.LookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -85,13 +84,12 @@ public class Penguin extends Animal {
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new PenguinMeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(6, new PenguinSearchForCodItemGoal(this));
+        this.goalSelector.addGoal(5, new PenguinSearchForItemsGoal(this));
+        this.goalSelector.addGoal(6, new PenguinMeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new PenguinRandomSwimmingGoal(this, 1.0D, 60));
-        this.goalSelector.addGoal(9, new PenguinFillBarrelGoal(this, 1.0F, 30, 20));
-        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, AbstractFish.class, 10, true, false, living -> living.getType().is(ModTags.EntityTypeTags.PENGUIN_HUNT_TARGETS)));
     }
 
@@ -469,92 +467,10 @@ public class Penguin extends Animal {
         }
     }
 
-    static class PenguinFillBarrelGoal extends MoveToBlockGoal {
-        private final Penguin penguin;
-        private boolean reachedTarget;
-
-        public PenguinFillBarrelGoal(Penguin penguin, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
-            super(penguin, pSpeedModifier, pSearchRange, pVerticalSearchRange);
-            this.penguin = penguin;
-        }
-
-        @Override
-        public boolean canUse() {
-            if (penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || penguin.isBaby() || penguin.isPregnant()) {
-                return false;
-            } else {
-                return super.canUse();
-            }
-        }
-
-        @Override
-        public double acceptedDistance() {
-            return 2.0D;
-        }
-
-        @Override
-        public void tick() {
-            BlockPos blockpos = this.getMoveToTarget();
-            if (!blockpos.closerToCenterThan(this.mob.position(), this.acceptedDistance())) {
-                this.reachedTarget = false;
-                ++this.tryTicks;
-                if (this.shouldRecalculatePath()) {
-                    this.mob.getNavigation().moveTo((double)((float)blockpos.getX()) + 0.5D, blockpos.getY(), (double)((float)blockpos.getZ()) + 0.5D, this.speedModifier);
-                }
-            } else {
-                this.reachedTarget = true;
-                --this.tryTicks;
-            }
-
-            if (reachedTarget && !penguin.getMainHandItem().isEmpty()) {
-                Level level = penguin.level;
-                if (level.getBlockEntity(blockPos) instanceof BarrelBlockEntity barrel) {
-                    this.onReachedTarget(level, barrel);
-                    reachedTarget = false;
-                }
-            }
-        }
-
-        @Override
-        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
-            BlockState blockstate = pLevel.getBlockState(pPos);
-            return blockstate.is(Blocks.BARREL);
-        }
-
-        protected void onReachedTarget(Level level, BarrelBlockEntity barrel) {
-            for (int i = 0; i < barrel.getContainerSize(); i++) {
-                if (this.canPlaceItem(barrel, i, penguin.getMainHandItem())) {
-                    penguin.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                    level.playSound(null, blockPos, SoundEvents.COD_FLOP, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-                    break;
-                }
-            }
-        }
-
-        boolean canPlaceItem(BarrelBlockEntity barrel, int index, ItemStack stack) {
-            if (barrel.getItem(index).isEmpty()) {
-                barrel.setItem(index, new ItemStack(stack.getItem()));
-                return true;
-            } else if (barrel.getItem(index).is(stack.getItem())) {
-                int amount = barrel.getItem(index).getCount();
-                if (amount < 64) {
-                    barrel.setItem(index, new ItemStack(stack.getItem(), amount + 1));
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        @Override
-        protected boolean isReachedTarget() {
-            return this.reachedTarget;
-        }
-    }
-
-    static class PenguinSearchForCodItemGoal extends Goal {
+    static class PenguinSearchForItemsGoal extends Goal {
         private final Penguin penguin;
 
-        public PenguinSearchForCodItemGoal(Penguin penguin) {
+        public PenguinSearchForItemsGoal(Penguin penguin) {
             this.setFlags(EnumSet.of(Flag.MOVE));
             this.penguin = penguin;
         }
