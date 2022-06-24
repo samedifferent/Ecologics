@@ -1,7 +1,6 @@
 package samebutdifferent.ecologics.loot.forge;
 
 import com.google.gson.JsonObject;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
@@ -13,6 +12,8 @@ import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class AddItemModifier extends LootModifier {
     private final Item item;
 
@@ -22,7 +23,7 @@ public class AddItemModifier extends LootModifier {
     }
 
     @Override
-    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+    protected @NotNull List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
         generatedLoot.add(new ItemStack(item));
         return generatedLoot;
     }

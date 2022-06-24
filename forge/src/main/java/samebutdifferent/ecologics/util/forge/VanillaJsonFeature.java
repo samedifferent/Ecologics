@@ -19,7 +19,7 @@ public class VanillaJsonFeature extends Feature<VanillaJsonFeature.VanillaJsonFe
 	public boolean place(FeaturePlaceContext<VanillaJsonFeatureConfig> context) {
 		WorldGenLevel level = context.level();
 
-		return level.registryAccess().registryOrThrow(Registry.PLACED_FEATURE_REGISTRY).get(context.config().feature()).place(level, context.chunkGenerator(), context.random(), context.origin());
+		return level.registryAccess().registryOrThrow(Registry.PLACED_FEATURE_REGISTRY).get(context.config().feature()).placeWithBiomeCheck(level, context.chunkGenerator(), context.random(), context.origin());
 	}
 
 	public record VanillaJsonFeatureConfig(ResourceKey<PlacedFeature> feature) implements FeatureConfiguration {
