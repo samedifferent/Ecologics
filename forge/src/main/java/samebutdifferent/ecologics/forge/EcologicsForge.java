@@ -13,7 +13,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
 import samebutdifferent.ecologics.registry.forge.ModConfigForge;
+import samebutdifferent.ecologics.registry.forge.ModConfiguredFeatures;
 import samebutdifferent.ecologics.registry.forge.ModGlobalLootModifiers;
+import samebutdifferent.ecologics.registry.forge.ModPlacedFeatures;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +39,8 @@ public class EcologicsForge {
         CommonPlatformHelperImpl.MOB_EFFECTS.register(bus);
         CommonPlatformHelperImpl.POTIONS.register(bus);
         ModGlobalLootModifiers.GLM.register(bus);
+        ModConfiguredFeatures.CONFIGURED_FEATURES.register(bus);
+        ModPlacedFeatures.PLACED_FEATURES.register(bus);
 
         bus.addListener(this::registerEntityAttributes);
         bus.addListener(this::setup);
