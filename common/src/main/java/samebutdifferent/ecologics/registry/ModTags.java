@@ -10,6 +10,7 @@ import samebutdifferent.ecologics.Ecologics;
 public class ModTags {
     public static class ItemTags {
         public static final TagKey<Item> PENGUIN_TEMPT_ITEMS = tag("penguin_tempt_items");
+        public static final TagKey<Item> SQUIRREL_TEMPT_ITEMS = tag("squirrel_tempt_items");
 
         private static TagKey<Item> tag(String name) {
             return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Ecologics.MOD_ID, name));
