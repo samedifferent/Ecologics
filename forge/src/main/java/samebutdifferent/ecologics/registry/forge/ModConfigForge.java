@@ -1,8 +1,12 @@
 package samebutdifferent.ecologics.registry.forge;
 
+import com.electronwill.nightconfig.core.file.CommentedFileConfig;
+import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
+
+import java.io.File;
 
 public class ModConfigForge {
     public static ForgeConfigSpec COMMON_CONFIG;
@@ -11,6 +15,7 @@ public class ModConfigForge {
     public static final ForgeConfigSpec.DoubleValue COCONUT_CRAB_SPAWN_CHANCE;
     public static final ForgeConfigSpec.BooleanValue GENERATE_COCONUT_TREES;
     public static final ForgeConfigSpec.BooleanValue GENERATE_SEASHELLS;
+    public static final ForgeConfigSpec.DoubleValue COCONUT_TREE_SPAWN_CHANCE;
 
     public static final String CATEGORY_DESERT = "desert";
     public static final ForgeConfigSpec.IntValue CAMEL_SPAWN_WEIGHT;
@@ -21,6 +26,7 @@ public class ModConfigForge {
     public static final String CATEGORY_SNOWY = "snowy";
     public static final ForgeConfigSpec.IntValue PENGUIN_SPAWN_WEIGHT;
     public static final ForgeConfigSpec.BooleanValue GENERATE_THIN_ICE_PATCHES;
+    public static final ForgeConfigSpec.IntValue THIN_ICE_PATCH_COUNT;
 
     public static final String CATEGORY_PLAINS = "plains";
     public static final ForgeConfigSpec.IntValue SQUIRREL_SPAWN_WEIGHT;
@@ -37,6 +43,7 @@ public class ModConfigForge {
         COMMON_BUILDER.comment("Beach Update").push(CATEGORY_BEACH);
         COCONUT_CRAB_SPAWN_CHANCE = COMMON_BUILDER.comment("How often (in percentage) should Coconut Crabs spawn when a coconut breaks? Set it to 0.0 to disable this.").defineInRange("coconutCrabSpawnChance", 0.2, 0.0, 1.0);
         GENERATE_COCONUT_TREES = COMMON_BUILDER.comment("Generate coconut trees on beaches").define("generateCoconutTrees", true);
+        COCONUT_TREE_SPAWN_CHANCE = COMMON_BUILDER.comment("How often (in percentage) should coconut trees spawn per chunk?").defineInRange("coconutTreeSpawnChance", 0.5, 0.0, 1.0);
         GENERATE_SEASHELLS = COMMON_BUILDER.comment("Generate seashells on beaches").define("generateSeashells", true);
         COMMON_BUILDER.pop();
 
@@ -50,6 +57,7 @@ public class ModConfigForge {
         COMMON_BUILDER.comment("Snowy Update").push(CATEGORY_SNOWY);
         PENGUIN_SPAWN_WEIGHT = COMMON_BUILDER.comment("Penguin spawn weight. Set to 0 to disable.").defineInRange("penguinSpawnWeight", 2, 0, 1000);
         GENERATE_THIN_ICE_PATCHES = COMMON_BUILDER.comment("Generate thin ice patches in icy biomes").define("generateThinIcePatches", true);
+        THIN_ICE_PATCH_COUNT = COMMON_BUILDER.comment("Thin ice patch count. Higher number = more frequent.").defineInRange("thinIcePatchCount", 15, 0, 256);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Plains Update").push(CATEGORY_PLAINS);
@@ -71,4 +79,10 @@ public class ModConfigForge {
 
     @SubscribeEvent
     public static void onReload(final ModConfigEvent.Reloading configEvent) { }
+
+    public static void loadConfig(ForgeConfigSpec config, String path) {
+        final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).sync().preserveInsertionOrder().autosave().writingMode(WritingMode.REPLACE).build();
+        file.load();
+        config.setConfig(file);
+    }
 }

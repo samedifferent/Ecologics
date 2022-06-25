@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
 import samebutdifferent.ecologics.registry.forge.ModConfigForge;
@@ -25,7 +26,8 @@ public class EcologicsForge {
     public EcologicsForge() {
         Ecologics.init();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModConfigForge.COMMON_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModConfigForge.COMMON_CONFIG, "ecologics.toml");
+        ModConfigForge.loadConfig(ModConfigForge.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("ecologics.toml").toString());
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         CommonPlatformHelperImpl.BLOCKS.register(bus);
