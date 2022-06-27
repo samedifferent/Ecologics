@@ -6,6 +6,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;
@@ -31,7 +33,7 @@ public class ThinIceBlock extends HalfTransparentBlock {
 
     @Override
     public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
-        if (pEntity instanceof Player) {
+        if (pEntity instanceof Player player && EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, player) == 0) {
             pLevel.playSound(null, pPos, ModSoundEvents.THIN_ICE_CRACK.get(), SoundSource.BLOCKS, 0.7F, 0.9F + pLevel.random.nextFloat() * 0.2F);
             replaceIfThinIce(pPos, 3, pLevel);
             replaceIfThinIce(pPos.north(), 2, pLevel);
