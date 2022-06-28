@@ -5,9 +5,10 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BlockEntityTypeMixin",
-    "BlockMixin",
+    "BlockBehaviourMixin",
     "CropBlockMixin",
     "LivingEntityMixin",
+    "LootContextBuilderMixin",
     "PotionBrewingAccessor",
     "RecordItemAccessor",
     "SheepMixin",
