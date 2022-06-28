@@ -4,7 +4,6 @@
   "package": "samebutdifferent.ecologics.mixin.fabric",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BlockBehaviourMixin",
     "BlockEntityTypeMixin",
     "CropBlockMixin",
     "LivingEntityMixin",
