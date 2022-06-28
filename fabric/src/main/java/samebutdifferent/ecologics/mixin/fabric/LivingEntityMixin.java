@@ -35,7 +35,7 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "getBlockSpeedFactor", at = @At("HEAD"), cancellable = true)
     private void onGetBlockSpeedFactor(CallbackInfoReturnable<Float> cir) {
         if (living.hasEffect(ModMobEffects.SLIPPERY.get())) {
-            cir.setReturnValue(1.05F);
+            cir.setReturnValue(1.02F);
         }
     }
 }
