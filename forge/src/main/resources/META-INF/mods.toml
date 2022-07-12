@@ -17,7 +17,7 @@ Simple vanilla biome updates, with fun mobs, blocks, and more!
 [[dependencies.ecologics]]
 modId = "forge"
 mandatory = true
-versionRange = "[41,)"
+versionRange = "[41.0.94,)"
 ordering = "NONE"
 side = "BOTH"
 

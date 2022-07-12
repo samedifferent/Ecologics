@@ -16,22 +16,21 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import samebutdifferent.ecologics.Ecologics;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
-import samebutdifferent.ecologics.registry.*;
+import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.forge.ModConfigForge;
 import samebutdifferent.ecologics.registry.forge.ModGlobalLootModifiers;
 
@@ -39,6 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Mod(Ecologics.MOD_ID)
+@Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class EcologicsForge {
     public EcologicsForge() {
         Ecologics.init();
@@ -60,8 +60,6 @@ public class EcologicsForge {
 
         bus.addListener(this::registerEntityAttributes);
         bus.addListener(this::setup);
-
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     public void registerEntityAttributes(EntityAttributeCreationEvent event) {
@@ -79,7 +77,7 @@ public class EcologicsForge {
     @SubscribeEvent
     public static void onCropGrow(BlockEvent.CropGrowEvent.Post event) {
         BlockPos pos = event.getPos();
-        LevelAccessor level = event.getWorld();
+        LevelAccessor level = event.getLevel();
         BlockState state = event.getState();
         if (state.is(Blocks.CACTUS)) {
             if (level.getBlockState(pos.above()).is(Blocks.CACTUS) && level.getBlockState(pos.below()).is(Blocks.CACTUS)) {
@@ -93,8 +91,8 @@ public class EcologicsForge {
 
     @SubscribeEvent
     public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
-        Level level = event.getWorld();
-        Player player = event.getPlayer();
+        Level level = event.getLevel();
+        Player player = event.getEntity();
         BlockPos pos = event.getPos();
         BlockState state = level.getBlockState(pos);
         InteractionHand hand = event.getHand();
@@ -112,7 +110,7 @@ public class EcologicsForge {
                 player.getOffhandItem().hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(InteractionHand.OFF_HAND));
             }
         }
-        if (!event.getWorld().isClientSide) {
+        if (!event.getLevel().isClientSide) {
             ItemStack stack = event.getItemStack();
             Direction direction = event.getHitVec().getDirection().getAxis() == Direction.Axis.Y ? event.getHitVec().getDirection().getOpposite() : event.getHitVec().getDirection();
             if (stack.is(Items.SHEARS)) {
