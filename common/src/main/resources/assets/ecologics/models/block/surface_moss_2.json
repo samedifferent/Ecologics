@@ -1,8 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "particle": "ecologics:block/moss_three",
-    "moss": "ecologics:block/moss_two"
+    "particle": "ecologics:block/surface_moss_3",
+    "moss": "ecologics:block/surface_moss_2"
   },
   "elements": [
     {   "from": [ 0, 0, 0.1 ],
