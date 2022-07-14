@@ -3,22 +3,33 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 256
-    },
-    {
-      "type": "minecraft:in_square"
+      "count": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 157,
+          "min_inclusive": 104
+        }
+      }
     },
     {
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:uniform",
-        "min_inclusive": {
-          "above_bottom": 0
-        },
         "max_inclusive": {
           "absolute": 256
+        },
+        "min_inclusive": {
+          "above_bottom": 0
         }
       }
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_relative_threshold_filter",
+      "heightmap": "OCEAN_FLOOR_WG",
+      "max_inclusive": -13
     },
     {
       "type": "minecraft:biome"
