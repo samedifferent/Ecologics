@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:multiface_growth",
+  "type": "ecologics:surface_moss_patch",
   "config": {
     "block": "ecologics:surface_moss",
     "can_be_placed_on": [

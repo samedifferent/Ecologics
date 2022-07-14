@@ -58,7 +58,10 @@ public class CommonEventHandler {
                 event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.PENGUIN.get(), ModConfigForge.PENGUIN_SPAWN_WEIGHT.get(), 4, 7));
             }
             if (biomeName.equals(Biomes.LUSH_CAVES.location())) {
-                if (ModConfigForge.GENERATE_SURFACE_MOSS.get()) builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SURFACE_MOSS_PATCH.getHolder().orElseThrow());
+                if (ModConfigForge.GENERATE_SURFACE_MOSS.get()) {
+                    builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), CavePlacements.CLASSIC_VINES.value()));
+                    builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SURFACE_MOSS_PATCH.getHolder().orElseThrow());
+                }
                 if (ModConfigForge.REPLACE_AZALEA_TREE.get()) {
                     builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).removeIf(placedFeatureSupplier -> CodecUtils.serializeAndCompareFeature(placedFeatureSupplier.value(), CavePlacements.ROOTED_AZALEA_TREE.value()));
                     builder.getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(ModPlacedFeatures.ROOTED_AZALEA_TREE.getHolder().orElseThrow());
