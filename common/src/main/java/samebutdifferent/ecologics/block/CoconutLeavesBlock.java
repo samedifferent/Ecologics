@@ -81,7 +81,8 @@ public class CoconutLeavesBlock extends LeavesBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(DISTANCE_9, PERSISTENT, DISTANCE);
+        super.createBlockStateDefinition(pBuilder);
+        pBuilder.add(DISTANCE_9);
     }
 
     @Override
