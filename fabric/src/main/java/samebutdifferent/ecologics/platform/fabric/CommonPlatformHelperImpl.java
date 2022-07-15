@@ -36,27 +36,26 @@ import java.util.function.Supplier;
 
 public class CommonPlatformHelperImpl {
     public static <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> block) {
-        var registry = Registry.register(Registry.BLOCK, new ResourceLocation(Ecologics.MOD_ID, name), block.get());
+        T registry = Registry.register(Registry.BLOCK, new ResourceLocation(Ecologics.MOD_ID, name), block.get());
         return () -> registry;
     }
 
     public static <T extends Item> Supplier<T> registerItem(String name, Supplier<T> item) {
-        var registry = Registry.register(Registry.ITEM, new ResourceLocation(Ecologics.MOD_ID, name), item.get());
+        T registry = Registry.register(Registry.ITEM, new ResourceLocation(Ecologics.MOD_ID, name), item.get());
         return () -> registry;
     }
 
     public static <T extends Item, M extends Mob> Supplier<SpawnEggItem> registerSpawnEggItem(String name, Supplier<EntityType<M>> entityType, int backgroundColor, int highlightColor) {
-        var registry = Registry.register(Registry.ITEM, new ResourceLocation(Ecologics.MOD_ID, name), new SpawnEggItem(entityType.get(), backgroundColor, highlightColor, new Item.Properties().tab(Ecologics.TAB)));
-        return () -> registry;
+        return registerItem(name, () -> new SpawnEggItem(entityType.get(), backgroundColor, highlightColor, new Item.Properties().tab(Ecologics.TAB)));
     }
 
     public static <T extends SoundEvent> Supplier<T> registerSoundEvent(String name, Supplier<T> soundEvent) {
-        var registry = Registry.register(Registry.SOUND_EVENT, new ResourceLocation(Ecologics.MOD_ID, name), soundEvent.get());
+        T registry = Registry.register(Registry.SOUND_EVENT, new ResourceLocation(Ecologics.MOD_ID, name), soundEvent.get());
         return () -> registry;
     }
 
     public static <T extends Entity> Supplier<EntityType<T>> registerEntityType(String name, EntityType.EntityFactory<T> factory, MobCategory category, float width, float height, int clientTrackingRange) {
-        var registry = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(Ecologics.MOD_ID, name), FabricEntityTypeBuilder.create(category, factory).dimensions(EntityDimensions.scalable(width, height)).trackRangeChunks(clientTrackingRange).build());
+        EntityType<T> registry = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(Ecologics.MOD_ID, name), FabricEntityTypeBuilder.create(category, factory).dimensions(EntityDimensions.scalable(width, height)).trackRangeChunks(clientTrackingRange).build());
         return () -> registry;
     }
 
@@ -65,7 +64,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static <T extends BlockEntityType<E>, E extends BlockEntity> Supplier<T> registerBlockEntityType(String name, Supplier<T> blockEntity) {
-        var registry = Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(Ecologics.MOD_ID, name), blockEntity.get());
+        T registry = Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(Ecologics.MOD_ID, name), blockEntity.get());
         return () -> registry;
     }
 
@@ -74,7 +73,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static <T extends Potion> Supplier<T> registerPotion(String name, Supplier<T> potion) {
-        var registry = Registry.register(Registry.POTION, new ResourceLocation(Ecologics.MOD_ID, name), potion.get());
+        T registry = Registry.register(Registry.POTION, new ResourceLocation(Ecologics.MOD_ID, name), potion.get());
         return () -> registry;
     }
 
@@ -83,12 +82,12 @@ public class CommonPlatformHelperImpl {
     }
 
     public static <T extends FoliagePlacer> Supplier<FoliagePlacerType<T>> registerFoliagePlacerType(String name, Supplier<FoliagePlacerType<T>> foliagePlacerType) {
-        var registry = Registry.register(Registry.FOLIAGE_PLACER_TYPES, new ResourceLocation(Ecologics.MOD_ID, name), foliagePlacerType.get());
+        FoliagePlacerType<T> registry = Registry.register(Registry.FOLIAGE_PLACER_TYPES, new ResourceLocation(Ecologics.MOD_ID, name), foliagePlacerType.get());
         return () -> registry;
     }
 
     public static <T extends TrunkPlacer> Supplier<TrunkPlacerType<T>> registerTrunkPlacerType(String name, Supplier<TrunkPlacerType<T>> trunkPlacerType) {
-        var registry = Registry.register(Registry.TRUNK_PLACER_TYPES, new ResourceLocation(Ecologics.MOD_ID, name), trunkPlacerType.get());
+        TrunkPlacerType<T> registry = Registry.register(Registry.TRUNK_PLACER_TYPES, new ResourceLocation(Ecologics.MOD_ID, name), trunkPlacerType.get());
         return () -> registry;
     }
 
@@ -97,12 +96,12 @@ public class CommonPlatformHelperImpl {
     }
 
     public static <T extends MobEffect> Supplier<T> registerMobEffect(String name, Supplier<T> mobEffect) {
-        var registry = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(Ecologics.MOD_ID, name), mobEffect.get());
+        T registry = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(Ecologics.MOD_ID, name), mobEffect.get());
         return () -> registry;
     }
 
     public static <T extends Feature<?>> Supplier<T> registerFeature(String name, Supplier<T> feature) {
-        var registry = Registry.register(Registry.FEATURE, new ResourceLocation(Ecologics.MOD_ID, name), feature.get());
+        T registry = Registry.register(Registry.FEATURE, new ResourceLocation(Ecologics.MOD_ID, name), feature.get());
         return () -> registry;
     }
 
