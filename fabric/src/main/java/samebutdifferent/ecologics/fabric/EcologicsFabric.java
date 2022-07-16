@@ -129,6 +129,13 @@ public class EcologicsFabric implements ModInitializer {
                     getPlacedFeatureKey("desert_ruin")
             );
         }
+        if (config.netherWastes.generateGoldOreVeins) {
+            BiomeModifications.addFeature(
+                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.NETHER_WASTES),
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    getPlacedFeatureKey("ore_vein_nether_gold")
+            );
+        }
     }
 
     public void replaceFeatures() {
