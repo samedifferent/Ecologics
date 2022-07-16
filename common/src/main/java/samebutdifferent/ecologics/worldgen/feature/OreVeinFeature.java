@@ -3,7 +3,6 @@ package samebutdifferent.ecologics.worldgen.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import samebutdifferent.ecologics.util.FastNoiseLite;
@@ -35,8 +34,9 @@ public class OreVeinFeature extends Feature<OreVeinFeatureConfiguration> {
 
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                int minY = 10;
-                int maxY = 117;
+                OreVeinFeatureConfiguration config = context.config();
+                int minY = config.minY();
+                int maxY = config.maxY();
                 for (int y = minY; y < maxY; y++) {
                     mutable.set(origin).move(x, y, z);
 
@@ -52,8 +52,10 @@ public class OreVeinFeature extends Feature<OreVeinFeatureConfiguration> {
 
                     // Determines the vein shape / tube look.
                     if (veinShapeNoiseSample > 0.35) {
-                        if (level.getBlockState(mutable).is(Blocks.NETHERRACK)) {
-                            level.setBlock(mutable, context.config().stateProvider().getState(context.random(), mutable), 2);
+
+                        // Determines if the block can be replaced
+                        if (config.target().test(level.getBlockState(mutable), context.random())) {
+                            level.setBlock(mutable, config.stateProvider().getState(context.random(), mutable), 2);
                         }
                     }
                 }
