@@ -34,7 +34,11 @@
       "predicate_type": "minecraft:block_match",
       "block": "minecraft:netherrack"
     },
-    "minY": 10,
-    "maxY": 117
+    "minY": {
+      "absolute": 10
+    },
+    "maxY": {
+      "absolute": 117
+    }
   }
 }

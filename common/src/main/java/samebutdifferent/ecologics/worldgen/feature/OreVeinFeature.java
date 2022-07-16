@@ -2,7 +2,9 @@ package samebutdifferent.ecologics.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import samebutdifferent.ecologics.util.FastNoiseLite;
@@ -35,9 +37,8 @@ public class OreVeinFeature extends Feature<OreVeinFeatureConfiguration> {
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 OreVeinFeatureConfiguration config = context.config();
-                int minY = config.minY();
-                int maxY = config.maxY();
-                for (int y = minY; y < maxY; y++) {
+                WorldGenerationContext worldGenContext = new WorldGenerationContext(context.chunkGenerator(), LevelHeightAccessor.create(level.getMinBuildHeight(), level.getHeight()));
+                for (int y = config.minY().resolveY(worldGenContext); y < config.maxY().resolveY(worldGenContext); y++) {
                     mutable.set(origin).move(x, y, z);
 
                     // Determines if this cell in the world will have a vein.
