@@ -1,0 +1,8 @@
+{
+  "feature": "ecologics:ore_vein_nether_gold",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
