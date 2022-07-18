@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import samebutdifferent.ecologics.util.FastNoiseLite;
 import samebutdifferent.ecologics.worldgen.feature.configurations.OreVeinFeatureConfiguration;
 
-// Credit to Corgi Taco for helping with this
+// Credit to Corgi Taco for helping with the noise
 public class OreVeinFeature extends Feature<OreVeinFeatureConfiguration> {
     public OreVeinFeature(Codec<OreVeinFeatureConfiguration> codec) {
         super(codec);

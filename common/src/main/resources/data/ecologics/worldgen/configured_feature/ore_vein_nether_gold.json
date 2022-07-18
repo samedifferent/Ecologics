@@ -11,9 +11,15 @@
           }
         },
         {
-          "weight": 125,
+          "weight": 100,
           "data": {
             "Name": "minecraft:blackstone"
+          }
+        },
+        {
+          "weight": 25,
+          "data": {
+            "Name": "minecraft:gilded_blackstone"
           }
         },
         {
