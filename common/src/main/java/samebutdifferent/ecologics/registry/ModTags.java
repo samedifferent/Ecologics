@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import samebutdifferent.ecologics.Ecologics;
 
 public class ModTags {
@@ -14,6 +15,14 @@ public class ModTags {
 
         private static TagKey<Item> tag(String name) {
             return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Ecologics.MOD_ID, name));
+        }
+    }
+
+    public static class BlockTags {
+        public static final TagKey<Block> PENGUINS_SPAWNABLE_ON = tag("penguins_spawnable_on");
+
+        private static TagKey<Block> tag(String name) {
+            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Ecologics.MOD_ID, name));
         }
     }
 
