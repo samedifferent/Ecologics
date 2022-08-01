@@ -33,7 +33,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "ecologics:coconut_husk",
+          "Name": "ecologics:coconut_seedling",
           "Properties": {
             "stage": "0"
           }

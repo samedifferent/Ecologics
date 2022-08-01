@@ -2,6 +2,7 @@ package samebutdifferent.ecologics.forge;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -26,6 +28,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.MissingMappingsEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
@@ -121,6 +125,28 @@ public class EcologicsForge {
                 if (state.is(Blocks.FLOWERING_AZALEA_LEAVES)) {
                     FloweringAzaleaLogBlock.shearAzalea(level, player, pos, stack, hand, direction, Blocks.AZALEA_LEAVES.defaultBlockState());
                     player.swing(hand, true);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMissingBlockMappings(MissingMappingsEvent event) {
+        for (var mapping : event.getAllMappings(ForgeRegistries.BLOCKS.getRegistryKey())) {
+            if (mapping.getKey().equals(new ResourceLocation(Ecologics.MOD_ID, "coconut_husk"))) {
+                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "coconut_seedling");
+                if (ForgeRegistries.BLOCKS.containsKey(remapped)) {
+                    mapping.remap(ForgeRegistries.BLOCKS.getValue(remapped));
+                } else {
+                    mapping.warn();
+                }
+            }
+            if (mapping.getKey().equals(new ResourceLocation(Ecologics.MOD_ID, "potted_coconut_husk"))) {
+                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "potted_coconut_seedling");
+                if (ForgeRegistries.BLOCKS.containsKey(remapped)) {
+                    mapping.remap(ForgeRegistries.BLOCKS.getValue(remapped));
+                } else {
+                    mapping.warn();
                 }
             }
         }
