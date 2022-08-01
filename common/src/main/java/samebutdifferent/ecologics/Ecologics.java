@@ -66,8 +66,9 @@ public class Ecologics {
 
     public static void registerCompostables() {
         CommonPlatformHelper.registerCompostable(0.3F, ModItems.COCONUT_SLICE.get());
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_HUSK.get());
+        CommonPlatformHelper.registerCompostable(0.65F, ModItems.COCONUT_HUSK.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_LEAVES.get());
+        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_SEEDLING.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_LEAVES.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_SAPLING.get());
         CommonPlatformHelper.registerCompostable(0.65F, ModBlocks.AZALEA_FLOWER.get());

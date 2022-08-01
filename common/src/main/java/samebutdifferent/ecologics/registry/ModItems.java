@@ -17,6 +17,7 @@ public class ModItems {
     public static void init() {}
 
     public static final Supplier<Item> COCONUT_SLICE = CommonPlatformHelper.registerItem("coconut_slice", () -> new CoconutSliceItem(new Item.Properties().tab(Ecologics.TAB).food(Foods.SWEET_BERRIES)));
+    public static final Supplier<Item> COCONUT_HUSK = CommonPlatformHelper.registerItem("coconut_husk", () -> new Item(new Item.Properties().tab(Ecologics.TAB)));
     public static final Supplier<Item> CRAB_CLAW = CommonPlatformHelper.registerItem("crab_claw", () -> new ShearsItem(new Item.Properties().tab(Ecologics.TAB).durability(50)));
     public static final Supplier<Item> CRAB_MEAT = CommonPlatformHelper.registerItem("crab_meat", () -> new Item(new Item.Properties().tab(Ecologics.TAB).food(Foods.COOKED_RABBIT)));
     public static final Supplier<Item> TROPICAL_STEW = CommonPlatformHelper.registerItem("tropical_stew", () -> new CoconutSliceItem(new Item.Properties().stacksTo(1).tab(Ecologics.TAB).food(Foods.RABBIT_STEW)));
