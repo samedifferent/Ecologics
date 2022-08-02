@@ -23,7 +23,12 @@ import java.util.Random;
 
 public class PricklyPearBlock extends CropBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
-    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 14.0D, 3.0D, 14.0D);
+    protected static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
+            Block.box(4, 0, 4, 12, 5, 12),
+            Block.box(5, 0, 5, 11, 4, 11),
+            Block.box(5, 0, 5, 11, 7, 11),
+            Block.box(4, 0, 4, 12, 8, 12)
+    };
 
     public PricklyPearBlock() {
         super(Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.HONEY_BLOCK));
@@ -64,7 +69,7 @@ public class PricklyPearBlock extends CropBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return SHAPE;
+        return SHAPE_BY_AGE[pState.getValue(AGE)];
     }
 
     @Override
