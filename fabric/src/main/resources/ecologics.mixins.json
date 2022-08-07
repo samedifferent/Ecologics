@@ -6,7 +6,6 @@
   "mixins": [
     "BlockEntityTypeMixin",
     "CactusBlockMixin",
-    "LivingEntityMixin",
     "LootContextBuilderMixin",
     "PotionBrewingAccessor",
     "RecordItemAccessor",
