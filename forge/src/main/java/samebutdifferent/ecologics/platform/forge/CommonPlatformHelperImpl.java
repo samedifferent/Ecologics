@@ -134,6 +134,6 @@ public class CommonPlatformHelperImpl {
     }
 
     public static Supplier<RecordItem> registerRecordItem(String name, int comparatorValue, Supplier<SoundEvent> soundSupplier, Item.Properties properties) {
-        return ITEMS.register(name, () -> new RecordItem(comparatorValue, soundSupplier, properties));
+        return ITEMS.register(name, () -> new RecordItem(comparatorValue, soundSupplier, properties, 2160));
     }
 }
