@@ -10,20 +10,19 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.PushReaction;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
-public class ThinIceBlock extends HalfTransparentBlock {
+public class ThinIceBlock extends IceBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
     public ThinIceBlock() {
@@ -69,18 +68,18 @@ public class ThinIceBlock extends HalfTransparentBlock {
             return false;
         } else {
             pLevel.removeBlock(pPos, false);
+            Material material = pLevel.getBlockState(pPos.below()).getMaterial();
+            if (material.blocksMotion() || material.isLiquid()) {
+                pLevel.setBlockAndUpdate(pPos, Blocks.WATER.defaultBlockState());
+            }
             pLevel.playSound(null, pPos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
             return true;
         }
     }
 
     @Override
-    public PushReaction getPistonPushReaction(BlockState pState) {
-        return PushReaction.DESTROY;
-    }
-
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        super.createBlockStateDefinition(pBuilder);
         pBuilder.add(AGE);
     }
 }
