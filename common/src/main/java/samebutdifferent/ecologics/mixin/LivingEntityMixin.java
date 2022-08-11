@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import samebutdifferent.ecologics.registry.ModMobEffects;
 
@@ -17,9 +18,17 @@ public abstract class LivingEntityMixin extends Entity {
         super(pEntityType, pLevel);
     }
 
-    @ModifyVariable(method = "travel", at = @At(value = "STORE"), ordinal = 0)
+    @ModifyVariable(
+            method = "travel",
+            at = @At(value = "STORE"),
+            slice = @Slice(
+                    from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getBlockPosBelowThatAffectsMyMovement()Lnet/minecraft/core/BlockPos;"),
+                    to = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;handleRelativeFrictionAndCalculateMovement(Lnet/minecraft/world/phys/Vec3;F)Lnet/minecraft/world/phys/Vec3;")
+            ),
+            ordinal = 0
+    )
     private float modifyFriction(float f) {
-        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get())) {
+        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get()) && living.isOnGround()) {
             return 0.98F;
         }
         return f;
@@ -27,7 +36,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "getBlockSpeedFactor", at = @At("HEAD"), cancellable = true)
     private void onGetBlockSpeedFactor(CallbackInfoReturnable<Float> cir) {
-        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get())) {
+        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get()) && living.isOnGround()) {
             cir.setReturnValue(1.02F);
         }
     }
