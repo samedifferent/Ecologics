@@ -68,7 +68,7 @@ public class ThinIceBlock extends IceBlock {
             return false;
         } else {
             pLevel.removeBlock(pPos, false);
-            if (pLevel.dimensionType().ultraWarm()) {
+            if (!pLevel.dimensionType().ultraWarm()) {
                 Material material = pLevel.getBlockState(pPos.below()).getMaterial();
                 if (material.blocksMotion() || material.isLiquid()) {
                     pLevel.setBlockAndUpdate(pPos, Blocks.WATER.defaultBlockState());
