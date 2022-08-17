@@ -68,9 +68,11 @@ public class ThinIceBlock extends IceBlock {
             return false;
         } else {
             pLevel.removeBlock(pPos, false);
-            Material material = pLevel.getBlockState(pPos.below()).getMaterial();
-            if (material.blocksMotion() || material.isLiquid()) {
-                pLevel.setBlockAndUpdate(pPos, Blocks.WATER.defaultBlockState());
+            if (pLevel.dimensionType().ultraWarm()) {
+                Material material = pLevel.getBlockState(pPos.below()).getMaterial();
+                if (material.blocksMotion() || material.isLiquid()) {
+                    pLevel.setBlockAndUpdate(pPos, Blocks.WATER.defaultBlockState());
+                }
             }
             pLevel.playSound(null, pPos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
             return true;
