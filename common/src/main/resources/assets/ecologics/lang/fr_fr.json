@@ -83,7 +83,7 @@
   "block.ecologics.flowering_azalea_sign": "Flowering Azalea Sign",
   "block.ecologics.flowering_azalea_wall_sign": "Flowering Azalea Wall Sign",
   "block.ecologics.potted_walnut_sapling": "Potted Walnut Sapling",
-  "block.ecologics.potted_coconut_husk": "Potted Coconut Husk",
+  "block.ecologics.potted_coconut_seedling": "Potted Coconut Husk",
   "block.ecologics.potted_azalea_flower": "Potted Azalea Flower",
   "death.attack.coconut": "%1$s s’est fait assommer par une noix de coco",
   "death.attack.coconut.player": "%1$s s’est fait assommer par une noix de coco alors qu'il combattait %2$s",

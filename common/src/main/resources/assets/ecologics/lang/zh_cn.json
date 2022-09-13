@@ -83,7 +83,7 @@
   "block.ecologics.flowering_azalea_sign": "盛开的杜鹃木告示牌",
   "block.ecologics.flowering_azalea_wall_sign": "墙上的盛开的杜鹃木告示牌",
   "block.ecologics.potted_walnut_sapling": "核桃树苗盆栽",
-  "block.ecologics.potted_coconut_husk": "椰子盆栽",
+  "block.ecologics.potted_coconut_seedling": "椰子盆栽",
   "block.ecologics.potted_azalea_flower": "杜鹃花盆栽",
   "death.attack.coconut": "%1$s 被椰子砸到了",
   "death.attack.coconut.player": "%1$s 在和 %2$s 战斗时被掉落的椰子砸到了",

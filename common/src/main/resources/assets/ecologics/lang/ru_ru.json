@@ -83,7 +83,7 @@
   "block.ecologics.flowering_azalea_sign": "Цветущая азалиевая табличка",
   "block.ecologics.flowering_azalea_wall_sign": "Цветущая азалиевая вывеска",
   "block.ecologics.potted_walnut_sapling": "Посаженный саженец орехового дерева",
-  "block.ecologics.potted_coconut_husk": "Посаженная кокосовая шелуха",
+  "block.ecologics.potted_coconut_seedling": "Посаженная кокосовая шелуха",
   "block.ecologics.potted_azalea_flower": "Посаженный азалиевая цветок",
   "death.attack.coconut": "%1$s попал под упавший кокос",
   "death.attack.coconut.player": "%1$s попал под упавший кокос, пока сражался с %2$s",
