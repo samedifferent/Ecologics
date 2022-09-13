@@ -22,7 +22,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "ecologics:coconut_husk"
+          "name": "ecologics:coconut_seedling"
         }
       ],
       "conditions": [

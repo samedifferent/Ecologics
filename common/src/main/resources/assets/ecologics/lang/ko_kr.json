@@ -83,7 +83,7 @@
   "block.ecologics.flowering_azalea_sign": "꽃 핀 철쭉 나무 표지판",
   "block.ecologics.flowering_azalea_wall_sign": "꽃 핀 철쭉 나무 벽 표지판",
   "block.ecologics.potted_walnut_sapling": "호두 나무 묘목을 심은 화분",
-  "block.ecologics.potted_coconut_husk": "코코넛 나무 묘목을 심은 화분",
+  "block.ecologics.potted_coconut_seedling": "코코넛 나무 묘목을 심은 화분",
   "block.ecologics.potted_azalea_flower": "철쭉 꽃을 심은 화분",
   "death.attack.coconut": "%1$s이(가) 떨어지는 코코넛에 머리를 부딪혔습니다",
   "death.attack.coconut.player": "%1$이(가) %2$s과(와) 싸우다가 코코넛에 머리를 부딪혔습니다",
