@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -67,5 +68,15 @@ public class MossLayerBlock extends SnowLayerBlock {
     @Override
     public void randomTick(BlockState p_56615_, ServerLevel p_56616_, BlockPos p_56617_, RandomSource p_56618_) {
 
+    }
+
+    @Override
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
+        int layers = state.getValue(LAYERS);
+        if (useContext.getItemInHand().is(this.asItem()) && layers < 8) {
+            return useContext.getClickedFace() == Direction.UP;
+        } else {
+            return layers == 1;
+        }
     }
 }
