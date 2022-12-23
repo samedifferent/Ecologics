@@ -57,13 +57,13 @@ public class SandcastleBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        this.destroySandcastle(pLevel, pState, pPos, pEntity, 50);
+    public void stepOn(Level pLevel, BlockPos pPos, Entity pEntity) {
+        this.destroySandcastle(pLevel, pLevel.getBlockState(pPos), pPos, pEntity, 50);
     }
 
     @Override
-    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
-        this.destroySandcastle(pLevel, pState, pPos, pEntity, 3);
+    public void fallOn(Level pLevel, BlockPos pPos, Entity pEntity, float pFallDistance) {
+        this.destroySandcastle(pLevel, pLevel.getBlockState(pPos), pPos, pEntity, 3);
     }
 
     private void destroySandcastle(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, int chance) {

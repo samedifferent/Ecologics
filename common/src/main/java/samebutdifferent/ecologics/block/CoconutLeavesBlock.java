@@ -50,7 +50,7 @@ public class CoconutLeavesBlock extends LeavesBlock {
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         int i = getDistanceAt(pFacingState) + 1;
         if (i != 1 || pState.getValue(DISTANCE_9) != i) {
-            pLevel.scheduleTick(pCurrentPos, this, 1);
+            pLevel.getBlockTicks().scheduleTick(pCurrentPos, this, 1);
         }
 
         return pState;

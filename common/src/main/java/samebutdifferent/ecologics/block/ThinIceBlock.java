@@ -31,8 +31,8 @@ public class ThinIceBlock extends IceBlock {
     }
 
     @Override
-    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
-        if (pEntity instanceof Player player && EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, player) == 0) {
+    public void fallOn(Level pLevel, BlockPos pPos, Entity pEntity, float pFallDistance) {
+        if (pEntity instanceof Player && EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, (Player) pEntity) == 0) {
             pLevel.playSound(null, pPos, ModSoundEvents.THIN_ICE_CRACK.get(), SoundSource.BLOCKS, 0.7F, 0.9F + pLevel.random.nextFloat() * 0.2F);
             replaceIfThinIce(pPos, 3, pLevel);
             replaceIfThinIce(pPos.north(), 2, pLevel);
@@ -54,7 +54,8 @@ public class ThinIceBlock extends IceBlock {
     }
 
     @Override
-    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
+    public void stepOn(Level pLevel, BlockPos pPos, Entity pEntity) {
+        BlockState pState = pLevel.getBlockState(pPos);
         if (pEntity instanceof Player && pState.getValue(AGE) > 0) {
             this.crack(pState, pLevel, pPos);
         }

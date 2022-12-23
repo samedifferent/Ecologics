@@ -8,8 +8,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.IntRange;
 import net.minecraft.util.TimeUtil;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -33,7 +33,7 @@ import java.util.function.Predicate;
 
 public class CoconutCrab extends Animal implements NeutralMob {
     private static final EntityDataAccessor<Boolean> HAS_COCONUT = SynchedEntityData.defineId(CoconutCrab.class, EntityDataSerializers.BOOLEAN);
-    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private static final IntRange PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private int remainingPersistentAngerTime;
     @Nullable private UUID persistentAngerTarget;
 
@@ -43,7 +43,7 @@ public class CoconutCrab extends Animal implements NeutralMob {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pMob) {
+    public AgableMob getBreedOffspring(ServerLevel serverLevel, AgableMob mate) {
         return null;
     }
 
@@ -107,7 +107,7 @@ public class CoconutCrab extends Animal implements NeutralMob {
     }
 
     @Override
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+    public boolean causeFallDamage(float pFallDistance, float pMultiplier) {
         return false;
     }
 
@@ -194,7 +194,7 @@ public class CoconutCrab extends Animal implements NeutralMob {
 
     @Override
     public void startPersistentAngerTimer() {
-        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.randomValue(this.random));
     }
 
     static class CrabMeleeAttackGoal extends MeleeAttackGoal {

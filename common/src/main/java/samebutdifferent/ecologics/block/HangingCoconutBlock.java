@@ -6,7 +6,6 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -65,8 +64,8 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
         if (pRandom.nextInt(3) == 0) {
             if (age < 2) {
                 pLevel.setBlock(pPos, pState.setValue(AGE, age + 1), 2);
-            } else if (pPos.getY() >= pLevel.getMinBuildHeight() && isFree(pLevel.getBlockState(pPos.below()))){
-                FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(pLevel, pPos, pLevel.getBlockState(pPos));
+            } else if (pPos.getY() > 0 && isFree(pLevel.getBlockState(pPos.below()))){
+                FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), pLevel.getBlockState(pPos));
                 this.falling(fallingblockentity);
                 pLevel.addFreshEntity(fallingblockentity);
                 pLevel.removeBlock(pPos, false);
@@ -111,12 +110,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     protected void falling(FallingBlockEntity pEntity) {
-        pEntity.setHurtsEntities(2.0F, 40);
-    }
-
-    @Override
-    public DamageSource getFallDamageSource() {
-        return new DamageSource("coconut");
+        pEntity.setHurtsEntities(true);
     }
 
     @Override
@@ -138,8 +132,8 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRand) {
-        if ((pLevel.isEmptyBlock(pPos.above()) && pPos.getY() >= pLevel.getMinBuildHeight() && isFree(pLevel.getBlockState(pPos.below())))) {
-            FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(pLevel, pPos, pLevel.getBlockState(pPos));
+        if ((pLevel.isEmptyBlock(pPos.above()) && pPos.getY() > 0 && isFree(pLevel.getBlockState(pPos.below())))) {
+            FallingBlockEntity fallingblockentity = new FallingBlockEntity(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), pLevel.getBlockState(pPos));
             this.falling(fallingblockentity);
             pLevel.addFreshEntity(fallingblockentity);
             pLevel.removeBlock(pPos, false);
@@ -147,7 +141,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     }
 
     @Override
-    public void onBrokenAfterFall(Level pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
+    public void onBroken(Level pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
         pLevel.playSound(null, pPos, ModSoundEvents.COCONUT_SMASH.get(), SoundSource.BLOCKS, 0.7f, 0.9f + pLevel.getRandom().nextFloat() * 0.2f);
         if (pLevel.random.nextFloat() <= ConfigPlatformHelper.coconutCrabSpawnChance()) {
             CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.get().create(pLevel);

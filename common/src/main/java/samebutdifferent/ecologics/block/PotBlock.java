@@ -69,10 +69,10 @@ public class PotBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof PotBlockEntity potBlockEntity) {
+        if (blockEntity instanceof PotBlockEntity) {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
             if (!itemstack.isEmpty()) {
-                if (!pLevel.isClientSide && potBlockEntity.addItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack)) {
+                if (!pLevel.isClientSide && ((PotBlockEntity) blockEntity).addItem(pPlayer.isCreative() ? itemstack.copy() : itemstack)) {
                     pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_PLACE, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F);
                     return InteractionResult.SUCCESS;
                 }
@@ -84,7 +84,7 @@ public class PotBlock extends BaseEntityBlock {
 
     public static void signalItemAdded(Level pLevel, BlockPos pPos, BlockState pState) {
         changePowered(pLevel, pPos, pState, true);
-        pLevel.scheduleTick(pPos, pState.getBlock(), 2);
+        pLevel.getBlockTicks().scheduleTick(pPos, pState.getBlock(), 2);
     }
 
     private static void changePowered(Level pLevel, BlockPos pPos, BlockState pState, boolean pPowered) {
@@ -110,8 +110,8 @@ public class PotBlock extends BaseEntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof PotBlockEntity potBlockEntity) {
-                for(ItemStack stack : potBlockEntity.getItems()) {
+            if (blockEntity instanceof PotBlockEntity) {
+                for(ItemStack stack : ((PotBlockEntity) blockEntity).getItems()) {
                     Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), stack);
                 }
             }
@@ -147,8 +147,8 @@ public class PotBlock extends BaseEntityBlock {
     @Override
     public int getAnalogOutputSignal(BlockState pBlockState, Level pLevel, BlockPos pPos) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof PotBlockEntity pot) {
-            return pot.getRedstoneSignal();
+        if (blockEntity instanceof PotBlockEntity) {
+            return ((PotBlockEntity) blockEntity).getRedstoneSignal();
         }
 
         return 0;
@@ -161,8 +161,8 @@ public class PotBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new PotBlockEntity(pPos, pState);
+    public BlockEntity newBlockEntity(BlockGetter blockGetter) {
+        return new PotBlockEntity();
     }
 
     @Override
