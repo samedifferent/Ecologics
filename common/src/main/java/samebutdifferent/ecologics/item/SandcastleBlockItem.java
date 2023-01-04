@@ -18,7 +18,7 @@ import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class SandcastleBlockItem extends BlockItem {
     public SandcastleBlockItem() {
-        super(ModBlocks.SANDCASTLE.get(), new Properties().tab(Ecologics.TAB).stacksTo(1));
+        super(ModBlocks.SANDCASTLE.get(), new Properties().stacksTo(1));
     }
 
     @Override

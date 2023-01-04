@@ -1,9 +1,12 @@
 package samebutdifferent.ecologics.client.forge;
 
 import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,10 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.EcologicsClient;
-import samebutdifferent.ecologics.client.model.CamelModel;
-import samebutdifferent.ecologics.client.model.CoconutCrabModel;
-import samebutdifferent.ecologics.client.model.PenguinModel;
-import samebutdifferent.ecologics.client.model.SquirrelModel;
+import samebutdifferent.ecologics.client.model.*;
 import samebutdifferent.ecologics.entity.ModBoat;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
@@ -52,8 +52,8 @@ public class EcologicsForgeClient {
         event.registerLayerDefinition(SquirrelModel.LAYER_LOCATION, SquirrelModel::createBodyLayer);
         event.registerLayerDefinition(PenguinModel.LAYER_LOCATION, PenguinModel::createBodyLayer);
         for (ModBoat.Type type : ModBoat.Type.values()) {
-            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
-            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));
+            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
+            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), ChestBoatModel::createBodyModel);
         }
     }
 }

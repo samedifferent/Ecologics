@@ -2,13 +2,15 @@ package samebutdifferent.ecologics.fabric;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
@@ -31,17 +34,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import samebutdifferent.ecologics.Ecologics;
-import net.fabricmc.api.ModInitializer;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.fabric.ModConfigFabric;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class EcologicsFabric implements ModInitializer {
+    private static final CreativeModeTab TAB = FabricItemGroup.builder(new ResourceLocation(Ecologics.MOD_ID, "tab"))
+            .icon(() -> new ItemStack(ModBlocks.COCONUT_LOG.get())).build();
+
     @Override
     public void onInitialize() {
         AutoConfig.register(ModConfigFabric.class, GsonConfigSerializer::new);
@@ -52,6 +59,110 @@ public class EcologicsFabric implements ModInitializer {
         replaceFeatures();
         addSpawns();
         Ecologics.commonSetup();
+        registerCreativeTab();
+    }
+
+    private void registerCreativeTab() {
+        ItemGroupEvents.modifyEntriesEvent(TAB).register(content -> content.acceptAll(Stream.of(
+                ModBlocks.COCONUT_LOG,
+                ModBlocks.STRIPPED_COCONUT_LOG,
+                ModBlocks.COCONUT_WOOD,
+                ModBlocks.STRIPPED_COCONUT_WOOD,
+                ModBlocks.COCONUT_LEAVES,
+                ModBlocks.COCONUT_PLANKS,
+                ModBlocks.COCONUT_SLAB,
+                ModBlocks.COCONUT_STAIRS,
+                ModBlocks.COCONUT_FENCE,
+                ModBlocks.COCONUT_FENCE_GATE,
+                ModBlocks.COCONUT_DOOR,
+                ModBlocks.COCONUT_TRAPDOOR,
+                ModBlocks.COCONUT_BUTTON,
+                ModBlocks.COCONUT_PRESSURE_PLATE,
+                ModBlocks.COCONUT,
+                ModBlocks.COCONUT_SEEDLING,
+                ModBlocks.SEASHELL,
+                ModBlocks.SEASHELL_BLOCK,
+                ModBlocks.SEASHELL_TILES,
+                ModBlocks.SEASHELL_TILE_STAIRS,
+                ModBlocks.SEASHELL_TILE_SLAB,
+                ModBlocks.SEASHELL_TILE_WALL,
+                ModBlocks.POT,
+                ModBlocks.THIN_ICE,
+                ModBlocks.ICE_BRICKS,
+                ModBlocks.ICE_BRICK_STAIRS,
+                ModBlocks.ICE_BRICK_SLAB,
+                ModBlocks.ICE_BRICK_WALL,
+                ModBlocks.SNOW_BRICKS,
+                ModBlocks.SNOW_BRICK_STAIRS,
+                ModBlocks.SNOW_BRICK_SLAB,
+                ModBlocks.SNOW_BRICK_WALL,
+                ModBlocks.WALNUT_LOG,
+                ModBlocks.STRIPPED_WALNUT_LOG,
+                ModBlocks.WALNUT_WOOD,
+                ModBlocks.STRIPPED_WALNUT_WOOD,
+                ModBlocks.WALNUT_LEAVES,
+                ModBlocks.WALNUT_PLANKS,
+                ModBlocks.WALNUT_SLAB,
+                ModBlocks.WALNUT_STAIRS,
+                ModBlocks.WALNUT_FENCE,
+                ModBlocks.WALNUT_FENCE_GATE,
+                ModBlocks.WALNUT_DOOR,
+                ModBlocks.WALNUT_TRAPDOOR,
+                ModBlocks.WALNUT_BUTTON,
+                ModBlocks.WALNUT_PRESSURE_PLATE,
+                ModBlocks.WALNUT_SAPLING,
+                ModBlocks.AZALEA_LOG,
+                ModBlocks.FLOWERING_AZALEA_LOG,
+                ModBlocks.STRIPPED_AZALEA_LOG,
+                ModBlocks.AZALEA_WOOD,
+                ModBlocks.FLOWERING_AZALEA_WOOD,
+                ModBlocks.STRIPPED_AZALEA_WOOD,
+                ModBlocks.AZALEA_PLANKS,
+                ModBlocks.FLOWERING_AZALEA_PLANKS,
+                ModBlocks.AZALEA_SLAB,
+                ModBlocks.FLOWERING_AZALEA_SLAB,
+                ModBlocks.AZALEA_STAIRS,
+                ModBlocks.FLOWERING_AZALEA_STAIRS,
+                ModBlocks.AZALEA_FENCE,
+                ModBlocks.FLOWERING_AZALEA_FENCE,
+                ModBlocks.AZALEA_FENCE_GATE,
+                ModBlocks.FLOWERING_AZALEA_FENCE_GATE,
+                ModBlocks.AZALEA_DOOR,
+                ModBlocks.FLOWERING_AZALEA_DOOR,
+                ModBlocks.AZALEA_TRAPDOOR,
+                ModBlocks.FLOWERING_AZALEA_TRAPDOOR,
+                ModBlocks.AZALEA_BUTTON,
+                ModBlocks.AZALEA_PRESSURE_PLATE,
+                ModBlocks.AZALEA_FLOWER,
+                ModBlocks.SURFACE_MOSS,
+                ModItems.COCONUT_SLICE,
+                ModItems.COCONUT_HUSK,
+                ModItems.CRAB_CLAW,
+                ModItems.CRAB_MEAT,
+                ModItems.TROPICAL_STEW,
+                ModItems.COCONUT_CRAB_SPAWN_EGG,
+                ModItems.CAMEL_SPAWN_EGG,
+                ModItems.PENGUIN_SPAWN_EGG,
+                ModItems.SQUIRREL_SPAWN_EGG,
+                ModItems.SANDCASTLE,
+                ModItems.MUSIC_DISC_COCONUT,
+                ModItems.COCONUT_SIGN,
+                ModItems.PRICKLY_PEAR,
+                ModItems.COOKED_PRICKLY_PEAR,
+                ModItems.PENGUIN_FEATHER,
+                ModItems.WALNUT_SIGN,
+                ModItems.WALNUT,
+                ModItems.AZALEA_SIGN,
+                ModItems.FLOWERING_AZALEA_SIGN,
+                ModItems.COCONUT_BOAT,
+                ModItems.WALNUT_BOAT,
+                ModItems.AZALEA_BOAT,
+                ModItems.FLOWERING_AZALEA_BOAT,
+                ModItems.COCONUT_CHEST_BOAT,
+                ModItems.WALNUT_CHEST_BOAT,
+                ModItems.AZALEA_CHEST_BOAT,
+                ModItems.FLOWERING_AZALEA_CHEST_BOAT
+        ).map(item -> item.get().asItem().getDefaultInstance()).toList()));
     }
 
     public void registerEntityAttributes() {
@@ -136,17 +247,17 @@ public class EcologicsFabric implements ModInitializer {
         ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
         BiomeModifications.create(new ResourceLocation(Ecologics.MOD_ID, "remove_azalea_trees")).add(ModificationPhase.REPLACEMENTS, biomeSelectionContext -> (biomeSelectionContext.getBiomeKey().equals(Biomes.LUSH_CAVES)), (c) -> {
             if (config.lushCaves.replaceAzaleaTree) {
-                c.getGenerationSettings().removeBuiltInFeature(CavePlacements.ROOTED_AZALEA_TREE.value());
+                c.getGenerationSettings().removeFeature(CavePlacements.ROOTED_AZALEA_TREE);
                 c.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("rooted_azalea_tree"));
             }
             if (config.lushCaves.generateSurfaceMoss) {
-                c.getGenerationSettings().removeBuiltInFeature(CavePlacements.CLASSIC_VINES.value());
+                c.getGenerationSettings().removeFeature(CavePlacements.CLASSIC_VINES);
                 c.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("surface_moss_patch"));
             }
         });
         BiomeModifications.create(new ResourceLocation(Ecologics.MOD_ID, "remove_oak_trees")).add(ModificationPhase.REPLACEMENTS, biomeSelectionContext -> (biomeSelectionContext.getBiomeKey().equals(Biomes.PLAINS)), (c) -> {
             if (config.plains.generateWalnutTrees) {
-                c.getGenerationSettings().removeBuiltInFeature(VegetationPlacements.TREES_PLAINS.value());
+                c.getGenerationSettings().removeFeature(VegetationPlacements.TREES_PLAINS);
                 c.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("trees_walnut"));
             }
         });
@@ -187,6 +298,6 @@ public class EcologicsFabric implements ModInitializer {
     }
 
     private ResourceKey<PlacedFeature> getPlacedFeatureKey(String key) {
-        return ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Ecologics.MOD_ID, key));
+        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Ecologics.MOD_ID, key));
     }
 }

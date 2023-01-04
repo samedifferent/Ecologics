@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[42,)"
+loaderVersion = "[44,)"
 license = "MIT"
 issueTrackerURL = "https://github.com/samedifferent/Ecologics/issues"
 
@@ -17,13 +17,13 @@ Simple vanilla biome updates, with fun mobs, blocks, and more!
 [[dependencies.ecologics]]
 modId = "forge"
 mandatory = true
-versionRange = "[42,)"
+versionRange = "[44,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ecologics]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.1,1.20)"
+versionRange = "[1.19.3,1.20)"
 ordering = "NONE"
 side = "BOTH"

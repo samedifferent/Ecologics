@@ -28,7 +28,6 @@ import java.util.Map;
 public class Ecologics {
     public static final String MOD_ID = "ecologics";
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final CreativeModeTab TAB = CommonPlatformHelper.registerCreativeModeTab(new ResourceLocation(MOD_ID, "tab"), () -> new ItemStack(ModBlocks.COCONUT_LOG.get()));
 
     public static void init() {
         ModBlocks.init();

@@ -12,7 +12,7 @@ import samebutdifferent.ecologics.Ecologics;
 
 public class PricklyPearItem extends Item {
     public PricklyPearItem() {
-        super(new Properties().tab(Ecologics.TAB).food(Foods.APPLE));
+        super(new Properties().food(Foods.APPLE));
     }
 
     @Override

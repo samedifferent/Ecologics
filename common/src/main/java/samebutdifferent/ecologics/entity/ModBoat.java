@@ -2,6 +2,7 @@ package samebutdifferent.ecologics.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -66,15 +67,15 @@ public class ModBoat extends Boat {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
     }
 
     public enum Type {
-        COCONUT("coconut", () -> ModItems.COCONUT_BOAT.get(), () -> ModItems.COCONUT_CHEST_BOAT.get()),
-        WALNUT("walnut", () -> ModItems.WALNUT_BOAT.get(), () -> ModItems.WALNUT_CHEST_BOAT.get()),
-        AZALEA("azalea", () -> ModItems.AZALEA_BOAT.get(), () -> ModItems.AZALEA_CHEST_BOAT.get()),
-        FLOWERING_AZALEA("flowering_azalea", () -> ModItems.FLOWERING_AZALEA_BOAT.get(), () -> ModItems.FLOWERING_AZALEA_CHEST_BOAT.get());
+        COCONUT("coconut", ModItems.COCONUT_BOAT, ModItems.COCONUT_CHEST_BOAT),
+        WALNUT("walnut", ModItems.WALNUT_BOAT, ModItems.WALNUT_CHEST_BOAT),
+        AZALEA("azalea", ModItems.AZALEA_BOAT, ModItems.AZALEA_CHEST_BOAT),
+        FLOWERING_AZALEA("flowering_azalea", ModItems.FLOWERING_AZALEA_BOAT, ModItems.FLOWERING_AZALEA_CHEST_BOAT);
 
         private final String name;
         private final Supplier<Item> item;

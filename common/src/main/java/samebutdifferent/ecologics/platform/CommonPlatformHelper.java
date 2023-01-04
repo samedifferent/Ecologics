@@ -56,11 +56,6 @@ public class CommonPlatformHelper {
     }
 
     @ExpectPlatform
-    public static CreativeModeTab registerCreativeModeTab(ResourceLocation name, Supplier<ItemStack> icon) {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
     public static <T extends BlockEntityType<E>, E extends BlockEntity> Supplier<T> registerBlockEntityType(String name, Supplier<T> blockEntity) {
         throw new AssertionError();
     }

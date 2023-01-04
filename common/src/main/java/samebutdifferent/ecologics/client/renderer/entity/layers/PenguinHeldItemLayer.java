@@ -1,7 +1,7 @@
 package samebutdifferent.ecologics.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -28,8 +28,8 @@ public class PenguinHeldItemLayer extends RenderLayer<Penguin, PenguinModel> {
         matrixStack.pushPose();
         this.getParentModel().head.translateAndRotate(matrixStack);
         matrixStack.translate(0.1f, -0.05f, -0.2f);
-        matrixStack.mulPose(Vector3f.XP.rotationDegrees(90f));
-        matrixStack.mulPose(Vector3f.ZP.rotationDegrees(135f));
+        matrixStack.mulPose(Axis.XP.rotationDegrees(90f));
+        matrixStack.mulPose(Axis.ZP.rotationDegrees(135f));
         ItemStack itemStack = livingEntity.getItemBySlot(EquipmentSlot.MAINHAND);
         this.itemInHandRenderer.renderItem(livingEntity, itemStack, ItemTransforms.TransformType.GROUND, false, matrixStack, buffer, packedLight);
         matrixStack.popPose();

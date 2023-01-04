@@ -38,6 +38,6 @@
   "accessWidener": "ecologics.accesswidener",
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.19.1"
+    "minecraft": ">=1.19.3"
   }
 }
