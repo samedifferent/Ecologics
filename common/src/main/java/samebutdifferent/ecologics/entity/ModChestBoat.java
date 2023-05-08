@@ -21,9 +21,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
-
-import javax.annotation.Nullable;
 
 public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, ContainerEntity {
     private static final int CONTAINER_SIZE = 27;

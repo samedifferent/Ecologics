@@ -1,6 +1,5 @@
-plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
-}
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "com.modrinth.minotaur"
 
 archivesBaseName = "${rootProject.archives_base_name}-${project.name}"
 
@@ -45,17 +44,17 @@ shadowJar {
     exclude "fabric.mod.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier = "dev-shadow"
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
+    archiveClassifier = null
 }
 
 jar {
-    classifier "dev"
+    archiveClassifier = "dev"
 }
 
 sourcesJar {
@@ -82,4 +81,12 @@ publishing {
     repositories {
         // Add repositories to publish to here.
     }
+}
+
+modrinth {
+    projectId = 'ecologics'
+    uploadFile = remapJar
+    versionNumber = mod_version
+    versionName = "Ecologics $mod_version (${name.substring(0, 1).toUpperCase()}${name.substring(1)} $minecraft_version)"
+    changelog = rootProject.file("CHANGELOG.md").text
 }

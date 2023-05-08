@@ -20,8 +20,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
     public static final IntegerProperty LAYERS = IntegerProperty.create("layers", 1, 3);
