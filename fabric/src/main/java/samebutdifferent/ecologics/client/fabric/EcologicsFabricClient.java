@@ -7,6 +7,8 @@ import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.FoliageColor;
 import samebutdifferent.ecologics.Ecologics;
@@ -16,6 +18,7 @@ import samebutdifferent.ecologics.client.model.CoconutCrabModel;
 import samebutdifferent.ecologics.client.model.PenguinModel;
 import samebutdifferent.ecologics.client.model.SquirrelModel;
 import samebutdifferent.ecologics.entity.ModBoat;
+import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class EcologicsFabricClient implements ClientModInitializer {
@@ -36,5 +39,6 @@ public class EcologicsFabricClient implements ClientModInitializer {
 
         ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES.get());
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES.get());
+        BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_SIGN.get(), HangingSignRenderer::new);
     }
 }

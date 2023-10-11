@@ -41,6 +41,6 @@ public class ClientPlatformHelperImpl {
     }
 
     public static void addWoodType(WoodType woodType) {
-        Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID, "entity/signs/" + woodType.name())));
+        //Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID, "entity/signs/" + woodType.name())));
     }
 }
