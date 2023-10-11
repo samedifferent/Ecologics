@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
@@ -26,7 +25,7 @@ public class ThinIceBlock extends IceBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
     public ThinIceBlock() {
-        super(Properties.of(Material.ICE).friction(0.98F).strength(0.5F).sound(SoundType.GLASS).noOcclusion().isValidSpawn((state, blockGetter, pos, entityType) -> entityType.equals(EntityType.POLAR_BEAR) || entityType.equals(ModEntityTypes.PENGUIN.get())));
+        super(Properties.of().friction(0.98F).strength(0.5F).sound(SoundType.GLASS).noOcclusion().isValidSpawn((state, blockGetter, pos, entityType) -> entityType.equals(EntityType.POLAR_BEAR) || entityType.equals(ModEntityTypes.PENGUIN.get())));
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
     }
 
@@ -69,8 +68,9 @@ public class ThinIceBlock extends IceBlock {
         } else {
             pLevel.removeBlock(pPos, false);
             if (!pLevel.dimensionType().ultraWarm()) {
-                Material material = pLevel.getBlockState(pPos.below()).getMaterial();
-                if (material.blocksMotion() || material.isLiquid()) {
+            	//TODO: Replace this check.
+                //Material material = pLevel.getBlockState(pPos.below()).getMaterial();
+                if (pState.blocksMotion() || pState.liquid()) {
                     pLevel.setBlockAndUpdate(pPos, Blocks.WATER.defaultBlockState());
                 }
             }

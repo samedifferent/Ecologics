@@ -28,7 +28,7 @@ public abstract class LivingEntityMixin extends Entity {
             ordinal = 0
     )
     private float modifyFriction(float f) {
-        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get()) && living.isOnGround()) {
+        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get()) && living.onGround()) {
             return 0.98F;
         }
         return f;
@@ -36,7 +36,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "getBlockSpeedFactor", at = @At("HEAD"), cancellable = true)
     private void onGetBlockSpeedFactor(CallbackInfoReturnable<Float> cir) {
-        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get()) && living.isOnGround()) {
+        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY.get()) && living.onGround()) {
             cir.setReturnValue(1.02F);
         }
     }

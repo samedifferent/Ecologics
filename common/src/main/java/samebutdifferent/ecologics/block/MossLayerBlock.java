@@ -18,22 +18,19 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
-
-import java.util.Random;
 
 public class MossLayerBlock extends SnowLayerBlock {
     public MossLayerBlock() {
-        super(Properties.of(Material.PLANT, MaterialColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET));
+        super(Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET));
         this.registerDefaultState(this.getStateDefinition().any().setValue(LAYERS, 2));
     }
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack item = pPlayer.getItemInHand(pHand);
-        if ((pState.getValue(LAYERS) < 8) && item.sameItem(Blocks.MOSS_CARPET.asItem().getDefaultInstance()) && (pPlayer.getFeetBlockState() != pState)) {
+        if ((pState.getValue(LAYERS) < 8) && ItemStack.isSameItem(Blocks.MOSS_CARPET.asItem().getDefaultInstance(), item) && (pPlayer.getFeetBlockState() != pState)) {
             if (pState.is(this) && !pLevel.isClientSide()) {
                 if (pState.getValue(LAYERS) < 7) {
                     pLevel.setBlockAndUpdate(pPos, this.defaultBlockState().setValue(LAYERS, pState.getValue(LAYERS) + 1));

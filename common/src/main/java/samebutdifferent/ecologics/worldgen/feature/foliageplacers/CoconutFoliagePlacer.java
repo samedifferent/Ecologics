@@ -8,16 +8,11 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
-
-import java.util.Random;
-import java.util.function.BiConsumer;
 
 public class CoconutFoliagePlacer extends FoliagePlacer {
     public static final Codec<CoconutFoliagePlacer> CODEC = RecordCodecBuilder.create((placer) -> foliagePlacerParts(placer).apply(placer, CoconutFoliagePlacer::new));
@@ -32,7 +27,7 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, RandomSource pRandom, TreeConfiguration pConfig, int pMaxFreeTreeHeight, FoliageAttachment pAttachment, int pFoliageHeight, int pFoliageRadius, int pOffset) {
+    protected void createFoliage(LevelSimulatedReader pLevel, FoliageSetter pBlockSetter, RandomSource pRandom, TreeConfiguration pConfig, int pMaxFreeTreeHeight, FoliageAttachment pAttachment, int pFoliageHeight, int pFoliageRadius, int pOffset) {
         BlockPos startingPos = pAttachment.pos();
 
         tryPlaceLeaf(pLevel, pBlockSetter, pRandom, pConfig, startingPos);
@@ -53,7 +48,7 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
         return false;
     }
 
-    private static void createQuadrant(Direction direction, BlockPos startingPos, LevelSimulatedReader pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, RandomSource pRandom, TreeConfiguration pConfig) {
+    private static void createQuadrant(Direction direction, BlockPos startingPos, LevelSimulatedReader pLevel, FoliageSetter pBlockSetter, RandomSource pRandom, TreeConfiguration pConfig) {
         BlockPos.MutableBlockPos pos = startingPos.mutable();
         
         pos.move(direction);
@@ -61,12 +56,12 @@ public class CoconutFoliagePlacer extends FoliagePlacer {
 
         if (pRandom.nextInt(2) == 0) {
             if (pLevel.isStateAtPosition(pos.below(), BlockBehaviour.BlockStateBase::isAir)) {
-                pBlockSetter.accept(pos.below(), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
+                pBlockSetter.set(pos.below(), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
             }
         }
         if (pRandom.nextInt(2) == 0) {
             if (pLevel.isStateAtPosition(pos.below().relative(direction.getCounterClockWise()), BlockBehaviour.BlockStateBase::isAir)) {
-                pBlockSetter.accept(pos.below().relative(direction.getCounterClockWise()), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
+                pBlockSetter.set(pos.below().relative(direction.getCounterClockWise()), ModBlocks.HANGING_COCONUT.get().defaultBlockState());
             }
         }
 

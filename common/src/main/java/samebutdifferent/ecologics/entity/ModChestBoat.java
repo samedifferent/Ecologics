@@ -1,5 +1,7 @@
 package samebutdifferent.ecologics.entity;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -22,8 +24,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
-
-import javax.annotation.Nullable;
 
 public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, ContainerEntity {
     private static final int CONTAINER_SIZE = 27;
@@ -69,13 +69,13 @@ public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, C
     @Override
     public void destroy(DamageSource source) {
         super.destroy(source);
-        this.chestVehicleDestroyed(source, this.level, this);
+        this.chestVehicleDestroyed(source, this.level(), this);
     }
 
     @Override
     public void remove(RemovalReason pReason) {
-        if (!this.level.isClientSide && pReason.shouldDestroy()) {
-            Containers.dropContents(this.level, this, this);
+        if (!this.level().isClientSide() && pReason.shouldDestroy()) {
+            Containers.dropContents(this.level(), this, this);
         }
 
         super.remove(pReason);
@@ -83,13 +83,13 @@ public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, C
 
     @Override
     public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
-        return this.canAddPassenger(pPlayer) && !pPlayer.isSecondaryUseActive() ? super.interact(pPlayer, pHand) : this.interactWithChestVehicle(this::gameEvent, pPlayer);
+        return this.canAddPassenger(pPlayer) && !pPlayer.isSecondaryUseActive() ? super.interact(pPlayer, pHand) : this.interactWithContainerVehicle(pPlayer);
     }
 
     @Override
     public void openCustomInventoryScreen(Player player) {
         player.openMenu(this);
-        if (!player.level.isClientSide) {
+        if (!player.level().isClientSide()) {
             this.gameEvent(GameEvent.CONTAINER_OPEN, player);
             PiglinAi.angerNearbyPiglins(player, true);
         }

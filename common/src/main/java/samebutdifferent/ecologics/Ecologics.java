@@ -1,14 +1,11 @@
 package samebutdifferent.ecologics;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
@@ -16,7 +13,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
-import samebutdifferent.ecologics.entity.Camel;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.entity.Squirrel;
@@ -130,14 +126,14 @@ public class Ecologics {
     }
 
     public static void registerSpawnPlacements() {
-        CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.CAMEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
+        //CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.CAMEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
         CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.PENGUIN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
         CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.SQUIRREL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
     }
 
     public static void registerEntityAttributes(Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> attributes) {
         attributes.put(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrab.createAttributes());
-        attributes.put(ModEntityTypes.CAMEL.get(), Camel.createAttributes());
+        //attributes.put(ModEntityTypes.CAMEL.get(), Camel.createAttributes());
         attributes.put(ModEntityTypes.PENGUIN.get(), Penguin.createAttributes());
         attributes.put(ModEntityTypes.SQUIRREL.get(), Squirrel.createAttributes());
     }

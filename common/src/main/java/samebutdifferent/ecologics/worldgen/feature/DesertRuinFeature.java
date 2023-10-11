@@ -22,7 +22,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import samebutdifferent.ecologics.Ecologics;
 
 import java.util.Optional;
-import java.util.Random;
 
 // Thanks to TelelpathicGrunt for his help on this
 public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {

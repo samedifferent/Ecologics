@@ -1,10 +1,11 @@
 package samebutdifferent.ecologics.block;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -15,13 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.*;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
-
-import javax.annotation.Nullable;
 
 public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
     public static final IntegerProperty LAYERS = IntegerProperty.create("layers", 1, 3);
@@ -29,7 +25,7 @@ public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBloc
     private final MultifaceSpreader spreader = new MultifaceSpreader(this);
 
     public SurfaceMossBlock() {
-        super(Properties.of(Material.REPLACEABLE_PLANT, MaterialColor.COLOR_GREEN).noCollission().strength(0.2F).sound(SoundType.MOSS_CARPET).noOcclusion());
+        super(Properties.of().mapColor(MapColor.COLOR_GREEN).noCollission().strength(0.2F).pushReaction(PushReaction.DESTROY).sound(SoundType.MOSS_CARPET).noOcclusion());
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(LAYERS, 1));
     }
     
