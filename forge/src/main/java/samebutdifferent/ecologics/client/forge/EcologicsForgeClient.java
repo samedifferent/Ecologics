@@ -5,6 +5,8 @@ import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BlockItem;
@@ -20,6 +22,7 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.EcologicsClient;
 import samebutdifferent.ecologics.client.model.*;
 import samebutdifferent.ecologics.entity.ModBoat;
+import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -55,5 +58,6 @@ public class EcologicsForgeClient {
             event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
             event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), ChestBoatModel::createBodyModel);
         }
+        BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_SIGN.get(), HangingSignRenderer::new);
     }
 }
