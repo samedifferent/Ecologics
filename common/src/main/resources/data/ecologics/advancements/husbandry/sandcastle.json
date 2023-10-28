@@ -19,13 +19,18 @@
     "sandcastle": {
       "trigger": "minecraft:placed_block",
       "conditions": {
-        "block": "ecologics:sandcastle",
-        "state": {
-          "eggs_inside": {
-            "min": "1",
-            "max": "4"
+        "location": [
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "ecologics:sandcastle",
+            "properties": {
+              "eggs_inside": {
+                "min": "1",
+                "max": "4"
+              }
+            }
           }
-        }
+        ]
       }
     }
   },
