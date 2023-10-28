@@ -81,8 +81,8 @@ public class CoconutCrab extends Animal implements NeutralMob {
         if (this.getHealth() <= this.getMaxHealth() / 2 && this.hasCoconut()) {
             this.breakCoconut();
         }
-        if (!this.level.isClientSide) {
-            this.updatePersistentAnger((ServerLevel)this.level, true);
+        if (!this.level().isClientSide()) {
+            this.updatePersistentAnger((ServerLevel)this.level(), true);
         }
     }
 
@@ -90,9 +90,9 @@ public class CoconutCrab extends Animal implements NeutralMob {
         this.setHasCoconut(false);
         this.stopBeingAngry();
         this.playCoconutSmashSound();
-        ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
+        ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.COCONUT_SLICE.get(), 2));
         itementity.setDefaultPickUpDelay();
-        this.level.addFreshEntity(itementity);
+        this.level().addFreshEntity(itementity);
     }
 
 

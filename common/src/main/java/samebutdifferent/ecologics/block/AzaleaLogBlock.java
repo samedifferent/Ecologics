@@ -14,8 +14,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
-import java.util.Random;
-
 public class AzaleaLogBlock extends RotatedPillarBlock {
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 

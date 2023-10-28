@@ -19,6 +19,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -107,8 +108,8 @@ public class CommonPlatformHelperImpl {
         SpawnPlacementsAccessor.invokeRegister(entityType, decoratorType, heightMapType, decoratorPredicate);
     }
 
-    public static WoodType createWoodType(String name) {
-        return WoodTypeAccessor.invokeConstructor(name);
+    public static WoodType createWoodType(String name, BlockSetType setType) {
+        return new WoodType(name, setType);
     }
 
     public static WoodType registerWoodType(WoodType woodType) {

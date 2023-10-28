@@ -21,7 +21,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -35,7 +34,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.entity.ai.navigation.BetterWallClimberNavigation;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
-import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModTags;
 
@@ -118,17 +116,17 @@ public class Squirrel extends Animal {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (!this.isTrusting() && TEMPT_INGREDIENT.test(itemstack)) {
             this.usePlayerItem(pPlayer, pHand, itemstack);
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide()) {
                 if (this.random.nextInt(3) == 0) {
                     this.setTrusting(true);
                     this.spawnTrustingParticles(true);
-                    this.level.broadcastEntityEvent(this, (byte)41);
+                    this.level().broadcastEntityEvent(this, (byte)41);
                 } else {
                     this.spawnTrustingParticles(false);
-                    this.level.broadcastEntityEvent(this, (byte)40);
+                    this.level().broadcastEntityEvent(this, (byte)40);
                 }
             }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
         } else {
             return super.mobInteract(pPlayer, pHand);
         }
@@ -155,7 +153,7 @@ public class Squirrel extends Animal {
             double x = this.random.nextGaussian() * 0.02D;
             double y = this.random.nextGaussian() * 0.02D;
             double z = this.random.nextGaussian() * 0.02D;
-            this.level.addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), x, y, z);
+            this.level().addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), x, y, z);
         }
     }
 
@@ -195,8 +193,8 @@ public class Squirrel extends Animal {
     }
 
     private void dropItemStack(ItemStack pStack) {
-        ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), pStack);
-        this.level.addFreshEntity(itementity);
+        ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), pStack);
+        this.level().addFreshEntity(itementity);
     }
 
     // MOVEMENT
@@ -209,7 +207,7 @@ public class Squirrel extends Animal {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide()) {
             this.setClimbing(this.horizontalCollision);
         }
     }
@@ -285,14 +283,14 @@ public class Squirrel extends Animal {
             if (!squirrel.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || squirrel.isBaby() || !squirrel.isTrusting()) {
                 return false;
             } else {
-                List<ItemEntity> list = squirrel.level.getEntitiesOfClass(ItemEntity.class, squirrel.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ItemTags.SAPLINGS));
+                List<ItemEntity> list = squirrel.level().getEntitiesOfClass(ItemEntity.class, squirrel.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ItemTags.SAPLINGS));
                 return !list.isEmpty() && squirrel.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
             }
         }
 
         @Override
         public void tick() {
-            List<ItemEntity> list = squirrel.level.getEntitiesOfClass(ItemEntity.class, squirrel.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ItemTags.SAPLINGS));
+            List<ItemEntity> list = squirrel.level().getEntitiesOfClass(ItemEntity.class, squirrel.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ItemTags.SAPLINGS));
             ItemStack itemstack = squirrel.getItemBySlot(EquipmentSlot.MAINHAND);
             if (itemstack.isEmpty() && !list.isEmpty()) {
                 squirrel.getNavigation().moveTo(list.get(0), 1.0F);
@@ -302,7 +300,7 @@ public class Squirrel extends Animal {
 
         @Override
         public void start() {
-            List<ItemEntity> list = squirrel.level.getEntitiesOfClass(ItemEntity.class, squirrel.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ItemTags.SAPLINGS));
+            List<ItemEntity> list = squirrel.level().getEntitiesOfClass(ItemEntity.class, squirrel.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ItemTags.SAPLINGS));
             if (!list.isEmpty()) {
                 squirrel.getNavigation().moveTo(list.get(0), 1.0F);
             }
@@ -343,7 +341,7 @@ public class Squirrel extends Animal {
             }
 
             if (reachedTarget && !squirrel.getMainHandItem().isEmpty()) {
-                Level level = squirrel.level;
+                Level level = squirrel.level();
                 if (level.getBlockState(blockPos).is(BlockTags.DIRT)) {
                     this.onReachedTarget(level);
                     reachedTarget = false;

@@ -2,7 +2,6 @@ package samebutdifferent.ecologics.platform.forge;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
@@ -15,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -109,10 +109,10 @@ public class CommonPlatformHelperImpl {
         SpawnPlacements.register(entityType, decoratorType, heightMapType, decoratorPredicate);
     }
 
-    public static WoodType createWoodType(String name) {
-        return WoodType.create(new ResourceLocation(Ecologics.MOD_ID, name).toString());
+    public static WoodType createWoodType(String name, BlockSetType setType) {
+        return new WoodType(name, setType);
     }
-
+    
     public static WoodType registerWoodType(WoodType woodType) {
         return WoodType.register(woodType);
     }

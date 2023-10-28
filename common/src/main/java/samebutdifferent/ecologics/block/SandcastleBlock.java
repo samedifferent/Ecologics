@@ -22,8 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -37,7 +36,7 @@ public class SandcastleBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty EGGS_INSIDE = IntegerProperty.create("eggs_inside", 0, 4);
 
     public SandcastleBlock() {
-        super(Properties.of(Material.SAND, MaterialColor.SAND).strength(0.7F).sound(SoundType.SAND).noOcclusion().randomTicks());
+        super(Properties.of().mapColor(MapColor.SAND).strength(0.7F).sound(SoundType.SAND).pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(EGGS_INSIDE, 0).setValue(HATCH, 0));
     }
 
@@ -149,8 +148,8 @@ public class SandcastleBlock extends HorizontalDirectionalBlock {
         }
     }
 
-    @Override
+    /*@Override
     public PushReaction getPistonPushReaction(BlockState pState) {
         return PushReaction.DESTROY;
-    }
+    }*/
 }

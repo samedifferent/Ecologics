@@ -1,7 +1,9 @@
 package samebutdifferent.ecologics.registry;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.HangingSignBlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import samebutdifferent.ecologics.block.entity.ModHangingSignBlockEntity;
 import samebutdifferent.ecologics.block.entity.ModSignBlockEntity;
 import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
@@ -16,6 +18,12 @@ public class ModBlockEntityTypes {
             ModBlocks.WALNUT_SIGN.get(), ModBlocks.WALNUT_WALL_SIGN.get(),
             ModBlocks.AZALEA_SIGN.get(), ModBlocks.AZALEA_WALL_SIGN.get(),
             ModBlocks.FLOWERING_AZALEA_SIGN.get(), ModBlocks.FLOWERING_AZALEA_WALL_SIGN.get()
+    ));
+    public static final Supplier<BlockEntityType<HangingSignBlockEntity>> HANGING_SIGN = CommonPlatformHelper.registerBlockEntityType("hanging_sign", () -> CommonPlatformHelper.createBlockEntityType(ModHangingSignBlockEntity::new,
+            ModBlocks.COCONUT_HANGING_SIGN.get(), ModBlocks.COCONUT_WALL_HANGING_SIGN.get(),
+            ModBlocks.WALNUT_HANGING_SIGN.get(), ModBlocks.WALNUT_WALL_HANGING_SIGN.get(),
+            ModBlocks.AZALEA_HANGING_SIGN.get(), ModBlocks.AZALEA_WALL_HANGING_SIGN.get(),
+            ModBlocks.FLOWERING_AZALEA_HANGING_SIGN.get(), ModBlocks.FLOWERING_AZALEA_WALL_HANGING_SIGN.get()
     ));
     public static final Supplier<BlockEntityType<PotBlockEntity>> POT = CommonPlatformHelper.registerBlockEntityType("pot", () -> CommonPlatformHelper.createBlockEntityType(PotBlockEntity::new, ModBlocks.POT.get()));
 }

@@ -6,10 +6,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import samebutdifferent.ecologics.client.model.PenguinModel;
 import samebutdifferent.ecologics.entity.Penguin;
@@ -31,7 +31,7 @@ public class PenguinHeldItemLayer extends RenderLayer<Penguin, PenguinModel> {
         matrixStack.mulPose(Axis.XP.rotationDegrees(90f));
         matrixStack.mulPose(Axis.ZP.rotationDegrees(135f));
         ItemStack itemStack = livingEntity.getItemBySlot(EquipmentSlot.MAINHAND);
-        this.itemInHandRenderer.renderItem(livingEntity, itemStack, ItemTransforms.TransformType.GROUND, false, matrixStack, buffer, packedLight);
+        this.itemInHandRenderer.renderItem(livingEntity, itemStack, ItemDisplayContext.GROUND, false, matrixStack, buffer, packedLight);
         matrixStack.popPose();
     }
 }

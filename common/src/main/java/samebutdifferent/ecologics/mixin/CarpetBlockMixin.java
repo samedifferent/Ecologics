@@ -26,7 +26,7 @@ public abstract class CarpetBlockMixin extends Block {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack item = pPlayer.getItemInHand(pHand);
-        if (item.sameItem(Blocks.MOSS_CARPET.asItem().getDefaultInstance()) && (pPlayer.getFeetBlockState() != pState)) {
+        if (ItemStack.isSameItem(Blocks.MOSS_CARPET.asItem().getDefaultInstance(), item) && (pPlayer.getFeetBlockState() != pState)) {
             if (pState.is(Blocks.MOSS_CARPET.defaultBlockState().getBlock())) {
                 if (!pLevel.isClientSide()) pLevel.setBlockAndUpdate(pPos, ModBlocks.MOSS_LAYER.get().defaultBlockState());
                 if (!pPlayer.isCreative()) item.shrink(1);

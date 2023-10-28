@@ -35,21 +35,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 
-import java.util.Random;
-
 public class PotBlock extends BaseEntityBlock {
     protected static final VoxelShape SHAPE = Shapes.or(Block.box(3, 13, 3, 13, 15, 13), Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12));
     public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 5);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public PotBlock(Properties properties) {
-        super(properties);
+        super(properties.pushReaction(PushReaction.DESTROY));
         this.stateDefinition.any().setValue(CHISEL, 0).setValue(POWERED, false);
     }
 
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        return pLevel.getBlockState(pPos.below()).getMaterial().isSolid();
+        return pLevel.getBlockState(pPos.below()).isSolid();
     }
 
     @Override
@@ -60,11 +58,6 @@ public class PotBlock extends BaseEntityBlock {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
-    }
-
-    @Override
-    public PushReaction getPistonPushReaction(BlockState pState) {
-        return PushReaction.DESTROY;
     }
 
     @Override

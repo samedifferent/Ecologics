@@ -10,22 +10,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.block.grower.ModAzaleaTreeGrower;
-
-import java.util.Random;
 
 public class AzaleaFlowerBlock extends BushBlock implements BonemealableBlock {
     private static final ModAzaleaTreeGrower TREE_GROWER = new ModAzaleaTreeGrower();
     protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
 
     public AzaleaFlowerBlock() {
-        super(Properties.of(Material.PLANT).instabreak().noCollission().sound(SoundType.GRASS).offsetType(OffsetType.XZ));
+        super(Properties.of().instabreak().noCollission().sound(SoundType.GRASS).offsetType(OffsetType.XZ));
     }
 
     @Override

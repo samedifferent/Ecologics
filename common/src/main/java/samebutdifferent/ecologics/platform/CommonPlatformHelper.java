@@ -2,13 +2,10 @@ package samebutdifferent.ecologics.platform;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.ItemLike;
@@ -17,6 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -115,7 +113,7 @@ public class CommonPlatformHelper {
     }
 
     @ExpectPlatform
-    public static WoodType createWoodType(String name) {
+    public static WoodType createWoodType(String name, BlockSetType setType) {
         throw new AssertionError();
     }
 

@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
 archivesBaseName = "${rootProject.archives_base_name}-${project.name}"
@@ -68,18 +68,18 @@ processResources {
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier.set("dev-shadow")
 }
 
 remapJar {
     injectAccessWidener = true
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
+    archiveClassifier.set(null)
 }
 
 jar {
-    classifier "dev"
+    archiveClassifier.set("dev")
 }
 
 sourcesJar {

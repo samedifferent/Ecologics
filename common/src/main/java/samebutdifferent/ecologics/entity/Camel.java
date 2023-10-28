@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.entity;
+/*package samebutdifferent.ecologics.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -31,6 +31,7 @@ import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
+//TODO: Remove this mob due to 1.20 update.
 public class Camel extends AbstractChestedHorse {
     public Camel(EntityType<? extends AbstractChestedHorse> type, Level level) {
         super(type, level);
@@ -100,8 +101,8 @@ public class Camel extends AbstractChestedHorse {
         }
 
         if (this.isBaby() && increaseAgeAmount > 0) {
-            this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
-            if (!this.level.isClientSide) {
+            this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
+            if (!this.level().isClientSide()) {
                 this.ageUp(increaseAgeAmount);
             }
 
@@ -110,7 +111,7 @@ public class Camel extends AbstractChestedHorse {
 
         if (increaseTemperAmount > 0 && (willEat || !this.isTamed()) && this.getTemper() < this.getMaxTemper()) {
             willEat = true;
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide()) {
                 this.modifyTemper(increaseTemperAmount);
             }
         }
@@ -120,7 +121,7 @@ public class Camel extends AbstractChestedHorse {
             if (!this.isSilent()) {
                 SoundEvent soundevent = this.getEatingSound();
                 if (soundevent != null) {
-                    this.level.playSound(null, this.getX(), this.getY(), this.getZ(), this.getEatingSound(), this.getSoundSource(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+                    this.level().playSound(null, this.getX(), this.getY(), this.getZ(), this.getEatingSound(), this.getSoundSource(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
                 }
             }
         }
@@ -151,7 +152,7 @@ public class Camel extends AbstractChestedHorse {
         if (!this.isBaby()) {
             if (this.isTamed() && pPlayer.isSecondaryUseActive()) {
                 this.openCustomInventoryScreen(pPlayer);
-                return InteractionResult.sidedSuccess(this.level.isClientSide);
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
             }
 
             if (this.isVehicle() && this.getPassengers().size() >= 2) {
@@ -166,7 +167,7 @@ public class Camel extends AbstractChestedHorse {
 
             if (!this.isTamed()) {
                 this.makeMad();
-                return InteractionResult.sidedSuccess(this.level.isClientSide);
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
             }
 
             if (!this.hasChest() && itemstack.is(Blocks.CHEST.asItem())) {
@@ -177,12 +178,12 @@ public class Camel extends AbstractChestedHorse {
                 }
 
                 this.createInventory();
-                return InteractionResult.sidedSuccess(this.level.isClientSide);
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
             }
 
             if (!this.isBaby() && !this.isSaddled() && itemstack.is(Items.SADDLE)) {
                 this.openCustomInventoryScreen(pPlayer);
-                return InteractionResult.sidedSuccess(this.level.isClientSide);
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
             }
         }
 
@@ -190,7 +191,7 @@ public class Camel extends AbstractChestedHorse {
             return super.mobInteract(pPlayer, pHand);
         } else {
             this.doPlayerRide(pPlayer);
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
         }
     }
 
@@ -267,3 +268,4 @@ public class Camel extends AbstractChestedHorse {
         this.playSound(ModSoundEvents.CAMEL_CHEST.get(), 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
     }
 }
+*/

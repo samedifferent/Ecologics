@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.client.renderer.entity;
+/*package samebutdifferent.ecologics.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -11,6 +11,7 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.model.CamelModel;
 import samebutdifferent.ecologics.entity.Camel;
 
+//TODO: Remove this in 1.20 due to vanilla camels.
 @Environment(EnvType.CLIENT)
 public class CamelRenderer extends MobRenderer<Camel, CamelModel<Camel>> {
     public CamelRenderer(EntityRendererProvider.Context context) {
@@ -30,3 +31,4 @@ public class CamelRenderer extends MobRenderer<Camel, CamelModel<Camel>> {
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
 }
+*/

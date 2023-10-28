@@ -8,7 +8,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.BlockGetter;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -36,7 +34,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     protected static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{Block.box(4.0D, 6.0D, 4.0D, 12.0D, 14.0D, 12.0D), Block.box(3.0D, 4.0D, 3.0D, 13.0D, 14.0D, 13.0D), Block.box(2.0D, 2.0D, 2.0D, 14.0D, 14.0D, 14.0D)};
 
     public HangingCoconutBlock() {
-        super(Properties.of(Material.PLANT).randomTicks().strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion());
+        super(Properties.of().randomTicks().strength(2.0F, 3.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.WOOD).noOcclusion());
         this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0));
     }
 
@@ -81,11 +79,6 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     }
 
     @Override
-    public PushReaction getPistonPushReaction(BlockState pState) {
-        return PushReaction.DESTROY;
-    }
-
-    @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
         return state.getValue(AGE) < 2;
     }
@@ -117,7 +110,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     public DamageSource getFallDamageSource(Entity entity) {
-        return new EntityDamageSource("coconut", entity);
+        return entity.damageSources().fallingBlock(entity); // entity.damageSources().fallingBlock("coconut", entity);
     }
 
     @Override
