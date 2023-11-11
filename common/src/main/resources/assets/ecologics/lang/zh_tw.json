@@ -93,8 +93,8 @@
   "block.ecologics.potted_walnut_sapling": "盆中的核桃木樹苗",
   "block.ecologics.potted_coconut_seedling": "盆中的椰苗",
   "block.ecologics.potted_azalea_flower": "盆中的杜鵑花",
-  "death.attack.coconut": "%1$s被椰子砸死了",
-  "death.attack.coconut.player": "%1$s 被%2$ 丟的椰子砸死了",
+  "death.attack.coconut": "%1$s 被椰子砸死了",
+  "death.attack.coconut.player": "%1$s 被 %2$s 丟的椰子砸死了",
   "ecologics.subtitles.block.coconut.smash": "椰子碎裂",
   "ecologics.subtitles.block.thin_ice.crack": "薄冰裂開",
   "ecologics.subtitles.entity.coconut_crab.ambient": "椰子蟹嘶嘶",
@@ -152,7 +152,7 @@
   "advancements.husbandry.sandcastle.title": "沙地堡壘",
   "advancements.husbandry.sandcastle.description": "建造沙堡來保護海龜蛋.",
   "advancements.husbandry.breed_penguin.title": "快樂腳",
-  "advancements.husbandry.breed_penguin.description": "繁殖企鵝從寶寶身上獲得企鵝羽毛",
+  "advancements.husbandry.breed_penguin.description": "繁殖企鵝從寶寶身上獲得企鵝羽毛"
 
   "text.autoconfig.ecologics.title": "豐富的生態配置",
   "text.autoconfig.ecologics.option.beach": "沙灘生態域",
