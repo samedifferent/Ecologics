@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "ecologics:coconut_seedling",
-    "ecologics:walnut_sapling",
-    "ecologics:azalea_flower"
+    "ecologics:walnut_sapling"
   ]
 }
