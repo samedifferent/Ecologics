@@ -2,8 +2,6 @@
   "replace": false,
   "values": [
     "ecologics:coconut_slab",
-    "ecologics:walnut_slab",
-    "ecologics:azalea_slab",
-    "ecologics:flowering_azalea_slab"
+    "ecologics:walnut_slab"
   ]
 }

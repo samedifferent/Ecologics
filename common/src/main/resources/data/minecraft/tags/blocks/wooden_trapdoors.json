@@ -2,8 +2,6 @@
   "replace": false,
   "values": [
     "ecologics:coconut_trapdoor",
-    "ecologics:walnut_trapdoor",
-    "ecologics:azalea_trapdoor",
-    "ecologics:flowering_azalea_trapdoor"
+    "ecologics:walnut_trapdoor"
   ]
 }

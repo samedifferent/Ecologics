@@ -7,7 +7,4 @@ public class ConfigPlatformHelperImpl {
         return ModConfigForge.COCONUT_CRAB_SPAWN_CHANCE.get();
     }
 
-    public static boolean replaceAzaleaTree() {
-        return ModConfigForge.REPLACE_AZALEA_TREE.get();
-    }
 }

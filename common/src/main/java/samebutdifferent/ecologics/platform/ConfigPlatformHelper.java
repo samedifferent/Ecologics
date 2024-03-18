@@ -8,8 +8,4 @@ public class ConfigPlatformHelper {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
-    public static boolean replaceAzaleaTree() {
-        throw new AssertionError();
-    }
 }

@@ -2,8 +2,6 @@
   "replace": false,
   "values": [
     "ecologics:coconut_boat",
-    "ecologics:walnut_boat",
-    "ecologics:azalea_boat",
-    "ecologics:flowering_azalea_boat"
+    "ecologics:walnut_boat"
   ]
 }

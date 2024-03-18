@@ -2,8 +2,6 @@
   "replace": false,
   "values": [
     "ecologics:coconut_fence_gate",
-    "ecologics:walnut_fence_gate",
-    "ecologics:azalea_fence_gate",
-    "ecologics:flowering_azalea_fence_gate"
+    "ecologics:walnut_fence_gate"
   ]
 }

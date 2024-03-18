@@ -50,8 +50,6 @@ public class Ecologics {
     public static void registerWoodTypes() {
         CommonPlatformHelper.registerWoodType(ModWoodType.COCONUT);
         CommonPlatformHelper.registerWoodType(ModWoodType.WALNUT);
-        CommonPlatformHelper.registerWoodType(ModWoodType.AZALEA);
-        CommonPlatformHelper.registerWoodType(ModWoodType.FLOWERING_AZALEA);
     }
 
     public static void registerBrewingRecipes() {
@@ -66,7 +64,6 @@ public class Ecologics {
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_SEEDLING.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_LEAVES.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_SAPLING.get());
-        CommonPlatformHelper.registerCompostable(0.65F, ModBlocks.AZALEA_FLOWER.get());
     }
 
     public static void registerStrippables() {
@@ -74,11 +71,7 @@ public class Ecologics {
                 .put(ModBlocks.COCONUT_LOG.get(), ModBlocks.STRIPPED_COCONUT_LOG.get())
                 .put(ModBlocks.COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_WOOD.get())
                 .put(ModBlocks.WALNUT_LOG.get(), ModBlocks.STRIPPED_WALNUT_LOG.get())
-                .put(ModBlocks.WALNUT_WOOD.get(), ModBlocks.STRIPPED_WALNUT_WOOD.get())
-                .put(ModBlocks.AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
-                .put(ModBlocks.FLOWERING_AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
-                .put(ModBlocks.FLOWERING_AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get())
-                .put(ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get()).build();
+                .put(ModBlocks.WALNUT_WOOD.get(), ModBlocks.STRIPPED_WALNUT_WOOD.get()).build();
         CommonPlatformHelper.registerStrippables(strippables);
     }
 
@@ -105,35 +98,15 @@ public class Ecologics {
         CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_WALNUT_WOOD, 5, 5);
         CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_WOOD, 5, 5);
         CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_LEAVES, 30, 60);
-        // AZALEA
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_PLANKS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_SLAB, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_FENCE_GATE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_FENCE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_STAIRS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_AZALEA_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_AZALEA_WOOD, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_WOOD, 5, 5);
-        // FLOWERING_AZALEA
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_PLANKS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_SLAB, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_FENCE_GATE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_FENCE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_STAIRS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_WOOD, 5, 5);
     }
 
     public static void registerSpawnPlacements() {
-        //CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.CAMEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
         CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.PENGUIN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
         CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.SQUIRREL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
     }
 
     public static void registerEntityAttributes(Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> attributes) {
         attributes.put(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrab.createAttributes());
-        //attributes.put(ModEntityTypes.CAMEL.get(), Camel.createAttributes());
         attributes.put(ModEntityTypes.PENGUIN.get(), Penguin.createAttributes());
         attributes.put(ModEntityTypes.SQUIRREL.get(), Squirrel.createAttributes());
     }

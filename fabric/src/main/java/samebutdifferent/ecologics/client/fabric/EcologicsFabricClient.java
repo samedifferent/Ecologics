@@ -13,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.FoliageColor;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.EcologicsClient;
-import samebutdifferent.ecologics.client.model.CamelModel;
 import samebutdifferent.ecologics.client.model.CoconutCrabModel;
 import samebutdifferent.ecologics.client.model.PenguinModel;
 import samebutdifferent.ecologics.client.model.SquirrelModel;
@@ -28,7 +27,6 @@ public class EcologicsFabricClient implements ClientModInitializer {
 
         EcologicsClient.addWoodTypes();
 
-        EntityModelLayerRegistry.registerModelLayer(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CoconutCrabModel.LAYER_LOCATION, CoconutCrabModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(SquirrelModel.LAYER_LOCATION, SquirrelModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(PenguinModel.LAYER_LOCATION, PenguinModel::createBodyLayer);

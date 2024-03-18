@@ -2,8 +2,6 @@
   "replace": false,
   "values": [
     "ecologics:coconut_planks",
-    "ecologics:walnut_planks",
-    "ecologics:azalea_planks",
-    "ecologics:flowering_azalea_planks"
+    "ecologics:walnut_planks"
   ]
 }

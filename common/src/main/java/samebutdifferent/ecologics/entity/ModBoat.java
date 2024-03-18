@@ -73,9 +73,7 @@ public class ModBoat extends Boat {
 
     public enum Type {
         COCONUT("coconut", () -> ModItems.COCONUT_BOAT.get(), () -> ModItems.COCONUT_CHEST_BOAT.get()),
-        WALNUT("walnut", () -> ModItems.WALNUT_BOAT.get(), () -> ModItems.WALNUT_CHEST_BOAT.get()),
-        AZALEA("azalea", () -> ModItems.AZALEA_BOAT.get(), () -> ModItems.AZALEA_CHEST_BOAT.get()),
-        FLOWERING_AZALEA("flowering_azalea", () -> ModItems.FLOWERING_AZALEA_BOAT.get(), () -> ModItems.FLOWERING_AZALEA_CHEST_BOAT.get());
+        WALNUT("walnut", () -> ModItems.WALNUT_BOAT.get(), () -> ModItems.WALNUT_CHEST_BOAT.get());
 
         private final String name;
         private final Supplier<Item> item;

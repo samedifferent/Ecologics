@@ -77,41 +77,9 @@ public class ModBlocks {
     public static final Supplier<ModWallHangingSignBlock> WALNUT_WALL_HANGING_SIGN = CommonPlatformHelper.registerBlock("walnut_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(WALNUT_HANGING_SIGN.get()), ModWoodType.WALNUT));
     public static final Supplier<SaplingBlock> WALNUT_SAPLING = registerBlock("walnut_sapling", () -> new SaplingBlock(new WalnutTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
     public static final Supplier<FlowerPotBlock> POTTED_WALNUT_SAPLING = CommonPlatformHelper.registerBlock("potted_walnut_sapling", () -> new FlowerPotBlock(ModBlocks.WALNUT_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion()));
-    public static final Supplier<AzaleaLogBlock> AZALEA_LOG = registerBlock("azalea_log", AzaleaLogBlock::new);
-    public static final Supplier<FloweringAzaleaLogBlock> FLOWERING_AZALEA_LOG = registerBlock("flowering_azalea_log", FloweringAzaleaLogBlock::new);
-    public static final Supplier<RotatedPillarBlock> STRIPPED_AZALEA_LOG = registerBlock("stripped_azalea_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));
-    public static final Supplier<RotatedPillarBlock> AZALEA_WOOD = registerBlock("azalea_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
-    public static final Supplier<FloweringAzaleaLogBlock> FLOWERING_AZALEA_WOOD = registerBlock("flowering_azalea_wood", FloweringAzaleaLogBlock::new);
-    public static final Supplier<RotatedPillarBlock> STRIPPED_AZALEA_WOOD = registerBlock("stripped_azalea_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
-    public static final Supplier<Block> AZALEA_PLANKS = registerBlock("azalea_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-    public static final Supplier<Block> FLOWERING_AZALEA_PLANKS = registerBlock("flowering_azalea_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-    public static final Supplier<SlabBlock> AZALEA_SLAB = registerBlock("azalea_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-    public static final Supplier<SlabBlock> FLOWERING_AZALEA_SLAB = registerBlock("flowering_azalea_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-    public static final Supplier<StairBlock> AZALEA_STAIRS = registerBlock("azalea_stairs", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-    public static final Supplier<StairBlock> FLOWERING_AZALEA_STAIRS = registerBlock("flowering_azalea_stairs", () -> new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-    public static final Supplier<FenceBlock> AZALEA_FENCE = registerBlock("azalea_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-    public static final Supplier<FenceBlock> FLOWERING_AZALEA_FENCE = registerBlock("flowering_azalea_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-    public static final Supplier<FenceGateBlock> AZALEA_FENCE_GATE = registerBlock("azalea_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), WoodType.OAK));
-    public static final Supplier<FenceGateBlock> FLOWERING_AZALEA_FENCE_GATE = registerBlock("flowering_azalea_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), WoodType.OAK));
-    public static final Supplier<DoorBlock> AZALEA_DOOR = registerBlock("azalea_door", () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR), BlockSetType.OAK));
-    public static final Supplier<DoorBlock> FLOWERING_AZALEA_DOOR = registerBlock("flowering_azalea_door", () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR), BlockSetType.OAK));
-    public static final Supplier<TrapDoorBlock> AZALEA_TRAPDOOR = registerBlock("azalea_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR), BlockSetType.OAK));
-    public static final Supplier<TrapDoorBlock> FLOWERING_AZALEA_TRAPDOOR = registerBlock("flowering_azalea_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR), BlockSetType.OAK));
-    public static final Supplier<ButtonBlock> AZALEA_BUTTON = registerBlock("azalea_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), BlockSetType.OAK, 30, true));
-    public static final Supplier<PressurePlateBlock> AZALEA_PRESSURE_PLATE = registerBlock("azalea_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), BlockSetType.OAK));
-    public static final Supplier<AzaleaFlowerBlock> AZALEA_FLOWER = registerBlock("azalea_flower", AzaleaFlowerBlock::new);
     public static final Supplier<SurfaceMossBlock> SURFACE_MOSS = registerBlock("surface_moss", SurfaceMossBlock::new);
     public static final Supplier<MossLayerBlock> MOSS_LAYER = CommonPlatformHelper.registerBlock("moss_layer", MossLayerBlock::new);
-    public static final Supplier<FlowerPotBlock> POTTED_AZALEA_FLOWER = CommonPlatformHelper.registerBlock("potted_azalea_flower", () -> new FlowerPotBlock(ModBlocks.AZALEA_FLOWER.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion()));
-    public static final Supplier<ModStandingSignBlock> AZALEA_SIGN = CommonPlatformHelper.registerBlock("azalea_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.AZALEA));
-    public static final Supplier<ModWallSignBlock> AZALEA_WALL_SIGN = CommonPlatformHelper.registerBlock("azalea_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(AZALEA_SIGN.get()), ModWoodType.AZALEA));
-    public static final Supplier<ModCeilingHangingSignBlock> AZALEA_HANGING_SIGN = CommonPlatformHelper.registerBlock("azalea_hanging_sign", () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.AZALEA));
-    public static final Supplier<ModWallHangingSignBlock> AZALEA_WALL_HANGING_SIGN = CommonPlatformHelper.registerBlock("azalea_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(AZALEA_HANGING_SIGN.get()), ModWoodType.AZALEA));
-    public static final Supplier<ModStandingSignBlock> FLOWERING_AZALEA_SIGN = CommonPlatformHelper.registerBlock("flowering_azalea_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.FLOWERING_AZALEA));
-    public static final Supplier<ModWallSignBlock> FLOWERING_AZALEA_WALL_SIGN = CommonPlatformHelper.registerBlock("flowering_azalea_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FLOWERING_AZALEA_SIGN.get()), ModWoodType.FLOWERING_AZALEA));
-    public static final Supplier<ModCeilingHangingSignBlock> FLOWERING_AZALEA_HANGING_SIGN = CommonPlatformHelper.registerBlock("flowering_azalea_hanging_sign", () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.FLOWERING_AZALEA));
-    public static final Supplier<ModWallHangingSignBlock> FLOWERING_AZALEA_WALL_HANGING_SIGN = CommonPlatformHelper.registerBlock("flowering_azalea_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FLOWERING_AZALEA_HANGING_SIGN.get()), ModWoodType.FLOWERING_AZALEA));
-    
+
     public static <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> block) {
         Supplier<T> toReturn = CommonPlatformHelper.registerBlock(name, block);
         CommonPlatformHelper.registerItem(name, () -> new BlockItem(toReturn.get(), new Item.Properties()));
