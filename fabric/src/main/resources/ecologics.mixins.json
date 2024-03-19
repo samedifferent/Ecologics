@@ -9,7 +9,6 @@
     "LootContextBuilderMixin",
     "PotionBrewingAccessor",
     "RecordItemAccessor",
-    "SheepMixin",
     "SpawnPlacementsAccessor",
     "WoodTypeAccessor"
   ],
