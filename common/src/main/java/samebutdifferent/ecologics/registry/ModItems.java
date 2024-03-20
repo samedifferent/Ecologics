@@ -31,8 +31,6 @@ public class ModItems {
     public static final Supplier<Item> WALNUT_SIGN = CommonPlatformHelper.registerItem("walnut_sign", () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.WALNUT_SIGN.get(), ModBlocks.WALNUT_WALL_SIGN.get()));
     public static final Supplier<Item> WALNUT_HANGING_SIGN = CommonPlatformHelper.registerItem("walnut_hanging_sign", () -> new HangingSignItem(ModBlocks.WALNUT_HANGING_SIGN.get(), ModBlocks.WALNUT_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
     public static final Supplier<Item> WALNUT = CommonPlatformHelper.registerItem("walnut", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.0F).fast().build())));
-    public static final Supplier<Item> COCONUT_BOAT = CommonPlatformHelper.registerItem("coconut_boat", () -> new ModBoatItem(false, ModBoat.Type.COCONUT, new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> WALNUT_BOAT = CommonPlatformHelper.registerItem("walnut_boat", () -> new ModBoatItem(false, ModBoat.Type.WALNUT, new Item.Properties().stacksTo(1)));
-    public static final Supplier<Item> COCONUT_CHEST_BOAT = CommonPlatformHelper.registerItem("coconut_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.COCONUT, new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> WALNUT_CHEST_BOAT = CommonPlatformHelper.registerItem("walnut_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.WALNUT, new Item.Properties().stacksTo(1)));
 }

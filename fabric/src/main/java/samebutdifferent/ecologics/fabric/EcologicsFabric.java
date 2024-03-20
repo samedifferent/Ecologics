@@ -46,7 +46,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EcologicsFabric implements ModInitializer {
-    private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(Ecologics.MOD_ID, "tab")); //FabricItemGroup.builder(new ResourceLocation(Ecologics.MOD_ID, "tab")).icon(() -> new ItemStack(ModBlocks.COCONUT_LOG.get())).build();
+    private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(Ecologics.MOD_ID, "tab"));
 
     @Override
     public void onInitialize() {
@@ -64,7 +64,7 @@ public class EcologicsFabric implements ModInitializer {
 
     //TODO: Update this.
     private void registerCreativeTab() {
-    	Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB.location(), FabricItemGroup.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG.get()); } ).build());
+    	Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB.location(), FabricItemGroup.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.SANDCASTLE.get()); } ).build());
     }
 
     private static void assignItemsToTab(FabricItemGroupEntries entries) {
@@ -85,8 +85,6 @@ public class EcologicsFabric implements ModInitializer {
         entries.accept(ModItems.WALNUT_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModItems.WALNUT_HANGING_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
 
-        entries.accept(ModItems.COCONUT_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.COCONUT_CHEST_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModItems.WALNUT_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModItems.WALNUT_CHEST_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
 

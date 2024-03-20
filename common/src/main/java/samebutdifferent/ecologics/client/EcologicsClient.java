@@ -36,7 +36,6 @@ public class EcologicsClient {
     }
 
     public static void addWoodTypes() {
-        ClientPlatformHelper.addWoodType(ModWoodType.COCONUT);
         ClientPlatformHelper.addWoodType(ModWoodType.WALNUT);
     }
 }
