@@ -68,20 +68,6 @@ public class EcologicsFabric implements ModInitializer {
     }
 
     private static void assignItemsToTab(FabricItemGroupEntries entries) {
-        entries.accept(ModBlocks.COCONUT_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.STRIPPED_COCONUT_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.STRIPPED_COCONUT_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_PLANKS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_STAIRS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_SLAB.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_FENCE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_FENCE_GATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_DOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_TRAPDOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_BUTTON.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_PRESSURE_PLATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-            
         entries.accept(ModBlocks.WALNUT_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModBlocks.STRIPPED_WALNUT_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModBlocks.WALNUT_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -96,8 +82,6 @@ public class EcologicsFabric implements ModInitializer {
         entries.accept(ModBlocks.WALNUT_BUTTON.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModBlocks.WALNUT_PRESSURE_PLATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
             
-        entries.accept(ModItems.COCONUT_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.COCONUT_HANGING_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModItems.WALNUT_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModItems.WALNUT_HANGING_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
 
@@ -108,7 +92,6 @@ public class EcologicsFabric implements ModInitializer {
 
         entries.accept(ModBlocks.COCONUT_LEAVES.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModBlocks.WALNUT_LEAVES.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_SEEDLING.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModBlocks.WALNUT_SAPLING.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
             
         entries.accept(ModBlocks.COCONUT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);

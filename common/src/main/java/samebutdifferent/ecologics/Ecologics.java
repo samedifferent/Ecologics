@@ -48,7 +48,6 @@ public class Ecologics {
     }
 
     public static void registerWoodTypes() {
-        CommonPlatformHelper.registerWoodType(ModWoodType.COCONUT);
         CommonPlatformHelper.registerWoodType(ModWoodType.WALNUT);
     }
 
@@ -61,32 +60,18 @@ public class Ecologics {
         CommonPlatformHelper.registerCompostable(0.3F, ModItems.COCONUT_SLICE.get());
         CommonPlatformHelper.registerCompostable(0.65F, ModItems.COCONUT_HUSK.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_LEAVES.get());
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_SEEDLING.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_LEAVES.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_SAPLING.get());
     }
 
     public static void registerStrippables() {
         Map<Block, Block> strippables = new ImmutableMap.Builder<Block, Block>()
-                .put(ModBlocks.COCONUT_LOG.get(), ModBlocks.STRIPPED_COCONUT_LOG.get())
-                .put(ModBlocks.COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_WOOD.get())
                 .put(ModBlocks.WALNUT_LOG.get(), ModBlocks.STRIPPED_WALNUT_LOG.get())
                 .put(ModBlocks.WALNUT_WOOD.get(), ModBlocks.STRIPPED_WALNUT_WOOD.get()).build();
         CommonPlatformHelper.registerStrippables(strippables);
     }
 
     public static void registerFlammables() {
-        // COCONUT
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_PLANKS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_SLAB, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_FENCE_GATE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_FENCE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_STAIRS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_COCONUT_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_COCONUT_WOOD, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_WOOD, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_LEAVES, 30, 60);
         // WALNUT
         CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_PLANKS, 5, 20);
         CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_SLAB, 5, 20);
