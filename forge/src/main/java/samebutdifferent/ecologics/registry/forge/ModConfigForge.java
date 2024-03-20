@@ -5,6 +5,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 public class ModConfigForge {
+
     public static ForgeConfigSpec COMMON_CONFIG;
 
     public static final String CATEGORY_BEACH = "beach";
@@ -27,9 +28,12 @@ public class ModConfigForge {
         COMMON_CONFIG = COMMON_BUILDER.build();
     }
 
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent.Loading configEvent) { }
 
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public static void onReload(final ModConfigEvent.Reloading configEvent) { }
+
 }

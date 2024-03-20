@@ -18,7 +18,7 @@
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "ecologics:coconut_log",
+        "Name": "minecraft:oak_wood",
         "Properties": {
           "axis": "y"
         }

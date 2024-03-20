@@ -3,12 +3,10 @@ package samebutdifferent.ecologics.client.forge;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,14 +23,13 @@ import samebutdifferent.ecologics.entity.ModBoat;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class EcologicsForgeClient {
     @SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
         EcologicsClient.init();
-        event.enqueueWork(() -> {
-            EcologicsClient.addWoodTypes();
-        });
+        event.enqueueWork(EcologicsClient::addWoodTypes);
     }
 
     @SubscribeEvent

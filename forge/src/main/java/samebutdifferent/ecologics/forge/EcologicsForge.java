@@ -48,6 +48,7 @@ import samebutdifferent.ecologics.registry.forge.ModGlobalLootModifiers;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 @Mod(Ecologics.MOD_ID)
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class EcologicsForge {
@@ -85,33 +86,16 @@ public class EcologicsForge {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            Ecologics.commonSetup();
-        });
+        event.enqueueWork(Ecologics::commonSetup);
     }
 
     private void registerCreativeTabs(RegisterEvent event) {
-    	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
-    		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG.get()); }).build());
-    	});
+    	event.register(Registries.CREATIVE_MODE_TAB, helper -> helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> new ItemStack(ModBlocks.SANDCASTLE.get())).build()));
     }
 
     private void assignItemsToTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == TAB) {
-	        event.accept(ModBlocks.COCONUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_COCONUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_COCONUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_PLANKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_FENCE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_FENCE_GATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_DOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_TRAPDOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_BUTTON.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_PRESSURE_PLATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
+
 	        event.accept(ModBlocks.WALNUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.WALNUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.STRIPPED_WALNUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -126,8 +110,6 @@ public class EcologicsForge {
 	        event.accept(ModBlocks.WALNUT_BUTTON.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.WALNUT_PRESSURE_PLATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	
-	        event.accept(ModItems.COCONUT_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.COCONUT_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModItems.WALNUT_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModItems.WALNUT_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 

@@ -30,4 +30,5 @@ public record ModBrewingRecipe(Potion input, Item ingredient, Potion output) imp
         PotionUtils.setPotion(stack, this.output);
         return stack;
     }
+
 }
