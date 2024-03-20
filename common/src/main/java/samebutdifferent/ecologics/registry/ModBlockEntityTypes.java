@@ -14,9 +14,11 @@ public class ModBlockEntityTypes {
     public static void init() {}
 
     public static final Supplier<BlockEntityType<SignBlockEntity>> SIGN = CommonPlatformHelper.registerBlockEntityType("sign", () -> CommonPlatformHelper.createBlockEntityType(ModSignBlockEntity::new,
+            ModBlocks.COCONUT_SIGN.get(), ModBlocks.COCONUT_WALL_SIGN.get(),
             ModBlocks.WALNUT_SIGN.get(), ModBlocks.WALNUT_WALL_SIGN.get()
     ));
     public static final Supplier<BlockEntityType<HangingSignBlockEntity>> HANGING_SIGN = CommonPlatformHelper.registerBlockEntityType("hanging_sign", () -> CommonPlatformHelper.createBlockEntityType(ModHangingSignBlockEntity::new,
+            ModBlocks.COCONUT_HANGING_SIGN.get(), ModBlocks.COCONUT_WALL_HANGING_SIGN.get(),
             ModBlocks.WALNUT_HANGING_SIGN.get(), ModBlocks.WALNUT_WALL_HANGING_SIGN.get()
     ));
     public static final Supplier<BlockEntityType<PotBlockEntity>> POT = CommonPlatformHelper.registerBlockEntityType("pot", () -> CommonPlatformHelper.createBlockEntityType(PotBlockEntity::new, ModBlocks.POT.get()));

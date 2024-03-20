@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "ecologics:coconut_chest_boat",
     "ecologics:walnut_chest_boat"
   ]
 }

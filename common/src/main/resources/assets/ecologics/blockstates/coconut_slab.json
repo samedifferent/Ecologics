@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ecologics:block/coconut_slab"
+    },
+    "type=top": {
+      "model": "ecologics:block/coconut_slab_top"
+    },
+    "type=double": {
+      "model": "ecologics:block/coconut_planks"
+    }
+  }
+}

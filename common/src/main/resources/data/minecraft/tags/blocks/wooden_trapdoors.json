@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "ecologics:coconut_trapdoor",
     "ecologics:walnut_trapdoor"
   ]
 }
