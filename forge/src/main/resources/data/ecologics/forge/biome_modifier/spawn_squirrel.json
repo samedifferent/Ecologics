@@ -4,7 +4,7 @@
   "spawners": {
     "type": "ecologics:squirrel",
     "weight": 10,
-    "minCount": 2,
+    "minCount": 1,
     "maxCount": 3
   }
 }
