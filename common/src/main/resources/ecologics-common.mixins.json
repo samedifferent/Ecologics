@@ -4,8 +4,6 @@
   "package": "samebutdifferent.ecologics.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AzaleaTreeGrowerMixin",
-    "CamelMixin",
     "CarpetBlockMixin",
     "LivingEntityMixin"
   ],

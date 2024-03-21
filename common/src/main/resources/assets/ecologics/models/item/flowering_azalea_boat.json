@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "ecologics:item/flowering_azalea_boat"
-  }
-}

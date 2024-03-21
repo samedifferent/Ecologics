@@ -22,11 +22,4 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> SQUIRREL_AMBIENT = CommonPlatformHelper.registerSoundEvent("squirrel_ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.ambient")));
     public static final Supplier<SoundEvent> SQUIRREL_DEATH = CommonPlatformHelper.registerSoundEvent("squirrel_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.death")));
     public static final Supplier<SoundEvent> SQUIRREL_HURT = CommonPlatformHelper.registerSoundEvent("squirrel_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.hurt")));
-    public static final Supplier<SoundEvent> CAMEL_AMBIENT = CommonPlatformHelper.registerSoundEvent("camel_ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.ambient")));
-    public static final Supplier<SoundEvent> CAMEL_DEATH = CommonPlatformHelper.registerSoundEvent("camel_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.death")));
-    public static final Supplier<SoundEvent> CAMEL_HURT = CommonPlatformHelper.registerSoundEvent("camel_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.hurt")));
-    public static final Supplier<SoundEvent> CAMEL_ANGRY = CommonPlatformHelper.registerSoundEvent("camel_angry", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.angry")));
-    public static final Supplier<SoundEvent> CAMEL_EAT = CommonPlatformHelper.registerSoundEvent("camel_eat", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.eat")));
-    public static final Supplier<SoundEvent> CAMEL_STEP = CommonPlatformHelper.registerSoundEvent("camel_step", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.step")));
-    public static final Supplier<SoundEvent> CAMEL_CHEST = CommonPlatformHelper.registerSoundEvent("camel_chest", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.chest")));
 }

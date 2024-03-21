@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "ecologics:block/azalea_log",
-    "end": "ecologics:block/azalea_log_top"
-  }
-}
