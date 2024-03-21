@@ -41,7 +41,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState aboveState = pLevel.getBlockState(pPos.above());
-        return aboveState.is(ModBlocks.COCONUT_LEAVES.get());
+        return aboveState.is(ModBlocks.PALM_LEAVES.get());
     }
 
     @Override

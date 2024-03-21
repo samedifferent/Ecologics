@@ -9,7 +9,10 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.loot.forge.AddItemModifier;
 
 public class ModGlobalLootModifiers {
+
     public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Ecologics.MOD_ID);
 
+    @SuppressWarnings("unused")
     public static final RegistryObject<Codec<AddItemModifier>> ADD_ITEM = GLM.register("add_item", AddItemModifier.CODEC);
+
 }

@@ -38,7 +38,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.MissingMappingsEvent;
 import net.minecraftforge.registries.RegisterEvent;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
 import samebutdifferent.ecologics.registry.ModBlocks;
@@ -49,6 +48,7 @@ import samebutdifferent.ecologics.registry.forge.ModGlobalLootModifiers;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 @Mod(Ecologics.MOD_ID)
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class EcologicsForge {
@@ -86,33 +86,16 @@ public class EcologicsForge {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            Ecologics.commonSetup();
-        });
+        event.enqueueWork(Ecologics::commonSetup);
     }
 
     private void registerCreativeTabs(RegisterEvent event) {
-    	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
-    		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG.get()); }).build());
-    	});
+    	event.register(Registries.CREATIVE_MODE_TAB, helper -> helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> new ItemStack(ModBlocks.SANDCASTLE.get())).build()));
     }
 
     private void assignItemsToTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == TAB) {
-	        event.accept(ModBlocks.COCONUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_COCONUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_COCONUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_PLANKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_FENCE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_FENCE_GATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_DOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_TRAPDOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_BUTTON.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_PRESSURE_PLATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
+
 	        event.accept(ModBlocks.WALNUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.WALNUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.STRIPPED_WALNUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -127,51 +110,15 @@ public class EcologicsForge {
 	        event.accept(ModBlocks.WALNUT_BUTTON.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.WALNUT_PRESSURE_PLATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	
-	        event.accept(ModBlocks.AZALEA_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_AZALEA_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_AZALEA_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_PLANKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_FENCE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_FENCE_GATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_DOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_TRAPDOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_BUTTON.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_PRESSURE_PLATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModBlocks.FLOWERING_AZALEA_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_PLANKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_FENCE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_FENCE_GATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_DOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_TRAPDOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModItems.COCONUT_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.COCONUT_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModItems.WALNUT_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModItems.WALNUT_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.AZALEA_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.AZALEA_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.FLOWERING_AZALEA_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.FLOWERING_AZALEA_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 
-	        event.accept(ModItems.COCONUT_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.COCONUT_CHEST_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModItems.WALNUT_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModItems.WALNUT_CHEST_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.AZALEA_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.AZALEA_CHEST_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.FLOWERING_AZALEA_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.FLOWERING_AZALEA_CHEST_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModBlocks.COCONUT_LEAVES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+
+	        event.accept(ModBlocks.PALM_LEAVES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.WALNUT_LEAVES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_SEEDLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+	        event.accept(ModBlocks.PALM_SAPLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.WALNUT_SAPLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	
 	        event.accept(ModBlocks.COCONUT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -192,7 +139,6 @@ public class EcologicsForge {
 	        event.accept(ModBlocks.SNOW_BRICK_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.SNOW_BRICK_WALL.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	
-	        event.accept(ModBlocks.AZALEA_FLOWER.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.SURFACE_MOSS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModItems.COCONUT_SLICE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModItems.COCONUT_HUSK.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -248,27 +194,13 @@ public class EcologicsForge {
                 player.getOffhandItem().hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(InteractionHand.OFF_HAND));
             }
         }
-        if (!event.getLevel().isClientSide()) {
-            ItemStack stack = event.getItemStack();
-            Direction direction = event.getHitVec().getDirection().getAxis() == Direction.Axis.Y ? event.getHitVec().getDirection().getOpposite() : event.getHitVec().getDirection();
-            if (stack.is(Items.SHEARS)) {
-                if (state.is(Blocks.FLOWERING_AZALEA)) {
-                    FloweringAzaleaLogBlock.shearAzalea(level, player, pos, stack, hand, direction, Blocks.AZALEA.defaultBlockState());
-                    player.swing(hand, true);
-                }
-                if (state.is(Blocks.FLOWERING_AZALEA_LEAVES)) {
-                    FloweringAzaleaLogBlock.shearAzalea(level, player, pos, stack, hand, direction, Blocks.AZALEA_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, state.getValue(LeavesBlock.PERSISTENT)).setValue(LeavesBlock.DISTANCE, state.getValue(LeavesBlock.DISTANCE)));
-                    player.swing(hand, true);
-                }
-            }
-        }
     }
 
     @SubscribeEvent
     public static void onMissingBlockMappings(MissingMappingsEvent event) {
         for (var mapping : event.getAllMappings(ForgeRegistries.BLOCKS.getRegistryKey())) {
             if (mapping.getKey().equals(new ResourceLocation(Ecologics.MOD_ID, "coconut_husk"))) {
-                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "coconut_seedling");
+                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "palm_sapling");
                 if (ForgeRegistries.BLOCKS.containsKey(remapped)) {
                     mapping.remap(ForgeRegistries.BLOCKS.getValue(remapped));
                 } else {
@@ -276,7 +208,7 @@ public class EcologicsForge {
                 }
             }
             if (mapping.getKey().equals(new ResourceLocation(Ecologics.MOD_ID, "potted_coconut_husk"))) {
-                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "potted_coconut_seedling");
+                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "potted_palm_sapling");
                 if (ForgeRegistries.BLOCKS.containsKey(remapped)) {
                     mapping.remap(ForgeRegistries.BLOCKS.getValue(remapped));
                 } else {

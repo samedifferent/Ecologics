@@ -8,7 +8,7 @@
   "spawners": {
     "type": "ecologics:penguin",
     "weight": 2,
-    "minCount": 4,
-    "maxCount": 5
+    "minCount": 2,
+    "maxCount": 4
   }
 }
