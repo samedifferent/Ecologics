@@ -1,5 +1,5 @@
 {
-  "feature": "ecologics:coconut",
+  "feature": "ecologics:palm",
   "placement": [
     {
       "type": "minecraft:count",
@@ -33,7 +33,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "ecologics:coconut_seedling",
+          "Name": "ecologics:palm_sapling",
           "Properties": {
             "stage": "0"
           }

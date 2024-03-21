@@ -17,11 +17,11 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static void init() {}
 
-    public static final Supplier<CoconutLeavesBlock> COCONUT_LEAVES = registerBlock("coconut_leaves", () -> new CoconutLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final Supplier<PalmLeavesBlock> PALM_LEAVES = registerBlock("palm_leaves", () -> new PalmLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
     public static final Supplier<HangingCoconutBlock> HANGING_COCONUT = CommonPlatformHelper.registerBlock("hanging_coconut", HangingCoconutBlock::new);
     public static final Supplier<CoconutBlock> COCONUT = registerBlock("coconut", CoconutBlock::new);
-    public static final Supplier<SaplingBlock> COCONUT_SEEDLING = registerBlock("coconut_seedling", CoconutSaplingBlock::new);
-    public static final Supplier<FlowerPotBlock> POTTED_COCONUT_SEEDLING = CommonPlatformHelper.registerBlock("potted_coconut_seedling", () -> new FlowerPotBlock(ModBlocks.COCONUT_SEEDLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion()));
+    public static final Supplier<SaplingBlock> PALM_SAPLING = registerBlock("palm_sapling", PalmSaplingBlock::new);
+    public static final Supplier<FlowerPotBlock> POTTED_PALM_SAPLING = CommonPlatformHelper.registerBlock("potted_palm_sapling", () -> new FlowerPotBlock(ModBlocks.PALM_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion()));
     public static final Supplier<SeashellBlock> SEASHELL = registerBlock("seashell", SeashellBlock::new);
     public static final Supplier<SandcastleBlock> SANDCASTLE = CommonPlatformHelper.registerBlock("sandcastle", SandcastleBlock::new);
     public static final Supplier<Block> SEASHELL_BLOCK = registerBlock("seashell_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(1.5F, 6.0F).sound(SoundType.DEEPSLATE_TILES).requiresCorrectToolForDrops()));

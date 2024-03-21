@@ -14,10 +14,10 @@ import samebutdifferent.ecologics.registry.ModEntityTypes;
 public class EcologicsClient {
     public static void init() {
         // Render Layers
-        ClientPlatformHelper.setRenderLayer(ModBlocks.COCONUT_SEEDLING, RenderType.cutout());
+        ClientPlatformHelper.setRenderLayer(ModBlocks.PALM_SAPLING, RenderType.cutout());
         ClientPlatformHelper.setRenderLayer(ModBlocks.SANDCASTLE, RenderType.cutout());
-        ClientPlatformHelper.setRenderLayer(ModBlocks.COCONUT_LEAVES, RenderType.cutoutMipped());
-        ClientPlatformHelper.setRenderLayer(ModBlocks.POTTED_COCONUT_SEEDLING, RenderType.cutout());
+        ClientPlatformHelper.setRenderLayer(ModBlocks.PALM_LEAVES, RenderType.cutoutMipped());
+        ClientPlatformHelper.setRenderLayer(ModBlocks.POTTED_PALM_SAPLING, RenderType.cutout());
         ClientPlatformHelper.setRenderLayer(ModBlocks.PRICKLY_PEAR, RenderType.cutout());
         ClientPlatformHelper.setRenderLayer(ModBlocks.THIN_ICE, RenderType.translucent());
         ClientPlatformHelper.setRenderLayer(ModBlocks.WALNUT_SAPLING, RenderType.cutout());

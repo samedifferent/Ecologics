@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "ecologics:coconut_seedling"
+          "name": "ecologics:palm_sapling"
         }
       ],
       "conditions": [

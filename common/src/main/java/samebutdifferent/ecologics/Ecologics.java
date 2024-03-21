@@ -59,8 +59,8 @@ public class Ecologics {
     public static void registerCompostables() {
         CommonPlatformHelper.registerCompostable(0.3F, ModItems.COCONUT_SLICE.get());
         CommonPlatformHelper.registerCompostable(0.65F, ModItems.COCONUT_HUSK.get());
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_LEAVES.get());
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_SEEDLING.get());
+        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.PALM_LEAVES.get());
+        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.PALM_SAPLING.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_LEAVES.get());
         CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_SAPLING.get());
     }
@@ -74,7 +74,7 @@ public class Ecologics {
 
     public static void registerFlammables() {
         // COCONUT
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_LEAVES, 30, 60);
+        CommonPlatformHelper.setFlammable(ModBlocks.PALM_LEAVES, 30, 60);
         // WALNUT
         CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_PLANKS, 5, 20);
         CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_SLAB, 5, 20);

@@ -116,9 +116,9 @@ public class EcologicsForge {
 	        event.accept(ModItems.WALNUT_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModItems.WALNUT_CHEST_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 
-	        event.accept(ModBlocks.COCONUT_LEAVES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+	        event.accept(ModBlocks.PALM_LEAVES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.WALNUT_LEAVES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_SEEDLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+	        event.accept(ModBlocks.PALM_SAPLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.WALNUT_SAPLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	
 	        event.accept(ModBlocks.COCONUT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -200,7 +200,7 @@ public class EcologicsForge {
     public static void onMissingBlockMappings(MissingMappingsEvent event) {
         for (var mapping : event.getAllMappings(ForgeRegistries.BLOCKS.getRegistryKey())) {
             if (mapping.getKey().equals(new ResourceLocation(Ecologics.MOD_ID, "coconut_husk"))) {
-                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "coconut_seedling");
+                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "palm_sapling");
                 if (ForgeRegistries.BLOCKS.containsKey(remapped)) {
                     mapping.remap(ForgeRegistries.BLOCKS.getValue(remapped));
                 } else {
@@ -208,7 +208,7 @@ public class EcologicsForge {
                 }
             }
             if (mapping.getKey().equals(new ResourceLocation(Ecologics.MOD_ID, "potted_coconut_husk"))) {
-                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "potted_coconut_seedling");
+                ResourceLocation remapped = new ResourceLocation(Ecologics.MOD_ID, "potted_palm_sapling");
                 if (ForgeRegistries.BLOCKS.containsKey(remapped)) {
                     mapping.remap(ForgeRegistries.BLOCKS.getValue(remapped));
                 } else {

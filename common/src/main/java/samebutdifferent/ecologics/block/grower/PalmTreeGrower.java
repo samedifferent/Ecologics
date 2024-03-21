@@ -3,9 +3,9 @@ package samebutdifferent.ecologics.block.grower;
 import net.minecraft.resources.ResourceLocation;
 import samebutdifferent.ecologics.Ecologics;
 
-public class CoconutTreeGrower extends ModTreeGrower {
+public class PalmTreeGrower extends ModTreeGrower {
     @Override
     protected ResourceLocation getConfiguredFeatureLocation() {
-        return new ResourceLocation(Ecologics.MOD_ID, "coconut");
+        return new ResourceLocation(Ecologics.MOD_ID, "palm");
     }
 }

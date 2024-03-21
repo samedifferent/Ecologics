@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ecologics:item/coconut_seedling"
+    "layer0": "ecologics:block/palm_sapling"
   }
 }

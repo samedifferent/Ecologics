@@ -6,11 +6,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import samebutdifferent.ecologics.block.grower.CoconutTreeGrower;
+import samebutdifferent.ecologics.block.grower.PalmTreeGrower;
 
-public class CoconutSaplingBlock extends SaplingBlock {
-    public CoconutSaplingBlock() {
-        super(new CoconutTreeGrower(), Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.GRASS));
+public class PalmSaplingBlock extends SaplingBlock {
+    public PalmSaplingBlock() {
+        super(new PalmTreeGrower(), Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.GRASS));
     }
 
     @Override

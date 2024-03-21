@@ -28,8 +28,8 @@ public class ModConfigFabric implements ConfigData {
     public static class Beach {
         @Comment("How often (in percentage) should Coconut Crabs spawn when a coconut breaks? Set it to 0.0 to disable this.")
         public double coconutCrabSpawnChance = 0.2;
-        @Comment("Generate coconut trees on beaches")
-        public boolean generateCoconutTrees = true;
+        @Comment("Generate palm trees on beaches")
+        public boolean generatePalmTrees = true;
         @Comment("Generate seashells on beaches")
         public boolean generateSeashells = true;
     }

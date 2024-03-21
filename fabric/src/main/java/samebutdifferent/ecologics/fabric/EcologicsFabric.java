@@ -89,9 +89,9 @@ public class EcologicsFabric implements ModInitializer {
         entries.accept(ModItems.WALNUT_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModItems.WALNUT_CHEST_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
 
-        entries.accept(ModBlocks.COCONUT_LEAVES.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(ModBlocks.PALM_LEAVES.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModBlocks.WALNUT_LEAVES.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_SEEDLING.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(ModBlocks.PALM_SAPLING.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ModBlocks.WALNUT_SAPLING.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
             
         entries.accept(ModBlocks.COCONUT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -160,7 +160,7 @@ public class EcologicsFabric implements ModInitializer {
 
     public void addFeatures() {
         ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
-        if (config.beach.generateCoconutTrees) {
+        if (config.beach.generatePalmTrees) {
             BiomeModifications.addFeature(
                     (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.BEACH),
                     GenerationStep.Decoration.VEGETAL_DECORATION,

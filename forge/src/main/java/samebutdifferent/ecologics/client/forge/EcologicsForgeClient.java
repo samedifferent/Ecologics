@@ -34,7 +34,7 @@ public class EcologicsForgeClient {
 
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
-        event.getBlockColors().register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ? BiomeColors.getAverageFoliageColor(pLevel, pPos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES.get());
+        event.getBlockColors().register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ? BiomeColors.getAverageFoliageColor(pLevel, pPos) : FoliageColor.getDefaultColor(), ModBlocks.PALM_LEAVES.get());
     }
 
     @SubscribeEvent
@@ -42,7 +42,7 @@ public class EcologicsForgeClient {
         event.getItemColors().register((pStack, pTintIndex) -> {
             BlockState blockstate = ((BlockItem)pStack.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, null, null, pTintIndex);
-        }, ModBlocks.COCONUT_LEAVES.get());
+        }, ModBlocks.PALM_LEAVES.get());
     }
 
     @SubscribeEvent

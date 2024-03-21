@@ -15,12 +15,10 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-import java.util.Random;
-
-public class CoconutLeavesBlock extends LeavesBlock {
+public class PalmLeavesBlock extends LeavesBlock {
     public static final IntegerProperty DISTANCE_9 = IntegerProperty.create("distance_9", 1, 9);
 
-    public CoconutLeavesBlock(Properties properties) {
+    public PalmLeavesBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE_9, 9).setValue(PERSISTENT, false).setValue(DISTANCE, 7).setValue(WATERLOGGED, false));
     }
@@ -81,7 +79,7 @@ public class CoconutLeavesBlock extends LeavesBlock {
         if (pNeighbor.is(BlockTags.LOGS)) {
             return 0;
         } else {
-            return pNeighbor.getBlock() instanceof CoconutLeavesBlock ? pNeighbor.getValue(DISTANCE_9) : 9;
+            return pNeighbor.getBlock() instanceof PalmLeavesBlock ? pNeighbor.getValue(DISTANCE_9) : 9;
         }
     }
 

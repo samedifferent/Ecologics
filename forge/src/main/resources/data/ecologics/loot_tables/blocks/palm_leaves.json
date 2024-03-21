@@ -15,10 +15,8 @@
                   "condition": "minecraft:any_of",
                   "terms": [
                     {
-                      "condition": "minecraft:match_tool",
-                      "predicate": {
-                        "tag": "c:shears"
-                      }
+                      "condition": "forge:can_tool_perform_action",
+                      "action": "shears_dig"
                     },
                     {
                       "condition": "minecraft:match_tool",
@@ -36,7 +34,7 @@
                   ]
                 }
               ],
-              "name": "ecologics:coconut_leaves"
+              "name": "ecologics:palm_leaves"
             },
             {
               "type": "minecraft:item",
@@ -55,7 +53,7 @@
                   ]
                 }
               ],
-              "name": "ecologics:coconut_seedling"
+              "name": "ecologics:palm_sapling"
             }
           ]
         }
@@ -104,10 +102,8 @@
             "condition": "minecraft:any_of",
             "terms": [
               {
-                "condition": "minecraft:match_tool",
-                "predicate": {
-                  "tag": "c:shears"
-                }
+                "condition": "forge:can_tool_perform_action",
+                "action": "shears_dig"
               },
               {
                 "condition": "minecraft:match_tool",

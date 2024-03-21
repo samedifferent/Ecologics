@@ -14,16 +14,16 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
 
-public class CoconutFoliagePlacer extends FoliagePlacer {
-    public static final Codec<CoconutFoliagePlacer> CODEC = RecordCodecBuilder.create((placer) -> foliagePlacerParts(placer).apply(placer, CoconutFoliagePlacer::new));
+public class PalmFoliagePlacer extends FoliagePlacer {
+    public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create((placer) -> foliagePlacerParts(placer).apply(placer, PalmFoliagePlacer::new));
 
-    public CoconutFoliagePlacer(IntProvider pRadius, IntProvider pOffset) {
+    public PalmFoliagePlacer(IntProvider pRadius, IntProvider pOffset) {
         super(pRadius, pOffset);
     }
 
     @Override
     protected FoliagePlacerType<?> type() {
-        return ModFoliagePlacerTypes.COCONUT_FOLIAGE_PLACER.get();
+        return ModFoliagePlacerTypes.PALM_FOLIAGE_PLACER.get();
     }
 
     @Override

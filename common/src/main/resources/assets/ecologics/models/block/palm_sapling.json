@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "ecologics:block/coconut_seedling"
+    "cross": "ecologics:block/palm_sapling"
   }
 }
