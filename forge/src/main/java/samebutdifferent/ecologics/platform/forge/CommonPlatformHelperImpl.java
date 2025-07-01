@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ComposterBlock;
@@ -23,7 +24,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -31,7 +31,6 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.mixin.forge.AxeItemAccessor;
 import samebutdifferent.ecologics.mixin.forge.FireBlockAccessor;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
-import samebutdifferent.ecologics.util.forge.ModBrewingRecipe;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -82,7 +81,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static void registerBrewingRecipe(Potion input, Item ingredient, Potion output) {
-        BrewingRecipeRegistry.addRecipe(new ModBrewingRecipe(input, ingredient, output));
+        PotionBrewing.addMix(input, ingredient, output);
     }
 
     public static <T extends FoliagePlacer> Supplier<FoliagePlacerType<T>> registerFoliagePlacerType(String name, Supplier<FoliagePlacerType<T>> foliagePlacerType) {
