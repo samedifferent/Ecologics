@@ -15,7 +15,7 @@ import samebutdifferent.ecologics.entity.CoconutCrab;
 
 @Environment(EnvType.CLIENT)
 public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, "coconut_crab"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_crab"), "main");
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart shell;

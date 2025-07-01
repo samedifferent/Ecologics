@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "ecologics:snow_bricks"
-  },
-  "result": "ecologics:snow_brick_stairs"
-}

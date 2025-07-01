@@ -7,7 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -28,9 +28,8 @@ public class MossLayerBlock extends SnowLayerBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        ItemStack item = pPlayer.getItemInHand(pHand);
-        if ((pState.getValue(LAYERS) < 8) && ItemStack.isSameItem(Blocks.MOSS_CARPET.asItem().getDefaultInstance(), item) && (pPlayer.getFeetBlockState() != pState)) {
+    public ItemInteractionResult useItemOn(ItemStack item, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if ((pState.getValue(LAYERS) < 8) && ItemStack.isSameItem(Blocks.MOSS_CARPET.asItem().getDefaultInstance(), item) && (pPlayer.getInBlockState() != pState)) {
             if (pState.is(this) && !pLevel.isClientSide()) {
                 if (pState.getValue(LAYERS) < 7) {
                     pLevel.setBlockAndUpdate(pPos, this.defaultBlockState().setValue(LAYERS, pState.getValue(LAYERS) + 1));
@@ -42,9 +41,9 @@ public class MossLayerBlock extends SnowLayerBlock {
                 }
             }
             pLevel.playSound(pPlayer, pPos, SoundEvents.MOSS_CARPET_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            return InteractionResult.sidedSuccess(pLevel.isClientSide());
+            return ItemInteractionResult.sidedSuccess(pLevel.isClientSide());
         }
-        return InteractionResult.PASS;
+        return ItemInteractionResult.CONSUME;
     }
 
     @Override

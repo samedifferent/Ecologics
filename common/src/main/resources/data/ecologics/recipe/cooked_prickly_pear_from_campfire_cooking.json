@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "ecologics:prickly_pear"
+  },
+  "result": {
+    "id": "ecologics:cooked_prickly_pear"
+  }
+}

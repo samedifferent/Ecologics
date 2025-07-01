@@ -1,5 +1,11 @@
 package samebutdifferent.ecologics.block;
 
+import java.util.Random;
+
+import org.jetbrains.annotations.Nullable;
+
+import com.mojang.serialization.MapCodec;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -16,30 +22,35 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
-
-public class SandcastleBlock extends HorizontalDirectionalBlock {
+public class SandcastleBlock extends HorizontalDirectionalBlock 
+{
+	public static final MapCodec<SandcastleBlock> CODEC = SandcastleBlock.simpleCodec(SandcastleBlock::new);
     private static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D);
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
     public static final IntegerProperty EGGS_INSIDE = IntegerProperty.create("eggs_inside", 0, 4);
 
-    public SandcastleBlock() {
-        super(Properties.of().mapColor(MapColor.SAND).strength(0.7F).sound(SoundType.SAND).pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks());
+    public SandcastleBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(EGGS_INSIDE, 0).setValue(HATCH, 0));
     }
 
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
+	}
+    
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
@@ -147,9 +158,4 @@ public class SandcastleBlock extends HorizontalDirectionalBlock {
             pLevel.setBlockAndUpdate(pPos, Blocks.TURTLE_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, pState.getValue(EGGS_INSIDE)).setValue(TurtleEggBlock.HATCH, pState.getValue(HATCH)));
         }
     }
-
-    /*@Override
-    public PushReaction getPistonPushReaction(BlockState pState) {
-        return PushReaction.DESTROY;
-    }*/
 }

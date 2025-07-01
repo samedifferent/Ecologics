@@ -5,7 +5,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
-import samebutdifferent.ecologics.client.renderer.entity.*;
+import samebutdifferent.ecologics.client.renderer.entity.CoconutCrabRenderer;
+import samebutdifferent.ecologics.client.renderer.entity.ModBoatRenderer;
+import samebutdifferent.ecologics.client.renderer.entity.PenguinRenderer;
+import samebutdifferent.ecologics.client.renderer.entity.SquirrelRenderer;
 import samebutdifferent.ecologics.platform.ClientPlatformHelper;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
@@ -42,8 +45,8 @@ public class EcologicsClient {
         ClientPlatformHelper.registerEntityRenderer(ModEntityTypes.SQUIRREL, SquirrelRenderer::new);
 
         // Block Entity Renderers
-        ClientPlatformHelper.registerBlockEntityRenderer(ModBlockEntityTypes.SIGN, SignRenderer::new);
-        //ClientPlatformHelper.registerBlockEntityRenderer(ModBlockEntityTypes.HANGING_SIGN.get(), HangingSignRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntityTypes.SIGN, SignRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
     }
 
     public static void addWoodTypes() {

@@ -18,6 +18,6 @@ public class SquirrelRenderer extends MobRenderer<Squirrel, SquirrelModel> {
 
     @Override
     public ResourceLocation getTextureLocation(Squirrel entity) {
-        return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/squirrel.png");
+        return ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/squirrel.png");
     }
 }

@@ -9,8 +9,8 @@ import samebutdifferent.ecologics.block.entity.ModHangingSignBlockEntity;
 
 public class ModCeilingHangingSignBlock extends CeilingHangingSignBlock
 {
-	public ModCeilingHangingSignBlock(Properties properties, WoodType type) {
-		super(properties, type);
+	public ModCeilingHangingSignBlock(WoodType type, Properties properties) {
+		super(type, properties);
 	}
 
     @Override

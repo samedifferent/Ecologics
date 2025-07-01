@@ -16,7 +16,7 @@ import samebutdifferent.ecologics.entity.Penguin;
 
 @Environment(EnvType.CLIENT)
 public class PenguinModel extends AgeableListModel<Penguin> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, "penguin"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "penguin"), "main");
     private final ModelPart body;
     public final ModelPart head;
     private final ModelPart leftFlipper;

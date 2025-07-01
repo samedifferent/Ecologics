@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:sand"
+    },
+    "B": {
+      "item": "ecologics:seashell"
+    },
+    "C": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " C ",
+    "ABA",
+    "AAA"
+  ],
+  "result": {
+    "id": "ecologics:sandcastle"
+  }
+}

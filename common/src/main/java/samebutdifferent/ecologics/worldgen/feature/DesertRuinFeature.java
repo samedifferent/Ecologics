@@ -28,12 +28,12 @@ public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
     private final BlockIgnoreProcessor IGNORE_STRUCTURE_VOID = new BlockIgnoreProcessor(ImmutableList.of(Blocks.STRUCTURE_VOID));
     private final StructurePlaceSettings placementsettings = new StructurePlaceSettings().setMirror(Mirror.NONE).addProcessor(IGNORE_STRUCTURE_VOID).setIgnoreEntities(false);
     private final ResourceLocation[] pieces = new ResourceLocation[]{
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/chest_house"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pillars1"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pillars2"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/wall1"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/wall2"),
-            new ResourceLocation(Ecologics.MOD_ID, "desert_ruin/pit"),
+            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/chest_house"),
+            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars1"),
+            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars2"),
+            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall1"),
+            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall2"),
+            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pit"),
     };
 
     public DesertRuinFeature(Codec<NoneFeatureConfiguration> pCodec) {

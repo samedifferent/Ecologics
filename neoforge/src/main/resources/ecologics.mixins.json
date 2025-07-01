@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "samebutdifferent.ecologics.mixin.neoforge",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AxeItemAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

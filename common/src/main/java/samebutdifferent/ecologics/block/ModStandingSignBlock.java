@@ -7,9 +7,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import samebutdifferent.ecologics.block.entity.ModSignBlockEntity;
 
-public class ModStandingSignBlock extends StandingSignBlock {
-    public ModStandingSignBlock(Properties properties, WoodType type) {
-        super(properties, type);
+public class ModStandingSignBlock extends StandingSignBlock 
+{
+    public ModStandingSignBlock(WoodType type, Properties properties) {
+        super(type, properties);
     }
 
     @Override

@@ -2,6 +2,8 @@ package samebutdifferent.ecologics.block;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.mojang.serialization.MapCodec;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -19,15 +21,22 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.*;
 
-public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
+public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock 
+{
+	public static final MapCodec<SurfaceMossBlock> CODEC = SurfaceMossBlock.simpleCodec(SurfaceMossBlock::new);
     public static final IntegerProperty LAYERS = IntegerProperty.create("layers", 1, 3);
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private final MultifaceSpreader spreader = new MultifaceSpreader(this);
 
-    public SurfaceMossBlock() {
-        super(Properties.of().mapColor(MapColor.COLOR_GREEN).noCollission().strength(0.2F).pushReaction(PushReaction.DESTROY).sound(SoundType.MOSS_CARPET).noOcclusion());
+    public SurfaceMossBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(LAYERS, 1));
     }
+    
+	@Override
+	protected MapCodec<? extends MultifaceBlock> codec() {
+		return CODEC;
+	}
     
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -49,7 +58,7 @@ public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBloc
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
         return Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(state, level, pos, direction.getOpposite()));
     }
 
@@ -91,4 +100,7 @@ public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBloc
             return super.getStateForPlacement(context);
         }
     }
+
+
+
 }

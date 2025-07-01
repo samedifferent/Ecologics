@@ -1,6 +1,7 @@
 package samebutdifferent.ecologics.block.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Clearable;
@@ -15,7 +16,7 @@ public class PotBlockEntity extends BlockEntity implements Clearable {
     private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
 
     public PotBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(ModBlockEntityTypes.POT.get(), pWorldPosition, pBlockState);
+        super(ModBlockEntityTypes.POT, pWorldPosition, pBlockState);
     }
 
     public NonNullList<ItemStack> getItems() {
@@ -51,16 +52,16 @@ public class PotBlockEntity extends BlockEntity implements Clearable {
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
+        super.loadAdditional(pTag, provider);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(pTag, this.items);
+        ContainerHelper.loadAllItems(pTag, this.items, provider);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
-        ContainerHelper.saveAllItems(pTag, this.items);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider provider) {
+        super.saveAdditional(pTag, provider);
+        ContainerHelper.saveAllItems(pTag, this.items, provider);
     }
 
     public int getRedstoneSignal() {

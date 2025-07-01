@@ -12,13 +12,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.SandcastleBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
-public class SandcastleBlockItem extends BlockItem {
+public class SandcastleBlockItem extends BlockItem 
+{
     public SandcastleBlockItem() {
-        super(ModBlocks.SANDCASTLE.get(), new Properties().stacksTo(1));
+        super(ModBlocks.SANDCASTLE, new Properties().stacksTo(1));
     }
 
     @Override
@@ -30,7 +30,7 @@ public class SandcastleBlockItem extends BlockItem {
             return super.useOn(pContext);
         } else {
             level.playSound(pContext.getPlayer(), pos, SoundEvents.SAND_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.setBlockAndUpdate(pos, ModBlocks.SANDCASTLE.get().defaultBlockState().setValue(SandcastleBlock.FACING, pContext.getHorizontalDirection().getOpposite()).setValue(SandcastleBlock.EGGS_INSIDE, state.getValue(TurtleEggBlock.EGGS)).setValue(SandcastleBlock.HATCH, state.getValue(TurtleEggBlock.HATCH)));
+            level.setBlockAndUpdate(pos, ModBlocks.SANDCASTLE.defaultBlockState().setValue(SandcastleBlock.FACING, pContext.getHorizontalDirection().getOpposite()).setValue(SandcastleBlock.EGGS_INSIDE, state.getValue(TurtleEggBlock.EGGS)).setValue(SandcastleBlock.HATCH, state.getValue(TurtleEggBlock.HATCH)));
             pContext.getItemInHand().shrink(1);
             if (pContext.getPlayer() instanceof ServerPlayer player) {
                 CriteriaTriggers.PLACED_BLOCK.trigger(player, pos, pContext.getItemInHand());

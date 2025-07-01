@@ -12,7 +12,7 @@ import samebutdifferent.ecologics.registry.ModItems;
 public class CamelMixin {
     @Inject(method = "isFood", at = @At("HEAD"), cancellable = true)
     private void isFood(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (stack.is(ModItems.PRICKLY_PEAR.get())) {
+        if (stack.is(ModItems.PRICKLY_PEAR)) {
             cir.setReturnValue(true);
         }
     }

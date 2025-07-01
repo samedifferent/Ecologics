@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:beach",
+  "features": [
+    "ecologics:coconut",
+    "ecologics:seashell"
+  ],
+  "step": "vegetal_decoration"
+}

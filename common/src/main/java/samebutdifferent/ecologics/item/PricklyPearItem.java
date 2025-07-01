@@ -8,9 +8,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class PricklyPearItem extends Item {
-    public PricklyPearItem() {
-        super(new Properties().food(Foods.APPLE));
+public class PricklyPearItem extends Item 
+{
+    public PricklyPearItem(Properties properties) {
+        super(properties);
     }
 
     @Override

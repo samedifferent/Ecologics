@@ -1,0 +1,8 @@
+{
+    "comparator_output": 5,
+    "description": {
+      "translate": "item.ecologics.music_disc_coconut.desc"
+    },
+    "length_in_seconds": 108.0,
+    "sound_event": "ecologics:music_disc.coconut"
+}

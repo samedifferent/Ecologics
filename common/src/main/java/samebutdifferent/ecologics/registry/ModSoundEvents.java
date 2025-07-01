@@ -1,32 +1,39 @@
 package samebutdifferent.ecologics.registry;
 
+import java.util.ArrayList;
+
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import oshi.util.tuples.Pair;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 
-import java.util.function.Supplier;
+public class ModSoundEvents 
+{
+    public static void init() {
+    	for (Pair<ResourceLocation, SoundEvent> registry : SOUND_EVENTS) {
+    		Registry.register(BuiltInRegistries.SOUND_EVENT, registry.getA(), registry.getB());
+    	}
+    }
+    
+    public static SoundEvent registerSoundEvent(String name, SoundEvent sound) {
+    	SOUND_EVENTS.add(new Pair(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), sound));
+    	return sound;
+    }
+    
+    public static final ArrayList<Pair<ResourceLocation, SoundEvent>> SOUND_EVENTS = new ArrayList();
 
-public class ModSoundEvents {
-    public static void init() {}
-
-    public static final Supplier<SoundEvent> COCONUT_SMASH = CommonPlatformHelper.registerSoundEvent("coconut_smash", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "block.coconut.smash")));
-    public static final Supplier<SoundEvent> COCONUT_CRAB_AMBIENT = CommonPlatformHelper.registerSoundEvent("coconut_crab_ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.coconut_crab.ambient")));
-    public static final Supplier<SoundEvent> COCONUT_CRAB_DEATH = CommonPlatformHelper.registerSoundEvent("coconut_crab_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.coconut_crab.death")));
-    public static final Supplier<SoundEvent> COCONUT_CRAB_HURT = CommonPlatformHelper.registerSoundEvent("coconut_crab_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.coconut_crab.hurt")));
-    public static final Supplier<SoundEvent> MUSIC_DISC_COCONUT = CommonPlatformHelper.registerSoundEvent("music_disc_coconut", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "music_disc.coconut")));
-    public static final Supplier<SoundEvent> THIN_ICE_CRACK = CommonPlatformHelper.registerSoundEvent("thin_ice_crack", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "block.thin_ice.crack")));
-    public static final Supplier<SoundEvent> PENGUIN_AMBIENT = CommonPlatformHelper.registerSoundEvent("penguin_ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.penguin.ambient")));
-    public static final Supplier<SoundEvent> PENGUIN_DEATH = CommonPlatformHelper.registerSoundEvent("penguin_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.penguin.death")));
-    public static final Supplier<SoundEvent> PENGUIN_HURT = CommonPlatformHelper.registerSoundEvent("penguin_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.penguin.hurt")));
-    public static final Supplier<SoundEvent> SQUIRREL_AMBIENT = CommonPlatformHelper.registerSoundEvent("squirrel_ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.ambient")));
-    public static final Supplier<SoundEvent> SQUIRREL_DEATH = CommonPlatformHelper.registerSoundEvent("squirrel_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.death")));
-    public static final Supplier<SoundEvent> SQUIRREL_HURT = CommonPlatformHelper.registerSoundEvent("squirrel_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.squirrel.hurt")));
-    public static final Supplier<SoundEvent> CAMEL_AMBIENT = CommonPlatformHelper.registerSoundEvent("camel_ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.ambient")));
-    public static final Supplier<SoundEvent> CAMEL_DEATH = CommonPlatformHelper.registerSoundEvent("camel_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.death")));
-    public static final Supplier<SoundEvent> CAMEL_HURT = CommonPlatformHelper.registerSoundEvent("camel_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.hurt")));
-    public static final Supplier<SoundEvent> CAMEL_ANGRY = CommonPlatformHelper.registerSoundEvent("camel_angry", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.angry")));
-    public static final Supplier<SoundEvent> CAMEL_EAT = CommonPlatformHelper.registerSoundEvent("camel_eat", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.eat")));
-    public static final Supplier<SoundEvent> CAMEL_STEP = CommonPlatformHelper.registerSoundEvent("camel_step", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.step")));
-    public static final Supplier<SoundEvent> CAMEL_CHEST = CommonPlatformHelper.registerSoundEvent("camel_chest", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Ecologics.MOD_ID, "entity.camel.chest")));
+    public static final SoundEvent COCONUT_SMASH = registerSoundEvent("coconut_smash", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "block.coconut.smash")));
+    public static final SoundEvent COCONUT_CRAB_AMBIENT = registerSoundEvent("coconut_crab_ambient", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.coconut_crab.ambient")));
+    public static final SoundEvent COCONUT_CRAB_DEATH = registerSoundEvent("coconut_crab_death", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.coconut_crab.death")));
+    public static final SoundEvent COCONUT_CRAB_HURT = registerSoundEvent("coconut_crab_hurt", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.coconut_crab.hurt")));
+    public static final SoundEvent MUSIC_DISC_COCONUT = registerSoundEvent("music_disc.coconut", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "music_disc.coconut")));
+    public static final SoundEvent THIN_ICE_CRACK = registerSoundEvent("thin_ice_crack", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "block.thin_ice.crack")));
+    public static final SoundEvent PENGUIN_AMBIENT = registerSoundEvent("penguin_ambient", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.penguin.ambient")));
+    public static final SoundEvent PENGUIN_DEATH = registerSoundEvent("penguin_death", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.penguin.death")));
+    public static final SoundEvent PENGUIN_HURT = registerSoundEvent("penguin_hurt", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.penguin.hurt")));
+    public static final SoundEvent SQUIRREL_AMBIENT = registerSoundEvent("squirrel_ambient", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.squirrel.ambient")));
+    public static final SoundEvent SQUIRREL_DEATH = registerSoundEvent("squirrel_death", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.squirrel.death")));
+    public static final SoundEvent SQUIRREL_HURT = registerSoundEvent("squirrel_hurt", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.squirrel.hurt")));
 }

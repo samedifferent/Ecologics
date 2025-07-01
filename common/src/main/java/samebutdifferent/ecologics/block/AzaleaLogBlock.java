@@ -18,14 +18,14 @@ public class AzaleaLogBlock extends RotatedPillarBlock {
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
     public AzaleaLogBlock() {
-        super(Properties.copy(Blocks.OAK_LOG));
+        super(Properties.ofFullCopy(Blocks.OAK_LOG));
         this.registerDefaultState(this.stateDefinition.any().setValue(PERSISTENT, Boolean.FALSE).setValue(AXIS, Direction.Axis.Y));
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (random.nextInt(25) == 0) {
-            world.setBlock(pos, ModBlocks.FLOWERING_AZALEA_LOG.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(AXIS)), 2);
+            world.setBlock(pos, ModBlocks.FLOWERING_AZALEA_LOG.defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(AXIS)), 2);
         }
     }
 

@@ -1,5 +1,10 @@
 package samebutdifferent.ecologics.entity;
 
+import java.util.EnumSet;
+import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -16,10 +21,22 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -31,14 +48,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.entity.ai.navigation.BetterWallClimberNavigation;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModTags;
-
-import java.util.EnumSet;
-import java.util.List;
 
 public class Squirrel extends Animal {
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Squirrel.class, EntityDataSerializers.BYTE);
@@ -72,10 +85,10 @@ public class Squirrel extends Animal {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte)0);
-        this.entityData.define(DATA_TRUSTING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_FLAGS_ID, (byte)0);
+        builder.define(DATA_TRUSTING, false);
     }
 
     @Override
@@ -95,7 +108,7 @@ public class Squirrel extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pMob) {
-        return ModEntityTypes.SQUIRREL.get().create(pLevel);
+        return ModEntityTypes.SQUIRREL.create(pLevel);
     }
 
     @Override
@@ -161,7 +174,7 @@ public class Squirrel extends Animal {
 
     @Override
     public boolean canTakeItem(ItemStack pItemstack) {
-        EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(pItemstack);
+        EquipmentSlot equipmentslot = this.getEquipmentSlotForItem(pItemstack);
         if (!this.getItemBySlot(equipmentslot).isEmpty() || this.isBaby() || !this.isTrusting()) {
             return false;
         } else {
@@ -239,35 +252,35 @@ public class Squirrel extends Animal {
     }
 
     @Override
-    public boolean canBeLeashed(Player pPlayer) {
+    public boolean canBeLeashed() {
         return this.isTrusting();
     }
 
-    @Override
+    /*@Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-        return size.height * (this.isBaby() ? 0.6f : 0.7f);
+        return size.height() * (this.isBaby() ? 0.6f : 0.7f);
     }
 
     @Override
     public EntityDimensions getDimensions(Pose pose) {
         return super.getDimensions(pose).scale(1.0f, this.isBaby() ? 1.4f : 1.0f);
-    }
+    }*/
 
     // SOUNDS
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.SQUIRREL_AMBIENT.get();
+        return ModSoundEvents.SQUIRREL_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return ModSoundEvents.SQUIRREL_HURT.get();
+        return ModSoundEvents.SQUIRREL_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.SQUIRREL_DEATH.get();
+        return ModSoundEvents.SQUIRREL_DEATH;
     }
 
     static class SquirrelSearchForSaplingsGoal extends Goal {

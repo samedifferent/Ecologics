@@ -1,27 +1,40 @@
 package samebutdifferent.ecologics;
 
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.collect.ImmutableMap;
+
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
-import samebutdifferent.ecologics.registry.*;
+import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
+import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModFeatures;
+import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
+import samebutdifferent.ecologics.registry.ModItems;
+import samebutdifferent.ecologics.registry.ModMobEffects;
+import samebutdifferent.ecologics.registry.ModPotions;
+import samebutdifferent.ecologics.registry.ModSoundEvents;
+import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
 
-import java.util.Map;
-
-public class Ecologics {
+public class Ecologics 
+{
     public static final String MOD_ID = "ecologics";
     public static final Logger LOGGER = LogManager.getLogger();
 
@@ -55,30 +68,30 @@ public class Ecologics {
     }
 
     public static void registerBrewingRecipes() {
-        CommonPlatformHelper.registerBrewingRecipe(Potions.AWKWARD, ModItems.PENGUIN_FEATHER.get(), ModPotions.SLIDING.get());
-        CommonPlatformHelper.registerBrewingRecipe(ModPotions.SLIDING.get(), Items.REDSTONE, ModPotions.LONG_SLIDING.get());
+        CommonPlatformHelper.registerBrewingRecipe(Potions.AWKWARD, ModItems.PENGUIN_FEATHER, ModPotions.SLIDING);
+        CommonPlatformHelper.registerBrewingRecipe(ModPotions.SLIDING, Items.REDSTONE, ModPotions.LONG_SLIDING);
     }
 
     public static void registerCompostables() {
-        CommonPlatformHelper.registerCompostable(0.3F, ModItems.COCONUT_SLICE.get());
-        CommonPlatformHelper.registerCompostable(0.65F, ModItems.COCONUT_HUSK.get());
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_LEAVES.get());
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_SEEDLING.get());
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_LEAVES.get());
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_SAPLING.get());
-        CommonPlatformHelper.registerCompostable(0.65F, ModBlocks.AZALEA_FLOWER.get());
+        CommonPlatformHelper.registerCompostable(0.3F, ModItems.COCONUT_SLICE);
+        CommonPlatformHelper.registerCompostable(0.65F, ModItems.COCONUT_HUSK);
+        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_LEAVES);
+        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_SEEDLING);
+        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_LEAVES);
+        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_SAPLING);
+        CommonPlatformHelper.registerCompostable(0.65F, ModBlocks.AZALEA_FLOWER);
     }
 
     public static void registerStrippables() {
         Map<Block, Block> strippables = new ImmutableMap.Builder<Block, Block>()
-                .put(ModBlocks.COCONUT_LOG.get(), ModBlocks.STRIPPED_COCONUT_LOG.get())
-                .put(ModBlocks.COCONUT_WOOD.get(), ModBlocks.STRIPPED_COCONUT_WOOD.get())
-                .put(ModBlocks.WALNUT_LOG.get(), ModBlocks.STRIPPED_WALNUT_LOG.get())
-                .put(ModBlocks.WALNUT_WOOD.get(), ModBlocks.STRIPPED_WALNUT_WOOD.get())
-                .put(ModBlocks.AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
-                .put(ModBlocks.FLOWERING_AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get())
-                .put(ModBlocks.FLOWERING_AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get())
-                .put(ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get()).build();
+                .put(ModBlocks.COCONUT_LOG, ModBlocks.STRIPPED_COCONUT_LOG)
+                .put(ModBlocks.COCONUT_WOOD, ModBlocks.STRIPPED_COCONUT_WOOD)
+                .put(ModBlocks.WALNUT_LOG, ModBlocks.STRIPPED_WALNUT_LOG)
+                .put(ModBlocks.WALNUT_WOOD, ModBlocks.STRIPPED_WALNUT_WOOD)
+                .put(ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG)
+                .put(ModBlocks.FLOWERING_AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG)
+                .put(ModBlocks.FLOWERING_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD)
+                .put(ModBlocks.AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD).build();
         CommonPlatformHelper.registerStrippables(strippables);
     }
 
@@ -126,15 +139,15 @@ public class Ecologics {
     }
 
     public static void registerSpawnPlacements() {
-        //CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.CAMEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
-        CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.PENGUIN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
-        CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.SQUIRREL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+        //CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
+        CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
+        CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
     }
 
     public static void registerEntityAttributes(Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> attributes) {
-        attributes.put(ModEntityTypes.COCONUT_CRAB.get(), CoconutCrab.createAttributes());
+        attributes.put(ModEntityTypes.COCONUT_CRAB, CoconutCrab.createAttributes());
         //attributes.put(ModEntityTypes.CAMEL.get(), Camel.createAttributes());
-        attributes.put(ModEntityTypes.PENGUIN.get(), Penguin.createAttributes());
-        attributes.put(ModEntityTypes.SQUIRREL.get(), Squirrel.createAttributes());
+        attributes.put(ModEntityTypes.PENGUIN, Penguin.createAttributes());
+        attributes.put(ModEntityTypes.SQUIRREL, Squirrel.createAttributes());
     }
 }

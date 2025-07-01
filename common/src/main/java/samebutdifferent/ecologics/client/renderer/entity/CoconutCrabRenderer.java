@@ -18,6 +18,6 @@ public class CoconutCrabRenderer extends MobRenderer<CoconutCrab, CoconutCrabMod
 
     @Override
     public ResourceLocation getTextureLocation(CoconutCrab entity) {
-        return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/coconut_crab.png");
+        return ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/coconut_crab.png");
     }
 }

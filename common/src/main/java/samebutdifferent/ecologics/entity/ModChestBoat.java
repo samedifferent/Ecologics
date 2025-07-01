@@ -4,7 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,13 +23,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootTable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 
 public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, ContainerEntity {
     private static final int CONTAINER_SIZE = 27;
     private NonNullList<ItemStack> itemStacks = NonNullList.withSize(CONTAINER_SIZE, ItemStack.EMPTY);
     @Nullable
-    private ResourceLocation lootTable;
+    private ResourceKey<LootTable> lootTable;
     private long lootTableSeed;
 
     public ModChestBoat(EntityType<? extends Boat> entityType, Level level) {
@@ -37,7 +38,7 @@ public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, C
     }
 
     public ModChestBoat(Level level, double x, double y, double z) {
-        this(ModEntityTypes.CHEST_BOAT.get(), level);
+        this(ModEntityTypes.CHEST_BOAT, level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;
@@ -57,13 +58,13 @@ public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, C
     @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        this.addChestVehicleSaveData(pCompound);
+        this.addChestVehicleSaveData(pCompound, this.registryAccess());
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.readChestVehicleSaveData(pCompound);
+        this.readChestVehicleSaveData(pCompound, this.registryAccess());
     }
 
     @Override
@@ -160,12 +161,12 @@ public class ModChestBoat extends ModBoat implements HasCustomInventoryScreen, C
     }
 
     @Nullable
-    public ResourceLocation getLootTable() {
+    public ResourceKey<LootTable> getLootTable() {
         return this.lootTable;
     }
 
     @Override
-    public void setLootTable(@Nullable ResourceLocation location) {
+    public void setLootTable(ResourceKey<LootTable> location) {
         this.lootTable = location;
     }
 

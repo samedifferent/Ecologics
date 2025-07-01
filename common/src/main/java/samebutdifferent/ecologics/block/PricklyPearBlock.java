@@ -45,7 +45,7 @@ public class PricklyPearBlock extends CropBlock {
 
     @Override
     protected ItemLike getBaseSeedId() {
-        return ModItems.PRICKLY_PEAR.get();
+        return ModItems.PRICKLY_PEAR;
     }
 
     @Override

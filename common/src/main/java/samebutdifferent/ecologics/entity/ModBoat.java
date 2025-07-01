@@ -1,5 +1,7 @@
 package samebutdifferent.ecologics.entity;
 
+import java.util.function.Supplier;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -8,6 +10,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
@@ -15,8 +18,6 @@ import net.minecraft.world.level.Level;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
-
-import java.util.function.Supplier;
 
 public class ModBoat extends Boat {
     private static final EntityDataAccessor<Integer> WOOD_TYPE = SynchedEntityData.defineId(ModBoat.class, EntityDataSerializers.INT);
@@ -27,7 +28,7 @@ public class ModBoat extends Boat {
     }
 
     public ModBoat(Level level, double x, double y, double z) {
-        this(ModEntityTypes.BOAT.get(), level);
+        this(ModEntityTypes.BOAT, level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;
@@ -35,9 +36,9 @@ public class ModBoat extends Boat {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(WOOD_TYPE, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(WOOD_TYPE, 0);
     }
 
     @Override
@@ -67,15 +68,15 @@ public class ModBoat extends Boat {
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return new ClientboundAddEntityPacket(this);
+    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+        return new ClientboundAddEntityPacket(this, entity);
     }
 
     public enum Type {
-        COCONUT("coconut", () -> ModItems.COCONUT_BOAT.get(), () -> ModItems.COCONUT_CHEST_BOAT.get()),
-        WALNUT("walnut", () -> ModItems.WALNUT_BOAT.get(), () -> ModItems.WALNUT_CHEST_BOAT.get()),
-        AZALEA("azalea", () -> ModItems.AZALEA_BOAT.get(), () -> ModItems.AZALEA_CHEST_BOAT.get()),
-        FLOWERING_AZALEA("flowering_azalea", () -> ModItems.FLOWERING_AZALEA_BOAT.get(), () -> ModItems.FLOWERING_AZALEA_CHEST_BOAT.get());
+        COCONUT("coconut", () -> ModItems.COCONUT_BOAT, () -> ModItems.COCONUT_CHEST_BOAT),
+        WALNUT("walnut", () -> ModItems.WALNUT_BOAT, () -> ModItems.WALNUT_CHEST_BOAT),
+        AZALEA("azalea", () -> ModItems.AZALEA_BOAT, () -> ModItems.AZALEA_CHEST_BOAT),
+        FLOWERING_AZALEA("flowering_azalea", () -> ModItems.FLOWERING_AZALEA_BOAT, () -> ModItems.FLOWERING_AZALEA_CHEST_BOAT);
 
         private final String name;
         private final Supplier<Item> item;
@@ -89,9 +90,9 @@ public class ModBoat extends Boat {
 
         public ResourceLocation getTexture(boolean hasChest) {
             if (hasChest) {
-                return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/chest_boat/" + name + ".png");
+                return ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/chest_boat/" + name + ".png");
             }
-            return new ResourceLocation(Ecologics.MOD_ID, "textures/entity/boat/" + name + ".png");
+            return ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/boat/" + name + ".png");
         }
 
         public String getModelLocation() {

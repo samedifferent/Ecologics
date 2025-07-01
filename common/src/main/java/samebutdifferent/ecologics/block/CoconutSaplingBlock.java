@@ -4,13 +4,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
-import samebutdifferent.ecologics.block.grower.CoconutTreeGrower;
 
-public class CoconutSaplingBlock extends SaplingBlock {
-    public CoconutSaplingBlock() {
-        super(new CoconutTreeGrower(), Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.GRASS));
+public class CoconutSaplingBlock extends SaplingBlock 
+{
+	protected final TreeGrower treeGrower;
+	
+    public CoconutSaplingBlock(TreeGrower treeGrowerIn, Properties properties) {
+        super(treeGrowerIn, properties);
+        this.treeGrower = treeGrowerIn;
     }
 
     @Override

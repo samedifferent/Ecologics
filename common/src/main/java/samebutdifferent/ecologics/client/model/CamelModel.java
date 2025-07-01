@@ -16,7 +16,7 @@ import samebutdifferent.ecologics.Ecologics;
 
 @Environment(EnvType.CLIENT)
 public class CamelModel<T extends AbstractChestedHorse> extends EntityModel<T> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Ecologics.MOD_ID, "camel"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "camel"), "main");
     private final ModelPart saddle;
     private final ModelPart body;
     private final ModelPart head;
@@ -77,7 +77,7 @@ public class CamelModel<T extends AbstractChestedHorse> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
         saddle.render(poseStack, buffer, packedLight, packedOverlay);
         body.render(poseStack, buffer, packedLight, packedOverlay);
         head.render(poseStack, buffer, packedLight, packedOverlay);

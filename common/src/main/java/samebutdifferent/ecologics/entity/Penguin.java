@@ -1,7 +1,14 @@
 package samebutdifferent.ecologics.entity;
 
+import java.util.EnumSet;
+import java.util.List;
+import java.util.function.Predicate;
+
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -17,12 +24,30 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -37,18 +62,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModTags;
-
-import java.util.EnumSet;
-import java.util.List;
-import java.util.function.Predicate;
 
 public class Penguin extends Animal {
     private static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
@@ -61,17 +81,16 @@ public class Penguin extends Animal {
 
     public Penguin(EntityType<? extends Animal> type, Level level) {
         super(type, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, true);
         this.lookControl = new PenguinLookControl(this, 20);
-        this.setMaxUpStep(1.0F);
         this.setCanPickUpLoot(true);
     }
 
     // ATTRIBUTES & GOALS
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 2.0D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.STEP_HEIGHT, 1.0F);
     }
 
     @Override
@@ -102,8 +121,8 @@ public class Penguin extends Animal {
     }
 
     @Override
-    public boolean canBreatheUnderwater() {
-        return true;
+    public int getMaxAirSupply() {
+        return 2400;
     }
 
     @Override
@@ -128,7 +147,7 @@ public class Penguin extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
-        return ModEntityTypes.PENGUIN.get().create(level);
+        return ModEntityTypes.PENGUIN.create(level);
     }
 
     @Override
@@ -145,9 +164,9 @@ public class Penguin extends Animal {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(PREGNANT, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(PREGNANT, false);
     }
 
     @Override
@@ -189,7 +208,7 @@ public class Penguin extends Animal {
     protected void ageBoundaryReached() {
         super.ageBoundaryReached();
         if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            this.spawnAtLocation(ModItems.PENGUIN_FEATHER.get(), 1);
+            this.spawnAtLocation(ModItems.PENGUIN_FEATHER, 1);
         }
     }
 
@@ -200,7 +219,7 @@ public class Penguin extends Animal {
                 if (!this.level().isClientSide()) {
                     ServerLevel level = (ServerLevel) this.level();
                     this.setPregnant(false);
-                    Penguin penguin = ModEntityTypes.PENGUIN.get().create(level);
+                    Penguin penguin = ModEntityTypes.PENGUIN.create(level);
                     penguin.setBaby(true);
                     penguin.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
                     level.addFreshEntityWithPassengers(penguin);
@@ -235,7 +254,7 @@ public class Penguin extends Animal {
     }
 
     private boolean canEat(ItemStack itemStack) {
-        return itemStack.getItem().isEdible() && this.getTarget() == null && this.onGround();
+        return itemStack.get(DataComponents.FOOD) != null && this.getTarget() == null && this.onGround();
     }
 
     @Override
@@ -257,7 +276,7 @@ public class Penguin extends Animal {
 
     @Override
     public boolean canTakeItem(ItemStack pItemstack) {
-        EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(pItemstack);
+        EquipmentSlot equipmentslot = this.getEquipmentSlotForItem(pItemstack);
         if (!this.getItemBySlot(equipmentslot).isEmpty() || this.isBaby()) {
             return false;
         } else {
@@ -298,21 +317,20 @@ public class Penguin extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.PENGUIN_AMBIENT.get();
+        return ModSoundEvents.PENGUIN_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return ModSoundEvents.PENGUIN_HURT.get();
+        return ModSoundEvents.PENGUIN_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.PENGUIN_DEATH.get();
+        return ModSoundEvents.PENGUIN_DEATH;
     }
 
     // ANIMATION
-
     private boolean babyIsNearAdult() {
         if (this.isBaby()) {
             for(Penguin penguin : this.level().getEntitiesOfClass(Penguin.class, this.getBoundingBox().inflate(2.0D, 5.0D, 2.0D))) {
@@ -367,14 +385,14 @@ public class Penguin extends Animal {
         }
     }
 
-    @Override
+    /*@Override
     public EntityDimensions getDimensions(Pose pose) {
         float progress = this.slideAnimationProgress > 0 ? slideAnimationProgress : this.swimAnimationProgress > 0 ? swimAnimationProgress : 0.0f;
         if (progress > 0) {
             return super.getDimensions(pose).scale(this.isBaby() ? 1.0f + progress : 1.0f + progress * 0.3F, 1.0f - progress / 2);
         }
         return super.getDimensions(pose).scale(1.0f, this.isBaby() ? 1.4f : 1.0f);
-    }
+    }*/
 
     @Override
     public int getMaxHeadYRot() {

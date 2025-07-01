@@ -1,5 +1,9 @@
 package samebutdifferent.ecologics.block;
 
+import org.jetbrains.annotations.Nullable;
+
+import com.mojang.serialization.MapCodec;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -8,7 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -32,10 +36,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 
 public class PotBlock extends BaseEntityBlock {
+	public static final MapCodec<PotBlock> CODEC = PotBlock.simpleCodec(PotBlock::new);
     protected static final VoxelShape SHAPE = Shapes.or(Block.box(3, 13, 3, 13, 15, 13), Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12));
     public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 5);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -44,6 +48,11 @@ public class PotBlock extends BaseEntityBlock {
         super(properties.pushReaction(PushReaction.DESTROY));
         this.stateDefinition.any().setValue(CHISEL, 0).setValue(POWERED, false);
     }
+    
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return CODEC;
+	}
 
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
@@ -61,19 +70,18 @@ public class PotBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public ItemInteractionResult useItemOn(ItemStack itemstack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof PotBlockEntity potBlockEntity) {
-            ItemStack itemstack = pPlayer.getItemInHand(pHand);
             if (!itemstack.isEmpty()) {
                 if (!pLevel.isClientSide && potBlockEntity.addItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack)) {
                     pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_PLACE, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F);
-                    return InteractionResult.SUCCESS;
+                    return ItemInteractionResult.SUCCESS;
                 }
-                return InteractionResult.CONSUME;
+                return ItemInteractionResult.CONSUME;
             }
         }
-        return InteractionResult.PASS;
+        return ItemInteractionResult.CONSUME;
     }
 
     public static void signalItemAdded(Level pLevel, BlockPos pPos, BlockState pState) {
@@ -149,7 +157,7 @@ public class PotBlock extends BaseEntityBlock {
     }
 
     @Override
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+    public boolean isPathfindable(BlockState pState, PathComputationType pType) {
         return false;
     }
 

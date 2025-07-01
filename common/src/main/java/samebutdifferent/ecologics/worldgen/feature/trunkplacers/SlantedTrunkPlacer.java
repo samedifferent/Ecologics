@@ -1,8 +1,12 @@
 package samebutdifferent.ecologics.worldgen.feature.trunkplacers;
 
+import java.util.List;
+import java.util.function.BiConsumer;
+
 import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -15,11 +19,9 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
 
-import java.util.List;
-import java.util.function.BiConsumer;
-
-public class SlantedTrunkPlacer extends TrunkPlacer {
-    public static final Codec<SlantedTrunkPlacer> CODEC = RecordCodecBuilder.create((placer) -> trunkPlacerParts(placer).apply(placer, SlantedTrunkPlacer::new));
+public class SlantedTrunkPlacer extends TrunkPlacer 
+{
+    public static final MapCodec<SlantedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((placer) -> trunkPlacerParts(placer).apply(placer, SlantedTrunkPlacer::new));
 
     public SlantedTrunkPlacer(int pBaseHeight, int pHeightRandA, int pHeightRandB) {
         super(pBaseHeight, pHeightRandA, pHeightRandB);
@@ -27,7 +29,7 @@ public class SlantedTrunkPlacer extends TrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> type() {
-        return ModTrunkPlacerTypes.SLANTED_TRUNK_PLACER.get();
+        return ModTrunkPlacerTypes.SLANTED_TRUNK_PLACER;
     }
 
     @Override
