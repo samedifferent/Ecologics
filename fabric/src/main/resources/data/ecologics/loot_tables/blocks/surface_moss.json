@@ -1,0 +1,71 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+      {
+        "bonus_rolls": 0.0,
+        "conditions": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "tag": "c:shears"
+            }
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "conditions": [
+                  {
+                    "block": "ecologics:surface_moss",
+                    "condition": "minecraft:block_state_property",
+                    "properties": {
+                      "layers": "1"
+                    }
+                  }
+                ],
+                "count": 1.0,
+                "function": "minecraft:set_count"
+              },
+              {
+                "add": false,
+                "conditions": [
+                  {
+                    "block": "ecologics:surface_moss",
+                    "condition": "minecraft:block_state_property",
+                    "properties": {
+                      "layers": "2"
+                    }
+                  }
+                ],
+                "count": 2.0,
+                "function": "minecraft:set_count"
+              },
+              {
+                "add": false,
+                "conditions": [
+                  {
+                    "block": "ecologics:surface_moss",
+                    "condition": "minecraft:block_state_property",
+                    "properties": {
+                      "layers": "3"
+                    }
+                  }
+                ],
+                "count": 3.0,
+                "function": "minecraft:set_count"
+              },
+              {
+                "function": "minecraft:explosion_decay"
+              }
+            ],
+            "name": "ecologics:surface_moss"
+          }
+        ],
+        "rolls": 1.0
+      }
+    ],
+  "random_sequence": "ecologics:blocks/surface_moss"
+}
