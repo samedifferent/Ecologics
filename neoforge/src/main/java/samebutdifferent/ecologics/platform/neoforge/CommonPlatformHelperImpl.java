@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacementType;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
+import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.mixin.neoforge.AxeItemAccessor;
 
 // @EventBusSubscriber(modid = Ecologics.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
@@ -100,6 +102,7 @@ public class CommonPlatformHelperImpl
     }
     
     public static WoodType registerWoodType(WoodType woodType) {
+        Ecologics.registerSignType(woodType, ResourceLocation.tryParse(woodType.name()).getPath());
         return WoodType.register(woodType);
     }
 

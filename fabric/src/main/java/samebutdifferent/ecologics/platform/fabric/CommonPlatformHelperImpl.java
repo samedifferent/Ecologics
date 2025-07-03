@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacementType;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
+import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.mixin.fabric.SpawnPlacementsAccessor;
 import samebutdifferent.ecologics.mixin.fabric.WoodTypeAccessor;
 
@@ -99,6 +101,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static WoodType registerWoodType(WoodType woodType) {
+        Ecologics.registerSignType(woodType, ResourceLocation.tryParse(woodType.name()).getPath());
         return WoodTypeAccessor.invokeRegister(woodType);
     }
 
