@@ -113,6 +113,7 @@ public class CommonPlatformHelperImpl {
     }
 
     public static WoodType registerWoodType(WoodType woodType) {
+        Ecologics.registerSignType(woodType, ResourceLocation.tryParse(woodType.name()).getPath());
         return WoodTypeAccessor.invokeRegister(woodType);
     }
 

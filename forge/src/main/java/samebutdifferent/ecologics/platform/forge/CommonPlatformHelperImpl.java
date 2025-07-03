@@ -2,6 +2,7 @@ package samebutdifferent.ecologics.platform.forge;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
@@ -113,6 +114,7 @@ public class CommonPlatformHelperImpl {
     }
     
     public static WoodType registerWoodType(WoodType woodType) {
+        Ecologics.registerSignType(woodType, ResourceLocation.tryParse(woodType.name()).getPath());
         return WoodType.register(woodType);
     }
 
