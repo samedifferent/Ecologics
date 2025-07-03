@@ -1,6 +1,9 @@
 package samebutdifferent.ecologics;
 
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -9,6 +12,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,6 +56,11 @@ public class Ecologics {
         CommonPlatformHelper.registerWoodType(ModWoodType.WALNUT);
         CommonPlatformHelper.registerWoodType(ModWoodType.AZALEA);
         CommonPlatformHelper.registerWoodType(ModWoodType.FLOWERING_AZALEA);
+    }
+
+    public static void registerSignType(WoodType woodType, String name) {
+        Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID,  "entity/signs/" + name)));
+        Sheets.HANGING_SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID, "entity/signs/hanging/" + name)));
     }
 
     public static void registerBrewingRecipes() {
