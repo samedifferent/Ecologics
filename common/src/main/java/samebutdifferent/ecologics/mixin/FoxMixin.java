@@ -23,7 +23,7 @@ public abstract class FoxMixin extends Animal {
         super(entitytype, level);
     }
 
-    @Inject(method = "registerGoals", at = @At("TAIL"), remap = false)
+    @Inject(method = "registerGoals()V", at = @At("TAIL"))
     protected void registerGoals(CallbackInfo ci) {
         if (ConfigPlatformHelper.foxesAttackSquirrels() && this.level().getDifficulty() != Difficulty.PEACEFUL) {
             this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, Squirrel.class, 45, true, true, null));
