@@ -26,7 +26,7 @@ public class EcologicsFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         EcologicsClient.init();
 
-        EcologicsClient.addWoodTypes();
+        EcologicsClient.addSignTypes();
 
         EntityModelLayerRegistry.registerModelLayer(CamelModel.LAYER_LOCATION, CamelModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CoconutCrabModel.LAYER_LOCATION, CoconutCrabModel::createBodyLayer);

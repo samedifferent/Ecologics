@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.client.EcologicsClient;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -40,7 +41,8 @@ public class ClientPlatformHelperImpl {
         BlockEntityRendererRegistry.register(type.get(), renderProvider);
     }
 
-    public static void addWoodType(WoodType woodType) {
-        //Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID, "entity/signs/" + woodType.name())));
+    public static void addSignType(WoodType woodType) {
+    	EcologicsClient.registerSignType(woodType, ResourceLocation.tryParse(woodType.name()).getPath());
     }
+    
 }

@@ -1,22 +1,17 @@
 package samebutdifferent.ecologics.platform;
 
+import java.util.function.Supplier;
+
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import net.minecraft.client.color.block.BlockColor;
-import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-
-import java.util.function.Supplier;
 
 public class ClientPlatformHelper {
     @ExpectPlatform
@@ -35,7 +30,7 @@ public class ClientPlatformHelper {
     }
 
     @ExpectPlatform
-    public static void addWoodType(WoodType woodType) {
+    public static void addSignType(WoodType woodType) {
         throw new AssertionError();
     }
 }

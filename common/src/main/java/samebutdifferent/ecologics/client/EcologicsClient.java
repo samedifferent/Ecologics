@@ -1,12 +1,16 @@
 package samebutdifferent.ecologics.client;
 
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.client.renderer.entity.*;
 import samebutdifferent.ecologics.platform.ClientPlatformHelper;
+import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
@@ -46,10 +50,15 @@ public class EcologicsClient {
         //ClientPlatformHelper.registerBlockEntityRenderer(ModBlockEntityTypes.HANGING_SIGN.get(), HangingSignRenderer::new);
     }
 
-    public static void addWoodTypes() {
-        ClientPlatformHelper.addWoodType(ModWoodType.COCONUT);
-        ClientPlatformHelper.addWoodType(ModWoodType.WALNUT);
-        ClientPlatformHelper.addWoodType(ModWoodType.AZALEA);
-        ClientPlatformHelper.addWoodType(ModWoodType.FLOWERING_AZALEA);
+    public static void registerSignType(WoodType woodType, String name) {
+        Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID,  "entity/signs/" + name)));
+        Sheets.HANGING_SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID, "entity/signs/hanging/" + name)));
+    }
+    
+    public static void addSignTypes() {
+    	ClientPlatformHelper.addSignType(ModWoodType.COCONUT);
+    	ClientPlatformHelper.addSignType(ModWoodType.WALNUT);
+    	ClientPlatformHelper.addSignType(ModWoodType.AZALEA);
+    	ClientPlatformHelper.addSignType(ModWoodType.FLOWERING_AZALEA);
     }
 }

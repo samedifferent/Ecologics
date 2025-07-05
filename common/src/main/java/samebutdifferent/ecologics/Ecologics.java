@@ -1,6 +1,12 @@
 package samebutdifferent.ecologics;
 
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
@@ -14,16 +20,12 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 import samebutdifferent.ecologics.registry.*;
-
-import java.util.Map;
 
 public class Ecologics {
     public static final String MOD_ID = "ecologics";
@@ -56,11 +58,6 @@ public class Ecologics {
         CommonPlatformHelper.registerWoodType(ModWoodType.WALNUT);
         CommonPlatformHelper.registerWoodType(ModWoodType.AZALEA);
         CommonPlatformHelper.registerWoodType(ModWoodType.FLOWERING_AZALEA);
-    }
-
-    public static void registerSignType(WoodType woodType, String name) {
-        Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID,  "entity/signs/" + name)));
-        Sheets.HANGING_SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation(Ecologics.MOD_ID, "entity/signs/hanging/" + name)));
     }
 
     public static void registerBrewingRecipes() {

@@ -31,7 +31,7 @@ public class EcologicsForgeClient {
     public static void init(FMLClientSetupEvent event) {
         EcologicsClient.init();
         event.enqueueWork(() -> {
-            EcologicsClient.addWoodTypes();
+            EcologicsClient.addSignTypes();
         });
     }
 
