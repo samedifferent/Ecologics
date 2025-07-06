@@ -30,7 +30,7 @@ public class ClientPlatformHelperImpl
         BlockEntityRenderers.register(type, renderProvider);
     }
 
-    public static void addWoodType(WoodType woodType) {
+    public static void addSignType(WoodType woodType) {
         Sheets.addWoodType(woodType);
     }
 }
