@@ -1,7 +1,5 @@
 package samebutdifferent.ecologics.block;
 
-import java.util.Random;
-
 import org.jetbrains.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
@@ -11,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -118,7 +117,8 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
         return pState.getValue(EGGS_INSIDE) > 0;
     }
 
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+    @Override
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if (this.shouldUpdateHatchLevel(pLevel)) {
             int hatch = pState.getValue(HATCH);
             if (hatch < 2) {
