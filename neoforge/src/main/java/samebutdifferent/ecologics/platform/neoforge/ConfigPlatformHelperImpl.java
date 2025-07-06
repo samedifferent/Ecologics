@@ -10,4 +10,8 @@ public class ConfigPlatformHelperImpl {
     public static boolean replaceAzaleaTree() {
         return ModConfigNeoForge.REPLACE_AZALEA_TREE.get();
     }
+    
+    public static boolean foxesAttackSquirrels() {
+    	return ModConfigNeoForge.FOXES_ATTACK_SQUIRRELS.get();
+    }
 }

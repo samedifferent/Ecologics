@@ -13,4 +13,8 @@ public class ConfigPlatformHelperImpl {
     public static boolean replaceAzaleaTree() {
         return config.lushCaves.replaceAzaleaTree;
     }
+    
+    public static boolean foxesAttackSquirrels() {
+        return config.plains.foxesAttackSquirrels;
+    }
 }

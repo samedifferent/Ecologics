@@ -57,6 +57,8 @@ public class ModConfigFabric implements ConfigData {
         public boolean spawnSquirrels = true;
         @Comment("Generate walnut trees in plains biomes")
         public boolean generateWalnutTrees = true;
+        @Comment("Should Foxes attack Squirrels?")
+        public boolean foxesAttackSquirrels = true;
     }
 
     public static class LushCaves {
