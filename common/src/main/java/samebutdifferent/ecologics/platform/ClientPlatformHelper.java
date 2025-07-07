@@ -31,7 +31,7 @@ public class ClientPlatformHelper
     }
 
     @ExpectPlatform
-    public static void addWoodType(WoodType woodType) {
+    public static void addSignType(WoodType woodType) {
         throw new AssertionError();
     }
 }

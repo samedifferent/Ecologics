@@ -17,6 +17,9 @@ public class ModConfigNeoForge
     public static final String CATEGORY_LUSH_CAVES = "lush_caves";
     public static final ModConfigSpec.BooleanValue REPLACE_AZALEA_TREE;
 
+    public static final String CATEGORY_PLAINS = "plains";
+    public static final ModConfigSpec.BooleanValue FOXES_ATTACK_SQUIRRELS;
+    
     static {
     	ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
 
@@ -30,6 +33,10 @@ public class ModConfigNeoForge
 
         COMMON_BUILDER.comment("Lush Caves Update").push(CATEGORY_LUSH_CAVES);
         REPLACE_AZALEA_TREE = COMMON_BUILDER.comment("Vanilla Azalea trees will have azalea logs instead of oak logs").define("replaceAzaleaTree", true);
+        COMMON_BUILDER.pop();
+        
+        COMMON_BUILDER.comment("Plains").push(CATEGORY_PLAINS);
+        FOXES_ATTACK_SQUIRRELS = COMMON_BUILDER.comment("Should Foxes attack Squirrels?").define("foxesAttackSquirrels", true);
         COMMON_BUILDER.pop();
 
         COMMON_CONFIG = COMMON_BUILDER.build();

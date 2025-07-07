@@ -12,4 +12,9 @@ public class ConfigPlatformHelper {
     public static boolean replaceAzaleaTree() {
         throw new AssertionError();
     }
+    
+    @ExpectPlatform
+    public static boolean foxesAttackSquirrels() {
+        throw new AssertionError();
+    }
 }

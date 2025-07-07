@@ -49,10 +49,10 @@ public class EcologicsClient {
         BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
     }
 
-    public static void addWoodTypes() {
-        ClientPlatformHelper.addWoodType(ModWoodType.COCONUT);
-        ClientPlatformHelper.addWoodType(ModWoodType.WALNUT);
-        ClientPlatformHelper.addWoodType(ModWoodType.AZALEA);
-        ClientPlatformHelper.addWoodType(ModWoodType.FLOWERING_AZALEA);
+    public static void addSignTypes() {
+        ClientPlatformHelper.addSignType(ModWoodType.COCONUT);
+        ClientPlatformHelper.addSignType(ModWoodType.WALNUT);
+        ClientPlatformHelper.addSignType(ModWoodType.AZALEA);
+        ClientPlatformHelper.addSignType(ModWoodType.FLOWERING_AZALEA);
     }
 }

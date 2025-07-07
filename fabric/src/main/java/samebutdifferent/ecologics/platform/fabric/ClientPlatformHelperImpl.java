@@ -31,7 +31,7 @@ public class ClientPlatformHelperImpl
         BlockEntityRenderers.register(type, renderProvider);
     }
 
-    public static void addWoodType(WoodType woodType) {
+    public static void addSignType(WoodType woodType) {
         Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity/signs/" + woodType.name().replace(Ecologics.MOD_ID + ":", ""))));
     }
 }
