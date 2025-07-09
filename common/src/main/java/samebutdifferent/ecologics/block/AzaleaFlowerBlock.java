@@ -19,8 +19,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.block.grower.ModTreeGrower;
 
-import net.minecraft.world.level.block.AzaleaBlock;
-
 public class AzaleaFlowerBlock extends BushBlock implements BonemealableBlock 
 {
 	public static final MapCodec<AzaleaFlowerBlock> CODEC = AzaleaFlowerBlock.simpleCodec(AzaleaFlowerBlock::new);
