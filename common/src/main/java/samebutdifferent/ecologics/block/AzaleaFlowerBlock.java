@@ -19,18 +19,19 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.block.grower.ModTreeGrower;
 
+import net.minecraft.world.level.block.AzaleaBlock;
+
 public class AzaleaFlowerBlock extends BushBlock implements BonemealableBlock 
 {
 	public static final MapCodec<AzaleaFlowerBlock> CODEC = AzaleaFlowerBlock.simpleCodec(AzaleaFlowerBlock::new);
-    private static final TreeGrower TREE_GROWER = ModTreeGrower.AZALEA;
     protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
 
     public AzaleaFlowerBlock(Properties properties) {
         super(properties);
     }
     
-	@Override
-	protected MapCodec<? extends AzaleaFlowerBlock> codec() {
+    @Override
+	public MapCodec<AzaleaFlowerBlock> codec() {
 		return CODEC;
 	}
 
@@ -52,8 +53,6 @@ public class AzaleaFlowerBlock extends BushBlock implements BonemealableBlock
 
     @Override
     public void performBonemeal(ServerLevel serverWorld, RandomSource random, BlockPos pos, BlockState state) {
-        TREE_GROWER.growTree(serverWorld, serverWorld.getChunkSource().getGenerator(), pos, state, random);
+    	ModTreeGrower.AZALEA.growTree(serverWorld, serverWorld.getChunkSource().getGenerator(), pos, state, random);
     }
-
-
 }

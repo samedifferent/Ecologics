@@ -12,17 +12,12 @@
               "blocks": [
                 "minecraft:air",
                 "minecraft:cave_air",
-                "minecraft:void_air",
-                "minecraft:water"
+                "minecraft:void_air"
               ]
             },
             {
               "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:leaves"
-            },
-            {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:replaceable_plants"
+              "tag": "minecraft:replaceable_by_trees"
             }
           ]
         },
@@ -39,7 +34,7 @@
     },
     "allowed_vertical_water_for_tree": 2,
     "feature": {
-      "feature": "ecologics:azalea_tree",
+      "feature": "ecologics:rooted_azalea_tree",
       "placement": []
     },
     "hanging_root_placement_attempts": 20,
