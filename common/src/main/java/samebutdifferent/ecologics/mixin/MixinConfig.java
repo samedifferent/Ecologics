@@ -21,9 +21,9 @@ public class MixinConfig implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		/*if (mixinClassName == "samebutdifferent.ecologics.mixin.AzaleaTreeGrowerMixin") {
+		if (mixinClassName == "samebutdifferent.ecologics.mixin.AzaleaBlockMixin") {
 			return ConfigPlatformHelper.replaceAzaleaTree();
-		}*/
+		}
 		if (mixinClassName == "samebutdifferent.ecologics.mixin.FoxMixin") {
 			return ConfigPlatformHelper.foxesAttackSquirrels();
 		}

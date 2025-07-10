@@ -5,7 +5,7 @@
   "plugin": "samebutdifferent.ecologics.mixin.MixinConfig",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CamelMixin",
+    "AzaleaBlockMixin",
     "FoxMixin",
     "CarpetBlockMixin",
     "LivingEntityMixin"
