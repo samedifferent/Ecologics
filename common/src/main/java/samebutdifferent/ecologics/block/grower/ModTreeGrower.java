@@ -7,7 +7,7 @@ import samebutdifferent.ecologics.registry.ModFeatures;
 
 public class ModTreeGrower 
 {
-	public static final TreeGrower AZALEA = new TreeGrower("azalea", Optional.empty(), Optional.of(ModFeatures.ROOTED_AZALEA_TREE), Optional.empty());
+	public static final TreeGrower AZALEA = new TreeGrower("azalea", Optional.empty(), Optional.of(ModFeatures.AZALEA_REGULAR), Optional.empty());
 	public static final TreeGrower COCONUT = new TreeGrower("coconut", Optional.empty(), Optional.of(ModFeatures.COCONUT_REGULAR), Optional.empty());
 	public static final TreeGrower WALNUT = new TreeGrower("walnut", Optional.empty(), Optional.of(ModFeatures.WALNUT_REGULAR), Optional.empty());
 }

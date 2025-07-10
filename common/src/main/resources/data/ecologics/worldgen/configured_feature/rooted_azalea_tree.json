@@ -34,7 +34,7 @@
     },
     "allowed_vertical_water_for_tree": 2,
     "feature": {
-      "feature": "ecologics:rooted_azalea_tree",
+      "feature": "ecologics:azalea_tree",
       "placement": []
     },
     "hanging_root_placement_attempts": 20,

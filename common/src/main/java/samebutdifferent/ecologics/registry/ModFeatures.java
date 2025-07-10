@@ -43,7 +43,8 @@ public class ModFeatures
     public static final Feature COCONUT_TREE = registerFeature("coconut_tree", new TreeFeature(TreeConfiguration.CODEC));
     public static final Feature WALNUT_TREE = registerFeature("walnut_tree", new TreeFeature(TreeConfiguration.CODEC));
     
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ROOTED_AZALEA_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ROOTED_AZALEA_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "rooted_azalea_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AZALEA_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_tree"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> COCONUT_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_tree"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> WALNUT_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_tree"));
 }
