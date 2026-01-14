@@ -31,7 +31,7 @@ public class ModConfigForge {
         COMMON_BUILDER.pop();
         
         COMMON_BUILDER.comment("Plains").push(CATEGORY_PLAINS);
-        FOXES_ATTACK_SQUIRRELS = COMMON_BUILDER.comment("Decides if Foxes should attack Squirrels.").define("replaceAzaleaTree", true);
+        FOXES_ATTACK_SQUIRRELS = COMMON_BUILDER.comment("Decides if Foxes should attack Squirrels.").define("foxesAttackSquirrels", true);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Lush Caves Update").push(CATEGORY_LUSH_CAVES);
