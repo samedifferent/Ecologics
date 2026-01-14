@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import samebutdifferent.ecologics.block.grower.CoconutTreeGrower;
+import samebutdifferent.ecologics.registry.ModTags;
 
 public class CoconutSaplingBlock extends SaplingBlock {
     public CoconutSaplingBlock() {
@@ -15,6 +16,6 @@ public class CoconutSaplingBlock extends SaplingBlock {
 
     @Override
     protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(Blocks.SAND) || pState.is(Blocks.RED_SAND);
+        return pState.is(ModTags.BlockTags.COCONUT_PLANTABLE_ON);
     }
 }
