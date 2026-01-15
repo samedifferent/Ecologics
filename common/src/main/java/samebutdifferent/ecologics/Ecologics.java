@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -31,7 +30,9 @@ import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModMobEffects;
 import samebutdifferent.ecologics.registry.ModPotions;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
+import samebutdifferent.ecologics.registry.ModStructures;
 import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
+import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 
 public class Ecologics 
 {
@@ -45,6 +46,8 @@ public class Ecologics
         ModEntityTypes.init();
         ModBlockEntityTypes.init();
         ModFeatures.init();
+        ModStructures.init();
+        ModStructurePieces.init();
         ModTrunkPlacerTypes.init();
         ModFoliagePlacerTypes.init();
         ModMobEffects.init();

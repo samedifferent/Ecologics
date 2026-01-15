@@ -1,0 +1,6 @@
+{
+  "type": "ecologics:desert_ruin",
+  "biomes": "#ecologics:has_structure/desert_ruin",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

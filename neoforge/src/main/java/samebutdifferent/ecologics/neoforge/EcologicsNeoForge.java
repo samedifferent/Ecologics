@@ -47,9 +47,9 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
-import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModFeatures;
 import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
@@ -57,9 +57,11 @@ import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModMobEffects;
 import samebutdifferent.ecologics.registry.ModPotions;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
+import samebutdifferent.ecologics.registry.ModStructures;
 import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
 import samebutdifferent.ecologics.registry.neoforge.ModConfigNeoForge;
 import samebutdifferent.ecologics.registry.neoforge.ModGlobalLootModifiers;
+import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 
 @Mod(Ecologics.MOD_ID)
 @EventBusSubscriber(modid = Ecologics.MOD_ID)
@@ -109,6 +111,8 @@ public class EcologicsNeoForge
     	event.register(Registries.FEATURE, helper -> { ModFeatures.init(); });
     	event.register(Registries.TRUNK_PLACER_TYPE, helper -> { ModTrunkPlacerTypes.init(); });
     	event.register(Registries.FOLIAGE_PLACER_TYPE, helper -> { ModFoliagePlacerTypes.init(); });
+    	event.register(Registries.STRUCTURE_TYPE, helper -> { ModStructures.init(); });
+    	event.register(Registries.STRUCTURE_PIECE, helper -> { ModStructurePieces.init(); });
     	event.register(Registries.MOB_EFFECT, helper -> { ModMobEffects.init(); });
     	event.register(Registries.POTION, helper -> { ModPotions.init(); });
     	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
