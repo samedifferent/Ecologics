@@ -1,7 +1,5 @@
 package samebutdifferent.ecologics.platform;
 
-import java.util.function.Supplier;
-
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

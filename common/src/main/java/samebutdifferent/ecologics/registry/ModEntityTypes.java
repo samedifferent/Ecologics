@@ -5,15 +5,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import oshi.util.tuples.Pair;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.*;
-import samebutdifferent.ecologics.platform.CommonPlatformHelper;
-
 import java.util.ArrayList;
-import java.util.function.Supplier;
 
 public class ModEntityTypes
 {
@@ -23,12 +18,12 @@ public class ModEntityTypes
     	}
     }
     
-    public static <T extends EntityType> T registerEntityType(String name, T entity) {
-    	ENTITY_TYPES.add(new Pair(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), entity));
+    public static <T extends EntityType<?>> T registerEntityType(String name, T entity) {
+    	ENTITY_TYPES.add(new Pair<>(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), entity));
     	return entity;
     }
     
-    public static final ArrayList<Pair<ResourceLocation, EntityType<?>>> ENTITY_TYPES = new ArrayList();
+    public static final ArrayList<Pair<ResourceLocation, EntityType<?>>> ENTITY_TYPES = new ArrayList<>();
 
     // Utility
     public static final EntityType<ModBoat> BOAT = registerEntityType("boat", EntityType.Builder.<ModBoat>of(ModBoat::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10).build("boat"));

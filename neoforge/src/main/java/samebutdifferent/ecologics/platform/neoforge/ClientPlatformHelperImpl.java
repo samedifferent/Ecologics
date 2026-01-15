@@ -1,7 +1,5 @@
 package samebutdifferent.ecologics.platform.neoforge;
 
-import java.util.function.Supplier;
-
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;

@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +46,7 @@ public class FloweringAzaleaLogBlock extends RotatedPillarBlock {
         ItemEntity itementity = new ItemEntity(world, (double) pos.getX() + 0.5D + (double) direction.getStepX() * 0.65D, (double) pos.getY() + 0.1D, (double) pos.getZ() + 0.5D + (double) direction.getStepZ() * 0.65D, new ItemStack(ModBlocks.AZALEA_FLOWER.asItem()));
         itementity.setDeltaMovement(0.05D * (double) direction.getStepX() + world.random.nextDouble() * 0.02D, 0.05D, 0.05D * (double) direction.getStepZ() + world.random.nextDouble() * 0.02D);
         world.addFreshEntity(itementity);
-        stack.hurtAndBreak(1, player, player.getSlotForHand(hand));
+        stack.hurtAndBreak(1, player, Player.getSlotForHand(hand));
         world.gameEvent(player, GameEvent.SHEAR, pos);
         player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
     }

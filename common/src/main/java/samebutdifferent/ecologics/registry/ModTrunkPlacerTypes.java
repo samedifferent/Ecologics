@@ -19,11 +19,11 @@ public class ModTrunkPlacerTypes
     }
 
     public static TrunkPlacerType registerTrunkPlacerType(String name, TrunkPlacerType<?> trunk) {
-    	TRUNK_PLACERS.add(new Pair(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), trunk));
+    	TRUNK_PLACERS.add(new Pair<>(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), trunk));
     	return trunk;
     }
     
-    public static final ArrayList<Pair<ResourceLocation, TrunkPlacerType<?>>> TRUNK_PLACERS = new ArrayList();
+    public static final ArrayList<Pair<ResourceLocation, TrunkPlacerType<?>>> TRUNK_PLACERS = new ArrayList<>();
     
     public static final TrunkPlacerType<SlantedTrunkPlacer> SLANTED_TRUNK_PLACER = registerTrunkPlacerType("slanted_trunk_placer", new TrunkPlacerType<>(SlantedTrunkPlacer.CODEC));
 }

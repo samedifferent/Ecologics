@@ -6,7 +6,7 @@ import net.minecraft.world.level.ItemLike;
 
 public class ModCreativeModeTabContents 
 {
-	public static final ArrayList<ItemLike> TAB_ITEMS = new ArrayList();
+	public static final ArrayList<ItemLike> TAB_ITEMS = new ArrayList<>();
 	
 	public static void populateTabDatabase() {
         addToList(ModBlocks.COCONUT_LOG);

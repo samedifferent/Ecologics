@@ -64,11 +64,11 @@ public class ModBlocks
     }
     
     public static Block registerBlock(String name, Block block, boolean addItem) {
-    	BLOCKS.add(new Triplet(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), block, addItem));
+    	BLOCKS.add(new Triplet<>(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), block, addItem));
     	return block;
     }
     
-    public static final ArrayList<Triplet<ResourceLocation, Block, Boolean>> BLOCKS = new ArrayList();
+    public static final ArrayList<Triplet<ResourceLocation, Block, Boolean>> BLOCKS = new ArrayList<>();
 
     // Azalea Woodset
     public static final Block AZALEA_LOG = registerBlock("azalea_log", new AzaleaLogBlock());
@@ -109,7 +109,7 @@ public class ModBlocks
     public static final Block STRIPPED_COCONUT_LOG = registerBlock("stripped_coconut_log", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
     public static final Block COCONUT_WOOD = registerBlock("coconut_wood", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
     public static final Block STRIPPED_COCONUT_WOOD = registerBlock("stripped_coconut_wood", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
-    public static final Block COCONUT_LEAVES = registerBlock("coconut_leaves", new CoconutLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final Block COCONUT_LEAVES = registerBlock("coconut_leaves", new CoconutLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false)));
     public static final Block COCONUT_PLANKS = registerBlock("coconut_planks", new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final Block COCONUT_SLAB = registerBlock("coconut_slab", new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final Block COCONUT_STAIRS = registerBlock("coconut_stairs", new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
@@ -131,7 +131,7 @@ public class ModBlocks
     public static final Block STRIPPED_WALNUT_LOG = registerBlock("stripped_walnut_log", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
     public static final Block WALNUT_WOOD = registerBlock("walnut_wood", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
     public static final Block STRIPPED_WALNUT_WOOD = registerBlock("stripped_walnut_wood", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
-    public static final Block WALNUT_LEAVES = registerBlock("walnut_leaves", new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final Block WALNUT_LEAVES = registerBlock("walnut_leaves", new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false)));
     public static final Block WALNUT_PLANKS = registerBlock("walnut_planks", new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final Block WALNUT_SLAB = registerBlock("walnut_slab", new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final Block WALNUT_STAIRS = registerBlock("walnut_stairs", new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));

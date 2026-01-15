@@ -18,11 +18,11 @@ public class ModSoundEvents
     }
     
     public static SoundEvent registerSoundEvent(String name, SoundEvent sound) {
-    	SOUND_EVENTS.add(new Pair(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), sound));
+    	SOUND_EVENTS.add(new Pair<>(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), sound));
     	return sound;
     }
     
-    public static final ArrayList<Pair<ResourceLocation, SoundEvent>> SOUND_EVENTS = new ArrayList();
+    public static final ArrayList<Pair<ResourceLocation, SoundEvent>> SOUND_EVENTS = new ArrayList<>();
 
     public static final SoundEvent COCONUT_SMASH = registerSoundEvent("coconut_smash", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "block.coconut.smash")));
     public static final SoundEvent COCONUT_CRAB_AMBIENT = registerSoundEvent("coconut_crab_ambient", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.coconut_crab.ambient")));

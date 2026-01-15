@@ -86,7 +86,7 @@ public class Squirrel extends Animal {
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
         if (ConfigPlatformHelper.foxesAttackSquirrels()) {
-        	this.goalSelector.addGoal(1, new AvoidEntityGoal(this, Fox.class, 6.0F, 1.1D, 1.3D));
+        	this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Fox.class, 6.0F, 1.1D, 1.3D));
         }
     }
 

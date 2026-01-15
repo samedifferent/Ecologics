@@ -14,7 +14,6 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.block.Block;
 import oshi.util.tuples.Pair;
 import oshi.util.tuples.Triplet;
@@ -22,7 +21,6 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.ModBoat;
 import samebutdifferent.ecologics.item.CoconutSliceItem;
 import samebutdifferent.ecologics.item.ModBoatItem;
-import samebutdifferent.ecologics.item.PricklyPearItem;
 import samebutdifferent.ecologics.item.SandcastleBlockItem;
 
 public class ModItems
@@ -40,11 +38,11 @@ public class ModItems
     }
     
     public static Item registerItem(String name, Item item) {
-    	ITEMS.add(new Pair(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), item));
+    	ITEMS.add(new Pair<>(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), item));
     	return item;
     }
     
-    public static final ArrayList<Pair<ResourceLocation, Item>> ITEMS = new ArrayList();
+    public static final ArrayList<Pair<ResourceLocation, Item>> ITEMS = new ArrayList<>();
 
     // Food
     public static final Item COCONUT_SLICE = registerItem("coconut_slice", new CoconutSliceItem(new Item.Properties().food(Foods.SWEET_BERRIES)));

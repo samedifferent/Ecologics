@@ -11,8 +11,6 @@ import oshi.util.tuples.Pair;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.effect.SlipperyMobEffect;
 
-import net.minecraft.world.effect.MobEffects;
-
 public class ModMobEffects 
 {
     public static void init() {
@@ -27,7 +25,7 @@ public class ModMobEffects
     	return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), effect);
     }
 
-    public static final ArrayList<Pair<ResourceLocation, MobEffect>> MOB_EFFECTS = new ArrayList();
+    public static final ArrayList<Pair<ResourceLocation, MobEffect>> MOB_EFFECTS = new ArrayList<>();
     
     public static final Holder<MobEffect> SLIPPERY = registerMobEffect("slippery", new SlipperyMobEffect());
 }
