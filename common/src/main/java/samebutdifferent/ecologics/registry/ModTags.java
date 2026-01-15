@@ -19,6 +19,7 @@ public class ModTags {
     }
 
     public static class BlockTags {
+        public static final TagKey<Block> COCONUT_PLANTABLE_ON = tag("coconut_plantable_on");
         public static final TagKey<Block> PENGUINS_SPAWNABLE_ON = tag("penguins_spawnable_on");
 
         private static TagKey<Block> tag(String name) {
