@@ -38,6 +38,8 @@ public class Ecologics {
         ModEntityTypes.init();
         ModBlockEntityTypes.init();
         ModFeatures.init();
+        ModStructures.init();
+        ModStructurePieces.init();
         ModTrunkPlacerTypes.init();
         ModFoliagePlacerTypes.init();
         ModMobEffects.init();

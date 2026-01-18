@@ -27,6 +27,10 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.mixin.fabric.PotionBrewingAccessor;
 import samebutdifferent.ecologics.mixin.fabric.RecordItemAccessor;
@@ -36,6 +40,8 @@ import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 
 import java.util.Map;
 import java.util.function.Supplier;
+
+import com.mojang.serialization.Codec;
 
 public class CommonPlatformHelperImpl {
     public static <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> block) {
@@ -103,7 +109,17 @@ public class CommonPlatformHelperImpl {
         T registry = Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(Ecologics.MOD_ID, name), feature.get());
         return () -> registry;
     }
-
+    
+    public static <T extends Structure> Supplier<StructureType> registerStructure(String name, Codec<T> codec) {
+        StructureType<?> registry = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, new ResourceLocation(Ecologics.MOD_ID, name), () -> (Codec)codec);
+        return () -> registry;
+    }
+    
+    public static <T extends StructurePieceType> Supplier<T> registerStructurePiece(String name, Supplier<T> piece) {
+        T registry = Registry.register(BuiltInRegistries.STRUCTURE_PIECE, new ResourceLocation(Ecologics.MOD_ID, name), piece.get());
+        return () -> registry;
+    }
+    
     public static <T extends Mob> void registerSpawnPlacement(EntityType<T> entityType, SpawnPlacements.Type decoratorType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> decoratorPredicate) {
         SpawnPlacementsAccessor.invokeRegister(entityType, decoratorType, heightMapType, decoratorPredicate);
     }

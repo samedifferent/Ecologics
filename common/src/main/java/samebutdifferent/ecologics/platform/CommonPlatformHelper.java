@@ -5,6 +5,8 @@ import java.util.function.Supplier;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.mojang.serialization.Codec;
+
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -31,6 +33,10 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 
 public class CommonPlatformHelper {
     @ExpectPlatform
@@ -109,6 +115,16 @@ public class CommonPlatformHelper {
 
     @ExpectPlatform
     public static <T extends Feature<?>> Supplier<T> registerFeature(String name, Supplier<T> feature) {
+        throw new AssertionError();
+    }
+    
+    @ExpectPlatform
+    public static <T extends Structure> Supplier<StructureType> registerStructure(String name, Codec<T> structure) {
+        throw new AssertionError();
+    }
+    
+    @ExpectPlatform
+    public static <T extends StructurePieceType> Supplier<StructurePieceType> registerStructurePiece(String name, Supplier<T> piece) {
         throw new AssertionError();
     }
 

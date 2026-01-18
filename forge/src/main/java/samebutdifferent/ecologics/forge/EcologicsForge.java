@@ -43,6 +43,8 @@ import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModItems;
+import samebutdifferent.ecologics.registry.ModStructurePieces;
+import samebutdifferent.ecologics.registry.ModStructures;
 import samebutdifferent.ecologics.registry.forge.ModConfigForge;
 import samebutdifferent.ecologics.registry.forge.ModGlobalLootModifiers;
 
@@ -52,6 +54,7 @@ import java.util.Map;
 @Mod(Ecologics.MOD_ID)
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class EcologicsForge {
+	
 	private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(Ecologics.MOD_ID, "tab"));
 	
     public EcologicsForge() {
@@ -66,6 +69,8 @@ public class EcologicsForge {
         CommonPlatformHelperImpl.ENTITY_TYPES.register(bus);
         CommonPlatformHelperImpl.BLOCK_ENTITY_TYPES.register(bus);
         CommonPlatformHelperImpl.FEATURES.register(bus);
+        CommonPlatformHelperImpl.STRUCTURES.register(bus);
+        CommonPlatformHelperImpl.STRUCTURE_PIECES.register(bus);
         CommonPlatformHelperImpl.TRUNK_PLACER_TYPES.register(bus);
         CommonPlatformHelperImpl.FOLIAGE_PLACER_TYPES.register(bus);
         CommonPlatformHelperImpl.MOB_EFFECTS.register(bus);
