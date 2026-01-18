@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "ecologics:coconut_slice",
+    "ecologics:walnut",
+    "ecologics:prickly_pear",
+    "ecologics:cooked_prickly_pear",
+    "ecologics:crab_meat",
+    "ecologics:tropical_stew"
+  ]
+}
