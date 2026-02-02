@@ -55,19 +55,12 @@ public class Ecologics
     }
 
     public static void commonSetup() {
-        registerWoodTypes();
+        ModWoodType.init();
         registerBrewingRecipes();
         registerCompostables();
         registerStrippables();
         registerFlammables();
         registerSpawnPlacements();
-    }
-
-    public static void registerWoodTypes() {
-        CommonPlatformHelper.registerWoodType(ModWoodType.COCONUT);
-        CommonPlatformHelper.registerWoodType(ModWoodType.WALNUT);
-        CommonPlatformHelper.registerWoodType(ModWoodType.AZALEA);
-        CommonPlatformHelper.registerWoodType(ModWoodType.FLOWERING_AZALEA);
     }
 
     public static void registerBrewingRecipes() {
@@ -87,14 +80,14 @@ public class Ecologics
 
     public static void registerStrippables() {
         Map<Block, Block> strippables = new ImmutableMap.Builder<Block, Block>()
-                .put(ModBlocks.COCONUT_LOG, ModBlocks.STRIPPED_COCONUT_LOG)
-                .put(ModBlocks.COCONUT_WOOD, ModBlocks.STRIPPED_COCONUT_WOOD)
-                .put(ModBlocks.WALNUT_LOG, ModBlocks.STRIPPED_WALNUT_LOG)
-                .put(ModBlocks.WALNUT_WOOD, ModBlocks.STRIPPED_WALNUT_WOOD)
-                .put(ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG)
-                .put(ModBlocks.FLOWERING_AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG)
-                .put(ModBlocks.FLOWERING_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD)
-                .put(ModBlocks.AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD).build();
+            .put(ModBlocks.COCONUT_LOG, ModBlocks.STRIPPED_COCONUT_LOG)
+            .put(ModBlocks.COCONUT_WOOD, ModBlocks.STRIPPED_COCONUT_WOOD)
+            .put(ModBlocks.WALNUT_LOG, ModBlocks.STRIPPED_WALNUT_LOG)
+            .put(ModBlocks.WALNUT_WOOD, ModBlocks.STRIPPED_WALNUT_WOOD)
+            .put(ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG)
+            .put(ModBlocks.FLOWERING_AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG)
+            .put(ModBlocks.FLOWERING_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD)
+            .put(ModBlocks.AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD).build();
         CommonPlatformHelper.registerStrippables(strippables);
     }
 
@@ -142,14 +135,12 @@ public class Ecologics
     }
 
     public static void registerSpawnPlacements() {
-        //CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
         CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
         CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
     }
 
     public static void registerEntityAttributes(Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> attributes) {
         attributes.put(ModEntityTypes.COCONUT_CRAB, CoconutCrab.createAttributes());
-        //attributes.put(ModEntityTypes.CAMEL.get(), Camel.createAttributes());
         attributes.put(ModEntityTypes.PENGUIN, Penguin.createAttributes());
         attributes.put(ModEntityTypes.SQUIRREL, Squirrel.createAttributes());
     }

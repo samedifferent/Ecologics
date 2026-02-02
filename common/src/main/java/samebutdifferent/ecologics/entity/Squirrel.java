@@ -8,7 +8,6 @@ import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,6 +21,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
@@ -40,16 +40,17 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import samebutdifferent.ecologics.entity.ai.navigation.BetterWallClimberNavigation;
 import samebutdifferent.ecologics.platform.ConfigPlatformHelper;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
@@ -59,7 +60,6 @@ import samebutdifferent.ecologics.registry.ModTags;
 public class Squirrel extends Animal {
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Squirrel.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> DATA_TRUSTING = SynchedEntityData.defineId(Squirrel.class, EntityDataSerializers.BOOLEAN);
-    private static final Ingredient TEMPT_INGREDIENT = Ingredient.of(ModTags.ItemTags.SQUIRREL_TEMPT_ITEMS);
 
     public Squirrel(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -78,7 +78,7 @@ public class Squirrel extends Animal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.0D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, TEMPT_INGREDIENT, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, itemstack -> itemstack.is(ModTags.ItemTags.SQUIRREL_FOOD), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new SquirrelSearchForSaplingsGoal(this));
         this.goalSelector.addGoal(6, new SquirrelPlantSaplingGoal(this, 1.0F, 8, 4));
@@ -98,15 +98,15 @@ public class Squirrel extends Animal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putBoolean("Trusting", this.isTrusting());
+    public void addAdditionalSaveData(ValueOutput value) {
+        super.addAdditionalSaveData(value);
+        value.putBoolean("Trusting", this.isTrusting());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.setTrusting(pCompound.getBoolean("Trusting"));
+    public void readAdditionalSaveData(ValueInput value) {
+        super.readAdditionalSaveData(value);
+        this.setTrusting(value.getBooleanOr("Trusting", false));
     }
 
     // BREEDING & TRUSTING
@@ -114,7 +114,7 @@ public class Squirrel extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pMob) {
-        return ModEntityTypes.SQUIRREL.create(pLevel);
+        return ModEntityTypes.SQUIRREL.create(pLevel, EntitySpawnReason.BREEDING);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class Squirrel extends Animal {
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (!this.isTrusting() && TEMPT_INGREDIENT.test(itemstack)) {
+        if (!this.isTrusting() && itemstack.is(ModTags.ItemTags.SQUIRREL_FOOD)) {
             this.usePlayerItem(pPlayer, pHand, itemstack);
             if (!this.level().isClientSide()) {
                 if (this.random.nextInt(3) == 0) {
@@ -145,7 +145,7 @@ public class Squirrel extends Animal {
                     this.level().broadcastEntityEvent(this, (byte)40);
                 }
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide());
+            return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(pPlayer, pHand);
         }
@@ -176,9 +176,7 @@ public class Squirrel extends Animal {
         }
     }
 
-    // FISH
-
-    @Override
+    /*@Override
     public boolean canTakeItem(ItemStack pItemstack) {
         EquipmentSlot equipmentslot = this.getEquipmentSlotForItem(pItemstack);
         if (!this.getItemBySlot(equipmentslot).isEmpty() || this.isBaby() || !this.isTrusting()) {
@@ -186,7 +184,7 @@ public class Squirrel extends Animal {
         } else {
             return equipmentslot == EquipmentSlot.MAINHAND && super.canTakeItem(pItemstack);
         }
-    }
+    }*/
 
     @Override
     public boolean canHoldItem(ItemStack pStack) {
@@ -195,7 +193,7 @@ public class Squirrel extends Animal {
     }
 
     @Override
-    protected void pickUpItem(ItemEntity pItemEntity) {
+    protected void pickUpItem(ServerLevel level, ItemEntity pItemEntity) {
         ItemStack itemstack = pItemEntity.getItem();
         if (this.canHoldItem(itemstack)) {
             int count = itemstack.getCount();
@@ -205,7 +203,7 @@ public class Squirrel extends Animal {
 
             this.onItemPickup(pItemEntity);
             this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
-            this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 2.0F;
+            this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
             this.take(pItemEntity, itemstack.getCount());
             pItemEntity.discard();
         }
@@ -253,7 +251,7 @@ public class Squirrel extends Animal {
 
 
     @Override
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+    public boolean causeFallDamage(double fallDistance, float multiplier, DamageSource pSource) {
         return false;
     }
 

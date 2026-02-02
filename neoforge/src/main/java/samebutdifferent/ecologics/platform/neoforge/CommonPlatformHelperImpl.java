@@ -27,22 +27,6 @@ public class CommonPlatformHelperImpl
     	((FireBlock)Blocks.FIRE).setFlammable(block, encouragement, flammability);
     }
 
-    public static void registerBrewingRecipe(Holder<Potion> input, Item ingredient, Holder<Potion> output) {
-        // PotionBrewing.Builder.addRecipe(input, ingredient, output);
-    }
-    
-    public static <T extends Mob> void registerSpawnPlacement(EntityType<T> entityType, SpawnPlacementType decoratorType, Heightmap.Types heightMapType, SpawnPlacements.SpawnPredicate<T> decoratorPredicate) {
-        // SpawnPlacements.register(entityType, decoratorType, heightMapType, decoratorPredicate);
-    }
-
-    public static WoodType createWoodType(String name, BlockSetType setType) {
-        return new WoodType(name, setType);
-    }
-    
-    public static WoodType registerWoodType(WoodType woodType) {
-        return WoodType.register(woodType);
-    }
-
     public static void registerCompostable(float chance, ItemLike item) {
         ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
     }

@@ -6,7 +6,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -23,17 +23,17 @@ import samebutdifferent.ecologics.worldgen.feature.ThinIceFeature;
 public class ModFeatures 
 {
     public static void init() {
-    	for (Pair<ResourceLocation, Feature<?>> registry : FEATURES) {
+    	for (Pair<Identifier, Feature<?>> registry : FEATURES) {
     		Registry.register(BuiltInRegistries.FEATURE, registry.getA(), registry.getB());
     	}
     }
     
     public static Feature<?> registerFeature(String name, Feature<?> feature) {
-    	FEATURES.add(new Pair<>(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), feature));
+    	FEATURES.add(new Pair<>(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, name), feature));
     	return feature;
     }
     
-    public static final ArrayList<Pair<ResourceLocation, Feature<?>>> FEATURES = new ArrayList<>();
+    public static final ArrayList<Pair<Identifier, Feature<?>>> FEATURES = new ArrayList<>();
 
     public static final Feature<?> COASTAL = registerFeature("coastal", new CoastalFeature(SimpleBlockConfiguration.CODEC));
     public static final Feature<?> THIN_ICE = registerFeature("thin_ice", new ThinIceFeature(DiskConfiguration.CODEC));
@@ -43,8 +43,8 @@ public class ModFeatures
     public static final Feature<?> COCONUT_TREE = registerFeature("coconut_tree", new TreeFeature(TreeConfiguration.CODEC));
     public static final Feature<?> WALNUT_TREE = registerFeature("walnut_tree", new TreeFeature(TreeConfiguration.CODEC));
     
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ROOTED_AZALEA_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "rooted_azalea_tree"));
-    public static final ResourceKey<ConfiguredFeature<?, ?>> AZALEA_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_tree"));
-    public static final ResourceKey<ConfiguredFeature<?, ?>> COCONUT_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_tree"));
-    public static final ResourceKey<ConfiguredFeature<?, ?>> WALNUT_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ROOTED_AZALEA_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "rooted_azalea_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AZALEA_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> COCONUT_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WALNUT_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_tree"));
 }

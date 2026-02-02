@@ -112,7 +112,7 @@ public class ModCreativeModeTabContents
         addToList(ModItems.COCONUT_CRAB_SPAWN_EGG);
         addToList(ModItems.PENGUIN_SPAWN_EGG);
         addToList(ModItems.SQUIRREL_SPAWN_EGG);
-        addToList(ModItems.SANDCASTLE);
+        addToList(ModBlocks.SANDCASTLE);
         addToList(ModItems.MUSIC_DISC_COCONUT);
         addToList(ModItems.PRICKLY_PEAR);
         addToList(ModItems.COOKED_PRICKLY_PEAR);

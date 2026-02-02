@@ -1,22 +1,21 @@
 package samebutdifferent.ecologics.client.model;
 
-import com.google.common.collect.ImmutableList;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.model.AgeableListModel;
-import net.minecraft.client.model.ModelUtils;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.client.renderer.entity.state.PenguinRenderState;
 
-@Environment(EnvType.CLIENT)
-public class PenguinModel extends AgeableListModel<Penguin> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "penguin"), "main");
+public class PenguinModel extends EntityModel<PenguinRenderState> {
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "penguin"), "main");
     private final ModelPart body;
     public final ModelPart head;
     private final ModelPart leftFlipper;
@@ -28,7 +27,8 @@ public class PenguinModel extends AgeableListModel<Penguin> {
     private float swimmingAnimationProgress;
 
     public PenguinModel(ModelPart root) {
-        super(true, 4.75F, 0.0F, 1.5f, 2.0f, 24.0f);
+    	super(root);
+        //super(true, 4.75F, 0.0F, 1.5f, 2.0f, 24.0f);
         this.body = root.getChild("body");
         this.head = root.getChild("head");
         this.leftFlipper = this.body.getChild("leftFlipper");
@@ -52,77 +52,76 @@ public class PenguinModel extends AgeableListModel<Penguin> {
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-    @Override
-    public void prepareMobModel(Penguin entity, float limbSwing, float limbSwingAmount, float partialTick) {
-        super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
+    /*public void prepareMobModel(Penguin entity, float limbSwing, float limbSwingAmount, float partialTick) {
+        // super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
         this.slidingAnimationProgress = entity.getSlidingAnimationProgress(partialTick);
         this.swimmingAnimationProgress = entity.getSwimmingAnimationProgress(partialTick);
-    }
+    }*/
 
     @Override
-    public void setupAnim(Penguin entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(PenguinRenderState entity) { //, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch
         this.body.getAllParts().forEach(ModelPart::resetPose);
-        this.egg.visible = entity.isPregnant();
+        this.egg.visible = entity.isPregnant;
         this.head.resetPose();
 
         float swingSlowdownFactor = 0.3F; // 10
 
         if (swimmingAnimationProgress > 0) {
 //            this.body.setRotation((float) Math.toRadians(headPitch), (float) Math.toRadians(netHeadYaw), 0.0f);
-            this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.swimmingAnimationProgress)
-                    - Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.25F);
-            this.body.y = Mth.lerp(this.swimmingAnimationProgress, this.body.getInitialPose().y, this.body.getInitialPose().y + 7);
-            this.body.y += -Mth.cos(0.7F * ageInTicks) * (swingSlowdownFactor * 0.025F);
+            this.body.xRot += Mth.rotLerpRad(this.body.xRot, (float) Math.toRadians(90), this.swimmingAnimationProgress) - Mth.cos(0.7F * entity.ageInTicks) * (swingSlowdownFactor * 0.25F);
+            this.body.y = Mth.lerp(this.swimmingAnimationProgress, this.body.getInitialPose().y(), this.body.getInitialPose().y() + 7);
+            this.body.y += -Mth.cos(0.7F * entity.ageInTicks) * (swingSlowdownFactor * 0.025F);
 
-            this.head.xRot = Mth.lerp(this.swimmingAnimationProgress, headPitch * Mth.DEG_TO_RAD, 0);
-            this.head.yRot = Mth.lerp(this.swimmingAnimationProgress, netHeadYaw * Mth.DEG_TO_RAD, 0);
-            this.head.y = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 21 : 24);
-            this.head.z = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().z, -2);
-            this.head.xRot += Mth.cos(0.7F * ((float) Math.toRadians(-40) + ageInTicks)) * (swingSlowdownFactor * 0.3F);
+            this.head.xRot = Mth.lerp(this.swimmingAnimationProgress, entity.xRot * Mth.DEG_TO_RAD, 0);
+            this.head.yRot = Mth.lerp(this.swimmingAnimationProgress, entity.yRot * Mth.DEG_TO_RAD, 0);
+            this.head.y = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().y(), entity.isBaby ? 21 : 24);
+            this.head.z = Mth.lerp(this.swimmingAnimationProgress, this.head.getInitialPose().z(), -2);
+            this.head.xRot += Mth.cos(0.7F * ((float) Math.toRadians(-40) + entity.ageInTicks)) * (swingSlowdownFactor * 0.3F);
 
-            this.leftFoot.xRot += (Math.toRadians(17.5) - Mth.cos((float) Math.toRadians(-40) + ageInTicks)) * swingSlowdownFactor;
-            this.rightFoot.xRot += (Math.toRadians(17.5) - Mth.sin((float) Math.toRadians(-40) + ageInTicks)) * swingSlowdownFactor;
+            this.leftFoot.xRot += (Math.toRadians(17.5) - Mth.cos((float) Math.toRadians(-40) + entity.ageInTicks)) * swingSlowdownFactor;
+            this.rightFoot.xRot += (Math.toRadians(17.5) - Mth.sin((float) Math.toRadians(-40) + entity.ageInTicks)) * swingSlowdownFactor;
 
-            this.leftFlipper.xRot += Mth.cos((float) Math.toRadians(-80) + ageInTicks) * (swingSlowdownFactor * 0.2F);
-            this.leftFlipper.zRot += (Math.toRadians(-5) - Mth.cos((float) Math.toRadians(-80) + ageInTicks)) *  (swingSlowdownFactor * 0.25F);
-            this.rightFlipper.xRot += Mth.cos((float) Math.toRadians(-80) + ageInTicks) * (swingSlowdownFactor * 0.2F);
-            this.rightFlipper.zRot += (Math.toRadians(5) - Mth.cos((float) Math.toRadians(-80) + ageInTicks)) *  (swingSlowdownFactor * 0.25F);
+            this.leftFlipper.xRot += Mth.cos((float) Math.toRadians(-80) + entity.ageInTicks) * (swingSlowdownFactor * 0.2F);
+            this.leftFlipper.zRot += (Math.toRadians(-5) - Mth.cos((float) Math.toRadians(-80) + entity.ageInTicks)) *  (swingSlowdownFactor * 0.25F);
+            this.rightFlipper.xRot += Mth.cos((float) Math.toRadians(-80) + entity.ageInTicks) * (swingSlowdownFactor * 0.2F);
+            this.rightFlipper.zRot += (Math.toRadians(5) - Mth.cos((float) Math.toRadians(-80) + entity.ageInTicks)) *  (swingSlowdownFactor * 0.25F);
         } else if (slidingAnimationProgress > 0) {
-            this.body.xRot += ModelUtils.rotlerpRad(this.body.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
-            this.body.y = Mth.lerp(this.slidingAnimationProgress, this.body.getInitialPose().y, this.body.getInitialPose().y + 7);
-            this.body.z += (-Mth.cos(2F * limbSwing)) * swingSlowdownFactor * limbSwingAmount;
+            this.body.xRot += Mth.rotLerpRad(this.body.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
+            this.body.y = Mth.lerp(this.slidingAnimationProgress, this.body.getInitialPose().y(), this.body.getInitialPose().y() + 7);
+            this.body.z += (-Mth.cos(2F * entity.limbSwing)) * swingSlowdownFactor * entity.limbSwingAmount;
 
-            this.head.xRot = Mth.lerp(this.slidingAnimationProgress, headPitch * Mth.DEG_TO_RAD, 0);
-            this.head.yRot = Mth.lerp(this.slidingAnimationProgress, netHeadYaw * Mth.DEG_TO_RAD, 0);
-            this.head.y = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().y, entity.isBaby() ? 20 : 24);
-            this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z, -4);
-            this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
-            this.head.z += -Mth.cos(2F * limbSwing) * swingSlowdownFactor * limbSwingAmount;
+            this.head.xRot = Mth.lerp(this.slidingAnimationProgress, entity.xRot * Mth.DEG_TO_RAD, 0);
+            this.head.yRot = Mth.lerp(this.slidingAnimationProgress, entity.yRot * Mth.DEG_TO_RAD, 0);
+            this.head.y = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().y(), entity.isBaby ? 20 : 24);
+            this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z(), -4);
+            this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * entity.limbSwingAmount;
+            this.head.z += -Mth.cos(2F * entity.limbSwing) * swingSlowdownFactor * entity.limbSwingAmount;
 
-            this.leftFoot.xRot += ModelUtils.rotlerpRad(this.leftFoot.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
-            this.rightFoot.xRot += ModelUtils.rotlerpRad(this.rightFoot.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
+            this.leftFoot.xRot += Mth.rotLerpRad(this.leftFoot.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
+            this.rightFoot.xRot += Mth.rotLerpRad(this.rightFoot.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
 
-            this.leftFlipper.zRot += (Math.toRadians(-2.5) - Mth.cos(2F * limbSwing)) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
-            this.rightFlipper.zRot += (Math.toRadians(2.5) - Mth.cos(2F * limbSwing)) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
+            this.leftFlipper.zRot += (Math.toRadians(-2.5) - Mth.cos(2F * entity.limbSwing)) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
+            this.rightFlipper.zRot += (Math.toRadians(2.5) - Mth.cos(2F * entity.limbSwing)) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
         } else {
-            this.body.yRot += Mth.cos((float)Math.toRadians(-20) + limbSwing) * swingSlowdownFactor * limbSwingAmount;
-            this.body.zRot += Mth.cos(limbSwing) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
+            this.body.yRot += Mth.cos((float)Math.toRadians(-20) + entity.limbSwing) * swingSlowdownFactor * entity.limbSwingAmount;
+            this.body.zRot += Mth.cos(entity.limbSwing) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
 
-            this.head.xRot = headPitch * Mth.DEG_TO_RAD;
-            this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
-            this.head.yRot += -Mth.cos((float)Math.toRadians(-80) + limbSwing) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
-            this.head.zRot += -Mth.cos((float)Math.toRadians(-40) + limbSwing) * (swingSlowdownFactor * 0.5F) * limbSwingAmount;
-            this.head.x += Mth.cos(limbSwing) * (swingSlowdownFactor * 0.1F) * limbSwingAmount;
+            this.head.xRot = entity.xRot * Mth.DEG_TO_RAD;
+            this.head.yRot = entity.yRot * Mth.DEG_TO_RAD;
+            this.head.yRot += -Mth.cos((float)Math.toRadians(-80) + entity.limbSwing) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
+            this.head.zRot += -Mth.cos((float)Math.toRadians(-40) + entity.limbSwing) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
+            this.head.x += Mth.cos(entity.limbSwing) * (swingSlowdownFactor * 0.1F) * entity.limbSwingAmount;
 
-            this.leftFoot.xRot += (Math.toRadians(-10) + Mth.cos(limbSwing)) * (swingSlowdownFactor * 2F) * limbSwingAmount;
-            this.rightFoot.xRot += (Math.toRadians(-10) - Mth.cos(limbSwing)) * (swingSlowdownFactor * 2F) * limbSwingAmount;
+            this.leftFoot.xRot += (Math.toRadians(-10) + Mth.cos(entity.limbSwing)) * (swingSlowdownFactor * 2F) * entity.limbSwingAmount;
+            this.rightFoot.xRot += (Math.toRadians(-10) - Mth.cos(entity.limbSwing)) * (swingSlowdownFactor * 2F) * entity.limbSwingAmount;
 
-            this.leftFlipper.zRot += (Math.toRadians(-10) + Mth.cos((float)Math.toRadians(-40) + limbSwing)) * (swingSlowdownFactor * 0.8F) * limbSwingAmount;
-            this.rightFlipper.zRot += (Math.toRadians(10) + Mth.cos((float)Math.toRadians(-40) + limbSwing)) * (swingSlowdownFactor * 0.8F) * limbSwingAmount;
+            this.leftFlipper.zRot += (Math.toRadians(-10) + Mth.cos((float)Math.toRadians(-40) + entity.limbSwing)) * (swingSlowdownFactor * 0.8F) * entity.limbSwingAmount;
+            this.rightFlipper.zRot += (Math.toRadians(10) + Mth.cos((float)Math.toRadians(-40) + entity.limbSwing)) * (swingSlowdownFactor * 0.8F) * entity.limbSwingAmount;
         }
     }
 
-    @Override
+    //TODO: Determine if this code is safe to remove.
+    /*@Override
     protected Iterable<ModelPart> headParts() {
         return ImmutableList.of(this.head);
     }
@@ -130,5 +129,5 @@ public class PenguinModel extends AgeableListModel<Penguin> {
     @Override
     protected Iterable<ModelPart> bodyParts() {
         return ImmutableList.of(this.body);
-    }
+    }*/
 }

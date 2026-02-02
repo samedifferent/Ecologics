@@ -31,7 +31,7 @@ public class AddItemModifier extends LootModifier
 
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        generatedLoot.add(new ItemStack(BuiltInRegistries.ITEM.getHolderOrThrow(itemKey)));
+        generatedLoot.add(new ItemStack(BuiltInRegistries.ITEM.getOrThrow(itemKey)));
         return generatedLoot;
     }
 

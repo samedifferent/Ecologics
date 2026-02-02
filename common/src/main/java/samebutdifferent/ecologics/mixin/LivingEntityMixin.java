@@ -18,7 +18,8 @@ public abstract class LivingEntityMixin extends Entity {
         super(pEntityType, pLevel);
     }
 
-    @ModifyVariable(
+    //TODO: Update this.
+    /*@ModifyVariable(
             method = "travel",
             at = @At(value = "STORE"),
             slice = @Slice(
@@ -32,7 +33,7 @@ public abstract class LivingEntityMixin extends Entity {
             return 0.98F;
         }
         return f;
-    }
+    }*/
 
     @Inject(method = "getBlockSpeedFactor", at = @At("HEAD"), cancellable = true)
     private void onGetBlockSpeedFactor(CallbackInfoReturnable<Float> cir) {

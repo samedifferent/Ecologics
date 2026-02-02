@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -17,7 +18,7 @@ import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class SandcastleBlockItem extends BlockItem 
 {
-    public SandcastleBlockItem() {
+    public SandcastleBlockItem(Item.Properties properties) {
         super(ModBlocks.SANDCASTLE, new Properties().stacksTo(1));
     }
 
@@ -35,7 +36,7 @@ public class SandcastleBlockItem extends BlockItem
             if (pContext.getPlayer() instanceof ServerPlayer player) {
                 CriteriaTriggers.PLACED_BLOCK.trigger(player, pos, pContext.getItemInHand());
             }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
     }
 }

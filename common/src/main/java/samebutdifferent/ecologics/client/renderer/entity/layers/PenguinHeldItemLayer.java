@@ -2,36 +2,30 @@ package samebutdifferent.ecologics.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
+
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import samebutdifferent.ecologics.client.model.PenguinModel;
-import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.client.renderer.entity.state.PenguinRenderState;
 
-@Environment(EnvType.CLIENT)
-public class PenguinHeldItemLayer extends RenderLayer<Penguin, PenguinModel> {
-    private final ItemInHandRenderer itemInHandRenderer;
-
-    public PenguinHeldItemLayer(RenderLayerParent<Penguin, PenguinModel> renderLayerParent, ItemInHandRenderer itemInHandRenderer) {
+public class PenguinHeldItemLayer extends RenderLayer<PenguinRenderState, PenguinModel> 
+{
+    public PenguinHeldItemLayer(RenderLayerParent<PenguinRenderState, PenguinModel> renderLayerParent) {
         super(renderLayerParent);
-        this.itemInHandRenderer = itemInHandRenderer;
     }
 
     @Override
-    public void render(PoseStack matrixStack, MultiBufferSource buffer, int packedLight, Penguin livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        matrixStack.pushPose();
-        this.getParentModel().head.translateAndRotate(matrixStack);
-        matrixStack.translate(0.1f, -0.05f, -0.2f);
-        matrixStack.mulPose(Axis.XP.rotationDegrees(90f));
-        matrixStack.mulPose(Axis.ZP.rotationDegrees(135f));
-        ItemStack itemStack = livingEntity.getItemBySlot(EquipmentSlot.MAINHAND);
-        this.itemInHandRenderer.renderItem(livingEntity, itemStack, ItemDisplayContext.GROUND, false, matrixStack, buffer, packedLight);
-        matrixStack.popPose();
+    public void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, PenguinRenderState penguin, float yRot, float xRot) {
+    	poseStack.pushPose();
+        this.getParentModel().head.translateAndRotate(poseStack);
+        poseStack.translate(0.1f, -0.05f, -0.2f);
+        poseStack.mulPose(Axis.XP.rotationDegrees(90f));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(135f));
+        ItemStackRenderState itemStackRenderState = penguin.heldItem;
+        itemStackRenderState.submit(poseStack, nodeCollector, packedLight, OverlayTexture.NO_OVERLAY, penguin.outlineColor);
+        poseStack.popPose();
     }
 }

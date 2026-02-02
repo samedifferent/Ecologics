@@ -8,33 +8,34 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
-public class FloweringAzaleaLogBlock extends RotatedPillarBlock {
-    public FloweringAzaleaLogBlock() {
-        super(Properties.ofFullCopy(Blocks.OAK_LOG));
+public class FloweringAzaleaLogBlock extends RotatedPillarBlock 
+{
+    public FloweringAzaleaLogBlock(BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack itemstack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult useItemOn(ItemStack itemstack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (itemstack.is(Items.SHEARS)) {
-            if (!world.isClientSide) {
+            if (!world.isClientSide()) {
                 Direction direction = hitResult.getDirection().getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : hitResult.getDirection();
                 shearAzalea(world, player, pos, itemstack, hand, direction, (Objects.equals(this.getName(), ModBlocks.FLOWERING_AZALEA_LOG.getName()) ? ModBlocks.AZALEA_LOG : ModBlocks.AZALEA_WOOD).defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(AXIS)));
             }
 
-            return ItemInteractionResult.sidedSuccess(world.isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.useItemOn(itemstack, state, world, pos, player, hand, hitResult);
         }
@@ -46,7 +47,7 @@ public class FloweringAzaleaLogBlock extends RotatedPillarBlock {
         ItemEntity itementity = new ItemEntity(world, (double) pos.getX() + 0.5D + (double) direction.getStepX() * 0.65D, (double) pos.getY() + 0.1D, (double) pos.getZ() + 0.5D + (double) direction.getStepZ() * 0.65D, new ItemStack(ModBlocks.AZALEA_FLOWER.asItem()));
         itementity.setDeltaMovement(0.05D * (double) direction.getStepX() + world.random.nextDouble() * 0.02D, 0.05D, 0.05D * (double) direction.getStepZ() + world.random.nextDouble() * 0.02D);
         world.addFreshEntity(itementity);
-        stack.hurtAndBreak(1, player, Player.getSlotForHand(hand));
+        stack.hurtAndBreak(1, player, hand);
         world.gameEvent(player, GameEvent.SHEAR, pos);
         player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
     }

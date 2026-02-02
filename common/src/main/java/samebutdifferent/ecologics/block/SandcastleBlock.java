@@ -11,16 +11,17 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -61,8 +62,8 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
     }
 
     @Override
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        return pFacing == Direction.DOWN && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+        return direction == Direction.DOWN && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
@@ -71,13 +72,13 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
     }
 
     @Override
-    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
+    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, double pFallDistance) {
         this.destroySandcastle(pLevel, pState, pPos, pEntity, 3);
     }
 
     private void destroySandcastle(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, int chance) {
         if (this.canBreakSandcastle(pEntity)) {
-            if (!pLevel.isClientSide && pLevel.random.nextInt(chance) == 0) {
+            if (!pLevel.isClientSide() && pLevel.random.nextInt(chance) == 0) {
                 pLevel.playSound(null, pPos, SoundEvents.SAND_FALL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 if (pState.getValue(EGGS_INSIDE) > 0) {
                     pLevel.setBlockAndUpdate(pPos, Blocks.TURTLE_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, pState.getValue(EGGS_INSIDE)).setValue(TurtleEggBlock.HATCH, pState.getValue(HATCH)));
@@ -131,10 +132,10 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
 
                 for(int i = 0; i < pState.getValue(EGGS_INSIDE); ++i) {
                     pLevel.levelEvent(2001, pPos, Block.getId(pState));
-                    Turtle turtle = EntityType.TURTLE.create(pLevel);
+                    Turtle turtle = EntityType.TURTLE.create(pLevel, EntitySpawnReason.BREEDING);
                     turtle.setAge(-24000);
                     turtle.setHomePos(pPos);
-                    turtle.moveTo((double)pPos.getX() + 0.3D + (double)i * 0.2D, pPos.getY(), (double)pPos.getZ() + 0.3D, 0.0F, 0.0F);
+                    turtle.snapTo((double)pPos.getX() + 0.3D + (double)i * 0.2D, pPos.getY(), (double)pPos.getZ() + 0.3D, 0.0F, 0.0F);
                     pLevel.addFreshEntity(turtle);
                 }
             }
@@ -143,7 +144,7 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
     }
 
     private boolean shouldUpdateHatchLevel(Level pLevel) {
-        float time = pLevel.getTimeOfDay(1.0F);
+        float time = pLevel.getDayTime();
         if ((double)time < 0.69D && (double)time > 0.65D) {
             return true;
         } else {

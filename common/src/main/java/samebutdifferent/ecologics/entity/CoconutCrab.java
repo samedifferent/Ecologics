@@ -1,12 +1,8 @@
 package samebutdifferent.ecologics.entity;
 
-import java.util.UUID;
-import java.util.function.Predicate;
-
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -17,6 +13,7 @@ import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,21 +30,24 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions.Selector;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
 public class CoconutCrab extends Animal implements NeutralMob {
     private static final EntityDataAccessor<Boolean> HAS_COCONUT = SynchedEntityData.defineId(CoconutCrab.class, EntityDataSerializers.BOOLEAN);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    private int remainingPersistentAngerTime;
-    @Nullable private UUID persistentAngerTarget;
+    private long remainingPersistentAngerTime;
+    private EntityReference<LivingEntity> persistentAngerTarget;
 
     public CoconutCrab(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -82,9 +82,8 @@ public class CoconutCrab extends Animal implements NeutralMob {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 2.0D);
     }
 
-    @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        return super.hurt(pSource, this.hasCoconut() ? pAmount / 2 : pAmount);
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        return super.hurtServer(level, source, this.hasCoconut() ? amount / 2 : amount);
     }
 
     @Override
@@ -102,17 +101,17 @@ public class CoconutCrab extends Animal implements NeutralMob {
         this.setHasCoconut(false);
         this.stopBeingAngry();
         this.playCoconutSmashSound();
-        if (this.level().getGameRules().getRule(GameRules.RULE_DOMOBLOOT).get()) {
+        if (this.level() instanceof ServerLevel serverlevel && serverlevel.getGameRules().get(GameRules.MOB_DROPS)) {
 	        ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.COCONUT_SLICE, 2));
 	        itementity.setDefaultPickUpDelay();
 	        this.level().addFreshEntity(itementity);
         }
     }
 
-    /*@Override
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
-    }*/
+    }
 
     @Override
     protected float getWaterSlowDown() {
@@ -120,13 +119,13 @@ public class CoconutCrab extends Animal implements NeutralMob {
     }
 
     @Override
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+    public boolean causeFallDamage(double fallDistance, float multiplier, DamageSource source) {
         return false;
     }
 
     @Override
     public boolean canBeLeashed() {
-        return false;
+        return this.isBaby();
     }
 
     /*@Override
@@ -149,15 +148,15 @@ public class CoconutCrab extends Animal implements NeutralMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putBoolean("Coconut", this.hasCoconut());
+    public void addAdditionalSaveData(ValueOutput value) {
+        super.addAdditionalSaveData(value);
+        value.putBoolean("Coconut", this.hasCoconut());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.setHasCoconut(pCompound.getBoolean("Coconut"));
+    public void readAdditionalSaveData(ValueInput value) {
+        super.readAdditionalSaveData(value);
+        this.setHasCoconut(value.getBooleanOr("Coconut", false));
     }
 
     @Override
@@ -185,29 +184,29 @@ public class CoconutCrab extends Animal implements NeutralMob {
     }
 
     @Override
-    public int getRemainingPersistentAngerTime() {
+    public long getPersistentAngerEndTime() {
         return this.remainingPersistentAngerTime;
     }
 
     @Override
-    public void setRemainingPersistentAngerTime(int pTime) {
-        this.remainingPersistentAngerTime = pTime;
+    public void setPersistentAngerEndTime(long time) {
+        this.remainingPersistentAngerTime = time;
     }
 
     @Nullable
     @Override
-    public UUID getPersistentAngerTarget() {
+    public EntityReference<LivingEntity> getPersistentAngerTarget() {
         return this.persistentAngerTarget;
     }
 
     @Override
-    public void setPersistentAngerTarget(@Nullable UUID pTarget) {
-        this.persistentAngerTarget = pTarget;
+    public void setPersistentAngerTarget(@Nullable EntityReference<LivingEntity> target) {
+        this.persistentAngerTarget = target;
     }
 
     @Override
     public void startPersistentAngerTimer() {
-        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+        this.setPersistentAngerEndTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
     static class CrabMeleeAttackGoal extends MeleeAttackGoal {
@@ -275,9 +274,9 @@ public class CoconutCrab extends Animal implements NeutralMob {
     static class CrabNearestAttackableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
         private final CoconutCrab crab;
 
-        public CrabNearestAttackableTargetGoal(CoconutCrab pMob, Class<T> pTargetType, int pRandomInterval, boolean pMustSee, boolean pMustReach, @Nullable Predicate<LivingEntity> pTargetPredicate) {
-            super(pMob, pTargetType, pRandomInterval, pMustSee, pMustReach, pTargetPredicate);
-            this.crab = pMob;
+        public CrabNearestAttackableTargetGoal(CoconutCrab mob, Class<T> targetType, int interval, boolean mustSee, boolean mustReach, @Nullable Selector selector) {
+            super(mob, targetType, interval, mustSee, mustReach, selector);
+            this.crab = mob;
         }
 
         @Override

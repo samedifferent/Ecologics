@@ -2,7 +2,6 @@ package samebutdifferent.ecologics.entity;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -11,7 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -25,12 +23,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -50,28 +48,30 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions.Selector;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
+import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
-import samebutdifferent.ecologics.registry.ModItems;
+import samebutdifferent.ecologics.registry.ModLootTables;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModTags;
 
 public class Penguin extends Animal {
     private static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(Penguin.class, EntityDataSerializers.BOOLEAN);
-    private static final Ingredient FOOD_ITEMS = Ingredient.of(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS);
     private float slideAnimationProgress;
     private float lastSlideAnimationProgress;
     private float swimAnimationProgress;
@@ -97,7 +97,7 @@ public class Penguin extends Animal {
         super.registerGoals();
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, itemstack -> itemstack.is(ModTags.ItemTags.PENGUIN_FOOD), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new PenguinSearchForItemsGoal(this));
         this.goalSelector.addGoal(6, new PenguinMeleeAttackGoal(this, 1.0D, true));
@@ -105,10 +105,10 @@ public class Penguin extends Animal {
         this.goalSelector.addGoal(8, new PenguinRandomSwimmingGoal(this, 1.0D, 60));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, AbstractFish.class, 10, true, false, living -> living.getType().is(ModTags.EntityTypeTags.PENGUIN_HUNT_TARGETS)));
+        this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, AbstractFish.class, 10, true, false, (mob, level) -> mob instanceof AbstractSchoolingFish));
     }
 
-    public static boolean checkPenguinSpawnRules(EntityType<Penguin> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource randomSource) {
+    public static boolean checkPenguinSpawnRules(EntityType<Penguin> entityType, LevelAccessor levelAccessor, EntitySpawnReason spawnReason, BlockPos blockPos, RandomSource randomSource) {
         return levelAccessor.getBlockState(blockPos.below()).is(ModTags.BlockTags.PENGUINS_SPAWNABLE_ON) && Penguin.isBrightEnoughToSpawn(levelAccessor, blockPos);
     }
 
@@ -146,12 +146,12 @@ public class Penguin extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
-        return ModEntityTypes.PENGUIN.create(level);
+        return ModEntityTypes.PENGUIN.create(level, EntitySpawnReason.BREEDING);
     }
 
     @Override
-    public boolean isFood(ItemStack pStack) {
-        return FOOD_ITEMS.test(pStack);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ModTags.ItemTags.PENGUIN_FOOD);
     }
 
     public boolean isPregnant() {
@@ -169,15 +169,15 @@ public class Penguin extends Animal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putBoolean("IsPregnant", this.isPregnant());
+    public void addAdditionalSaveData(ValueOutput value) {
+        super.addAdditionalSaveData(value);
+        value.putBoolean("IsPregnant", this.isPregnant());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.setPregnant(pCompound.getBoolean("IsPregnant"));
+    public void readAdditionalSaveData(ValueInput value) {
+        super.readAdditionalSaveData(value);
+        this.setPregnant(value.getBooleanOr("IsPregnant", false));
     }
 
     @Override
@@ -198,7 +198,7 @@ public class Penguin extends Animal {
         otherParent.resetLove();
         level.broadcastEntityEvent(this, (byte)18);
         this.setPregnant(true);
-        if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+        if (level.getGameRules().get(GameRules.MOB_DROPS)) {
             level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
         }
     }
@@ -206,8 +206,8 @@ public class Penguin extends Animal {
     @Override
     protected void ageBoundaryReached() {
         super.ageBoundaryReached();
-        if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            this.spawnAtLocation(ModItems.PENGUIN_FEATHER, 1);
+        if (!this.isBaby() && this.level() instanceof ServerLevel serverlevel && serverlevel.getGameRules().get(GameRules.MOB_DROPS)) {
+            this.dropFromGiftLootTable(serverlevel, ModLootTables.PENGUIN_GROW, this::spawnAtLocation);
         }
     }
 
@@ -218,9 +218,9 @@ public class Penguin extends Animal {
                 if (!this.level().isClientSide()) {
                     ServerLevel level = (ServerLevel) this.level();
                     this.setPregnant(false);
-                    Penguin penguin = ModEntityTypes.PENGUIN.create(level);
+                    Penguin penguin = ModEntityTypes.PENGUIN.create(level, EntitySpawnReason.BREEDING);
                     penguin.setBaby(true);
-                    penguin.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+                    penguin.snapTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
                     level.addFreshEntityWithPassengers(penguin);
                     level.broadcastEntityEvent(this, (byte) 18);
                 }
@@ -244,7 +244,7 @@ public class Penguin extends Animal {
                     }
                     this.ticksSinceEaten = 0;
                 } else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1f) {
-                    this.playSound(this.getEatingSound(stack), 1.0f, 1.0f);
+                	this.playEatingSound();
                     this.level().broadcastEntityEvent(this, (byte)45);
                 }
             }
@@ -273,7 +273,8 @@ public class Penguin extends Animal {
 
     // FISH
 
-    @Override
+    //TODO: Assess if this code needs to be removed. Possibly obsolete?
+    /*@Override
     public boolean canTakeItem(ItemStack pItemstack) {
         EquipmentSlot equipmentslot = this.getEquipmentSlotForItem(pItemstack);
         if (!this.getItemBySlot(equipmentslot).isEmpty() || this.isBaby()) {
@@ -281,16 +282,16 @@ public class Penguin extends Animal {
         } else {
             return equipmentslot == EquipmentSlot.MAINHAND && super.canTakeItem(pItemstack);
         }
-    }
+    }*/
 
     @Override
     public boolean canHoldItem(ItemStack pStack) {
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-        return itemstack.isEmpty() && pStack.is(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS) && !this.isBaby();
+        return itemstack.isEmpty() && pStack.is(ModTags.ItemTags.PENGUIN_FOOD) && !this.isBaby();
     }
 
     @Override
-    protected void pickUpItem(ItemEntity pItemEntity) {
+    protected void pickUpItem(ServerLevel level, ItemEntity pItemEntity) {
         ItemStack itemstack = pItemEntity.getItem();
         if (this.canHoldItem(itemstack)) {
             int count = itemstack.getCount();
@@ -300,7 +301,7 @@ public class Penguin extends Animal {
 
             this.onItemPickup(pItemEntity);
             this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
-            this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 2.0F;
+            this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
             this.take(pItemEntity, itemstack.getCount());
             pItemEntity.discard();
             this.ticksSinceEaten = 0;
@@ -330,14 +331,15 @@ public class Penguin extends Animal {
     }
 
     // ANIMATION
-    private boolean babyIsNearAdult() {
+    //TODO: Find use for this code or remove it.
+    /*private boolean babyIsNearAdult() {
         if (this.isBaby()) {
             for(Penguin penguin : this.level().getEntitiesOfClass(Penguin.class, this.getBoundingBox().inflate(2.0D, 5.0D, 2.0D))) {
                 return !penguin.isBaby();
             }
         }
         return false;
-    }
+    }*/
 
     @Override
     public void tick() {
@@ -374,7 +376,7 @@ public class Penguin extends Animal {
     }
 
     @Override
-    public void customServerAiStep() {
+    public void customServerAiStep(ServerLevel level) {
         if (this.swimAnimationProgress > 0) {
             this.setPose(Pose.SWIMMING);
         } else if(this.slideAnimationProgress > 0) {
@@ -452,9 +454,9 @@ public class Penguin extends Animal {
     static class PenguinAttackTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
         private final Penguin penguin;
 
-        public PenguinAttackTargetGoal(Penguin pMob, Class<T> pTargetType, int pRandomInterval, boolean pMustSee, boolean pMustReach, @Nullable Predicate<LivingEntity> pPredicate) {
-            super(pMob, pTargetType, pRandomInterval, pMustSee, pMustReach, pPredicate);
-            this.penguin = pMob;
+        public PenguinAttackTargetGoal(Penguin mob, Class<T> targetType, int interval, boolean mustSee, boolean mustReach, @Nullable Selector selector) {
+            super(mob, targetType, interval, mustSee, mustReach, selector);
+            this.penguin = mob;
         }
 
         @Override
@@ -498,14 +500,14 @@ public class Penguin extends Animal {
             if (!penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() || penguin.isBaby() || penguin.isPregnant()) {
                 return false;
             } else {
-                List<ItemEntity> list = penguin.level().getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS));
+                List<ItemEntity> list = penguin.level().getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ModTags.ItemTags.PENGUIN_FOOD));
                 return !list.isEmpty() && penguin.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
             }
         }
         
         @Override
         public void tick() {
-            List<ItemEntity> list = penguin.level().getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS));
+            List<ItemEntity> list = penguin.level().getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ModTags.ItemTags.PENGUIN_FOOD));
             ItemStack itemstack = penguin.getItemBySlot(EquipmentSlot.MAINHAND);
             if (itemstack.isEmpty() && !list.isEmpty()) {
                 penguin.getNavigation().moveTo(list.get(0), 1.0F);
@@ -515,7 +517,7 @@ public class Penguin extends Animal {
         
         @Override
         public void start() {
-            List<ItemEntity> list = penguin.level().getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ModTags.ItemTags.PENGUIN_TEMPT_ITEMS));
+            List<ItemEntity> list = penguin.level().getEntitiesOfClass(ItemEntity.class, penguin.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), itemEntity -> itemEntity.getItem().is(ModTags.ItemTags.PENGUIN_FOOD));
             if (!list.isEmpty()) {
                 penguin.getNavigation().moveTo(list.get(0), 1.0F);
             }

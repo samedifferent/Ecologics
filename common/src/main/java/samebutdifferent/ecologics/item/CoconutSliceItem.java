@@ -15,7 +15,7 @@ public class CoconutSliceItem extends Item
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        if (!pLevel.isClientSide) {
+        if (!pLevel.isClientSide()) {
             if (pLivingEntity instanceof Player player) {
                 player.removeAllEffects();
                 ItemStack mainHandStack = player.getMainHandItem();

@@ -5,20 +5,20 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.monster.zombie.Husk;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -61,13 +61,13 @@ import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 public class DesertRuinPieces {
 
     static final StructureProcessor DESERT_RUIN_PROCESSOR = DesertRuinPieces.archyRuleProcessor(Blocks.SAND, Blocks.SUSPICIOUS_SAND, BuiltInLootTables.DESERT_PYRAMID_ARCHAEOLOGY);
-    private static final ResourceLocation[] DESERT_RUINS = new ResourceLocation[]{ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/chest_house"), ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pit"), ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars1"), ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars2"), ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall1"), ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall2")};
+    private static final Identifier[] DESERT_RUINS = new Identifier[]{Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/chest_house"), Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pit"), Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars1"), Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars2"), Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall1"), Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall2")};
 
     private static StructureProcessor archyRuleProcessor(Block block, Block suspiciousBlock, ResourceKey<LootTable> lootTable) {
         return new CappedProcessor(new RuleProcessor(List.of(new ProcessorRule(new BlockMatchTest(block), AlwaysTrueTest.INSTANCE, PosAlwaysTrueTest.INSTANCE, suspiciousBlock.defaultBlockState(), new AppendLoot(lootTable)))), ConstantInt.of(5));
     }
     
-    private static ResourceLocation getRandomRuin(RandomSource random) {
+    private static Identifier getRandomRuin(RandomSource random) {
         return Util.getRandom(DESERT_RUINS, random);
     }
     
@@ -109,21 +109,21 @@ public class DesertRuinPieces {
     }
 
     private static void addPiece(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePieceAccessor structurePieceAccessor, RandomSource random, DesertRuinStructure structure, float integrity) {
-        ResourceLocation resourceLocation = DesertRuinPieces.getRandomRuin(random);
-        structurePieceAccessor.addPiece(new DesertRuinPiece(structureTemplateManager, resourceLocation, pos, rotation, integrity));
+        Identifier Identifier = DesertRuinPieces.getRandomRuin(random);
+        structurePieceAccessor.addPiece(new DesertRuinPiece(structureTemplateManager, Identifier, pos, rotation, integrity));
     }
 	
     public static class DesertRuinPiece extends TemplateStructurePiece {
 
         private final float integrity;
         
-        public DesertRuinPiece(StructureTemplateManager structureTemplateManager, ResourceLocation location, BlockPos pos, Rotation rotation, float integrity) {
+        public DesertRuinPiece(StructureTemplateManager structureTemplateManager, Identifier location, BlockPos pos, Rotation rotation, float integrity) {
             super(ModStructurePieces.DESERT_RUIN, 0, structureTemplateManager, location, location.toString(), DesertRuinPiece.makeSettings(rotation, integrity), pos);
             this.integrity = integrity;
         }
         
         private DesertRuinPiece(StructureTemplateManager structureTemplateManager, CompoundTag genDepth, Rotation rotation, float integrity) {
-            super(ModStructurePieces.DESERT_RUIN, genDepth, structureTemplateManager, resourceLocation -> DesertRuinPiece.makeSettings(rotation, integrity));
+            super(ModStructurePieces.DESERT_RUIN, genDepth, structureTemplateManager, Identifier -> DesertRuinPiece.makeSettings(rotation, integrity));
             this.integrity = integrity;
         }
     	
@@ -133,8 +133,8 @@ public class DesertRuinPieces {
         }
 
         public static DesertRuinPiece create(StructureTemplateManager structureTemplateManager, CompoundTag tag) {
-            Rotation rotation = Rotation.valueOf(tag.getString("Rot"));
-            float f = tag.getFloat("Integrity");
+            Rotation rotation = Rotation.valueOf(tag.getString("Rot").get());
+            float f = tag.getFloatOr("Integrity", 1.0F);
             return new DesertRuinPiece(structureTemplateManager, tag, rotation, f);
         }
 
@@ -145,7 +145,6 @@ public class DesertRuinPieces {
             tag.putFloat("Integrity", this.integrity);
         }
 
-        @SuppressWarnings("deprecation")
 		@Override
         protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box) {
             Husk husk;
@@ -155,10 +154,10 @@ public class DesertRuinPieces {
                 if (blockEntity instanceof ChestBlockEntity) {
                     ((ChestBlockEntity)blockEntity).setLootTable(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_COMMON, random.nextLong());
                 }
-            } else if ("drowned".equals(name) && (husk = EntityType.HUSK.create(level.getLevel())) != null) {
+            } else if ("husk".equals(name) && (husk = EntityType.HUSK.create(level.getLevel(), EntitySpawnReason.STRUCTURE)) != null) {
             	husk.setPersistenceRequired();
-            	husk.moveTo(pos, 0.0f, 0.0f);
-            	husk.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), MobSpawnType.STRUCTURE, null);
+            	husk.snapTo(pos, 0.0f, 0.0f);
+            	husk.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), EntitySpawnReason.STRUCTURE, null);
                 level.addFreshEntityWithPassengers((Entity)husk);
                 if (pos.getY() > level.getSeaLevel()) {
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
@@ -189,7 +188,7 @@ public class DesertRuinPieces {
                 BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(m, o, n);
                 BlockState blockState = level.getBlockState(mutableBlockPos);
                 FluidState fluidState = level.getFluidState(mutableBlockPos);
-                while ((blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && o > level.getMinBuildHeight() + 1) {
+                while ((blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && o > level.getMinY() + 1) {
                     mutableBlockPos.set(m, --o, n);
                     blockState = level.getBlockState(mutableBlockPos);
                     fluidState = level.getFluidState(mutableBlockPos);

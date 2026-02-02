@@ -23,13 +23,13 @@ config = "ecologics-common.mixins.json"
 [[dependencies.ecologics]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.1.83,)"
+versionRange = "[21.11.83,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ecologics]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.1,)"
+versionRange = "[1.21.11,26.1]"
 ordering = "NONE"
 side = "BOTH"

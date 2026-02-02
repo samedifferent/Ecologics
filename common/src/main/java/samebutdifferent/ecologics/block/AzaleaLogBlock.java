@@ -6,8 +6,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -17,8 +17,8 @@ import samebutdifferent.ecologics.registry.ModBlocks;
 public class AzaleaLogBlock extends RotatedPillarBlock {
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
-    public AzaleaLogBlock() {
-        super(Properties.ofFullCopy(Blocks.OAK_LOG));
+    public AzaleaLogBlock(BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(PERSISTENT, Boolean.FALSE).setValue(AXIS, Direction.Axis.Y));
     }
 

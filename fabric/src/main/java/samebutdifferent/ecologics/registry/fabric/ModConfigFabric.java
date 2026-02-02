@@ -35,12 +35,10 @@ public class ModConfigFabric implements ConfigData {
     }
 
     public static class Desert {
-        @Comment("Spawn camels in the desert biome")
-        public boolean spawnCamels = true;
         @Comment("Should prickly pears generate naturally on top of cacti during worldgen?")
         public boolean generatePricklyPears = true;
         @Comment("How often (in percentage) should prickly pears grow when a cactus reaches full height? Set it to 0.0 to disable this.")
-        public double pricklyPearGrowthChance = 1.0;
+        public double pricklyPearGrowthChance = 0.4;
         @Comment("Generate ruins in deserts")
         public boolean generateDesertRuins = true;
     }

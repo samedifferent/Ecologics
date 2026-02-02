@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -27,13 +27,13 @@ import java.util.Optional;
 public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
     private final BlockIgnoreProcessor IGNORE_STRUCTURE_VOID = new BlockIgnoreProcessor(ImmutableList.of(Blocks.STRUCTURE_VOID));
     private final StructurePlaceSettings placementsettings = new StructurePlaceSettings().setMirror(Mirror.NONE).addProcessor(IGNORE_STRUCTURE_VOID).setIgnoreEntities(false);
-    private final ResourceLocation[] pieces = new ResourceLocation[]{
-            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/chest_house"),
-            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars1"),
-            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars2"),
-            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall1"),
-            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall2"),
-            ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pit"),
+    private final Identifier[] pieces = new Identifier[]{
+            Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/chest_house"),
+            Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars1"),
+            Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pillars2"),
+            Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall1"),
+            Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/wall2"),
+            Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "desert_ruin/pit"),
     };
 
     public DesertRuinFeature(Codec<NoneFeatureConfiguration> pCodec) {
@@ -59,7 +59,7 @@ public class DesertRuinFeature extends Feature<NoneFeatureConfiguration> {
 
         BlockPos.MutableBlockPos blockpos$Mutable = new BlockPos.MutableBlockPos();
         StructureTemplateManager templatemanager = level.getLevel().getServer().getStructureManager();
-        ResourceLocation nbtRL = pieces[random.nextInt(pieces.length)];
+        Identifier nbtRL = pieces[random.nextInt(pieces.length)];
         Optional<StructureTemplate> template = templatemanager.get(nbtRL);
 
         if (template.isEmpty()) {

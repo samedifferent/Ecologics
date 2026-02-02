@@ -8,9 +8,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -22,7 +23,6 @@ import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
@@ -68,7 +68,7 @@ import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 @EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class EcologicsNeoForge 
 {
-	private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "tab"));
+	private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab"));
 		
     public EcologicsNeoForge(IEventBus bus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, ModConfigNeoForge.COMMON_CONFIG);
@@ -100,9 +100,9 @@ public class EcologicsNeoForge
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
         });
     }
 
@@ -157,13 +157,13 @@ public class EcologicsNeoForge
         BlockState state = level.getBlockState(pos);
         InteractionHand hand = event.getHand();
         if (state.is(ModBlocks.POT) && player.isCrouching()) {
-            if (player.getMainHandItem().getItem() instanceof PickaxeItem && hand.equals(InteractionHand.MAIN_HAND)){
+            if (player.getMainHandItem().is(ItemTags.PICKAXES) && hand.equals(InteractionHand.MAIN_HAND)){
                 level.setBlockAndUpdate(pos, state.cycle(PotBlock.CHISEL));
                 level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
                 player.swing(InteractionHand.MAIN_HAND);
                 player.getMainHandItem().hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
             }
-            if (player.getOffhandItem().getItem() instanceof PickaxeItem && !(player.getMainHandItem().getItem() instanceof PickaxeItem) && hand.equals(InteractionHand.OFF_HAND)){
+            if (player.getOffhandItem().is(ItemTags.PICKAXES) && !(player.getMainHandItem().is(ItemTags.PICKAXES)) && hand.equals(InteractionHand.OFF_HAND)){
                 level.setBlockAndUpdate(pos, state.cycle(PotBlock.CHISEL));
                 level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
                 player.swing(InteractionHand.OFF_HAND);
@@ -197,16 +197,16 @@ public class EcologicsNeoForge
     /*@SubscribeEvent
     public static void onMissingBlockMappings(MissingMappingsEvent event) {
         for (var mapping : event.getAllMappings(BuiltInRegistries.BLOCK.getRegistryKey())) {
-            if (mapping.getKey().equals(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_husk"))) {
-                ResourceLocation remapped = ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling");
+            if (mapping.getKey().equals(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_husk"))) {
+                Identifier remapped = Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling");
                 if (BuiltInRegistries.BLOCK.containsKey(remapped)) {
                     mapping.remap(BuiltInRegistries.BLOCK.get(remapped));
                 } else {
                     mapping.warn();
                 }
             }
-            if (mapping.getKey().equals(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "potted_coconut_husk"))) {
-                ResourceLocation remapped = ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "potted_coconut_seedling");
+            if (mapping.getKey().equals(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "potted_coconut_husk"))) {
+                Identifier remapped = Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "potted_coconut_seedling");
                 if (BuiltInRegistries.BLOCK.containsKey(remapped)) {
                     mapping.remap(BuiltInRegistries.BLOCK.get(remapped));
                 } else {

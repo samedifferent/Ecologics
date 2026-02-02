@@ -1,21 +1,21 @@
 package samebutdifferent.ecologics.client.model;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.entity.CoconutCrab;
+import samebutdifferent.ecologics.client.renderer.entity.state.CoconutCrabRenderState;
 
-@Environment(EnvType.CLIENT)
-public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_crab"), "main");
+public class CoconutCrabModel extends EntityModel<CoconutCrabRenderState> {
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_crab"), "main");
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart shell;
@@ -29,7 +29,8 @@ public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
     private final ModelPart leftClaw;
 
     public CoconutCrabModel(ModelPart root) {
-        super(RenderType::entityCutoutNoCull);
+    	super(root);
+        // super(RenderType::entityCutoutNoCull);
         this.root = root.getChild("root");
         this.head = this.root.getChild("head");
         this.shell = this.root.getChild("shell");
@@ -64,39 +65,34 @@ public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
     }
 
     @Override
-    public void setupAnim(CoconutCrab entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(CoconutCrabRenderState entity) { // , float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * Mth.DEG_TO_RAD;
-        this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
-        this.shell.visible = entity.hasCoconut();
+        this.head.xRot = entity.xRot * Mth.DEG_TO_RAD;
+        this.head.yRot = entity.yRot * Mth.DEG_TO_RAD;
+        this.shell.visible = entity.hasCoconut;
         float swingSlowdownFactor = 0.2F;
-        this.shell.xRot += Mth.cos((float) (Math.toRadians(-360) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
-        this.shell.zRot += Mth.cos((float) (Math.toRadians(-60) + limbSwing)) * swingSlowdownFactor * limbSwingAmount;
+        this.shell.xRot += Mth.cos((float) (Math.toRadians(-360) + entity.limbSwing)) * swingSlowdownFactor * entity.limbSwingAmount;
+        this.shell.zRot += Mth.cos((float) (Math.toRadians(-60) + entity.limbSwing)) * swingSlowdownFactor * entity.limbSwingAmount;
 
-        float legLimbSwingAmount = Math.min(limbSwingAmount, 0.6F);
-        this.leftHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.leftHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        float legLimbSwingAmount = Math.min(entity.limbSwingAmount, 0.6F);
+        this.leftHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
 
-        this.leftFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.leftFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
 
-        this.leftMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.leftMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
 
-        this.leftClaw.xRot += -Mth.cos((float) (Math.toRadians(-20) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.leftClaw.zRot += -Mth.cos((float) (Math.toRadians(-20) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightClaw.xRot += Mth.cos((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightClaw.zRot += Mth.cos((float) (Math.toRadians(-40) + limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-    }
-
-    @Override
-    public ModelPart root() {
-        return root;
+        this.leftClaw.xRot += -Mth.cos((float) (Math.toRadians(-20) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftClaw.zRot += -Mth.cos((float) (Math.toRadians(-20) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightClaw.xRot += Mth.cos((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightClaw.zRot += Mth.cos((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
     }
 }
