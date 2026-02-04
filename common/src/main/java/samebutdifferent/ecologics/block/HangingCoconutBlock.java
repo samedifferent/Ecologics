@@ -28,8 +28,8 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.CoconutCrab;
-import samebutdifferent.ecologics.platform.ConfigPlatformHelper;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
@@ -153,7 +153,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     @Override
     public void onBrokenAfterFall(Level pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
         pLevel.playSound(null, pPos, ModSoundEvents.COCONUT_SMASH, SoundSource.BLOCKS, 0.7f, 0.9f + pLevel.getRandom().nextFloat() * 0.2f);
-        if (pLevel.random.nextFloat() <= ConfigPlatformHelper.coconutCrabSpawnChance()) {
+        if (pLevel.random.nextFloat() <= ConfigCommon.coconutCrabSpawnChance()) {
             CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.create(pLevel, EntitySpawnReason.NATURAL);
             coconutCrab.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
             pLevel.addFreshEntity(coconutCrab);
