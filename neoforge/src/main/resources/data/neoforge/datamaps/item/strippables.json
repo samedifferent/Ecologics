@@ -1,0 +1,28 @@
+{
+    "values": {
+        "ecologics:azalea_log": {
+            "stripped_block": "ecologics:stripped_azalea_log"
+        },
+		"ecologics:azalea_wood": {
+		    "stripped_block": "ecologics:stripped_azalea_wood"
+		},
+		"ecologics:flowering_azalea_log": {
+		    "stripped_block": "ecologics:stripped_azalea_log"
+		},
+		"ecologics:flowering_azalea_wood": {
+		    "stripped_block": "ecologics:stripped_azalea_wood"
+		},
+		"ecologics:coconut_log": {
+		    "stripped_block": "ecologics:stripped_coconut_log"
+		},
+		"ecologics:coconut_wood": {
+		    "stripped_block": "ecologics:stripped_coconut_wood"
+		},
+		"ecologics:walnut_log": {
+		    "stripped_block": "ecologics:stripped_walnut_log"
+		},
+		"ecologics:walnut_wood": {
+		    "stripped_block": "ecologics:stripped_walnut_wood"
+		}
+    }
+}
