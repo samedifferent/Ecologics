@@ -63,9 +63,16 @@ task copyAW(type: Copy) {
     into generatedResources
 }
 
-processResources {
-    dependsOn copyAW
+tasks.withType(JavaCompile).configureEach {
+    source(project(":common").sourceSets.main.allSource)
+}
+tasks.withType(Javadoc).configureEach {
+    source(project(":common").sourceSets.main.allJava)
+}
 
+processResources {
+    // dependsOn copyAW
+    from project(":common").sourceSets.main.resources
     inputs.property "version", rootProject.version
 
     filesMatching("fabric.mod.json") {
