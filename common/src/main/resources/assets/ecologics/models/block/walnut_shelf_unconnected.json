@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_shelf_unconnected",
   "textures": {
     "all": "ecologics:block/walnut_shelf",
-    "particle": "ecologics/stripped_walnut_log"
+    "particle": "ecologics:block/stripped_walnut_log"
   }
 }

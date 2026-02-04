@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_shelf_center",
   "textures": {
     "all": "ecologics:block/coconut_shelf",
-    "particle": "ecologics/stripped_coconut_log"
+    "particle": "ecologics:block/stripped_coconut_log"
   }
 }

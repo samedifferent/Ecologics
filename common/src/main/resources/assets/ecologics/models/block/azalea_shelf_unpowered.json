@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_shelf_unpowered",
   "textures": {
     "all": "ecologics:block/azalea_shelf",
-    "particle": "ecologics/stripped_azalea_log"
+    "particle": "ecologics:block/stripped_azalea_log"
   }
 }
