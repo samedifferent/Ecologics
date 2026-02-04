@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -40,7 +41,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 
-public class PotBlock extends BaseEntityBlock {
+public class PotBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final MapCodec<PotBlock> CODEC = PotBlock.simpleCodec(PotBlock::new);
     protected static final VoxelShape SHAPE = Shapes.or(Block.box(3, 13, 3, 13, 15, 13), Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12));
     public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 5);
@@ -108,8 +109,9 @@ public class PotBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return super.getStateForPlacement(pContext).setValue(POWERED, false);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    	FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
+        return super.getStateForPlacement(context).setValue(POWERED, false).setValue(WATERLOGGED, Boolean.valueOf(fluidstate.getType() == Fluids.WATER));
     }
 
     @Override
@@ -160,6 +162,11 @@ public class PotBlock extends BaseEntityBlock {
     public boolean isPathfindable(BlockState pState, PathComputationType pType) {
         return false;
     }
+    
+    @Override
+    public FluidState getFluidState(BlockState pState) {
+        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+    }
 
     @Nullable
     @Override
@@ -167,11 +174,6 @@ public class PotBlock extends BaseEntityBlock {
         return new PotBlockEntity(pPos, pState);
     }
 
-    @Override
-    public FluidState getFluidState(BlockState pState) {
-        return pState.getValue(WATERLOGGED) ? Fluids.WATER.defaultFluidState() : Fluids.EMPTY.defaultFluidState();
-    }
-    
     @Override
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
