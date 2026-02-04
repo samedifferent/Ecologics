@@ -7,6 +7,4 @@ import samebutdifferent.ecologics.Ecologics;
 public class SquirrelRenderState extends LivingEntityRenderState
 {
 	public static final Identifier DEFAULT_TEXTURE = Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/squirrel.png");
-	public float limbSwing;
-	public float limbSwingAmount = 1.0F;
 }

@@ -52,14 +52,14 @@ public class PenguinModel extends EntityModel<PenguinRenderState> {
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-    /*public void prepareMobModel(Penguin entity, float limbSwing, float limbSwingAmount, float partialTick) {
-        // super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
+    /*public void prepareMobModel(Penguin entity, float walkAnimationPos, float walkAnimationSpeed, float partialTick) {
+        // super.prepareMobModel(entity, walkAnimationPos, walkAnimationSpeed, partialTick);
         this.slidingAnimationProgress = entity.getSlidingAnimationProgress(partialTick);
         this.swimmingAnimationProgress = entity.getSwimmingAnimationProgress(partialTick);
     }*/
 
     @Override
-    public void setupAnim(PenguinRenderState entity) { //, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch
+    public void setupAnim(PenguinRenderState entity) { //, float walkAnimationPos, float walkAnimationSpeed, float ageInTicks, float netHeadYaw, float headPitch
         this.body.getAllParts().forEach(ModelPart::resetPose);
         this.egg.visible = entity.isPregnant;
         this.head.resetPose();
@@ -88,35 +88,35 @@ public class PenguinModel extends EntityModel<PenguinRenderState> {
         } else if (slidingAnimationProgress > 0) {
             this.body.xRot += Mth.rotLerpRad(this.body.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
             this.body.y = Mth.lerp(this.slidingAnimationProgress, this.body.getInitialPose().y(), this.body.getInitialPose().y() + 7);
-            this.body.z += (-Mth.cos(2F * entity.limbSwing)) * swingSlowdownFactor * entity.limbSwingAmount;
+            this.body.z += (-Mth.cos(2F * entity.walkAnimationPos)) * swingSlowdownFactor * entity.walkAnimationSpeed;
 
             this.head.xRot = Mth.lerp(this.slidingAnimationProgress, entity.xRot * Mth.DEG_TO_RAD, 0);
             this.head.yRot = Mth.lerp(this.slidingAnimationProgress, entity.yRot * Mth.DEG_TO_RAD, 0);
             this.head.y = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().y(), entity.isBaby ? 20 : 24);
             this.head.z = Mth.lerp(this.slidingAnimationProgress, this.head.getInitialPose().z(), -4);
-            this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * entity.limbSwingAmount;
-            this.head.z += -Mth.cos(2F * entity.limbSwing) * swingSlowdownFactor * entity.limbSwingAmount;
+            this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + entity.walkAnimationPos)) * swingSlowdownFactor * entity.walkAnimationSpeed;
+            this.head.z += -Mth.cos(2F * entity.walkAnimationPos) * swingSlowdownFactor * entity.walkAnimationSpeed;
 
             this.leftFoot.xRot += Mth.rotLerpRad(this.leftFoot.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
             this.rightFoot.xRot += Mth.rotLerpRad(this.rightFoot.xRot, (float) Math.toRadians(90), this.slidingAnimationProgress);
 
-            this.leftFlipper.zRot += (Math.toRadians(-2.5) - Mth.cos(2F * entity.limbSwing)) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
-            this.rightFlipper.zRot += (Math.toRadians(2.5) - Mth.cos(2F * entity.limbSwing)) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
+            this.leftFlipper.zRot += (Math.toRadians(-2.5) - Mth.cos(2F * entity.walkAnimationPos)) * (swingSlowdownFactor * 0.5F) * entity.walkAnimationSpeed;
+            this.rightFlipper.zRot += (Math.toRadians(2.5) - Mth.cos(2F * entity.walkAnimationPos)) * (swingSlowdownFactor * 0.5F) * entity.walkAnimationSpeed;
         } else {
-            this.body.yRot += Mth.cos((float)Math.toRadians(-20) + entity.limbSwing) * swingSlowdownFactor * entity.limbSwingAmount;
-            this.body.zRot += Mth.cos(entity.limbSwing) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
+            this.body.yRot += Mth.cos((float)Math.toRadians(-20) + entity.walkAnimationPos) * swingSlowdownFactor * entity.walkAnimationSpeed;
+            this.body.zRot += Mth.cos(entity.walkAnimationPos) * (swingSlowdownFactor * 0.5F) * entity.walkAnimationSpeed;
 
             this.head.xRot = entity.xRot * Mth.DEG_TO_RAD;
             this.head.yRot = entity.yRot * Mth.DEG_TO_RAD;
-            this.head.yRot += -Mth.cos((float)Math.toRadians(-80) + entity.limbSwing) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
-            this.head.zRot += -Mth.cos((float)Math.toRadians(-40) + entity.limbSwing) * (swingSlowdownFactor * 0.5F) * entity.limbSwingAmount;
-            this.head.x += Mth.cos(entity.limbSwing) * (swingSlowdownFactor * 0.1F) * entity.limbSwingAmount;
+            this.head.yRot += -Mth.cos((float)Math.toRadians(-80) + entity.walkAnimationPos) * (swingSlowdownFactor * 0.5F) * entity.walkAnimationSpeed;
+            this.head.zRot += -Mth.cos((float)Math.toRadians(-40) + entity.walkAnimationPos) * (swingSlowdownFactor * 0.5F) * entity.walkAnimationSpeed;
+            this.head.x += Mth.cos(entity.walkAnimationPos) * (swingSlowdownFactor * 0.1F) * entity.walkAnimationSpeed;
 
-            this.leftFoot.xRot += (Math.toRadians(-10) + Mth.cos(entity.limbSwing)) * (swingSlowdownFactor * 2F) * entity.limbSwingAmount;
-            this.rightFoot.xRot += (Math.toRadians(-10) - Mth.cos(entity.limbSwing)) * (swingSlowdownFactor * 2F) * entity.limbSwingAmount;
+            this.leftFoot.xRot += (Math.toRadians(-10) + Mth.cos(entity.walkAnimationPos)) * (swingSlowdownFactor * 2F) * entity.walkAnimationSpeed;
+            this.rightFoot.xRot += (Math.toRadians(-10) - Mth.cos(entity.walkAnimationPos)) * (swingSlowdownFactor * 2F) * entity.walkAnimationSpeed;
 
-            this.leftFlipper.zRot += (Math.toRadians(-10) + Mth.cos((float)Math.toRadians(-40) + entity.limbSwing)) * (swingSlowdownFactor * 0.8F) * entity.limbSwingAmount;
-            this.rightFlipper.zRot += (Math.toRadians(10) + Mth.cos((float)Math.toRadians(-40) + entity.limbSwing)) * (swingSlowdownFactor * 0.8F) * entity.limbSwingAmount;
+            this.leftFlipper.zRot += (Math.toRadians(-10) + Mth.cos((float)Math.toRadians(-40) + entity.walkAnimationPos)) * (swingSlowdownFactor * 0.8F) * entity.walkAnimationSpeed;
+            this.rightFlipper.zRot += (Math.toRadians(10) + Mth.cos((float)Math.toRadians(-40) + entity.walkAnimationPos)) * (swingSlowdownFactor * 0.8F) * entity.walkAnimationSpeed;
         }
     }
 

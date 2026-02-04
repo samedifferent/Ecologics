@@ -1,5 +1,8 @@
 package samebutdifferent.ecologics.client.model;
 
+import java.util.Set;
+
+import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -8,6 +11,7 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -15,6 +19,7 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.renderer.entity.state.CoconutCrabRenderState;
 
 public class CoconutCrabModel extends EntityModel<CoconutCrabRenderState> {
+	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(false, 2.0F, 2.0F, Set.of("head"));
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_crab"), "main");
     private final ModelPart root;
     private final ModelPart head;
@@ -30,7 +35,6 @@ public class CoconutCrabModel extends EntityModel<CoconutCrabRenderState> {
 
     public CoconutCrabModel(ModelPart root) {
     	super(root);
-        // super(RenderType::entityCutoutNoCull);
         this.root = root.getChild("root");
         this.head = this.root.getChild("head");
         this.shell = this.root.getChild("shell");
@@ -71,28 +75,28 @@ public class CoconutCrabModel extends EntityModel<CoconutCrabRenderState> {
         this.head.yRot = entity.yRot * Mth.DEG_TO_RAD;
         this.shell.visible = entity.hasCoconut;
         float swingSlowdownFactor = 0.2F;
-        this.shell.xRot += Mth.cos((float) (Math.toRadians(-360) + entity.limbSwing)) * swingSlowdownFactor * entity.limbSwingAmount;
-        this.shell.zRot += Mth.cos((float) (Math.toRadians(-60) + entity.limbSwing)) * swingSlowdownFactor * entity.limbSwingAmount;
+        this.shell.xRot += Mth.cos((float) (Math.toRadians(-360) + entity.walkAnimationPos)) * swingSlowdownFactor * entity.walkAnimationSpeed;
+        this.shell.zRot += Mth.cos((float) (Math.toRadians(-60) + entity.walkAnimationPos)) * swingSlowdownFactor * entity.walkAnimationSpeed;
 
-        float legLimbSwingAmount = Math.min(entity.limbSwingAmount, 0.6F);
-        this.leftHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.leftHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        float legLimbSwingAmount = Math.min(entity.walkAnimationSpeed, 0.6F);
+        this.leftHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightHindLeg.yRot += -Mth.cos((float) (Math.toRadians(-80) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightHindLeg.zRot += Mth.cos((float) (Math.toRadians(-40) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
 
-        this.leftFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.leftFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightFrontLeg.yRot += Mth.sin((float) (Math.toRadians(-80) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightFrontLeg.zRot += -Mth.sin((float) (Math.toRadians(-40) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
 
-        this.leftMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.leftMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightMiddleLeg.yRot += Mth.cos((float) (Math.toRadians(-120) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightMiddleLeg.zRot += -Mth.cos((float) (Math.toRadians(-80) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
 
-        this.leftClaw.xRot += -Mth.cos((float) (Math.toRadians(-20) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.leftClaw.zRot += -Mth.cos((float) (Math.toRadians(-20) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightClaw.xRot += Mth.cos((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
-        this.rightClaw.zRot += Mth.cos((float) (Math.toRadians(-40) + entity.limbSwing)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftClaw.xRot += -Mth.cos((float) (Math.toRadians(-20) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.leftClaw.zRot += -Mth.cos((float) (Math.toRadians(-20) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightClaw.xRot += Mth.cos((float) (Math.toRadians(-40) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
+        this.rightClaw.zRot += Mth.cos((float) (Math.toRadians(-40) + entity.walkAnimationPos)) * swingSlowdownFactor * legLimbSwingAmount;
     }
 }

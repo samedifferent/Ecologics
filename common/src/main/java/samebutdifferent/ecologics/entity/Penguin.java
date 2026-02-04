@@ -89,7 +89,7 @@ public class Penguin extends Animal {
     // ATTRIBUTES & GOALS
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.STEP_HEIGHT, 1.0F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 15.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.STEP_HEIGHT, 1.0F).add(Attributes.TEMPT_RANGE, 10.0F);
     }
 
     @Override

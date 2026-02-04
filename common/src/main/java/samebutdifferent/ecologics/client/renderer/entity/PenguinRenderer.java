@@ -28,4 +28,9 @@ public class PenguinRenderer extends MobRenderer<Penguin, PenguinRenderState, Pe
 	public PenguinRenderState createRenderState() {
 		return new PenguinRenderState();
 	}
+	
+	public void extractRenderState(Penguin $$0, PenguinRenderState $$1, float $$2) {
+		super.extractRenderState($$0, $$1, $$2);
+		$$1.isPregnant = $$0.isPregnant();
+	}
 }

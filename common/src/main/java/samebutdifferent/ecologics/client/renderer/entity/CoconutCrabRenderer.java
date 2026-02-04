@@ -23,4 +23,9 @@ public class CoconutCrabRenderer extends MobRenderer<CoconutCrab, CoconutCrabRen
 	public CoconutCrabRenderState createRenderState() {
 		return new CoconutCrabRenderState();
 	}
+	
+	public void extractRenderState(CoconutCrab $$0, CoconutCrabRenderState $$1, float $$2) {
+		super.extractRenderState($$0, $$1, $$2);
+		$$1.hasCoconut = $$0.hasCoconut();
+	}
 }
