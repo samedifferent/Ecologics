@@ -7,8 +7,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
@@ -21,10 +21,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -73,16 +73,6 @@ public class EcologicsNeoForge
     public EcologicsNeoForge(IEventBus bus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, ModConfigNeoForge.COMMON_CONFIG);
 
-        //CommonPlatformHelperImpl.BLOCKS.register(bus);
-        //CommonPlatformHelperImpl.ITEMS.register(bus);
-        //CommonPlatformHelperImpl.SOUND_EVENTS.register(bus);
-        //CommonPlatformHelperImpl.ENTITY_TYPES.register(bus);
-        //CommonPlatformHelperImpl.BLOCK_ENTITY_TYPES.register(bus);
-        //CommonPlatformHelperImpl.FEATURES.register(bus);
-        //CommonPlatformHelperImpl.TRUNK_PLACER_TYPES.register(bus);
-        //CommonPlatformHelperImpl.FOLIAGE_PLACER_TYPES.register(bus);
-        //CommonPlatformHelperImpl.MOB_EFFECTS.register(bus);
-        //CommonPlatformHelperImpl.POTIONS.register(bus);
         ModGlobalLootModifiers.GLM.register(bus);
 
         bus.addListener(this::registerEntityAttributes);
@@ -103,6 +93,9 @@ public class EcologicsNeoForge
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
+            /*Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
+            	// FlammableBlockRegistry.getInstance(Blocks.FIRE).add(block, pair.getA(), pair.getB());
+            });*/
         });
     }
 
@@ -189,9 +182,9 @@ public class EcologicsNeoForge
     @SubscribeEvent
     public static void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
         PotionBrewing.Builder builder = event.getBuilder();
-
-        builder.addMix(Potions.AWKWARD, ModItems.PENGUIN_FEATHER, ModPotions.SLIDING);
-        builder.addMix(ModPotions.SLIDING, Items.REDSTONE, ModPotions.LONG_SLIDING);
+        Ecologics.BREWING_RECIPES.forEach((potion, pair) -> { // A: Ingredient, B: Output
+        	builder.addMix(potion, (Item)pair.getA(), pair.getB());
+        });
     }
     
     /*@SubscribeEvent

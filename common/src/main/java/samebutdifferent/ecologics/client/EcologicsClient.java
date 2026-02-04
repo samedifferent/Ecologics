@@ -1,8 +1,7 @@
 package samebutdifferent.ecologics.client;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -25,32 +24,30 @@ import samebutdifferent.ecologics.registry.ModEntityTypes;
 
 public class EcologicsClient 
 {
-	public static Map<Block, ChunkSectionLayer> BLOCK_RENDERS;
+	public static final Map<Block, ChunkSectionLayer> BLOCK_RENDERS = new HashMap<>();
 	
     public static void init() {
         // Render Layers
-    	Map<Block, ChunkSectionLayer> blockRenders = new ImmutableMap.Builder<Block, ChunkSectionLayer>()
-	        .put(ModBlocks.COCONUT_DOOR, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.COCONUT_TRAPDOOR, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.COCONUT_LEAVES, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.WALNUT_DOOR, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.WALNUT_TRAPDOOR, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.WALNUT_LEAVES, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.AZALEA_DOOR, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.FLOWERING_AZALEA_DOOR, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.AZALEA_TRAPDOOR, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.FLOWERING_AZALEA_TRAPDOOR, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.AZALEA_FLOWER, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.COCONUT_SEEDLING, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.WALNUT_SAPLING, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.POTTED_AZALEA_FLOWER, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.POTTED_COCONUT_SEEDLING, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.POTTED_WALNUT_SAPLING, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.PRICKLY_PEAR, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.THIN_ICE, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.SANDCASTLE, ChunkSectionLayer.CUTOUT)
-	        .put(ModBlocks.SURFACE_MOSS, ChunkSectionLayer.CUTOUT).build();
-    	BLOCK_RENDERS = ImmutableMap.copyOf(blockRenders);
+    	BLOCK_RENDERS.put(ModBlocks.COCONUT_DOOR, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.COCONUT_TRAPDOOR, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.COCONUT_LEAVES, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.WALNUT_DOOR, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.WALNUT_TRAPDOOR, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.WALNUT_LEAVES, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.AZALEA_DOOR, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.FLOWERING_AZALEA_DOOR, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.AZALEA_TRAPDOOR, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.FLOWERING_AZALEA_TRAPDOOR, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.AZALEA_FLOWER, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.COCONUT_SEEDLING, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.WALNUT_SAPLING, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.POTTED_AZALEA_FLOWER, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.POTTED_COCONUT_SEEDLING, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.POTTED_WALNUT_SAPLING, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.PRICKLY_PEAR, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.THIN_ICE, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.SANDCASTLE, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.SURFACE_MOSS, ChunkSectionLayer.CUTOUT);
     	
         // Entity Renderers
     	EntityRenderers.register(ModEntityTypes.COCONUT_CRAB, CoconutCrabRenderer::new);

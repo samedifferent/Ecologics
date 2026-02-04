@@ -13,6 +13,10 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,6 +40,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
@@ -66,6 +71,17 @@ public class EcologicsFabric implements ModInitializer {
         Ecologics.commonSetup();
         registerCreativeTab();
         ItemGroupEvents.modifyEntriesEvent(TAB).register(EcologicsFabric::assignItemsToTab);
+        // Iterate.
+        Ecologics.BREWING_RECIPES.forEach((potion, pair) -> { // A: Ingredient, B: Output
+        	FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> builder.registerPotionRecipe(potion, Ingredient.of(pair.getA()), pair.getB()));
+        });
+        Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
+        	FlammableBlockRegistry.getInstance(Blocks.FIRE).add(block, pair.getA(), pair.getB());
+        });
+        Ecologics.COMPOSTABLES.forEach((item, chance) -> {
+        	CompostingChanceRegistry.INSTANCE.add(item, chance);
+        });
+        Ecologics.STRIPPABLES.forEach(StrippableBlockRegistry::register);
     }
 
     private void registerCreativeTab() {
@@ -146,13 +162,6 @@ public class EcologicsFabric implements ModInitializer {
                     (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DESERT),
                     GenerationStep.Decoration.VEGETAL_DECORATION,
                     getPlacedFeatureKey("prickly_pear")
-            );
-        }
-        if (config.desert.generateDesertRuins) {
-            BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DESERT),
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    getPlacedFeatureKey("desert_ruin")
             );
         }
     }
