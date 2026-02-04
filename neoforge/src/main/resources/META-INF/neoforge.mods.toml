@@ -30,6 +30,6 @@ side = "BOTH"
 [[dependencies.ecologics]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.11,26.1]"
+versionRange = "[1.21.11,26]"
 ordering = "NONE"
 side = "BOTH"
