@@ -1,5 +1,6 @@
 package samebutdifferent.ecologics.mixin.fabric;
 
+import net.minecraft.world.level.block.ShelfBlock;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,6 +18,9 @@ public class BlockEntityTypeMixin<T extends BlockEntity> {
     private void supports(BlockState state, CallbackInfoReturnable<Boolean> info) {
         BlockEntityType<T> that = BlockEntityType.class.cast(this);
         if (BlockEntityType.SIGN.equals(that) && (state.getBlock() instanceof SignBlock || state.getBlock() instanceof WallSignBlock)) {
+            info.setReturnValue(true);
+        }
+        if (BlockEntityType.SHELF.equals(that) && (state.getBlock() instanceof ShelfBlock)) {
             info.setReturnValue(true);
         }
     }

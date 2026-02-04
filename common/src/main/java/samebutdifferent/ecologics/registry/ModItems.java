@@ -20,7 +20,6 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.level.block.Block;
 import oshi.util.tuples.Pair;
@@ -28,7 +27,6 @@ import oshi.util.tuples.Triplet;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.item.CoconutSliceItem;
 import samebutdifferent.ecologics.item.PricklyPearItem;
-import samebutdifferent.ecologics.item.SandcastleBlockItem;
 
 public class ModItems
 {
@@ -37,7 +35,7 @@ public class ModItems
     		if (!registry.getC()) {
     			continue;
     		}
-    		ModItems.registerItem(registry.getA().getPath(), new BlockItem(registry.getB(), new Item.Properties().setId(ResourceKey.create(Registries.ITEM, registry.getA()))));
+    		ModItems.registerItem(registry.getA().getPath(), new BlockItem(registry.getB(), new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, registry.getA()))));
     	}
        	for (Pair<Identifier, Item> registry : ITEMS) {
     		Registry.register(BuiltInRegistries.ITEM, registry.getA(), registry.getB());

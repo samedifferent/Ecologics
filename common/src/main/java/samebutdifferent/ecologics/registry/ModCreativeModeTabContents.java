@@ -69,7 +69,12 @@ public class ModCreativeModeTabContents
         addToList(ModItems.AZALEA_HANGING_SIGN);
         addToList(ModItems.FLOWERING_AZALEA_SIGN);
         addToList(ModItems.FLOWERING_AZALEA_HANGING_SIGN);
-            
+
+        addToList(ModBlocks.COCONUT_SHELF);
+        addToList(ModBlocks.WALNUT_SHELF);
+        addToList(ModBlocks.AZALEA_SHELF);
+        // addToList(ModBlocks.FLOWERING_AZALEA_SHELF);
+        
         addToList(ModItems.COCONUT_BOAT);
         addToList(ModItems.COCONUT_CHEST_BOAT);
         addToList(ModItems.WALNUT_BOAT);

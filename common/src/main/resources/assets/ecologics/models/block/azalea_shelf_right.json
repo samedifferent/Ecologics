@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_right",
+  "textures": {
+    "all": "ecologics:block/azalea_shelf",
+    "particle": "ecologics/stripped_azalea_log"
+  }
+}
