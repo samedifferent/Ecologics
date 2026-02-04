@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "#": {
-      "item": "ecologics:seashell"
-    }
+    "#": "ecologics:seashell"
   },
   "pattern": [
     "###",

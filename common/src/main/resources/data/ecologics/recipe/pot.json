@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "#": {
-      "tag": "minecraft:terracotta"
-    }
+    "#": "#minecraft:terracotta"
   },
   "pattern": [
     "# #",

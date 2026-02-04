@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "S": {
-      "item": "minecraft:snow_block"
-    }
+    "S": "minecraft:snow_block"
   },
   "pattern": [
     "SS",

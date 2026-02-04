@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "group": "wooden_sign",
   "key": {
-    "#": {
-      "item": "ecologics:flowering_azalea_planks"
-    },
-    "X": {
-      "item": "minecraft:stick"
-    }
+    "#": "ecologics:flowering_azalea_planks",
+    "X": "#c:rods/wooden"
   },
   "pattern": [
     "###",

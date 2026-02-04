@@ -1,10 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "boat",
   "key": {
-    "#": {
-      "item": "ecologics:azalea_planks"
-    }
+    "#": "ecologics:azalea_planks"
   },
   "pattern": [
     "# #",

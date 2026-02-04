@@ -2,9 +2,7 @@
   "type": "minecraft:smelting",
   "cookingtime": 200,
   "experience": 0.35,
-  "ingredient": {
-    "item": "ecologics:prickly_pear"
-  },
+  "ingredient":  "ecologics:prickly_pear",
   "result": {
     "id": "ecologics:cooked_prickly_pear"
   }

@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "group": "bark",
   "key": {
-    "#": {
-      "item": "ecologics:flowering_azalea_log"
-    }
+    "#": "ecologics:flowering_azalea_log"
   },
   "pattern": [
     "##",

@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "#": {
-      "item": "ecologics:snow_bricks"
-    }
+    "#": "ecologics:snow_bricks"
   },
   "pattern": [
     "#  ",

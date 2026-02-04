@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "group": "planks",
   "ingredients": [
-    {
-      "tag": "ecologics:flowering_azalea_logs"
-    }
+    "#ecologics:flowering_azalea_logs"
   ],
   "result": {
     "count": 4,

@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "group": "bark",
   "key": {
-    "#": {
-      "item": "ecologics:walnut_log"
-    }
+    "#": "ecologics:walnut_log"
   },
   "pattern": [
     "##",
