@@ -8,22 +8,19 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IceBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Fluids;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
@@ -38,9 +35,8 @@ public class ThinIceBlock extends IceBlock {
 
     @Override
     public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
-    	//TODO: Fix this.
-    	// Holder<Enchantment> ffholder = level.registryAccess().get(Registries.ENCHANTMENT). (Enchantments.FEATHER_FALLING);
-        /*if (entity instanceof Player player && EnchantmentHelper.getEnchantmentLevel(ffholder, player) == 0) {
+    	Holder<Enchantment> ffholder = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).listElements().filter(ench -> ench.is(Enchantments.FEATHER_FALLING)).findFirst().get();
+        if (fallDistance > 1 && entity instanceof LivingEntity && EnchantmentHelper.getEnchantmentLevel(ffholder, (LivingEntity)entity) == 0) {
             level.playSound(null, pos, ModSoundEvents.THIN_ICE_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
             replaceIfThinIce(pos, 3, level);
             replaceIfThinIce(pos.north(), 2, level);
@@ -51,7 +47,7 @@ public class ThinIceBlock extends IceBlock {
             replaceIfThinIce(pos.north().east(), 1, level);
             replaceIfThinIce(pos.south().west(), 1, level);
             replaceIfThinIce(pos.south().east(), 1, level);
-        */
+        }
     }
 
     private void replaceIfThinIce(BlockPos pos, int age, Level level) {
@@ -75,10 +71,13 @@ public class ThinIceBlock extends IceBlock {
             level.playSound(null, pos, ModSoundEvents.THIN_ICE_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
             return false;
         } else {
-            level.removeBlock(pos, false);
+        	if (level.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos)) {
+        		level.removeBlock(pos, false);
+        		return true;
+        	}
             BlockState blockstate = level.getBlockState(pos.below());
             if (blockstate.blocksMotion() || blockstate.liquid()) {
-                level.setBlockAndUpdate(pos, level.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos) ? IceBlock.meltsInto() : Blocks.AIR.defaultBlockState());
+                level.setBlockAndUpdate(pos, IceBlock.meltsInto());
             }
             level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
             return true;
