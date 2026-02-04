@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ecologics:block/flowering_azalea_fence_gate_inventory"
+    "model": "ecologics:item/flowering_azalea_fence_gate"
   }
 }

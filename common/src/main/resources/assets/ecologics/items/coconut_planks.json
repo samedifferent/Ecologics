@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ecologics:block/coconut_planks"
+    "model": "ecologics:item/coconut_planks"
   }
 }

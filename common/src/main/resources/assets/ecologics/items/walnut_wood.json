@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ecologics:block/walnut_wood"
+    "model": "ecologics:item/walnut_wood"
   }
 }

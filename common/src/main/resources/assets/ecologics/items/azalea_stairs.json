@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ecologics:block/azalea_planks"
+    "model": "ecologics:item/azalea_stairs"
   }
 }

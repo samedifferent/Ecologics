@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ecologics:block/azalea_button"
+    "model": "ecologics:item/azalea_button"
   }
 }

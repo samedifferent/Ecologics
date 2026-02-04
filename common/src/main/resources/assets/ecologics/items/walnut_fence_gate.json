@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ecologics:block/walnut_fence_gate_inventory"
+    "model": "ecologics:item/walnut_fence_gate"
   }
 }

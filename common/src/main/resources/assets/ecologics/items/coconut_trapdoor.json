@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ecologics:block/coconut_trapdoor"
+    "model": "ecologics:item/coconut_trapdoor"
   }
 }

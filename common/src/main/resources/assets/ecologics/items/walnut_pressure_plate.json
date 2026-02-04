@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ecologics:block/walnut_pressure_plate"
+    "model": "ecologics:item/walnut_pressure_plate"
   }
 }
