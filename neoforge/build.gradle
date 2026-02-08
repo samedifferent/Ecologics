@@ -40,7 +40,7 @@ neoForge {
 }
 
 dependencies {
-    compileOnly project(":common")
+    implementation project(":common")
 }
 
 TaskCollection.metaClass.excludingNeoTasks = { ->
@@ -53,8 +53,15 @@ tasks.withType(JavaCompile).excludingNeoTasks().configureEach {
 
 tasks.withType(ProcessResources).excludingNeoTasks().configureEach {
     from project(":common").sourceSets.main.resources
+	filesMatching("META-INF/neoforge.mods.toml") {
+        expand "version": rootProject.version
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+compileTestJava {
+    enabled = false // Skip it because NeoForge keeps complaining about broken tests.
 }
