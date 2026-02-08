@@ -85,7 +85,7 @@ public class Squirrel extends Animal {
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        if (ConfigCommon.foxesAttackSquirrels()) {
+        if (ConfigCommon.getFoxesAttackSquirrels()) {
         	this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Fox.class, 6.0F, 1.1D, 1.3D));
         }
     }
@@ -118,8 +118,8 @@ public class Squirrel extends Animal {
     }
 
     @Override
-    public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.HONEYCOMB);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ModTags.ItemTags.SQUIRREL_FOOD);
     }
 
     boolean isTrusting() {

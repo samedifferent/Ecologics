@@ -2,19 +2,31 @@ package samebutdifferent.ecologics.config;
 
 public class ConfigCommon 
 {
-	private static float coconutCrabSpawnChance = 0.4F;
+	private static double coconutCrabSpawnChance = 0.25F;
 	private static boolean replaceAzaleaTree = true;
 	private static boolean foxesAttackSquirrels = true;
 	
-	public static float coconutCrabSpawnChance() {
+	public static void setCoconutCrabSpawnChance(double newValue) {
+		coconutCrabSpawnChance = newValue;
+	}
+	
+	public static double getCoconutCrabSpawnChance() {
 		return coconutCrabSpawnChance;
 	}
 	
-	public static boolean replaceAzaleaTree() {
-		return replaceAzaleaTree;
+	public static void setReplaceAzaleaTree(boolean newValue) {
+		replaceAzaleaTree = newValue;
 	}
 	
-	public static boolean foxesAttackSquirrels() {
+	public static boolean getReplaceAzaleaTree() {
+		return replaceAzaleaTree;
+	}
+
+	public static void setFoxesAttackSquirrels(boolean newValue) {
+		foxesAttackSquirrels = newValue;
+	}
+	
+	public static boolean getFoxesAttackSquirrels() {
 		return foxesAttackSquirrels;
 	}
 }

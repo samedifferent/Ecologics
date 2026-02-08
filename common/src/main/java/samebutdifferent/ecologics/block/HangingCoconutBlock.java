@@ -153,7 +153,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     @Override
     public void onBrokenAfterFall(Level pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
         pLevel.playSound(null, pPos, ModSoundEvents.COCONUT_SMASH, SoundSource.BLOCKS, 0.7f, 0.9f + pLevel.getRandom().nextFloat() * 0.2f);
-        if (pLevel.random.nextFloat() <= ConfigCommon.coconutCrabSpawnChance()) {
+        if (pLevel.random.nextFloat() <= ConfigCommon.getCoconutCrabSpawnChance()) {
             CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.create(pLevel, EntitySpawnReason.NATURAL);
             coconutCrab.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
             pLevel.addFreshEntity(coconutCrab);

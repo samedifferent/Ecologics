@@ -18,7 +18,7 @@ public class AzaleaBlockMixin {
 
 	@Inject(at = @At(value = "HEAD"), method = "performBonemeal(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", cancellable = true)
     private void modifyPerformBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, CallbackInfo callback) {
-		if (ConfigCommon.replaceAzaleaTree()) {
+		if (ConfigCommon.getReplaceAzaleaTree()) {
 	        ModTreeGrower.AZALEA.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
 	        callback.cancel();
 		}
