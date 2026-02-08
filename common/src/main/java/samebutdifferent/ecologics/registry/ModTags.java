@@ -10,6 +10,7 @@ import samebutdifferent.ecologics.Ecologics;
 
 public class ModTags {
     public static class ItemTags {
+        public static final TagKey<Item> COCONUT_CRAB_FOOD = tag("coconut_crab_food");
         public static final TagKey<Item> PENGUIN_FOOD = tag("penguin_food");
         public static final TagKey<Item> SQUIRREL_FOOD = tag("squirrel_food");
 
