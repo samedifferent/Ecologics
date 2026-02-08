@@ -9,12 +9,16 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -22,11 +26,15 @@ import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
@@ -40,8 +48,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
+import samebutdifferent.ecologics.registry.ModTags;
 
 public class CoconutCrab extends Animal implements NeutralMob {
     private static final EntityDataAccessor<Boolean> HAS_COCONUT = SynchedEntityData.defineId(CoconutCrab.class, EntityDataSerializers.BOOLEAN);
@@ -56,12 +67,14 @@ public class CoconutCrab extends Animal implements NeutralMob {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pMob) {
-        return null;
+    	CoconutCrab crab = ModEntityTypes.COCONUT_CRAB.create(pLevel, EntitySpawnReason.BREEDING);
+    	crab.setHasCoconut(false);
+    	return crab;
     }
 
     @Override
-    public boolean isFood(ItemStack pStack) {
-        return false;
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ModTags.ItemTags.COCONUT_CRAB_FOOD);
     }
 
     @Override
@@ -69,9 +82,13 @@ public class CoconutCrab extends Animal implements NeutralMob {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new CrabAvoidGoal<>(this, Player.class, 8.0F, 2.0D, 2.0D));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0, $$0 -> $$0.isBaby() ? DamageTypeTags.PANIC_CAUSES : DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(2, new CrabMeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, itemstack -> itemstack.is(ModTags.ItemTags.COCONUT_CRAB_FOOD) || (itemstack.is(ModBlocks.COCONUT.asItem()) && !this.hasCoconut()), false));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new CrabHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new CrabNearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
@@ -79,7 +96,7 @@ public class CoconutCrab extends Animal implements NeutralMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 2.0D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.TEMPT_RANGE, 10.0F);
     }
 
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
@@ -97,6 +114,20 @@ public class CoconutCrab extends Animal implements NeutralMob {
         }
     }
 
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (itemstack.is(ModBlocks.COCONUT.asItem()) && !this.hasCoconut()) {
+        	this.setHasCoconut(true);
+        	if (!player.isCreative()) { 
+        		itemstack.shrink(1);
+        	}
+            return InteractionResult.SUCCESS;
+        } else {
+            return super.mobInteract(player, hand);
+        }
+    }
+    
     private void breakCoconut() {
         this.setHasCoconut(false);
         this.stopBeingAngry();
@@ -132,7 +163,7 @@ public class CoconutCrab extends Animal implements NeutralMob {
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
         return this.getBbHeight() * 0.5F;
     }*/
-
+    
     public void setHasCoconut(boolean hasCoconut) {
         this.entityData.set(HAS_COCONUT, hasCoconut);
     }
@@ -219,7 +250,7 @@ public class CoconutCrab extends Animal implements NeutralMob {
 
         @Override
         public boolean canUse() {
-            return crab.hasCoconut() && super.canUse();
+            return crab.hasCoconut() && super.canUse() && !crab.isBaby();
         }
 
         @Override
@@ -262,7 +293,7 @@ public class CoconutCrab extends Animal implements NeutralMob {
 
         @Override
         public boolean canUse() {
-            return !this.crab.hasCoconut() && super.canUse();
+            return !this.crab.hasCoconut() && !this.crab.isBaby() && super.canUse();
         }
 
         @Override
