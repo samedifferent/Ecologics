@@ -77,14 +77,14 @@ public class ModItems
     public static final Item SQUIRREL_SPAWN_EGG = registerItem("squirrel_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(ModEntityTypes.SQUIRREL));
     
     // Signs
-    public static final Item COCONUT_SIGN = registerItem("coconut_sign", properties -> new SignItem(ModBlocks.COCONUT_SIGN, ModBlocks.COCONUT_WALL_SIGN, properties), new Item.Properties().stacksTo(16));
-    public static final Item COCONUT_HANGING_SIGN = registerItem("coconut_hanging_sign", properties -> new HangingSignItem(ModBlocks.COCONUT_HANGING_SIGN, ModBlocks.COCONUT_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16));
-    public static final Item WALNUT_SIGN = registerItem("walnut_sign", properties -> new SignItem(ModBlocks.WALNUT_SIGN, ModBlocks.WALNUT_WALL_SIGN, properties), new Item.Properties().stacksTo(16));
-    public static final Item WALNUT_HANGING_SIGN = registerItem("walnut_hanging_sign", properties -> new HangingSignItem(ModBlocks.WALNUT_HANGING_SIGN, ModBlocks.WALNUT_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16));
-    public static final Item AZALEA_SIGN = registerItem("azalea_sign", properties -> new SignItem(ModBlocks.AZALEA_SIGN, ModBlocks.AZALEA_WALL_SIGN, properties), new Item.Properties().stacksTo(16));
-    public static final Item AZALEA_HANGING_SIGN = registerItem("azalea_hanging_sign", properties -> new HangingSignItem(ModBlocks.AZALEA_HANGING_SIGN, ModBlocks.AZALEA_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16));
-    public static final Item FLOWERING_AZALEA_SIGN = registerItem("flowering_azalea_sign", properties -> new SignItem(ModBlocks.FLOWERING_AZALEA_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_SIGN, properties), new Item.Properties().stacksTo(16));
-    public static final Item FLOWERING_AZALEA_HANGING_SIGN = registerItem("flowering_azalea_hanging_sign", properties -> new HangingSignItem(ModBlocks.FLOWERING_AZALEA_HANGING_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16));
+    public static final Item COCONUT_SIGN = registerItem("coconut_sign", properties -> new SignItem(ModBlocks.COCONUT_SIGN, ModBlocks.COCONUT_WALL_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item COCONUT_HANGING_SIGN = registerItem("coconut_hanging_sign", properties -> new HangingSignItem(ModBlocks.COCONUT_HANGING_SIGN, ModBlocks.COCONUT_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item WALNUT_SIGN = registerItem("walnut_sign", properties -> new SignItem(ModBlocks.WALNUT_SIGN, ModBlocks.WALNUT_WALL_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item WALNUT_HANGING_SIGN = registerItem("walnut_hanging_sign", properties -> new HangingSignItem(ModBlocks.WALNUT_HANGING_SIGN, ModBlocks.WALNUT_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item AZALEA_SIGN = registerItem("azalea_sign", properties -> new SignItem(ModBlocks.AZALEA_SIGN, ModBlocks.AZALEA_WALL_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item AZALEA_HANGING_SIGN = registerItem("azalea_hanging_sign", properties -> new HangingSignItem(ModBlocks.AZALEA_HANGING_SIGN, ModBlocks.AZALEA_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item FLOWERING_AZALEA_SIGN = registerItem("flowering_azalea_sign", properties -> new SignItem(ModBlocks.FLOWERING_AZALEA_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item FLOWERING_AZALEA_HANGING_SIGN = registerItem("flowering_azalea_hanging_sign", properties -> new HangingSignItem(ModBlocks.FLOWERING_AZALEA_HANGING_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
     
     // Boats
     public static final Item COCONUT_BOAT = registerItem("coconut_boat", properties -> new BoatItem(ModEntityTypes.COCONUT_BOAT, properties), new Item.Properties().stacksTo(1));
