@@ -182,6 +182,7 @@ public class EcologicsFabric implements ModInitializer {
             if (config.plains.generateWalnutTrees) {
                 c.getGenerationSettings().removeFeature(VegetationPlacements.TREES_PLAINS);
                 c.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("walnut"));
+                c.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_walnut_tree"));
             }
         });
     }
