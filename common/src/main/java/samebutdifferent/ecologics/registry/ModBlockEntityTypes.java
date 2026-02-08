@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import oshi.util.tuples.Pair;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.entity.ModHangingSignBlockEntity;
+import samebutdifferent.ecologics.block.entity.ModShelfBlockEntity;
 import samebutdifferent.ecologics.block.entity.ModSignBlockEntity;
 import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 import java.util.ArrayList;
@@ -39,5 +40,6 @@ public class ModBlockEntityTypes
         ModBlocks.AZALEA_HANGING_SIGN, ModBlocks.AZALEA_WALL_HANGING_SIGN,
         ModBlocks.FLOWERING_AZALEA_HANGING_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_HANGING_SIGN)
     ));
+    public static final BlockEntityType<ModShelfBlockEntity> SHELF = registerBlockEntityType("shelf", new BlockEntityType<>(ModShelfBlockEntity::new,Set.of(ModBlocks.AZALEA_SHELF, ModBlocks.COCONUT_SHELF, ModBlocks.WALNUT_SHELF)));
     public static final BlockEntityType<PotBlockEntity> POT = registerBlockEntityType("pot", new BlockEntityType<>(PotBlockEntity::new, Set.of(ModBlocks.POT)));
 }

@@ -7,6 +7,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.ShelfRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.entity.BoatRenderer;
@@ -77,6 +78,7 @@ public class EcologicsClient
         // Block Entity Renderers
         BlockEntityRenderers.register(ModBlockEntityTypes.SIGN, SignRenderer::new);
         BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntityTypes.SHELF, ShelfRenderer::new);
     }
     
     public static void addSignTypes() {
