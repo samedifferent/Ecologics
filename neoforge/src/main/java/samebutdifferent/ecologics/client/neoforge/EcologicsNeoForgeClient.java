@@ -38,8 +38,11 @@ public class EcologicsNeoForgeClient
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(CoconutCrabModel.LAYER_LOCATION, CoconutCrabModel::createBodyLayer);
-        event.registerLayerDefinition(SquirrelModel.LAYER_LOCATION, SquirrelModel::createBodyLayer);
-        event.registerLayerDefinition(PenguinModel.LAYER_LOCATION, PenguinModel::createBodyLayer);
+        event.registerLayerDefinition(CoconutCrabModel.COCONUT_CRAB, CoconutCrabModel::createBodyLayer);
+        event.registerLayerDefinition(CoconutCrabModel.COCONUT_CRAB_BABY, CoconutCrabModel::createBaby);
+        event.registerLayerDefinition(SquirrelModel.SQUIRREL, SquirrelModel::createBodyLayer);
+        event.registerLayerDefinition(SquirrelModel.SQUIRREL_BABY, SquirrelModel::createBaby);
+        event.registerLayerDefinition(PenguinModel.PENGUIN, PenguinModel::createBodyLayer);
+        event.registerLayerDefinition(PenguinModel.PENGUIN_BABY, PenguinModel::createBaby);
     }
 }

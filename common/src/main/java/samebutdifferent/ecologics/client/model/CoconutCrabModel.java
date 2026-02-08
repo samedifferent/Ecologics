@@ -20,7 +20,8 @@ import samebutdifferent.ecologics.client.renderer.entity.state.CoconutCrabRender
 
 public class CoconutCrabModel extends EntityModel<CoconutCrabRenderState> {
 	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(false, 2.0F, 2.0F, Set.of("head"));
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_crab"), "main");
+    public static final ModelLayerLocation COCONUT_CRAB = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_crab"), "main");
+    public static final ModelLayerLocation COCONUT_CRAB_BABY = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_crab_baby"), "main");
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart shell;
@@ -66,6 +67,10 @@ public class CoconutCrabModel extends EntityModel<CoconutCrabRenderState> {
         PartDefinition rightHindLeg = root.addOrReplaceChild("rightHindLeg", CubeListBuilder.create().texOffs(24, 24).addBox(-15.0F, -2.0F, 0.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, -6.0F, -1.0F, 0.0F, 0.2618F, -0.3927F));
         PartDefinition leftHindLeg = root.addOrReplaceChild("leftHindLeg", CubeListBuilder.create().texOffs(24, 24).mirror().addBox(5.0F, -2.0F, 0.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-3.0F, -6.0F, -1.0F, 0.0F, -0.2618F, 0.3927F));
         return LayerDefinition.create(meshdefinition, 64, 64);
+    }
+    
+    public static LayerDefinition createBaby() {
+    	return createBodyLayer().apply(BABY_TRANSFORMER);
     }
 
     @Override

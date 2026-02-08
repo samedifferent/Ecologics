@@ -1,7 +1,7 @@
 package samebutdifferent.ecologics.client.renderer.entity;
 
+import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.model.PenguinModel;
@@ -9,10 +9,12 @@ import samebutdifferent.ecologics.client.renderer.entity.layers.PenguinHeldItemL
 import samebutdifferent.ecologics.client.renderer.entity.state.PenguinRenderState;
 import samebutdifferent.ecologics.entity.Penguin;
 
-public class PenguinRenderer extends MobRenderer<Penguin, PenguinRenderState, PenguinModel> {
+import net.minecraft.client.renderer.entity.TurtleRenderer;
+
+public class PenguinRenderer extends AgeableMobRenderer<Penguin, PenguinRenderState, PenguinModel> {
 
     public PenguinRenderer(EntityRendererProvider.Context context) {
-        super(context, new PenguinModel(context.bakeLayer(PenguinModel.LAYER_LOCATION)), 0.4F);
+        super(context, new PenguinModel(context.bakeLayer(PenguinModel.PENGUIN)), new PenguinModel(context.bakeLayer(PenguinModel.PENGUIN_BABY)), 0.4F);
         this.addLayer(new PenguinHeldItemLayer(this));
     }
 

@@ -1,5 +1,8 @@
 package samebutdifferent.ecologics.client.model;
 
+import java.util.Set;
+
+import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -8,6 +11,7 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -15,7 +19,9 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.renderer.entity.state.PenguinRenderState;
 
 public class PenguinModel extends EntityModel<PenguinRenderState> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "penguin"), "main");
+	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 4.75F, 0.0F, 1.5F, 2.0F, 24.0F, Set.of("head"));
+    public static final ModelLayerLocation PENGUIN = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "penguin"), "main");
+    public static final ModelLayerLocation PENGUIN_BABY = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "penguin_baby"), "main");
     private final ModelPart body;
     public final ModelPart head;
     private final ModelPart leftFlipper;
@@ -52,6 +58,10 @@ public class PenguinModel extends EntityModel<PenguinRenderState> {
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
+    public static LayerDefinition createBaby() {
+    	return createBodyLayer().apply(BABY_TRANSFORMER);
+    }
+    
     /*public void prepareMobModel(Penguin entity, float walkAnimationPos, float walkAnimationSpeed, float partialTick) {
         // super.prepareMobModel(entity, walkAnimationPos, walkAnimationSpeed, partialTick);
         this.slidingAnimationProgress = entity.getSlidingAnimationProgress(partialTick);

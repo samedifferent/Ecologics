@@ -19,8 +19,9 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.renderer.entity.state.SquirrelRenderState;
 
 public class SquirrelModel extends EntityModel<SquirrelRenderState> {
-	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(false, 2.0F, 2.0F, Set.of("head"));
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "squirrel"), "main");
+	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 9.0F, 2.0F, Set.of("head"));
+    public static final ModelLayerLocation SQUIRREL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "squirrel"), "main");
+    public static final ModelLayerLocation SQUIRREL_BABY = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "squirrel_baby"), "main");
     private final ModelPart head;
     private final ModelPart body;
     private final ModelPart leftArm;
@@ -65,6 +66,10 @@ public class SquirrelModel extends EntityModel<SquirrelRenderState> {
         PartDefinition rightFoot = rightThigh.addOrReplaceChild("rightFoot", CubeListBuilder.create().texOffs(22, 0).mirror().addBox(-1.0F, -0.5F, -5.5F, 2.0F, 1.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 3.5F, 1.5F));
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(16, 24).addBox(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(0, 15).addBox(-1.5F, -11.0F, 3.0F, 3.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.5F, 4.0F, -0.7854F, 0.0F, 0.0F));
         return LayerDefinition.create(meshdefinition, 64, 64);
+    }
+    
+    public static LayerDefinition createBaby() {
+    	return createBodyLayer().apply(BABY_TRANSFORMER);
     }
 
     @Override

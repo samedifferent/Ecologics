@@ -19,9 +19,12 @@ public class EcologicsFabricClient implements ClientModInitializer {
 
         EcologicsClient.addSignTypes();
 
-        EntityModelLayerRegistry.registerModelLayer(CoconutCrabModel.LAYER_LOCATION, CoconutCrabModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(SquirrelModel.LAYER_LOCATION, SquirrelModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(PenguinModel.LAYER_LOCATION, PenguinModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CoconutCrabModel.COCONUT_CRAB, CoconutCrabModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CoconutCrabModel.COCONUT_CRAB_BABY, CoconutCrabModel::createBaby);
+        EntityModelLayerRegistry.registerModelLayer(SquirrelModel.SQUIRREL, SquirrelModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(SquirrelModel.SQUIRREL_BABY, SquirrelModel::createBaby);
+        EntityModelLayerRegistry.registerModelLayer(PenguinModel.PENGUIN, PenguinModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(PenguinModel.PENGUIN_BABY, PenguinModel::createBaby);
         EcologicsClient.BLOCK_RENDERS.forEach((block, csl) -> {
         	BlockRenderLayerMap.putBlock(block, csl);
         });
@@ -31,7 +34,5 @@ public class EcologicsFabricClient implements ClientModInitializer {
         }*/
 
         ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.FOLIAGE_DEFAULT, ModBlocks.COCONUT_LEAVES);
-        // BlockEntityRenderers.register(ModBlockEntityTypes.SIGN, SignRenderer::new);
-        // BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
     }
 }

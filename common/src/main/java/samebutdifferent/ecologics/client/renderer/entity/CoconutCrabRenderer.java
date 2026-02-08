@@ -1,17 +1,17 @@
 package samebutdifferent.ecologics.client.renderer.entity;
 
+import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.model.CoconutCrabModel;
 import samebutdifferent.ecologics.client.renderer.entity.state.CoconutCrabRenderState;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 
-public class CoconutCrabRenderer extends MobRenderer<CoconutCrab, CoconutCrabRenderState, CoconutCrabModel> {
+public class CoconutCrabRenderer extends AgeableMobRenderer<CoconutCrab, CoconutCrabRenderState, CoconutCrabModel> {
 
     public CoconutCrabRenderer(EntityRendererProvider.Context context) {
-        super(context, new CoconutCrabModel(context.bakeLayer(CoconutCrabModel.LAYER_LOCATION)), 0.6F);
+        super(context, new CoconutCrabModel(context.bakeLayer(CoconutCrabModel.COCONUT_CRAB)), new CoconutCrabModel(context.bakeLayer(CoconutCrabModel.COCONUT_CRAB_BABY)), 0.6F);
     }
 
     @Override
