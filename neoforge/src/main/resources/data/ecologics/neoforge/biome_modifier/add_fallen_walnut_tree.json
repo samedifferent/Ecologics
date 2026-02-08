@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:plains",
+  "features": "ecologics:fallen_walnut_tree",
+  "step": "vegetal_decoration"
+}
