@@ -19,7 +19,7 @@ import samebutdifferent.ecologics.registry.ModBlocks;
 public class SandcastleBlockItem extends BlockItem 
 {
     public SandcastleBlockItem(Item.Properties properties) {
-        super(ModBlocks.SANDCASTLE, new Properties().stacksTo(1));
+        super(ModBlocks.SANDCASTLE, properties);
     }
 
     @Override
