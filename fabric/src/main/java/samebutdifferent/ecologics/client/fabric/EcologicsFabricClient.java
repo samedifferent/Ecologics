@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.FoliageColor;
 import samebutdifferent.ecologics.client.EcologicsClient;
@@ -25,13 +26,20 @@ public class EcologicsFabricClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(SquirrelModel.SQUIRREL_BABY, SquirrelModel::createBaby);
         EntityModelLayerRegistry.registerModelLayer(PenguinModel.PENGUIN, PenguinModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(PenguinModel.PENGUIN_BABY, PenguinModel::createBaby);
+
+        EntityModelLayerRegistry.registerModelLayer(EcologicsClient.AZALEA_BOAT, BoatModel::createBoatModel);
+        EntityModelLayerRegistry.registerModelLayer(EcologicsClient.AZALEA_CHEST_BOAT, BoatModel::createChestBoatModel);
+        EntityModelLayerRegistry.registerModelLayer(EcologicsClient.FLOWERING_AZALEA_BOAT, BoatModel::createBoatModel);
+        EntityModelLayerRegistry.registerModelLayer(EcologicsClient.FLOWERING_AZALEA_CHEST_BOAT, BoatModel::createChestBoatModel);
+        EntityModelLayerRegistry.registerModelLayer(EcologicsClient.COCONUT_BOAT, BoatModel::createBoatModel);
+        EntityModelLayerRegistry.registerModelLayer(EcologicsClient.COCONUT_CHEST_BOAT, BoatModel::createChestBoatModel);
+        EntityModelLayerRegistry.registerModelLayer(EcologicsClient.WALNUT_BOAT, BoatModel::createBoatModel);
+        EntityModelLayerRegistry.registerModelLayer(EcologicsClient.WALNUT_CHEST_BOAT, BoatModel::createChestBoatModel);
+        
         EcologicsClient.BLOCK_RENDERS.forEach((block, csl) -> {
         	BlockRenderLayerMap.putBlock(block, csl);
         });
-        /*for (ModBoat.Type type : ModBoat.Type.values()) {
-            EntityModelLayerRegistry.registerModelLayer(new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
-            EntityModelLayerRegistry.registerModelLayer(new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, type.getChestModelLocation()), "main"), ChestBoatModel::createBodyModel);
-        }*/
+        
 
         ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.FOLIAGE_DEFAULT, ModBlocks.COCONUT_LEAVES);
     }

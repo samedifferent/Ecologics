@@ -1,5 +1,6 @@
 package samebutdifferent.ecologics.client.neoforge;
 
+import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.world.level.FoliageColor;
@@ -44,5 +45,14 @@ public class EcologicsNeoForgeClient
         event.registerLayerDefinition(SquirrelModel.SQUIRREL_BABY, SquirrelModel::createBaby);
         event.registerLayerDefinition(PenguinModel.PENGUIN, PenguinModel::createBodyLayer);
         event.registerLayerDefinition(PenguinModel.PENGUIN_BABY, PenguinModel::createBaby);
+        
+        event.registerLayerDefinition(EcologicsClient.AZALEA_BOAT, BoatModel::createBoatModel);
+        event.registerLayerDefinition(EcologicsClient.AZALEA_CHEST_BOAT, BoatModel::createChestBoatModel);
+        event.registerLayerDefinition(EcologicsClient.FLOWERING_AZALEA_BOAT, BoatModel::createBoatModel);
+        event.registerLayerDefinition(EcologicsClient.FLOWERING_AZALEA_CHEST_BOAT, BoatModel::createChestBoatModel);
+        event.registerLayerDefinition(EcologicsClient.COCONUT_BOAT, BoatModel::createBoatModel);
+        event.registerLayerDefinition(EcologicsClient.COCONUT_CHEST_BOAT, BoatModel::createChestBoatModel);
+        event.registerLayerDefinition(EcologicsClient.WALNUT_BOAT, BoatModel::createBoatModel);
+        event.registerLayerDefinition(EcologicsClient.WALNUT_CHEST_BOAT, BoatModel::createChestBoatModel);
     }
 }
