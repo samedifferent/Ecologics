@@ -9,12 +9,16 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.Heightmap;
 import oshi.util.tuples.Pair;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.CoconutCrab;
@@ -64,7 +68,7 @@ public class Ecologics
         registerCompostables();
         registerStrippables();
         registerFlammables();
-        registerSpawnPlacements();
+        // registerSpawnPlacements();
     }
 
     public static void registerBrewingRecipes() {
@@ -134,12 +138,6 @@ public class Ecologics
     	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_STAIRS, new Pair<>(5, 20));
     	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_LOG, new Pair<>(5, 5));
     	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_WOOD, new Pair<>(5, 5));
-    }
-
-    public static void registerSpawnPlacements() {
-    	// TODO: Replace this.
-        // CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
-        // CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
     }
 
     public static void registerEntityAttributes(Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> attributes) {
