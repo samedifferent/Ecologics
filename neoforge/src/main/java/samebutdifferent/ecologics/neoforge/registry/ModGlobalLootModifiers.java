@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.registry.neoforge;
+package samebutdifferent.ecologics.neoforge.registry;
 
 import com.mojang.serialization.MapCodec;
 
@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.loot.neoforge.AddItemModifier;
+import samebutdifferent.ecologics.neoforge.loot.AddItemModifier;
 
 public class ModGlobalLootModifiers 
 {

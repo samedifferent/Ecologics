@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.registry.neoforge;
+package samebutdifferent.ecologics.neoforge.registry;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.config.ModConfigEvent;

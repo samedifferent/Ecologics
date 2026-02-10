@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.client.neoforge;
+package samebutdifferent.ecologics.neoforge.client;
 
 import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.renderer.BiomeColors;

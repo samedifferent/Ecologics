@@ -15,9 +15,6 @@ Simple vanilla biome updates, with fun mobs, blocks, and more!
 '''
 
 [[mixins]]
-config = "ecologics.mixins.json"
-
-[[mixins]]
 config = "ecologics-common.mixins.json"
 
 [[dependencies.ecologics]]

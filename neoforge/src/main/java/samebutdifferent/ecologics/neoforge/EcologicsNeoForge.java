@@ -16,7 +16,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
@@ -33,6 +35,7 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -43,12 +46,16 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
+import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.neoforge.registry.ModConfigNeoForge;
+import samebutdifferent.ecologics.neoforge.registry.ModGlobalLootModifiers;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
@@ -61,8 +68,6 @@ import samebutdifferent.ecologics.registry.ModPotions;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModStructures;
 import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
-import samebutdifferent.ecologics.registry.neoforge.ModConfigNeoForge;
-import samebutdifferent.ecologics.registry.neoforge.ModGlobalLootModifiers;
 import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 
 @Mod(Ecologics.MOD_ID)
@@ -78,6 +83,7 @@ public class EcologicsNeoForge
 
         bus.addListener(this::registerEntityAttributes);
         bus.addListener(this::registerModContent);
+        bus.addListener(this::registerSpawnPlacements);
         bus.addListener(this::setup);
         bus.addListener(this::assignItemsToTab);
     }
@@ -125,7 +131,11 @@ public class EcologicsNeoForge
 	        	event.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
 	        }
         }
-
+    }
+    
+    private void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
+    	event.register(ModEntityTypes.PENGUIN, Penguin::checkPenguinSpawnRules);
+    	event.register(ModEntityTypes.SQUIRREL, Animal::checkAnimalSpawnRules);
     }
 
     @SubscribeEvent

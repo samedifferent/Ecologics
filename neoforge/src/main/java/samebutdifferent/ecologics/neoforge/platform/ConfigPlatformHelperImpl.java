@@ -1,6 +1,6 @@
-package samebutdifferent.ecologics.platform.neoforge;
+package samebutdifferent.ecologics.neoforge.platform;
 
-import samebutdifferent.ecologics.registry.neoforge.ModConfigNeoForge;
+import samebutdifferent.ecologics.neoforge.registry.ModConfigNeoForge;
 
 public class ConfigPlatformHelperImpl {
     public static double coconutCrabSpawnChance() {

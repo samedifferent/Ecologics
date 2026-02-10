@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.loot.neoforge;
+package samebutdifferent.ecologics.neoforge.loot;
 
 import java.util.function.Supplier;
 
