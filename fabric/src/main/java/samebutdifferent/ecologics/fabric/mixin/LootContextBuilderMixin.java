@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.mixin.fabric;
+package samebutdifferent.ecologics.fabric.mixin;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

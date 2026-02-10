@@ -1,8 +1,8 @@
-package samebutdifferent.ecologics.platform.fabric;
+package samebutdifferent.ecologics.fabric.platform;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import samebutdifferent.ecologics.config.ConfigCommon;
-import samebutdifferent.ecologics.registry.fabric.ModConfigFabric;
+import samebutdifferent.ecologics.fabric.registry.ModConfigFabric;
 
 public class ConfigPlatformHelperImpl {
     static ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();

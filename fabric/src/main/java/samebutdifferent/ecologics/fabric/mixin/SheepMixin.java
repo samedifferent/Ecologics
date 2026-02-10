@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.mixin.fabric;
+package samebutdifferent.ecologics.fabric.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

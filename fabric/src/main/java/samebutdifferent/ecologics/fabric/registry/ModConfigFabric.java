@@ -1,4 +1,4 @@
-package samebutdifferent.ecologics.registry.fabric;
+package samebutdifferent.ecologics.fabric.registry;
 
 //import blue.endless.jankson.Comment;
 import me.shedaniel.autoconfig.ConfigData;
