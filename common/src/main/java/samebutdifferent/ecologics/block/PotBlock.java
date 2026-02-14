@@ -58,7 +58,8 @@ public class PotBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
 		return CODEC;
 	}
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         return pLevel.getBlockState(pPos.below()).isSolid();
     }

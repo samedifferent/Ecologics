@@ -8,6 +8,7 @@ import samebutdifferent.ecologics.client.model.CoconutCrabModel;
 import samebutdifferent.ecologics.client.renderer.entity.state.CoconutCrabRenderState;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 
+@SuppressWarnings("deprecation")
 public class CoconutCrabRenderer extends AgeableMobRenderer<CoconutCrab, CoconutCrabRenderState, CoconutCrabModel> {
 
     public CoconutCrabRenderer(EntityRendererProvider.Context context) {

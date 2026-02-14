@@ -129,15 +129,4 @@ public class PenguinModel extends EntityModel<PenguinRenderState> {
             this.rightFlipper.zRot += (Math.toRadians(10) + Mth.cos((float)Math.toRadians(-40) + entity.walkAnimationPos)) * (swingSlowdownFactor * 0.8F) * entity.walkAnimationSpeed;
         }
     }
-
-    //TODO: Determine if this code is safe to remove.
-    /*@Override
-    protected Iterable<ModelPart> headParts() {
-        return ImmutableList.of(this.head);
-    }
-
-    @Override
-    protected Iterable<ModelPart> bodyParts() {
-        return ImmutableList.of(this.body);
-    }*/
 }

@@ -64,7 +64,8 @@ public class ThinIceBlock extends IceBlock {
         }
     }
     
-    private boolean crack(BlockState state, Level level, BlockPos pos) {
+    @SuppressWarnings("deprecation")
+	private boolean crack(BlockState state, Level level, BlockPos pos) {
         int age = state.getValue(AGE);
         if (age < 3) {
             level.setBlock(pos, state.setValue(AGE, age + 1), 2);

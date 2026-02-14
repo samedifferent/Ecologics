@@ -9,8 +9,7 @@ import samebutdifferent.ecologics.client.renderer.entity.layers.PenguinHeldItemL
 import samebutdifferent.ecologics.client.renderer.entity.state.PenguinRenderState;
 import samebutdifferent.ecologics.entity.Penguin;
 
-import net.minecraft.client.renderer.entity.TurtleRenderer;
-
+@SuppressWarnings("deprecation")
 public class PenguinRenderer extends AgeableMobRenderer<Penguin, PenguinRenderState, PenguinModel> {
 
     public PenguinRenderer(EntityRendererProvider.Context context) {

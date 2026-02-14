@@ -8,6 +8,7 @@ import samebutdifferent.ecologics.client.model.SquirrelModel;
 import samebutdifferent.ecologics.client.renderer.entity.state.SquirrelRenderState;
 import samebutdifferent.ecologics.entity.Squirrel;
 
+@SuppressWarnings("deprecation")
 public class SquirrelRenderer extends AgeableMobRenderer<Squirrel, SquirrelRenderState, SquirrelModel> {
 
     public SquirrelRenderer(EntityRendererProvider.Context context) {
