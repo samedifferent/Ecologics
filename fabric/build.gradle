@@ -3,6 +3,10 @@ plugins {
     id 'fabric-loom'
 }
 
+base {
+    archivesName = "${rootProject.mod_name}-Fabric-${minecraft_version}"
+}
+
 var commonAW = project(":common").file("src/main/resources/ecologics.accesswidener")
 var generatedResources = file("src/generated/resources")
 

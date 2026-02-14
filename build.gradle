@@ -4,16 +4,25 @@ plugins {
     id 'fabric-loom' version '1.13-SNAPSHOT' apply false
     id 'net.neoforged.moddev' version '2.0.123' apply false
     id 'org.spongepowered.gradle.vanilla' version '0.2.+' apply false
+    id "io.github.pacifistmc.forgix" version "2.+"
 }
 
 base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    archivesName = "${mod_id}-${minecraft_version}"
 }
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(java_version)
     withSourcesJar()
     withJavadocJar()
+}
+
+forgix {
+    // Currently doesn't work right.
+    autoRun = false
+    destinationDirectory = layout.projectDirectory.dir("build/forgix")
+    archiveClassifier = "NeoFab"
+    archiveVersion = rootProject.version
 }
 
 repositories {
@@ -42,20 +51,6 @@ repositories {
     maven {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
-    }
-}
-
-// Declare capabilities on the outgoing configurations.
-// Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
-['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
-    configurations."$variant".outgoing {
-        capability("$group:${project.name}:$version")
-        capability("$group:${base.archivesName.get()}:$version")
-        capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
-        capability("$group:$mod_id:$version")
-    }
-    publishing.publications.configureEach {
-        suppressPomMetadataWarningsFor(variant)
     }
 }
 

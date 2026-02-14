@@ -2,6 +2,10 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
+base {
+    archivesName = "${rootProject.mod_name}-NeoForge-${minecraft_version}"
+}
+
 neoForge {
     version = neoforge_version
     // Automatically enable neoforge AccessTransformers if the file exists
