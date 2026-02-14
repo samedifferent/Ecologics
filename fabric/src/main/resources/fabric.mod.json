@@ -25,10 +25,10 @@
       "samebutdifferent.ecologics.fabric.EcologicsFabric"
     ],
     "client": [
-      "samebutdifferent.ecologics.client.fabric.EcologicsFabricClient"
+      "samebutdifferent.ecologics.fabric.client.EcologicsFabricClient"
     ],
     "modmenu": [
-      "samebutdifferent.ecologics.integration.fabric.ModMenuIntegration"
+      "samebutdifferent.ecologics.fabric.integration.ModMenuIntegration"
     ]
   },
   "mixins": [
