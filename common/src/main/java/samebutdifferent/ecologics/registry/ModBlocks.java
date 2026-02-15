@@ -174,7 +174,7 @@ public class ModBlocks
     public static final Block MOSS_LAYER = registerBlock("moss_layer", MossLayerBlock::new, Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET), true);
 
     public static final Block HANGING_COCONUT = registerBlock("hanging_coconut", HangingCoconutBlock::new, Properties.of().randomTicks().strength(2.0F, 3.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.WOOD).noOcclusion(), false);
-    public static final Block COCONUT = registerBlock("coconut", CoconutBlock::new, Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion(), true);
+    public static final Block COCONUT = registerBlock("coconut", CoconutBlock::new, Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion(), false);
     public static final Block SANDCASTLE = registerBlock("sandcastle", SandcastleBlock::new, Properties.of().mapColor(MapColor.SAND).strength(0.7F).sound(SoundType.SAND).pushReaction(PushReaction.DESTROY).noOcclusion().randomTicks(), false);
     public static final Block PRICKLY_PEAR = registerBlock("prickly_pear", PricklyPearBlock::new, Properties.of().noCollision().randomTicks().pushReaction(PushReaction.DESTROY).instabreak().sound(SoundType.HONEY_BLOCK), false);
     public static final Block POT = registerBlock("pot", PotBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(1.0F), true);

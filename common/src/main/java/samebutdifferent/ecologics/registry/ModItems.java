@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 import oshi.util.tuples.Pair;
 import oshi.util.tuples.Triplet;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.item.CoconutBlockItem;
 import samebutdifferent.ecologics.item.CoconutSliceItem;
 import samebutdifferent.ecologics.item.PricklyPearItem;
 import samebutdifferent.ecologics.item.SandcastleBlockItem;
@@ -70,6 +71,7 @@ public class ModItems
     public static final Item COCONUT_HUSK = registerItem("coconut_husk", Item::new, new Item.Properties());
     public static final Item PENGUIN_FEATHER = registerItem("penguin_feather", Item::new, new Item.Properties());
     public static final Item SANDCASTLE = registerItem("sandcastle", SandcastleBlockItem::new, new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item COCONUT = registerItem("coconut", properties -> new CoconutBlockItem(ModBlocks.COCONUT, properties), new Item.Properties().useBlockDescriptionPrefix());
     public static final Item MUSIC_DISC_COCONUT = registerItem("music_disc_coconut", Item::new, new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(ModJukeboxSongs.COCONUT));
     
     // Spawn Eggs
