@@ -1,10 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-    {
-      "item": "ecologics:coconut_planks"
-    }
+    "ecologics:coconut_planks"
   ],
   "result": {
     "id": "ecologics:coconut_button"

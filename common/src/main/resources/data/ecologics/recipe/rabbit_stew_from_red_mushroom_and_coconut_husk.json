@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "group": "rabbit_stew",
   "ingredients": [
-    {
-      "item": "minecraft:baked_potato"
-    },
-    {
-      "item": "minecraft:cooked_rabbit"
-    },
-    {
-      "item": "ecologics:coconut_husk"
-    },
-    {
-      "item": "minecraft:carrot"
-    },
-    {
-      "item": "minecraft:red_mushroom"
-    }
+    "minecraft:baked_potato",
+    "minecraft:cooked_rabbit",
+    "ecologics:coconut_husk",
+    "minecraft:carrot",
+    "minecraft:red_mushroom"
   ],
   "result": {
     "id": "minecraft:rabbit_stew"

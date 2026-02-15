@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -17,25 +18,25 @@ import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class SandcastleBlockItem extends BlockItem 
 {
-    public SandcastleBlockItem() {
-        super(ModBlocks.SANDCASTLE, new Properties().stacksTo(1));
+    public SandcastleBlockItem(Item.Properties properties) {
+        super(ModBlocks.SANDCASTLE, properties);
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext pContext) {
-        Level level = pContext.getLevel();
-        BlockPos pos = pContext.getClickedPos();
+    public InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
         if (!state.is(Blocks.TURTLE_EGG)) {
-            return super.useOn(pContext);
+            return super.useOn(context);
         } else {
-            level.playSound(pContext.getPlayer(), pos, SoundEvents.SAND_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.setBlockAndUpdate(pos, ModBlocks.SANDCASTLE.defaultBlockState().setValue(SandcastleBlock.FACING, pContext.getHorizontalDirection().getOpposite()).setValue(SandcastleBlock.EGGS_INSIDE, state.getValue(TurtleEggBlock.EGGS)).setValue(SandcastleBlock.HATCH, state.getValue(TurtleEggBlock.HATCH)));
-            pContext.getItemInHand().shrink(1);
-            if (pContext.getPlayer() instanceof ServerPlayer player) {
-                CriteriaTriggers.PLACED_BLOCK.trigger(player, pos, pContext.getItemInHand());
+            level.playSound(context.getPlayer(), pos, SoundEvents.SAND_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.setBlockAndUpdate(pos, ModBlocks.SANDCASTLE.defaultBlockState().setValue(SandcastleBlock.FACING, context.getHorizontalDirection().getOpposite()).setValue(SandcastleBlock.EGGS_INSIDE, state.getValue(TurtleEggBlock.EGGS)).setValue(SandcastleBlock.HATCH, state.getValue(TurtleEggBlock.HATCH)));
+            context.getItemInHand().shrink(1);
+            if (context.getPlayer() instanceof ServerPlayer player) {
+                CriteriaTriggers.PLACED_BLOCK.trigger(player, pos, context.getItemInHand());
             }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
     }
 }

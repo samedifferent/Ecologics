@@ -1,10 +1,9 @@
 package samebutdifferent.ecologics.client.model;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Set;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.model.AgeableListModel;
+import net.minecraft.client.model.BabyModelTransform;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,15 +11,17 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.entity.Squirrel;
+import samebutdifferent.ecologics.client.renderer.entity.state.SquirrelRenderState;
 
-@Environment(EnvType.CLIENT)
-public class SquirrelModel extends AgeableListModel<Squirrel> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "squirrel"), "main");
+public class SquirrelModel extends EntityModel<SquirrelRenderState> {
+	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 9.0F, 2.0F, Set.of("head"));
+    public static final ModelLayerLocation SQUIRREL = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "squirrel"), "main");
+    public static final ModelLayerLocation SQUIRREL_BABY = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "squirrel_baby"), "main");
     private final ModelPart head;
     private final ModelPart body;
     private final ModelPart leftArm;
@@ -34,7 +35,8 @@ public class SquirrelModel extends AgeableListModel<Squirrel> {
     private final ModelPart tail;
 
     public SquirrelModel(ModelPart root) {
-        super(true, 9.0f, 2.0f);
+    	super(root);
+        //super(true, 9.0f, 2.0f);
         this.head = root.getChild("head");
         this.body = root.getChild("body");
         this.leftArm = this.body.getChild("leftArm");
@@ -65,63 +67,58 @@ public class SquirrelModel extends AgeableListModel<Squirrel> {
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(16, 24).addBox(-1.5F, -11.0F, 0.0F, 3.0F, 11.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(0, 15).addBox(-1.5F, -11.0F, 3.0F, 3.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.5F, 4.0F, -0.7854F, 0.0F, 0.0F));
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
+    
+    public static LayerDefinition createBaby() {
+    	return createBodyLayer().apply(BABY_TRANSFORMER);
+    }
 
     @Override
-    public void setupAnim(Squirrel entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(SquirrelRenderState entity) { // , float walkAnimationPos, float walkAnimationSpeed, float ageInTicks, float netHeadYaw, float headPitch
+    	super.setupAnim(entity);
         this.body.getAllParts().forEach(ModelPart::resetPose);
         this.head.resetPose();
 
         float swingCorrectionFactor = 0.1F; // 10
-        float correctedLimbSwing = entity.isBaby() ? limbSwing / 3 : limbSwing;
+        float correctedwalkAnimationPos = entity.isBaby ? entity.walkAnimationPos / 3 : entity.walkAnimationPos;
 
-        this.head.xRot = headPitch * Mth.DEG_TO_RAD;
-        this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
-        this.head.xRot += Mth.cos((float) Math.toRadians(-45) + correctedLimbSwing) * (swingCorrectionFactor * 0.8F) * limbSwingAmount;
-        this.head.y += (-1 - Mth.cos(correctedLimbSwing)) * (entity.isBaby() ? 1 : 2) * limbSwingAmount;
-        this.head.z += 1 * limbSwingAmount;
+        this.head.xRot = entity.xRot * Mth.DEG_TO_RAD;
+        this.head.yRot = entity.yRot * Mth.DEG_TO_RAD;
+        this.head.xRot += Mth.cos((float) Math.toRadians(-45) + correctedwalkAnimationPos) * (swingCorrectionFactor * 0.8F) * entity.walkAnimationSpeed;
+        this.head.y += (-1 - Mth.cos(correctedwalkAnimationPos)) * (entity.isBaby ? 1 : 2) * entity.walkAnimationSpeed;
+        this.head.z += 1 * entity.walkAnimationSpeed;
 
-        this.body.xRot += (Math.toRadians(10) - Mth.cos((float) Math.toRadians(-30) + correctedLimbSwing)) * (swingCorrectionFactor * 3.5F) * limbSwingAmount;
-        this.body.y += (-1 - Mth.cos(correctedLimbSwing)) * 2.0f * limbSwingAmount;
+        this.body.xRot += (Math.toRadians(10) - Mth.cos((float) Math.toRadians(-30) + correctedwalkAnimationPos)) * (swingCorrectionFactor * 3.5F) * entity.walkAnimationSpeed;
+        this.body.y += (-1 - Mth.cos(correctedwalkAnimationPos)) * 2.0f * entity.walkAnimationSpeed;
 
-        this.leftArm.xRot += (Math.toRadians(-15) - Mth.cos((float) Math.toRadians(-35) + correctedLimbSwing)) * (swingCorrectionFactor * 7.5F) * limbSwingAmount;
+        this.leftArm.xRot += (Math.toRadians(-15) - Mth.cos((float) Math.toRadians(-35) + correctedwalkAnimationPos)) * (swingCorrectionFactor * 7.5F) * entity.walkAnimationSpeed;
         this.leftArm.yRot += Math.toRadians(-5);
-        this.leftArm.zRot += (Math.toRadians(-15) - Mth.cos(correctedLimbSwing)) * (swingCorrectionFactor * 2.0F) * limbSwingAmount;
-        leftArm.z += (0.5F + Mth.cos(correctedLimbSwing)) * (swingCorrectionFactor * 0.05F) * limbSwingAmount;
+        this.leftArm.zRot += (Math.toRadians(-15) - Mth.cos(correctedwalkAnimationPos)) * (swingCorrectionFactor * 2.0F) * entity.walkAnimationSpeed;
+        leftArm.z += (0.5F + Mth.cos(correctedwalkAnimationPos)) * (swingCorrectionFactor * 0.05F) * entity.walkAnimationSpeed;
 
-        this.rightArm.xRot += (Math.toRadians(-15) - Mth.cos((float) Math.toRadians(-45) + correctedLimbSwing)) * (swingCorrectionFactor * 7.5F) * limbSwingAmount;
+        this.rightArm.xRot += (Math.toRadians(-15) - Mth.cos((float) Math.toRadians(-45) + correctedwalkAnimationPos)) * (swingCorrectionFactor * 7.5F) * entity.walkAnimationSpeed;
         this.rightArm.yRot += Math.toRadians(-5);
-        this.rightArm.zRot += (Math.toRadians(15) - Mth.cos(correctedLimbSwing)) * (swingCorrectionFactor * 2.0F) * limbSwingAmount;
-        rightArm.z += (0.5F + Mth.cos((float) Math.toRadians(-25) + correctedLimbSwing)) * (swingCorrectionFactor * 0.05F) * limbSwingAmount;
+        this.rightArm.zRot += (Math.toRadians(15) - Mth.cos(correctedwalkAnimationPos)) * (swingCorrectionFactor * 2.0F) * entity.walkAnimationSpeed;
+        rightArm.z += (0.5F + Mth.cos((float) Math.toRadians(-25) + correctedwalkAnimationPos)) * (swingCorrectionFactor * 0.05F) * entity.walkAnimationSpeed;
 
-        this.leftThigh.xRot += (Math.toRadians(45) - Mth.cos((float) Math.toRadians(-45) + correctedLimbSwing)) * (swingCorrectionFactor * 6.5F) * limbSwingAmount;
-        this.leftThigh.y += -3 * (swingCorrectionFactor * 7) * limbSwingAmount;
-        this.leftThigh.z += Mth.cos((float) Math.toRadians(-35) + correctedLimbSwing) * (swingCorrectionFactor * 0.1F) * limbSwingAmount;
+        this.leftThigh.xRot += (Math.toRadians(45) - Mth.cos((float) Math.toRadians(-45) + correctedwalkAnimationPos)) * (swingCorrectionFactor * 6.5F) * entity.walkAnimationSpeed;
+        this.leftThigh.y += -3 * (swingCorrectionFactor * 7) * entity.walkAnimationSpeed;
+        this.leftThigh.z += Mth.cos((float) Math.toRadians(-35) + correctedwalkAnimationPos) * (swingCorrectionFactor * 0.1F) * entity.walkAnimationSpeed;
 
-        this.leftFoot.xRot += (Math.toRadians(25) + Mth.cos((float) Math.toRadians(-125) + correctedLimbSwing)) * (swingCorrectionFactor * 6.0F) * limbSwingAmount;
-        this.leftFoot.y += -1 * (swingCorrectionFactor * 2.0F) * limbSwingAmount;
-        this.leftFoot.z += (-0.5F + Mth.cos(correctedLimbSwing)) * (swingCorrectionFactor * 0.025F) * limbSwingAmount;
+        this.leftFoot.xRot += (Math.toRadians(25) + Mth.cos((float) Math.toRadians(-125) + correctedwalkAnimationPos)) * (swingCorrectionFactor * 6.0F) * entity.walkAnimationSpeed;
+        this.leftFoot.y += -1 * (swingCorrectionFactor * 2.0F) * entity.walkAnimationSpeed;
+        this.leftFoot.z += (-0.5F + Mth.cos(correctedwalkAnimationPos)) * (swingCorrectionFactor * 0.025F) * entity.walkAnimationSpeed;
 
-        this.rightLeg.y += -1 * swingCorrectionFactor * limbSwingAmount;
+        this.rightLeg.y += -1 * swingCorrectionFactor * entity.walkAnimationSpeed;
 
-        this.rightThigh.xRot += (Math.toRadians(45) - Mth.cos((float) Math.toRadians(-25) + correctedLimbSwing)) * (swingCorrectionFactor * 6.5F) * limbSwingAmount;
-        this.rightThigh.y += -2 * (swingCorrectionFactor * 7) * limbSwingAmount;
-        this.rightThigh.z += Mth.cos((float) Math.toRadians(-35) + correctedLimbSwing) * (swingCorrectionFactor * 0.1F) * limbSwingAmount;
+        this.rightThigh.xRot += (Math.toRadians(45) - Mth.cos((float) Math.toRadians(-25) + correctedwalkAnimationPos)) * (swingCorrectionFactor * 6.5F) * entity.walkAnimationSpeed;
+        this.rightThigh.y += -2 * (swingCorrectionFactor * 7) * entity.walkAnimationSpeed;
+        this.rightThigh.z += Mth.cos((float) Math.toRadians(-35) + correctedwalkAnimationPos) * (swingCorrectionFactor * 0.1F) * entity.walkAnimationSpeed;
 
-        this.rightFoot.xRot += (Math.toRadians(15) + Mth.cos((float) Math.toRadians(-85) + correctedLimbSwing)) * (swingCorrectionFactor * 6.0F) * limbSwingAmount;
-        this.rightFoot.y += -1 * (swingCorrectionFactor * 2.0F) * limbSwingAmount;
-        this.rightFoot.z += (-0.5F + Mth.cos(correctedLimbSwing)) * (swingCorrectionFactor * 0.025F) * limbSwingAmount;
+        this.rightFoot.xRot += (Math.toRadians(15) + Mth.cos((float) Math.toRadians(-85) + correctedwalkAnimationPos)) * (swingCorrectionFactor * 6.0F) * entity.walkAnimationSpeed;
+        this.rightFoot.y += -1 * (swingCorrectionFactor * 2.0F) * entity.walkAnimationSpeed;
+        this.rightFoot.z += (-0.5F + Mth.cos(correctedwalkAnimationPos)) * (swingCorrectionFactor * 0.025F) * entity.walkAnimationSpeed;
 
-        this.tail.xRot += (Math.toRadians(-40) - Mth.cos((float) Math.toRadians(-120) + correctedLimbSwing)) * (swingCorrectionFactor * 1.8F) * limbSwingAmount;
-        this.tail.z += Mth.cos((float) Math.toRadians(-100) + correctedLimbSwing) * (swingCorrectionFactor * 0.03F) * limbSwingAmount;
-    }
-
-    @Override
-    protected Iterable<ModelPart> headParts() {
-        return ImmutableList.of(this.head);
-    }
-
-    @Override
-    protected Iterable<ModelPart> bodyParts() {
-        return ImmutableList.of(this.body);
+        this.tail.xRot += (Math.toRadians(-40) - Mth.cos((float) Math.toRadians(-120) + correctedwalkAnimationPos)) * (swingCorrectionFactor * 1.8F) * entity.walkAnimationSpeed;
+        this.tail.z += Mth.cos((float) Math.toRadians(-100) + correctedwalkAnimationPos) * (swingCorrectionFactor * 0.03F) * entity.walkAnimationSpeed;
     }
 }

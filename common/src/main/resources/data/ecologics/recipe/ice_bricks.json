@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
-    "S": {
-      "item": "minecraft:ice"
-    }
+    "S": "minecraft:ice"
   },
   "pattern": [
     "SS",

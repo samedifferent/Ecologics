@@ -2,24 +2,28 @@ package samebutdifferent.ecologics.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.UntintedParticleLeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public class CoconutLeavesBlock extends LeavesBlock {
+public class CoconutLeavesBlock extends UntintedParticleLeavesBlock {
     public static final IntegerProperty DISTANCE_9 = IntegerProperty.create("distance_9", 1, 9);
 
-    public CoconutLeavesBlock(Properties properties) {
-        super(properties);
+    public CoconutLeavesBlock(float leafParticleChance, ParticleOptions particleOptions, Properties properties) {
+        super(leafParticleChance, particleOptions, properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE_9, 9).setValue(PERSISTENT, false).setValue(DISTANCE, 7).setValue(WATERLOGGED, false));
     }
 
@@ -47,17 +51,17 @@ public class CoconutLeavesBlock extends LeavesBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        if (pState.getValue(WATERLOGGED)) {
-            pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+        if (state.getValue(WATERLOGGED)) {
+        	scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        int i = getDistanceAt(pFacingState) + 1;
-        if (i != 1 || pState.getValue(DISTANCE_9) != i) {
-            pLevel.scheduleTick(pCurrentPos, this, 1);
+        int i = getDistanceAt(neighborState) + 1;
+        if (i != 1 || state.getValue(DISTANCE_9) != i) {
+        	scheduledTickAccess.scheduleTick(pos, this, 1);
         }
 
-        return pState;
+        return state;
     }
 
     private static BlockState updateDistance(BlockState pState, LevelAccessor pLevel, BlockPos pPos) {

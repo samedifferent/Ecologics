@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
-    "S": {
-      "item": "minecraft:snow_block"
-    }
+    "S": "minecraft:snow_block"
   },
   "pattern": [
     "SS",

@@ -11,13 +11,16 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.AzaleaBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import samebutdifferent.ecologics.block.grower.ModTreeGrower;
+import samebutdifferent.ecologics.config.ConfigCommon;
 
 @Mixin(AzaleaBlock.class)
 public class AzaleaBlockMixin {
 
 	@Inject(at = @At(value = "HEAD"), method = "performBonemeal(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V", cancellable = true)
     private void modifyPerformBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, CallbackInfo callback) {
-        ModTreeGrower.AZALEA.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
-        callback.cancel();
+		if (ConfigCommon.getReplaceAzaleaTree()) {
+	        ModTreeGrower.AZALEA.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
+	        callback.cancel();
+		}
     }
 }

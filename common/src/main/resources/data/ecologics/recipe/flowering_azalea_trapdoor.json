@@ -1,10 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "group": "wooden_trapdoor",
   "key": {
-    "#": {
-      "item": "ecologics:flowering_azalea_planks"
-    }
+    "#": "ecologics:flowering_azalea_planks"
   },
   "pattern": [
     "###",

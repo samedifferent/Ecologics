@@ -10,11 +10,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.level.Level;
+import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Squirrel;
-import samebutdifferent.ecologics.platform.ConfigPlatformHelper;
-
 
 @Mixin(Fox.class)
 public abstract class FoxMixin extends Animal {
@@ -25,9 +24,8 @@ public abstract class FoxMixin extends Animal {
 
     @Inject(method = "registerGoals()V", at = @At("TAIL"))
     protected void registerGoals(CallbackInfo ci) {
-        if (ConfigPlatformHelper.foxesAttackSquirrels()) {
-            this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Squirrel.class, 30, true, true, (target) -> target.level().getDifficulty() != Difficulty.PEACEFUL));
+        if (ConfigCommon.getFoxesAttackSquirrels()) {
+            this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Squirrel.class, 30, true, true, (target, level) -> target instanceof Squirrel && level.getDifficulty() != Difficulty.PEACEFUL));
         }
     }
-
 }

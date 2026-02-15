@@ -69,7 +69,12 @@ public class ModCreativeModeTabContents
         addToList(ModItems.AZALEA_HANGING_SIGN);
         addToList(ModItems.FLOWERING_AZALEA_SIGN);
         addToList(ModItems.FLOWERING_AZALEA_HANGING_SIGN);
-            
+
+        addToList(ModBlocks.COCONUT_SHELF);
+        addToList(ModBlocks.WALNUT_SHELF);
+        addToList(ModBlocks.AZALEA_SHELF);
+        // addToList(ModBlocks.FLOWERING_AZALEA_SHELF);
+        
         addToList(ModItems.COCONUT_BOAT);
         addToList(ModItems.COCONUT_CHEST_BOAT);
         addToList(ModItems.WALNUT_BOAT);
@@ -112,7 +117,7 @@ public class ModCreativeModeTabContents
         addToList(ModItems.COCONUT_CRAB_SPAWN_EGG);
         addToList(ModItems.PENGUIN_SPAWN_EGG);
         addToList(ModItems.SQUIRREL_SPAWN_EGG);
-        addToList(ModItems.SANDCASTLE);
+        addToList(ModBlocks.SANDCASTLE);
         addToList(ModItems.MUSIC_DISC_COCONUT);
         addToList(ModItems.PRICKLY_PEAR);
         addToList(ModItems.COOKED_PRICKLY_PEAR);

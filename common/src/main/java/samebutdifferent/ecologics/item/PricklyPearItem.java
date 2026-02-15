@@ -13,7 +13,8 @@ public class PricklyPearItem extends Item
         super(properties);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
         if (livingEntity instanceof Player player) {
             if (player.hasEffect(MobEffects.WITHER)) {

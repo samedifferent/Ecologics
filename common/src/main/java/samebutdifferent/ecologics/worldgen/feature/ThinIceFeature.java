@@ -18,7 +18,7 @@ public class ThinIceFeature extends DiskFeature {
         WorldGenLevel level = context.level();
 
         BlockPos blockpos;
-        for(blockpos = context.origin(); level.isEmptyBlock(blockpos) && blockpos.getY() > level.getMinBuildHeight() + 2; blockpos = blockpos.below()) {
+        for(blockpos = context.origin(); level.isEmptyBlock(blockpos) && blockpos.getY() > level.getMinY() + 2; blockpos = blockpos.below()) {
         }
 
         return level.getBlockState(blockpos).is(Blocks.ICE) && super.place(new FeaturePlaceContext<>(context.topFeature(), level, context.chunkGenerator(), context.random(), blockpos, context.config()));

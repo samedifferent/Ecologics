@@ -10,17 +10,17 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.registry.ModItems;
 
-public class PricklyPearBlock extends CropBlock {
+public class PricklyPearBlock extends CropBlock 
+{
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     protected static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
             Block.box(4, 0, 4, 12, 5, 12),
@@ -29,8 +29,8 @@ public class PricklyPearBlock extends CropBlock {
             Block.box(4, 0, 4, 12, 8, 12)
     };
 
-    public PricklyPearBlock() {
-        super(Properties.of().noCollission().randomTicks().pushReaction(PushReaction.DESTROY).instabreak().sound(SoundType.HONEY_BLOCK));
+    public PricklyPearBlock(BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     @Override

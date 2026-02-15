@@ -1,10 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
-    "#": {
-      "item": "ecologics:coconut_planks"
-    }
+    "#": "ecologics:coconut_planks"
   },
   "pattern": [
     "##"

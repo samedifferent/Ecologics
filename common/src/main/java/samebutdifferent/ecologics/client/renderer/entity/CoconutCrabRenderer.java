@@ -1,23 +1,32 @@
 package samebutdifferent.ecologics.client.renderer.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.model.CoconutCrabModel;
+import samebutdifferent.ecologics.client.renderer.entity.state.CoconutCrabRenderState;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 
-@Environment(EnvType.CLIENT)
-public class CoconutCrabRenderer extends MobRenderer<CoconutCrab, CoconutCrabModel> {
+@SuppressWarnings("deprecation")
+public class CoconutCrabRenderer extends AgeableMobRenderer<CoconutCrab, CoconutCrabRenderState, CoconutCrabModel> {
 
     public CoconutCrabRenderer(EntityRendererProvider.Context context) {
-        super(context, new CoconutCrabModel(context.bakeLayer(CoconutCrabModel.LAYER_LOCATION)), 0.6F);
+        super(context, new CoconutCrabModel(context.bakeLayer(CoconutCrabModel.COCONUT_CRAB)), new CoconutCrabModel(context.bakeLayer(CoconutCrabModel.COCONUT_CRAB_BABY)), 0.6F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CoconutCrab entity) {
-        return ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/coconut_crab.png");
+    public Identifier getTextureLocation(CoconutCrabRenderState entity) {
+        return Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/coconut_crab.png");
     }
+
+	@Override
+	public CoconutCrabRenderState createRenderState() {
+		return new CoconutCrabRenderState();
+	}
+	
+	public void extractRenderState(CoconutCrab $$0, CoconutCrabRenderState $$1, float $$2) {
+		super.extractRenderState($$0, $$1, $$2);
+		$$1.hasCoconut = $$0.hasCoconut();
+	}
 }

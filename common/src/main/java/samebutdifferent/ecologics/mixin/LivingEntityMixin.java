@@ -18,14 +18,13 @@ public abstract class LivingEntityMixin extends Entity {
         super(pEntityType, pLevel);
     }
 
-    @ModifyVariable(
-            method = "travel",
-            at = @At(value = "STORE"),
-            slice = @Slice(
-                    from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getBlockPosBelowThatAffectsMyMovement()Lnet/minecraft/core/BlockPos;"),
-                    to = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;handleRelativeFrictionAndCalculateMovement(Lnet/minecraft/world/phys/Vec3;F)Lnet/minecraft/world/phys/Vec3;")
-            ),
-            ordinal = 0
+    //TODO: Update this.
+    @ModifyVariable(method = "travelInAir", at = @At(value = "STORE"),
+        slice = @Slice(
+                from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getBlockPosBelowThatAffectsMyMovement()Lnet/minecraft/core/BlockPos;"),
+                to = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;handleRelativeFrictionAndCalculateMovement(Lnet/minecraft/world/phys/Vec3;F)Lnet/minecraft/world/phys/Vec3;")
+        ),
+        ordinal = 0
     )
     private float modifyFriction(float f) {
         if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY) && living.onGround()) {

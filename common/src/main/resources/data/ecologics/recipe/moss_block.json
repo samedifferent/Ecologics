@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "#": {
-      "item": "ecologics:surface_moss"
-    }
+    "#": "ecologics:surface_moss"
   },
   "pattern": [
     "###",

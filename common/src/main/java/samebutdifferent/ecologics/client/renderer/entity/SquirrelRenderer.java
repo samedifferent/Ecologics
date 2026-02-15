@@ -1,23 +1,27 @@
 package samebutdifferent.ecologics.client.renderer.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.model.SquirrelModel;
+import samebutdifferent.ecologics.client.renderer.entity.state.SquirrelRenderState;
 import samebutdifferent.ecologics.entity.Squirrel;
 
-@Environment(EnvType.CLIENT)
-public class SquirrelRenderer extends MobRenderer<Squirrel, SquirrelModel> {
+@SuppressWarnings("deprecation")
+public class SquirrelRenderer extends AgeableMobRenderer<Squirrel, SquirrelRenderState, SquirrelModel> {
 
     public SquirrelRenderer(EntityRendererProvider.Context context) {
-        super(context, new SquirrelModel(context.bakeLayer(SquirrelModel.LAYER_LOCATION)), 0.4F);
+        super(context, new SquirrelModel(context.bakeLayer(SquirrelModel.SQUIRREL)), new SquirrelModel(context.bakeLayer(SquirrelModel.SQUIRREL_BABY)), 0.4F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Squirrel entity) {
-        return ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/squirrel.png");
+    public Identifier getTextureLocation(SquirrelRenderState entity) {
+        return Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/squirrel.png");
     }
+
+	@Override
+	public SquirrelRenderState createRenderState() {
+		return new SquirrelRenderState();
+	}
 }

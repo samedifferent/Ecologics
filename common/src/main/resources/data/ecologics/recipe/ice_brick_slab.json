@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
-    "#": {
-      "item": "ecologics:ice_bricks"
-    }
+    "#": "ecologics:ice_bricks"
   },
   "pattern": [
     "###"

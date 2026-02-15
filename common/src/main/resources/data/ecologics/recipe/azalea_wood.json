@@ -1,10 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "group": "bark",
   "key": {
-    "#": {
-      "item": "ecologics:azalea_log"
-    }
+    "#": "ecologics:azalea_log"
   },
   "pattern": [
     "##",

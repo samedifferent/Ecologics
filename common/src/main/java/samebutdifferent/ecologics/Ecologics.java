@@ -1,26 +1,25 @@
 package samebutdifferent.ecologics;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.common.collect.ImmutableMap;
-
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.Heightmap;
+import oshi.util.tuples.Pair;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.entity.Squirrel;
-import samebutdifferent.ecologics.platform.CommonPlatformHelper;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
@@ -39,6 +38,11 @@ public class Ecologics
     public static final String MOD_ID = "ecologics";
     public static final Logger LOGGER = LogManager.getLogger();
 
+	public static final Map<Holder<Potion>, Pair<ItemLike, Holder<Potion>>> BREWING_RECIPES = new HashMap<>();
+	public static final Map<ItemLike, Float> COMPOSTABLES = new HashMap<>();
+	public static final Map<Block, Block> STRIPPABLES = new HashMap<>();
+	public static final Map<Block, Pair<Integer, Integer>> FLAMMABLES = new HashMap<>();
+	
     public static void init() {
         ModBlocks.init();
         ModItems.init();
@@ -55,101 +59,85 @@ public class Ecologics
     }
 
     public static void commonSetup() {
-        registerWoodTypes();
+        ModWoodType.init();
         registerBrewingRecipes();
         registerCompostables();
         registerStrippables();
         registerFlammables();
-        registerSpawnPlacements();
-    }
-
-    public static void registerWoodTypes() {
-        CommonPlatformHelper.registerWoodType(ModWoodType.COCONUT);
-        CommonPlatformHelper.registerWoodType(ModWoodType.WALNUT);
-        CommonPlatformHelper.registerWoodType(ModWoodType.AZALEA);
-        CommonPlatformHelper.registerWoodType(ModWoodType.FLOWERING_AZALEA);
+        // registerSpawnPlacements();
     }
 
     public static void registerBrewingRecipes() {
-        CommonPlatformHelper.registerBrewingRecipe(Potions.AWKWARD, ModItems.PENGUIN_FEATHER, ModPotions.SLIDING);
-        CommonPlatformHelper.registerBrewingRecipe(ModPotions.SLIDING, Items.REDSTONE, ModPotions.LONG_SLIDING);
+    	BREWING_RECIPES.put(Potions.AWKWARD, new Pair<>(ModItems.PENGUIN_FEATHER, ModPotions.SLIDING));
+    	BREWING_RECIPES.put(ModPotions.SLIDING, new Pair<>(Items.REDSTONE, ModPotions.LONG_SLIDING));
     }
 
     public static void registerCompostables() {
-        CommonPlatformHelper.registerCompostable(0.3F, ModItems.COCONUT_SLICE);
-        CommonPlatformHelper.registerCompostable(0.65F, ModItems.COCONUT_HUSK);
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_LEAVES);
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.COCONUT_SEEDLING);
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_LEAVES);
-        CommonPlatformHelper.registerCompostable(0.3F, ModBlocks.WALNUT_SAPLING);
-        CommonPlatformHelper.registerCompostable(0.65F, ModBlocks.AZALEA_FLOWER);
+    	COMPOSTABLES.put(ModItems.COCONUT_SLICE, 0.3F);
+    	COMPOSTABLES.put(ModItems.COCONUT_HUSK, 0.65F);
+    	COMPOSTABLES.put(ModBlocks.COCONUT_LEAVES, 0.3F);
+    	COMPOSTABLES.put(ModBlocks.COCONUT_SEEDLING, 0.3F);
+    	COMPOSTABLES.put(ModBlocks.WALNUT_LEAVES, 0.3F);
+    	COMPOSTABLES.put(ModBlocks.WALNUT_SAPLING, 0.3F);
+    	COMPOSTABLES.put(ModBlocks.AZALEA_FLOWER, 0.65F);
     }
 
     public static void registerStrippables() {
-        Map<Block, Block> strippables = new ImmutableMap.Builder<Block, Block>()
-                .put(ModBlocks.COCONUT_LOG, ModBlocks.STRIPPED_COCONUT_LOG)
-                .put(ModBlocks.COCONUT_WOOD, ModBlocks.STRIPPED_COCONUT_WOOD)
-                .put(ModBlocks.WALNUT_LOG, ModBlocks.STRIPPED_WALNUT_LOG)
-                .put(ModBlocks.WALNUT_WOOD, ModBlocks.STRIPPED_WALNUT_WOOD)
-                .put(ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG)
-                .put(ModBlocks.FLOWERING_AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG)
-                .put(ModBlocks.FLOWERING_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD)
-                .put(ModBlocks.AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD).build();
-        CommonPlatformHelper.registerStrippables(strippables);
+    	STRIPPABLES.put(ModBlocks.COCONUT_LOG, ModBlocks.STRIPPED_COCONUT_LOG);
+    	STRIPPABLES.put(ModBlocks.COCONUT_WOOD, ModBlocks.STRIPPED_COCONUT_WOOD);
+    	STRIPPABLES.put(ModBlocks.WALNUT_LOG, ModBlocks.STRIPPED_WALNUT_LOG);
+    	STRIPPABLES.put(ModBlocks.WALNUT_WOOD, ModBlocks.STRIPPED_WALNUT_WOOD);
+    	STRIPPABLES.put(ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG);
+    	STRIPPABLES.put(ModBlocks.FLOWERING_AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG);
+    	STRIPPABLES.put(ModBlocks.FLOWERING_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD);
+    	STRIPPABLES.put(ModBlocks.AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD);
     }
 
     public static void registerFlammables() {
         // COCONUT
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_PLANKS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_SLAB, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_FENCE_GATE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_FENCE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_STAIRS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_COCONUT_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_COCONUT_WOOD, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_WOOD, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.COCONUT_LEAVES, 30, 60);
+    	FLAMMABLES.put(ModBlocks.COCONUT_PLANKS, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.COCONUT_SLAB, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.COCONUT_FENCE_GATE, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.COCONUT_FENCE, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.COCONUT_STAIRS, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.COCONUT_LOG, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.STRIPPED_COCONUT_LOG, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.STRIPPED_COCONUT_WOOD, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.COCONUT_WOOD, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.COCONUT_LEAVES, new Pair<>(30, 60));
         // WALNUT
-        CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_PLANKS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_SLAB, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_FENCE_GATE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_FENCE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_STAIRS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_WALNUT_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_WALNUT_WOOD, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_WOOD, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.WALNUT_LEAVES, 30, 60);
+    	FLAMMABLES.put(ModBlocks.WALNUT_PLANKS, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.WALNUT_SLAB, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.WALNUT_FENCE_GATE, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.WALNUT_FENCE, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.WALNUT_STAIRS, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.WALNUT_LOG, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.STRIPPED_WALNUT_LOG, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.STRIPPED_WALNUT_WOOD, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.WALNUT_WOOD, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.WALNUT_LEAVES, new Pair<>(30, 60));
         // AZALEA
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_PLANKS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_SLAB, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_FENCE_GATE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_FENCE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_STAIRS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_AZALEA_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.STRIPPED_AZALEA_WOOD, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.AZALEA_WOOD, 5, 5);
+    	FLAMMABLES.put(ModBlocks.AZALEA_PLANKS, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.AZALEA_SLAB, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.AZALEA_FENCE_GATE, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.AZALEA_FENCE, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.AZALEA_STAIRS, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.AZALEA_LOG, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.STRIPPED_AZALEA_LOG, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.STRIPPED_AZALEA_WOOD, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.AZALEA_WOOD, new Pair<>(5, 5));
         // FLOWERING_AZALEA
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_PLANKS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_SLAB, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_FENCE_GATE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_FENCE, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_STAIRS, 5, 20);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_LOG, 5, 5);
-        CommonPlatformHelper.setFlammable(ModBlocks.FLOWERING_AZALEA_WOOD, 5, 5);
-    }
-
-    public static void registerSpawnPlacements() {
-        //CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Camel::checkCamelSpawnRules);
-        CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
-        CommonPlatformHelper.registerSpawnPlacement(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_PLANKS, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_SLAB, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_FENCE_GATE, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_FENCE, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_STAIRS, new Pair<>(5, 20));
+    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_LOG, new Pair<>(5, 5));
+    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_WOOD, new Pair<>(5, 5));
     }
 
     public static void registerEntityAttributes(Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> attributes) {
         attributes.put(ModEntityTypes.COCONUT_CRAB, CoconutCrab.createAttributes());
-        //attributes.put(ModEntityTypes.CAMEL.get(), Camel.createAttributes());
         attributes.put(ModEntityTypes.PENGUIN, Penguin.createAttributes());
         attributes.put(ModEntityTypes.SQUIRREL, Squirrel.createAttributes());
     }
