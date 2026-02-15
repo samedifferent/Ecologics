@@ -78,6 +78,7 @@ public class EcologicsFabric implements ModInitializer {
         addSpawns();
         Ecologics.commonSetup();
         registerCreativeTab();
+        registerFurnaceFuels();
         ItemGroupEvents.modifyEntriesEvent(TAB).register(EcologicsFabric::assignItemsToTab);
         // Iterate.
         Ecologics.BREWING_RECIPES.forEach((potion, pair) -> { // A: Ingredient, B: Output
@@ -96,6 +97,12 @@ public class EcologicsFabric implements ModInitializer {
     private void registerCreativeTab() {
     	Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB.identifier(), FabricItemGroup.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); } ).build());
     	ModCreativeModeTabContents.populateTabDatabase();
+    }
+    
+    private void registerFurnaceFuels() {
+        FuelRegistryEvents.BUILD.register((builder, context) -> {
+            builder.add(ModItems.COCONUT_HUSK, 100);
+        });
     }
     
     private static void assignItemsToTab(FabricItemGroupEntries entries) {
