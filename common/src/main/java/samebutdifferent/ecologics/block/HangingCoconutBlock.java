@@ -161,7 +161,7 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     
     @Override
     public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
-    	if ((level.getFluidState(pos).getType() == Fluids.FLOWING_WATER || level.getFluidState(pos).getType() == Fluids.WATER) && FallingBlock.isFree(level.getBlockState(pos))) {
+    	if ((level.getRandom().nextFloat() < 0.25F || level.getFluidState(pos).getType() == Fluids.FLOWING_WATER || level.getFluidState(pos).getType() == Fluids.WATER) && FallingBlock.isFree(level.getBlockState(pos))) {
     		boolean waterfilled = level.getBlockState(pos).getBlock() == Blocks.WATER;
     		level.setBlock(pos, ModBlocks.COCONUT.defaultBlockState().setValue(CoconutBlock.WATERLOGGED, waterfilled), UPDATE_ALL);
     		return;
