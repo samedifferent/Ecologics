@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -55,11 +56,13 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
+import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.fabric.registry.ModConfigFabric;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
 
 public class EcologicsFabric implements ModInitializer {
     private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab")); //FabricItemGroup.builder(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab")).icon(() -> new ItemStack(ModBlocks.COCONUT_LOG.get())).build();
@@ -87,6 +90,7 @@ public class EcologicsFabric implements ModInitializer {
         	CompostingChanceRegistry.INSTANCE.add(item, chance);
         });
         Ecologics.STRIPPABLES.forEach(StrippableBlockRegistry::register);
+        updateConfig();
     }
 
     private void registerCreativeTab() {
@@ -206,5 +210,13 @@ public class EcologicsFabric implements ModInitializer {
 
     private ResourceKey<PlacedFeature> getPlacedFeatureKey(String key) {
         return ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, key));
+    }
+    
+    public static void updateConfig() {
+    	ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
+    	ConfigCommon.setCoconutCrabSpawnChance(config.beach.coconutCrabSpawnChance);
+    	ConfigCommon.setPricklyPearGrowthChance(config.desert.pricklyPearGrowthChance);
+    	ConfigCommon.setReplaceAzaleaTree(config.lushCaves.replaceAzaleaTree);
+    	ConfigCommon.setFoxesAttackSquirrels(config.plains.foxesAttackSquirrels);
     }
 }

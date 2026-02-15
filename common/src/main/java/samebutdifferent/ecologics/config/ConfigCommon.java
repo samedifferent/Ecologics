@@ -3,6 +3,7 @@ package samebutdifferent.ecologics.config;
 public class ConfigCommon 
 {
 	private static double coconutCrabSpawnChance = 0.25F;
+	private static double pricklyPearGrowthChance = 0.4F;
 	private static boolean replaceAzaleaTree = true;
 	private static boolean foxesAttackSquirrels = true;
 	
@@ -12,6 +13,14 @@ public class ConfigCommon
 	
 	public static double getCoconutCrabSpawnChance() {
 		return coconutCrabSpawnChance;
+	}
+	
+	public static void setPricklyPearGrowthChance(double newValue) {
+		pricklyPearGrowthChance = newValue;
+	}
+	
+	public static double getPricklyPearGrowthChance() {
+		return pricklyPearGrowthChance;
 	}
 	
 	public static void setReplaceAzaleaTree(boolean newValue) {

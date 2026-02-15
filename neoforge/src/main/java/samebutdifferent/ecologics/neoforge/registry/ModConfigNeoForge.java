@@ -3,6 +3,7 @@ package samebutdifferent.ecologics.neoforge.registry;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import samebutdifferent.ecologics.config.ConfigCommon;
 
 public class ModConfigNeoForge 
 {
@@ -43,8 +44,19 @@ public class ModConfigNeoForge
     }
 
     @SubscribeEvent
-    public static void onLoad(final ModConfigEvent.Loading configEvent) { }
+    public static void onLoad(final ModConfigEvent.Loading configEvent) { 
+    	updateConfig();
+    }
 
     @SubscribeEvent
-    public static void onReload(final ModConfigEvent.Reloading configEvent) { }
+    public static void onReload(final ModConfigEvent.Reloading configEvent) { 
+    	updateConfig();
+    }
+    
+    private static void updateConfig() {
+    	ConfigCommon.setCoconutCrabSpawnChance(ModConfigNeoForge.COCONUT_CRAB_SPAWN_CHANCE.get());
+    	ConfigCommon.setPricklyPearGrowthChance(ModConfigNeoForge.PRICKLY_PEAR_GROWTH_CHANCE.get());
+    	ConfigCommon.setReplaceAzaleaTree(ModConfigNeoForge.REPLACE_AZALEA_TREE.get());
+    	ConfigCommon.setFoxesAttackSquirrels(ModConfigNeoForge.FOXES_ATTACK_SQUIRRELS.get());
+    }
 }

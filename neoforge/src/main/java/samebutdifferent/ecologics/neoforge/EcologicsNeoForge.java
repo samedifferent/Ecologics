@@ -54,6 +54,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
+import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.neoforge.registry.ModConfigNeoForge;
 import samebutdifferent.ecologics.neoforge.registry.ModGlobalLootModifiers;
@@ -146,7 +147,7 @@ public class EcologicsNeoForge
         BlockState state = event.getState();
         if (state.is(Blocks.CACTUS)) {
             if (level.getBlockState(pos.above()).is(Blocks.CACTUS) && level.getBlockState(pos.below()).is(Blocks.CACTUS)) {
-                if (level.isEmptyBlock(pos.above(2)) && level.getRandom().nextFloat() <= ModConfigNeoForge.PRICKLY_PEAR_GROWTH_CHANCE.get()) {
+                if (level.isEmptyBlock(pos.above(2)) && level.getRandom().nextFloat() <= ConfigCommon.getPricklyPearGrowthChance()) {
                     level.setBlock(pos.above(2), ModBlocks.PRICKLY_PEAR.defaultBlockState(), 2);
                     level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
@@ -198,6 +199,8 @@ public class EcologicsNeoForge
         	builder.addMix(potion, (Item)pair.getA(), pair.getB());
         });
     }
+    
+
     
     /*@SubscribeEvent
     public static void onMissingBlockMappings(MissingMappingsEvent event) {
