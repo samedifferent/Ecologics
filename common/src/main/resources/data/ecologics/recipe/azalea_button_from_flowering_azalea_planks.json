@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    "ecologics:flowering_azalea_planks"
+  ],
+  "result": {
+    "id": "ecologics:azalea_button"
+  }
+}
