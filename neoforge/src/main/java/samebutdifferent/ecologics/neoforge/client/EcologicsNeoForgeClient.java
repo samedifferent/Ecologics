@@ -1,9 +1,7 @@
 package samebutdifferent.ecologics.neoforge.client;
 
+import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.client.model.object.boat.BoatModel;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.world.level.FoliageColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -17,6 +15,8 @@ import samebutdifferent.ecologics.client.model.PenguinModel;
 import samebutdifferent.ecologics.client.model.SquirrelModel;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
+import java.util.List;
+
 @EventBusSubscriber(modid = Ecologics.MOD_ID, value = Dist.CLIENT)
 public class EcologicsNeoForgeClient 
 {
@@ -24,17 +24,12 @@ public class EcologicsNeoForgeClient
 	@SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
         EcologicsClient.init();
-        event.enqueueWork(() -> {
-            EcologicsClient.addSignTypes();
-            EcologicsClient.BLOCK_RENDERS.forEach((block, csl) -> {
-            	ItemBlockRenderTypes.setRenderLayer(block, csl);
-            });
-        });
+        event.enqueueWork(EcologicsClient::addSignTypes);
     }
 
     @SubscribeEvent
-    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
-        event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ? BiomeColors.getAverageFoliageColor(pLevel, pPos) : FoliageColor.FOLIAGE_DEFAULT, ModBlocks.COCONUT_LEAVES);
+    public static void registerBlockColors(RegisterColorHandlersEvent.BlockTintSources event) {
+        event.register(List.of(BlockTintSources.foliage()), ModBlocks.COCONUT_LEAVES);
     }
 
     @SubscribeEvent

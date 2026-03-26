@@ -1,0 +1,25 @@
+{
+  "beach": {
+    "coconutCrabSpawnChance": 0.2,
+    "generateCoconutTrees": true,
+    "generateSeashells": true
+  },
+  "desert": {
+    "generatePricklyPears": true,
+    "pricklyPearGrowthChance": 0.4,
+    "generateDesertRuins": true
+  },
+  "snowy": {
+    "spawnPenguins": true,
+    "generateThinIcePatches": true
+  },
+  "plains": {
+    "spawnSquirrels": true,
+    "generateWalnutTrees": true,
+    "foxesAttackSquirrels": true
+  },
+  "lushCaves": {
+    "replaceAzaleaTree": true,
+    "generateSurfaceMoss": true
+  }
+}

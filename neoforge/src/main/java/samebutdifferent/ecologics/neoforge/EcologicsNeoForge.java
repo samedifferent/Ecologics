@@ -56,6 +56,7 @@ import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.neoforge.mixin.FireBlockAccessor;
 import samebutdifferent.ecologics.neoforge.registry.ModConfigNeoForge;
 import samebutdifferent.ecologics.neoforge.registry.ModGlobalLootModifiers;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
@@ -103,7 +104,7 @@ public class EcologicsNeoForge
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
             Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
-            	((FireBlock)Blocks.FIRE).setFlammable(block, pair.getA(), pair.getB());
+            	((FireBlockAccessor)Blocks.FIRE).invokeSetFlammable(block, pair.getA(), pair.getB());
             });
         });
     }

@@ -20,7 +20,7 @@ public class CoastalFeature extends Feature<SimpleBlockConfiguration> {
         SimpleBlockConfiguration config = pContext.config();
         WorldGenLevel level = pContext.level();
         BlockPos pos = pContext.origin();
-        BlockState state = config.toPlace().getState(pContext.random(), pos);
+        BlockState state = config.toPlace().getState(level, pContext.random(), pos);
         if (level.getBlockState(pos.below()).is(Blocks.SAND)) {
             if (this.isWaterNearby(pos, level)) {
                 level.setBlock(pos, state, 2);
