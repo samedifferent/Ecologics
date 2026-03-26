@@ -1,0 +1,107 @@
+fix upstream
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# interactive rebase in progress; onto 477d5a3
+# Last command done (1 command done):
+#    pick abf2bc8 26.1 Port
+# No commands remaining.
+# You are currently rebasing branch 'master' on '477d5a3'.
+#
+# Changes to be committed:
+#	modified:   build.gradle
+#	modified:   common/src/main/java/samebutdifferent/ecologics/block/AzaleaFlowerBlock.java
+#	modified:   common/src/main/java/samebutdifferent/ecologics/block/FloweringAzaleaLogBlock.java
+#	modified:   common/src/main/java/samebutdifferent/ecologics/block/SandcastleBlock.java
+#	modified:   common/src/main/java/samebutdifferent/ecologics/block/ThinIceBlock.java
+#	modified:   common/src/main/java/samebutdifferent/ecologics/client/EcologicsClient.java
+#	modified:   common/src/main/java/samebutdifferent/ecologics/entity/Penguin.java
+#	modified:   common/src/main/java/samebutdifferent/ecologics/worldgen/feature/CoastalFeature.java
+#	new file:   common/src/main/java/samebutdifferent/ecologics/worldgen/feature/DesertRuinFeature.java
+#	modified:   common/src/main/java/samebutdifferent/ecologics/worldgen/feature/foliageplacers/CoconutFoliagePlacer.java
+#	modified:   common/src/main/java/samebutdifferent/ecologics/worldgen/feature/trunkplacers/SlantedTrunkPlacer.java
+#	new file:   common/src/main/resources/assets/ecologics/items/flowering_azalea_button.json
+#	new file:   common/src/main/resources/assets/ecologics/items/flowering_azalea_pressure_plate.json
+#	new file:   common/src/main/resources/assets/ecologics/items/flowering_azalea_shelf.json
+#	modified:   common/src/main/resources/assets/ecologics/lang/fr_fr.json
+#	modified:   common/src/main/resources/assets/ecologics/lang/ko_kr.json
+#	new file:   common/src/main/resources/data/ecologics/worldgen/configured_feature/desert_ruin.json
+#	modified:   common/src/main/resources/data/ecologics/worldgen/configured_feature/thin_ice_patch.json
+#	new file:   common/src/main/resources/data/ecologics/worldgen/placed_feature/desert_ruin.json
+#	modified:   common/src/main/resources/ecologics.accesswidener
+#	modified:   fabric/build.gradle
+#	new file:   fabric/runs/client/config/ecologics.json
+#	new file:   fabric/runs/client/config/modmenu.json
+#	new file:   fabric/runs/client/data/fabric_default_resource_packs.json
+#	new file:   fabric/runs/client/downloads/log.json
+#	new file:   fabric/runs/client/logs/2026-03-26-1.log.gz
+#	new file:   fabric/runs/client/logs/2026-03-26-2.log.gz
+#	new file:   fabric/runs/client/logs/2026-03-26-3.log.gz
+#	new file:   fabric/runs/client/logs/debug-1.log.gz
+#	new file:   fabric/runs/client/logs/debug-2.log.gz
+#	new file:   fabric/runs/client/logs/debug-3.log.gz
+#	new file:   fabric/runs/client/options.txt
+#	new file:   fabric/runs/client/saves/New World/data/minecraft/custom_boss_events.dat
+#	new file:   fabric/runs/client/saves/New World/data/minecraft/game_rules.dat
+#	new file:   fabric/runs/client/saves/New World/data/minecraft/random_sequences.dat
+#	new file:   fabric/runs/client/saves/New World/data/minecraft/scheduled_events.dat
+#	new file:   fabric/runs/client/saves/New World/data/minecraft/scoreboard.dat
+#	new file:   fabric/runs/client/saves/New World/data/minecraft/stopwatches.dat
+#	new file:   fabric/runs/client/saves/New World/data/minecraft/weather.dat
+#	new file:   fabric/runs/client/saves/New World/data/minecraft/world_clocks.dat
+#	new file:   fabric/runs/client/saves/New World/data/minecraft/world_gen_settings.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/data/minecraft/chunk_tickets.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/data/minecraft/raids.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/data/minecraft/world_border.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/entities/r.-1.-1.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/entities/r.-1.0.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/entities/r.0.-1.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/entities/r.0.0.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/poi/r.-1.-1.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/poi/r.-1.-2.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/poi/r.-1.0.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/poi/r.0.-1.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/poi/r.0.-2.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/poi/r.0.0.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/region/r.-1.-1.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/region/r.-1.-2.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/region/r.-1.0.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/region/r.0.-1.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/region/r.0.-2.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/overworld/region/r.0.0.mca
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/the_end/data/minecraft/chunk_tickets.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/the_end/data/minecraft/ender_dragon_fight.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/the_end/data/minecraft/raids.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/the_end/data/minecraft/world_border.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/the_nether/data/minecraft/chunk_tickets.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/the_nether/data/minecraft/raids.dat
+#	new file:   fabric/runs/client/saves/New World/dimensions/minecraft/the_nether/data/minecraft/world_border.dat
+#	new file:   fabric/runs/client/saves/New World/icon.png
+#	new file:   fabric/runs/client/saves/New World/level.dat
+#	new file:   fabric/runs/client/saves/New World/level.dat_old
+#	new file:   fabric/runs/client/saves/New World/players/advancements/303505c1-798d-3df3-ab8d-6c701f3fe36a.json
+#	new file:   fabric/runs/client/saves/New World/players/data/303505c1-798d-3df3-ab8d-6c701f3fe36a.dat
+#	new file:   fabric/runs/client/saves/New World/players/data/303505c1-798d-3df3-ab8d-6c701f3fe36a.dat_old
+#	new file:   fabric/runs/client/saves/New World/players/stats/303505c1-798d-3df3-ab8d-6c701f3fe36a.json
+#	new file:   fabric/runs/client/saves/New World/session.lock
+#	new file:   fabric/runs/client/usercache.json
+#	modified:   fabric/src/main/java/samebutdifferent/ecologics/fabric/EcologicsFabric.java
+#	modified:   fabric/src/main/java/samebutdifferent/ecologics/fabric/client/EcologicsFabricClient.java
+#	modified:   fabric/src/main/java/samebutdifferent/ecologics/fabric/integration/ModMenuIntegration.java
+#	modified:   fabric/src/main/resources/fabric.mod.json
+#	modified:   gradle.properties
+#	modified:   gradle/wrapper/gradle-wrapper.properties
+#	modified:   gradlew.bat
+#	modified:   neoforge/build.gradle
+#	modified:   neoforge/src/main/java/samebutdifferent/ecologics/neoforge/EcologicsNeoForge.java
+#	modified:   neoforge/src/main/java/samebutdifferent/ecologics/neoforge/client/EcologicsNeoForgeClient.java
+#	new file:   neoforge/src/main/java/samebutdifferent/ecologics/neoforge/mixin/FireBlockAccessor.java
+#	modified:   neoforge/src/main/resources/META-INF/neoforge.mods.toml
+#	new file:   neoforge/src/main/resources/ecologics-neoforge.mixins.json
+26.1 Port
+
+
+
+
+
