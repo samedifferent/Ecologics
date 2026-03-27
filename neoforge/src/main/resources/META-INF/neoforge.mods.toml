@@ -17,16 +17,19 @@ Simple vanilla biome updates, with fun mobs, blocks, and more!
 [[mixins]]
 config = "ecologics-common.mixins.json"
 
+[[mixins]]
+config = "ecologics-neoforge.mixins.json"
+
 [[dependencies.ecologics]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.11,)"
+versionRange = "[26.1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ecologics]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.11,26]"
+versionRange = "[26.1,26.2]"
 ordering = "NONE"
 side = "BOTH"

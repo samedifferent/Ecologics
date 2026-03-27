@@ -1,9 +1,9 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'fabric-loom' version '1.13-SNAPSHOT' apply false
-    id 'net.neoforged.moddev' version '2.0.123' apply false
-    id 'org.spongepowered.gradle.vanilla' version '0.2.+' apply false
+    id 'fabric-loom' version '1.15-SNAPSHOT' apply false
+    id 'net.neoforged.moddev' version '2.0.141' apply false
+    id 'org.spongepowered.gradle.vanilla' version '0.3.2' apply false
     id "io.github.pacifistmc.forgix" version "2.+"
 }
 

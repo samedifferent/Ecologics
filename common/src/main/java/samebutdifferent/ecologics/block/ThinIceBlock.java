@@ -37,7 +37,7 @@ public class ThinIceBlock extends IceBlock {
     public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
     	Holder<Enchantment> ffholder = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).listElements().filter(ench -> ench.is(Enchantments.FEATHER_FALLING)).findFirst().get();
         if (fallDistance > 1 && entity instanceof LivingEntity && EnchantmentHelper.getEnchantmentLevel(ffholder, (LivingEntity)entity) == 0) {
-            level.playSound(null, pos, ModSoundEvents.THIN_ICE_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, ModSoundEvents.THIN_ICE_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + level.getRandom().nextFloat() * 0.2F);
             replaceIfThinIce(pos, 3, level);
             replaceIfThinIce(pos.north(), 2, level);
             replaceIfThinIce(pos.east(), 2, level);
@@ -69,7 +69,7 @@ public class ThinIceBlock extends IceBlock {
         int age = state.getValue(AGE);
         if (age < 3) {
             level.setBlock(pos, state.setValue(AGE, age + 1), 2);
-            level.playSound(null, pos, ModSoundEvents.THIN_ICE_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+            level.playSound(null, pos, ModSoundEvents.THIN_ICE_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + level.getRandom().nextFloat() * 0.2F);
             return false;
         } else {
         	if (level.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos)) {

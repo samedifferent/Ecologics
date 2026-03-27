@@ -2,11 +2,9 @@
   "type": "ecologics:thin_ice",
   "config": {
     "state_provider": {
-      "fallback": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "ecologics:thin_ice"
-        }
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "ecologics:thin_ice"
       },
       "rules": []
     },

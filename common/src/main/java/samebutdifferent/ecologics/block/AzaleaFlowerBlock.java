@@ -48,7 +48,7 @@ public class AzaleaFlowerBlock extends FlowerBlock implements BonemealableBlock
 
     @Override
     public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
-        return (double)world.random.nextFloat() < 0.45D;
+        return (double)world.getRandom().nextFloat() < 0.45D;
     }
 
     @Override
