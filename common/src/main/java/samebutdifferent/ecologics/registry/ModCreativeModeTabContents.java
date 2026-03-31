@@ -73,7 +73,6 @@ public class ModCreativeModeTabContents
         addToList(ModBlocks.COCONUT_SHELF);
         addToList(ModBlocks.WALNUT_SHELF);
         addToList(ModBlocks.AZALEA_SHELF);
-        // addToList(ModBlocks.FLOWERING_AZALEA_SHELF);
         
         addToList(ModItems.COCONUT_BOAT);
         addToList(ModItems.COCONUT_CHEST_BOAT);
