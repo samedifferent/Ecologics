@@ -171,7 +171,8 @@ public class ModBlocks
 
     // Miscellaneous
     public static final Block SURFACE_MOSS = registerBlock("surface_moss", SurfaceMossBlock::new, Properties.of().mapColor(MapColor.COLOR_GREEN).noCollision().strength(0.2F).pushReaction(PushReaction.DESTROY).sound(SoundType.MOSS_CARPET).noOcclusion(), true);
-    public static final Block MOSS_LAYER = registerBlock("moss_layer", MossLayerBlock::new, Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET), true);
+    public static final Block MOSS_LAYER = registerBlock("moss_layer", MossLayerBlock::new, Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).pushReaction(PushReaction.DESTROY).sound(SoundType.MOSS_CARPET), true);
+    public static final Block PALE_MOSS_LAYER = registerBlock("pale_moss_layer", MossLayerBlock::new, Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(0.1F).pushReaction(PushReaction.DESTROY).sound(SoundType.MOSS_CARPET), true);
 
     public static final Block HANGING_COCONUT = registerBlock("hanging_coconut", HangingCoconutBlock::new, Properties.of().randomTicks().strength(2.0F, 3.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.WOOD).noOcclusion(), false);
     public static final Block COCONUT = registerBlock("coconut", CoconutBlock::new, Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion(), false);

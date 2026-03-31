@@ -1,0 +1,108 @@
+package samebutdifferent.ecologics.mixin;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MossyCarpetBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.WallSide;
+import net.minecraft.world.phys.BlockHitResult;
+import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModTags.ItemTags;
+
+@Mixin(MossyCarpetBlock.class)
+public class MossyCarpetBlockMixin extends Block {
+
+	private static final BooleanProperty NO_GROWTH = BooleanProperty.create("no_growth");
+	
+    public MossyCarpetBlockMixin(Properties properties) {
+        super(properties);
+    }
+    
+    @Inject(method = "<init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V", at = @At("TAIL"))
+    private void injectConstructor(BlockBehaviour.Properties properties, CallbackInfo callback) {
+    	this.registerDefaultState(this.getStateDefinition().any().setValue(NO_GROWTH, Boolean.valueOf(false)));
+    }
+    
+    @Inject(method = "createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V", at = @At("TAIL"))
+    private void injectBlockStateProperties(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo callback) {
+    	builder.add(NO_GROWTH);
+    }
+    
+    @Inject(method = "getUpdatedState(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Z)Lnet/minecraft/world/level/block/state/BlockState;", at = @At(value = "HEAD"), cancellable = true)
+    private static void injectGetUpdatedState(BlockState state, BlockGetter getter, BlockPos pos, boolean $$3, CallbackInfoReturnable<BlockState> cir) {
+    	if (state.hasProperty(NO_GROWTH) && state.getValue(NO_GROWTH)) {
+    		cir.setReturnValue(state);
+    	}
+    }
+    
+    @Override
+    public InteractionResult useItemOn(ItemStack item, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (ItemStack.isSameItem(Items.PALE_MOSS_CARPET.getDefaultInstance(), item) && (pPlayer.getInBlockState() != pState)) {
+            if (pState.is(Blocks.PALE_MOSS_CARPET)) {
+                if (!pLevel.isClientSide()) pLevel.setBlockAndUpdate(pPos, ModBlocks.PALE_MOSS_LAYER.defaultBlockState());
+                if (!pPlayer.isCreative()) item.shrink(1);
+            }
+            pLevel.playSound(pPlayer, pPos, SoundEvents.MOSS_CARPET_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            return InteractionResult.SUCCESS;
+        }
+        if (item.is(ItemTags.SHEARS) && (pPlayer.getInBlockState() != pState)) {
+            if (pState.is(Blocks.PALE_MOSS_CARPET)) {
+            	if (!hasSideGrowth(pState)) {
+            		return InteractionResult.CONSUME;
+            	}
+                if (!pLevel.isClientSide()) {
+                	if (pState.getValue(MossyCarpetBlock.BASE)) {
+                		pLevel.setBlock(pPos, Blocks.PALE_MOSS_CARPET.defaultBlockState().setValue(NO_GROWTH, true), 2);
+                	}
+                	else {
+                		pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), 2);
+                	}
+                    if (!pPlayer.isCreative()) {
+                    	item.hurtAndBreak(1, pPlayer, pHand);
+                    }
+                }
+                pLevel.playSound(pPlayer, pPos, SoundEvents.SHEARS_SNIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.CONSUME;
+    }
+    
+    private boolean hasSideGrowth(BlockState state) {
+    	if (!(state.hasProperty(MossyCarpetBlock.NORTH) && state.hasProperty(MossyCarpetBlock.SOUTH) && state.hasProperty(MossyCarpetBlock.WEST) && state.hasProperty(MossyCarpetBlock.EAST))) {
+    		return false;
+    	}
+    	if (state.getValue(MossyCarpetBlock.NORTH) != WallSide.NONE) {
+    		return true;
+    	}
+    	if (state.getValue(MossyCarpetBlock.SOUTH) != WallSide.NONE) {
+    		return true;
+    	}
+    	if (state.getValue(MossyCarpetBlock.WEST) != WallSide.NONE) {
+    		return true;
+    	}
+    	if (state.getValue(MossyCarpetBlock.EAST) != WallSide.NONE) {
+    		return true;
+    	}
+    	return false;
+    }
+}

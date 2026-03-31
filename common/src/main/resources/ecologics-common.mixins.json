@@ -7,6 +7,7 @@
     "AzaleaBlockMixin",
     "FoxMixin",
     "CarpetBlockMixin",
+    "MossyCarpetBlockMixin",
     "LivingEntityMixin"
   ],
   "client": [

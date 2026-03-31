@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import samebutdifferent.ecologics.registry.ModBlocks;
 
 public class MossLayerBlock extends SnowLayerBlock 
 {
@@ -29,12 +31,12 @@ public class MossLayerBlock extends SnowLayerBlock
 
     @Override
     public InteractionResult useItemOn(ItemStack item, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if ((pState.getValue(LAYERS) < 8) && ItemStack.isSameItem(Blocks.MOSS_CARPET.asItem().getDefaultInstance(), item) && (pPlayer.getInBlockState() != pState)) {
+        if ((pState.getValue(LAYERS) < 8) && isMatchingItem(item, pState) && (pPlayer.getInBlockState() != pState)) {
             if (pState.is(this) && !pLevel.isClientSide()) {
                 if (pState.getValue(LAYERS) < 7) {
                     pLevel.setBlockAndUpdate(pPos, this.defaultBlockState().setValue(LAYERS, pState.getValue(LAYERS) + 1));
                 } else {
-                    pLevel.setBlockAndUpdate(pPos, Blocks.MOSS_BLOCK.defaultBlockState());
+                    pLevel.setBlockAndUpdate(pPos, pState.getBlock() == ModBlocks.PALE_MOSS_LAYER ? Blocks.PALE_MOSS_BLOCK.defaultBlockState() : Blocks.MOSS_BLOCK.defaultBlockState());
                 }
                 if (!pPlayer.isCreative()) {
                     item.shrink(1);
@@ -75,4 +77,14 @@ public class MossLayerBlock extends SnowLayerBlock
             return layers == 1;
         }
     }
+    
+   private static boolean isMatchingItem(ItemStack item, BlockState blockState) {
+       if (item.getItem() == Items.MOSS_CARPET && blockState.getBlock() == ModBlocks.MOSS_LAYER) {
+    	   return true;
+       }
+       if (item.getItem() == Items.PALE_MOSS_CARPET && blockState.getBlock() == ModBlocks.PALE_MOSS_LAYER) {
+    	   return true;
+       }
+       return false;
+   }
 }
