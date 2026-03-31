@@ -7,8 +7,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CactusBlock;
@@ -24,8 +22,7 @@ public class CactusBlockMixin {
             if (state.is(Blocks.CACTUS)) {
                 if (level.getBlockState(pos.above()).is(Blocks.CACTUS) && level.getBlockState(pos.below()).is(Blocks.CACTUS)) {
                     if (level.isEmptyBlock(pos.above(2)) && level.getRandom().nextFloat() <= ConfigCommon.getPricklyPearGrowthChance()) {
-                        level.setBlock(pos.above(2), ModBlocks.PRICKLY_PEAR.defaultBlockState(), 2);
-                        level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        level.setBlockAndUpdate(pos.above(2), ModBlocks.PRICKLY_PEAR.defaultBlockState());
                     }
                 }
             }

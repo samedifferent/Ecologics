@@ -148,8 +148,7 @@ public class EcologicsNeoForge
         if (state.is(Blocks.CACTUS)) {
             if (level.getBlockState(pos.above()).is(Blocks.CACTUS) && level.getBlockState(pos.below()).is(Blocks.CACTUS)) {
                 if (level.isEmptyBlock(pos.above(2)) && level.getRandom().nextFloat() <= ConfigCommon.getPricklyPearGrowthChance()) {
-                    level.setBlock(pos.above(2), ModBlocks.PRICKLY_PEAR.defaultBlockState(), 2);
-                    level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.setBlock(pos.above(2), ModBlocks.PRICKLY_PEAR.defaultBlockState(), 3);
                 }
             }
         }
@@ -199,28 +198,4 @@ public class EcologicsNeoForge
         	builder.addMix(potion, (Item)pair.getA(), pair.getB());
         });
     }
-    
-
-    
-    /*@SubscribeEvent
-    public static void onMissingBlockMappings(MissingMappingsEvent event) {
-        for (var mapping : event.getAllMappings(BuiltInRegistries.BLOCK.getRegistryKey())) {
-            if (mapping.getKey().equals(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_husk"))) {
-                Identifier remapped = Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling");
-                if (BuiltInRegistries.BLOCK.containsKey(remapped)) {
-                    mapping.remap(BuiltInRegistries.BLOCK.get(remapped));
-                } else {
-                    mapping.warn();
-                }
-            }
-            if (mapping.getKey().equals(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "potted_coconut_husk"))) {
-                Identifier remapped = Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "potted_coconut_seedling");
-                if (BuiltInRegistries.BLOCK.containsKey(remapped)) {
-                    mapping.remap(BuiltInRegistries.BLOCK.get(remapped));
-                } else {
-                    mapping.warn();
-                }
-            }
-        }
-    }*/
 }
