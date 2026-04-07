@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:ice"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "count": 4,
+    "id": "ecologics:thin_ice"
+  }
+}
