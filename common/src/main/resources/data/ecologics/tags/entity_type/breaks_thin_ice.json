@@ -1,0 +1,28 @@
+{
+  "values": [
+    "minecraft:player",
+    "#minecraft:zombies",
+    "#minecraft:skeletons",
+    "minecraft:creeper",
+    "minecraft:warden",
+    "minecraft:cow",
+    "minecraft:pig",
+    "minecraft:sheep",
+    "minecraft:goat",
+    "minecraft:horse",
+    "minecraft:camel",
+    "minecraft:llama",
+    "minecraft:trader_llama",
+    "minecraft:wandering_trader",
+    "minecraft:villager",
+    "#minecraft:illager",
+    "minecraft:witch",
+    "minecraft:ravager",
+    "minecraft:sniffer",
+    "minecraft:piglin",
+    "minecraft:hoglin",
+    {"id": "#c:creepers", "required": false},
+    {"id": "alexsmobs:cachalot_whale", "required": false},
+    {"id": "alexscaves:hullbreaker", "required": false}
+  ]
+}

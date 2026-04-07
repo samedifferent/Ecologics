@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.material.Fluids;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
+import samebutdifferent.ecologics.registry.ModTags;
 
 public class ThinIceBlock extends IceBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
@@ -36,7 +38,7 @@ public class ThinIceBlock extends IceBlock {
     @Override
     public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
     	Holder<Enchantment> ffholder = pLevel.registryAccess().registry(Registries.ENCHANTMENT).get().getHolderOrThrow(Enchantments.FEATHER_FALLING);
-        if (pEntity instanceof Player player && EnchantmentHelper.getEnchantmentLevel(ffholder, player) == 0) {
+        if (pEntity instanceof LivingEntity entity && entity.getType().is(ModTags.EntityTypeTags.BREAKS_THIN_ICE) && EnchantmentHelper.getEnchantmentLevel(ffholder, entity) == 0 && pFallDistance > 1) {
             pLevel.playSound(null, pPos, ModSoundEvents.THIN_ICE_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + pLevel.random.nextFloat() * 0.2F);
             replaceIfThinIce(pPos, 3, pLevel);
             replaceIfThinIce(pPos.north(), 2, pLevel);
@@ -59,7 +61,14 @@ public class ThinIceBlock extends IceBlock {
 
     @Override
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        if (pEntity instanceof Player && pState.getValue(AGE) > 0) {
+        if (pEntity instanceof LivingEntity entity && entity.getType().is(ModTags.EntityTypeTags.BREAKS_THIN_ICE) && pState.getValue(AGE) > 0) {
+            this.crack(pState, pLevel, pPos);
+        }
+    }
+    
+    @Override
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+        if (pEntity instanceof LivingEntity entity && entity.getType().is(ModTags.EntityTypeTags.BREAKS_THIN_ICE)) {
             this.crack(pState, pLevel, pPos);
         }
     }
