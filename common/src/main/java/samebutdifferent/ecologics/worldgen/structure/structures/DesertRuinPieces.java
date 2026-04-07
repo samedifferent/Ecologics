@@ -202,6 +202,7 @@ public class DesertRuinPieces {
             if (k - j > 2 && l > p - 2) {
                 i = j + 1;
             }
+            i--;
             return i;
         }
 		

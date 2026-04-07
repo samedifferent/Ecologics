@@ -155,13 +155,6 @@ public class EcologicsFabric implements ModInitializer {
                     getPlacedFeatureKey("prickly_pear")
             );
         }
-        if (config.desert.generateDesertRuins) {
-            BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DESERT),
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    getPlacedFeatureKey("desert_ruin")
-            );
-        }
     }
 
     public void replaceFeatures() {
