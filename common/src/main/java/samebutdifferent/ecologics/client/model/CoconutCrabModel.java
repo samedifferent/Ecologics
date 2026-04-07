@@ -2,11 +2,15 @@ package samebutdifferent.ecologics.client.model;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.AgeableHierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -14,7 +18,7 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 
 @Environment(EnvType.CLIENT)
-public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
+public class CoconutCrabModel extends AgeableHierarchicalModel<CoconutCrab> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_crab"), "main");
     private final ModelPart root;
     private final ModelPart head;
@@ -29,7 +33,7 @@ public class CoconutCrabModel extends HierarchicalModel<CoconutCrab> {
     private final ModelPart leftClaw;
 
     public CoconutCrabModel(ModelPart root) {
-        super(RenderType::entityCutoutNoCull);
+        super(0.5F, 24F, RenderType::entityCutoutNoCull);
         this.root = root.getChild("root");
         this.head = this.root.getChild("head");
         this.shell = this.root.getChild("shell");
