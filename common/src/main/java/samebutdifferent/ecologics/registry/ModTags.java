@@ -10,6 +10,7 @@ import samebutdifferent.ecologics.Ecologics;
 
 public class ModTags {
     public static class ItemTags {
+        public static final TagKey<Item> COCONUT_CRAB_TEMPT_ITEMS = tag("coconut_crab_tempt_items");
         public static final TagKey<Item> PENGUIN_TEMPT_ITEMS = tag("penguin_tempt_items");
         public static final TagKey<Item> SQUIRREL_TEMPT_ITEMS = tag("squirrel_tempt_items");
 
@@ -28,6 +29,7 @@ public class ModTags {
     }
 
     public static class EntityTypeTags {
+        public static final TagKey<EntityType<?>> BREAKS_THIN_ICE = tag("breaks_thin_ice");
         public static final TagKey<EntityType<?>> PENGUIN_HUNT_TARGETS = tag("penguin_hunt_targets");
 
         private static TagKey<EntityType<?>> tag(String name) {
