@@ -5,25 +5,26 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.block.grower.ModTreeGrower;
 
-public class AzaleaFlowerBlock extends BushBlock implements BonemealableBlock 
+public class AzaleaFlowerBlock extends FlowerBlock implements BonemealableBlock 
 {
 	public static final MapCodec<AzaleaFlowerBlock> CODEC = AzaleaFlowerBlock.simpleCodec(AzaleaFlowerBlock::new);
     protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
 
     public AzaleaFlowerBlock(Properties properties) {
-        super(properties);
+        super(FlowerBlock.makeEffectList(MobEffects.CONFUSION, 15), properties);
     }
     
     @Override
