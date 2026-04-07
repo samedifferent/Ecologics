@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -49,6 +50,7 @@ import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.fabric.ModConfigFabric;
 
 public class EcologicsFabric implements ModInitializer {
@@ -65,12 +67,17 @@ public class EcologicsFabric implements ModInitializer {
         addSpawns();
         Ecologics.commonSetup();
         registerCreativeTab();
+        registerFurnaceFuels();
         ItemGroupEvents.modifyEntriesEvent(TAB).register(EcologicsFabric::assignItemsToTab);
     }
 
     private void registerCreativeTab() {
     	Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB.location(), FabricItemGroup.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); } ).build());
     	ModCreativeModeTabContents.populateTabDatabase();
+    }
+    
+    private void registerFurnaceFuels() {
+    	FuelRegistry.INSTANCE.add(ModItems.COCONUT_HUSK, 100);
     }
     
     private static void assignItemsToTab(FabricItemGroupEntries entries) {
