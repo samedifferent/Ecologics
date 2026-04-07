@@ -1,0 +1,24 @@
+{
+  "feature": "ecologics:ore_vein_nether_gold",
+  "placement": [
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 96
+        },
+        "min_inclusive": {
+          "above_bottom": 4
+        }
+      }
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 10
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

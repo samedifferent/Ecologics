@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:nether_wastes",
+  "features": "ecologics:ore_vein_nether_gold",
+  "step": "underground_ores"
+}

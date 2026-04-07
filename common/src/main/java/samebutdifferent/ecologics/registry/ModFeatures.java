@@ -16,7 +16,9 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import oshi.util.tuples.Pair;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.worldgen.feature.CoastalFeature;
+import samebutdifferent.ecologics.worldgen.feature.OreVeinFeature;
 import samebutdifferent.ecologics.worldgen.feature.ThinIceFeature;
+import samebutdifferent.ecologics.worldgen.feature.configurations.OreVeinFeatureConfiguration;
 
 public class ModFeatures 
 {
@@ -35,6 +37,7 @@ public class ModFeatures
 
     public static final Feature<?> COASTAL = registerFeature("coastal", new CoastalFeature(SimpleBlockConfiguration.CODEC));
     public static final Feature<?> THIN_ICE = registerFeature("thin_ice", new ThinIceFeature(DiskConfiguration.CODEC));
+    public static final Feature<?> ORE_VEIN = registerFeature("ore_vein", new OreVeinFeature(OreVeinFeatureConfiguration.CODEC));
     
     public static final Feature<?> AZALEA_TREE = registerFeature("azalea_tree", new TreeFeature(TreeConfiguration.CODEC));
     public static final Feature<?> COCONUT_TREE = registerFeature("coconut_tree", new TreeFeature(TreeConfiguration.CODEC));

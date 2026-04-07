@@ -25,6 +25,9 @@ public class ModConfigFabric implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public LushCaves lushCaves = new LushCaves();
 
+    @ConfigEntry.Gui.CollapsibleObject
+    public Nether nether = new Nether();
+    
     public static class Beach {
         @Comment("How often (in percentage) should Coconut Crabs spawn when a coconut breaks? Set it to 0.0 to disable this.")
         public double coconutCrabSpawnChance = 0.2;
@@ -35,7 +38,7 @@ public class ModConfigFabric implements ConfigData {
     }
 
     public static class Desert {
-        @Comment("Spawn camels in the desert biome")
+        @Comment("Should vanilla Camels spawn in the desert biome? This is a backport of the change from Spring to Life.")
         public boolean spawnCamels = true;
         @Comment("Should prickly pears generate naturally on top of cacti during worldgen?")
         public boolean generatePricklyPears = true;
@@ -66,5 +69,10 @@ public class ModConfigFabric implements ConfigData {
         public boolean replaceAzaleaTree = true;
         @Comment("Generate surface moss in lush cave biomes")
         public boolean generateSurfaceMoss = true;
+    }
+    
+    public static class Nether {
+        @Comment("Generate Nether Gold Ore Veins in Nether Wastes.")
+        public boolean generateNetherGoldOreVeins = true;
     }
 }

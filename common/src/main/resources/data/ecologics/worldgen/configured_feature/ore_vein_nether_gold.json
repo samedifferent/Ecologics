@@ -1,0 +1,50 @@
+{
+  "type": "ecologics:ore_vein",
+  "config": {
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 75,
+          "data": {
+            "Name": "minecraft:netherrack"
+          }
+        },
+        {
+          "weight": 100,
+          "data": {
+            "Name": "minecraft:blackstone"
+          }
+        },
+        {
+          "weight": 25,
+          "data": {
+            "Name": "minecraft:gilded_blackstone"
+          }
+        },
+        {
+          "weight": 48,
+          "data": {
+            "Name": "minecraft:nether_gold_ore"
+          }
+        },
+        {
+          "weight": 2,
+          "data": {
+            "Name": "minecraft:raw_gold_block"
+          }
+        }
+      ]
+    },
+    "target": {
+      "predicate_type": "minecraft:tag_match",
+      "tag": "minecraft:base_stone_nether"
+    },
+    "minY": {
+      "absolute": 8
+    },
+    "maxY": {
+      "absolute": 48
+    }
+  }
+}
