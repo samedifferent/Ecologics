@@ -23,7 +23,9 @@ import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -36,12 +38,13 @@ import samebutdifferent.ecologics.registry.ModSoundEvents;
 public class HangingCoconutBlock extends FallingBlock implements BonemealableBlock 
 {
 	public static final MapCodec<HangingCoconutBlock> CODEC = HangingCoconutBlock.simpleCodec(HangingCoconutBlock::new);
+    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     protected static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{Block.box(4.0D, 6.0D, 4.0D, 12.0D, 14.0D, 12.0D), Block.box(3.0D, 4.0D, 3.0D, 13.0D, 14.0D, 13.0D), Block.box(2.0D, 2.0D, 2.0D, 14.0D, 14.0D, 14.0D)};
 
     public HangingCoconutBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0).setValue(PERSISTENT, false));
     }
     
 	@Override
@@ -50,42 +53,42 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 	}
 
     @Override
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        BlockState aboveState = pLevel.getBlockState(pPos.above());
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockState aboveState = level.getBlockState(pos.above());
         return aboveState.is(ModBlocks.COCONUT_LEAVES);
     }
 
     @Override
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        if (pFacing == Direction.UP && !this.canSurvive(pState, pLevel, pCurrentPos) && pState.getValue(AGE) < 2) {
+    public BlockState updateShape(BlockState state, Direction pFacing, BlockState pFacingState, LevelAccessor level, BlockPos pCurrentPos, BlockPos pFacingPos) {
+        if (pFacing == Direction.UP && !this.canSurvive(state, level, pCurrentPos) && state.getValue(AGE) < 2) {
             return Blocks.AIR.defaultBlockState();
         } else {
-            return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+            return super.updateShape(state, pFacing, pFacingState, level, pCurrentPos, pFacingPos);
         }
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState pState) {
+    public boolean isRandomlyTicking(BlockState state) {
         return true;
     }
 
     @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        int age = pState.getValue(AGE);
-        if (pRandom.nextInt(3) == 0) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        int age = state.getValue(AGE);
+        if (random.nextInt(3) == 0) {
             if (age < 2) {
-                pLevel.setBlock(pPos, pState.setValue(AGE, age + 1), 2);
-            } else if (pPos.getY() >= pLevel.getMinBuildHeight() && isFree(pLevel.getBlockState(pPos.below()))){
-                FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(pLevel, pPos, pLevel.getBlockState(pPos));
+                level.setBlock(pos, state.setValue(AGE, age + 1), 2);
+            } else if (pos.getY() >= level.getMinBuildHeight() && isFree(level.getBlockState(pos.below())) && !state.getValue(PERSISTENT)){
+                FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(level, pos, level.getBlockState(pos));
                 this.falling(fallingblockentity);
-                pLevel.removeBlock(pPos, false);
+                level.removeBlock(pos, false);
             }
         }
     }
 
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return SHAPE_BY_AGE[pState.getValue(AGE)];
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext pContext) {
+        return SHAPE_BY_AGE[state.getValue(AGE)];
     }
 
     @Override
@@ -94,28 +97,28 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     }
 
     @Override
-    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-        pLevel.setBlock(pPos, pState.setValue(AGE, pState.getValue(AGE) + 1), 2);
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        level.setBlock(pos, state.setValue(AGE, state.getValue(AGE) + 1), 2);
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(AGE);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(AGE, PERSISTENT);
     }
 
     @Override
-    public boolean isPathfindable(BlockState pState, PathComputationType pType) {
+    public boolean isPathfindable(BlockState state, PathComputationType pathtype) {
         return false;
     }
 
     @Override
     protected void falling(FallingBlockEntity pEntity) {
-        pEntity.setHurtsEntities(2.0F, 40);
+        pEntity.setHurtsEntities(1.0F, 20);
     }
 
     @Override
@@ -124,40 +127,45 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     }
 
     @Override
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
-        if (pRand.nextInt(16) == 0) {
-            if (pState.getValue(AGE) == 2) {
-                double x = (double)pPos.getX() + pRand.nextDouble();
-                double y = (double)pPos.getY() - 0.05D;
-                double z = (double)pPos.getZ() + pRand.nextDouble();
-                pLevel.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, pState), x, y, z, 0.0D, 0.0D, 0.0D);
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
+        if (rand.nextInt(16) == 0) {
+            if (state.getValue(AGE) == 2) {
+                double x = (double)pos.getX() + rand.nextDouble();
+                double y = (double)pos.getY() - 0.05D;
+                double z = (double)pos.getZ() + rand.nextDouble();
+                level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), x, y, z, 0.0D, 0.0D, 0.0D);
             }
         }
     }
 
     @Override
-    public int getDustColor(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    public int getDustColor(BlockState state, BlockGetter level, BlockPos pos) {
         return 3873032;
     }
 
     @Override
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRand) {
-        if ((pLevel.isEmptyBlock(pPos.above()) && pPos.getY() >= pLevel.getMinBuildHeight() && isFree(pLevel.getBlockState(pPos.below())))) {
-            FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(pLevel, pPos, pLevel.getBlockState(pPos));
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
+        if ((level.isEmptyBlock(pos.above()) && pos.getY() >= level.getMinBuildHeight() && isFree(level.getBlockState(pos.below())))) {
+            FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(level, pos, level.getBlockState(pos));
             this.falling(fallingblockentity);
-            pLevel.removeBlock(pPos, false);
+            level.removeBlock(pos, false);
         }
     }
 
     @Override
-    public void onBrokenAfterFall(Level pLevel, BlockPos pPos, FallingBlockEntity pFallingBlock) {
-        pLevel.playSound(null, pPos, ModSoundEvents.COCONUT_SMASH, SoundSource.BLOCKS, 0.7f, 0.9f + pLevel.getRandom().nextFloat() * 0.2f);
-        if (pLevel.random.nextFloat() <= ConfigPlatformHelper.coconutCrabSpawnChance()) {
-            CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.create(pLevel);
-            coconutCrab.setPos(pPos.getX(), pPos.getY(), pPos.getZ());
-            pLevel.addFreshEntity(coconutCrab);
+    public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
+        if ((level.getRandom().nextFloat() < 0.25F || level.getFluidState(pos).getType() == Fluids.FLOWING_WATER || level.getFluidState(pos).getType() == Fluids.WATER) && FallingBlock.isFree(level.getBlockState(pos))) {
+            boolean waterfilled = level.getBlockState(pos).getBlock() == Blocks.WATER;
+            level.setBlock(pos, ModBlocks.COCONUT.defaultBlockState().setValue(CoconutBlock.WATERLOGGED, waterfilled), UPDATE_ALL);
+            return;
+        }
+        level.playSound(null, pos, ModSoundEvents.COCONUT_SMASH, SoundSource.BLOCKS, 0.7f, 0.9f + level.getRandom().nextFloat() * 0.2f);
+        if (level.random.nextFloat() <= ConfigPlatformHelper.coconutCrabSpawnChance()) {
+            CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.create(level);
+            coconutCrab.setPos(pos.getX(), pos.getY(), pos.getZ());
+            level.addFreshEntity(coconutCrab);
         } else {
-            Block.dropResources(pFallingBlock.getBlockState(), pLevel, pPos);
+            Block.dropResources(fallingBlock.getBlockState(), level, pos);
         }
     }
 }

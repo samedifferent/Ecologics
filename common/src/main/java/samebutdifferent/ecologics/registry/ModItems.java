@@ -19,6 +19,7 @@ import oshi.util.tuples.Pair;
 import oshi.util.tuples.Triplet;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.ModBoat;
+import samebutdifferent.ecologics.item.CoconutBlockItem;
 import samebutdifferent.ecologics.item.CoconutSliceItem;
 import samebutdifferent.ecologics.item.ModBoatItem;
 import samebutdifferent.ecologics.item.SandcastleBlockItem;
@@ -54,6 +55,7 @@ public class ModItems
     
     // Miscellaneous
     public static final Item CRAB_CLAW = registerItem("crab_claw", new ShearsItem(new Item.Properties().durability(50)));
+    public static final Item COCONUT = registerItem("coconut", new CoconutBlockItem(ModBlocks.COCONUT, new Item.Properties()));
     public static final Item COCONUT_HUSK = registerItem("coconut_husk", new Item(new Item.Properties()));
     public static final Item PENGUIN_FEATHER = registerItem("penguin_feather", new Item(new Item.Properties()));
     public static final Item SANDCASTLE = registerItem("sandcastle", new SandcastleBlockItem());
@@ -84,6 +86,4 @@ public class ModItems
     public static final Item WALNUT_CHEST_BOAT = registerItem("walnut_chest_boat", new ModBoatItem(true, ModBoat.Type.WALNUT, new Item.Properties().stacksTo(1)));
     public static final Item AZALEA_CHEST_BOAT = registerItem("azalea_chest_boat", new ModBoatItem(true, ModBoat.Type.AZALEA, new Item.Properties().stacksTo(1)));
     public static final Item FLOWERING_AZALEA_CHEST_BOAT = registerItem("flowering_azalea_chest_boat", new ModBoatItem(true, ModBoat.Type.FLOWERING_AZALEA, new Item.Properties().stacksTo(1)));
-    
-
 }
