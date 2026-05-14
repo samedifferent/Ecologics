@@ -133,6 +133,10 @@ public class CommonPlatformHelperImpl {
         return WoodType.register(woodType);
     }
 
+    public static void registerFurnaceFuel(ItemLike item, int burnTime) {
+        // Not used as it's handled by events on Forge.
+    }
+    
     public static void registerCompostable(float chance, ItemLike item) {
         ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
     }

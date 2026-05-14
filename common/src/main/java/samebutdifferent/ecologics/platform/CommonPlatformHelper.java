@@ -144,6 +144,11 @@ public class CommonPlatformHelper {
     }
 
     @ExpectPlatform
+    public static void registerFurnaceFuel(ItemLike item, int burnTime) {
+        throw new AssertionError();
+    }
+    
+    @ExpectPlatform
     public static void registerCompostable(float chance, ItemLike item) {
         throw new AssertionError();
     }

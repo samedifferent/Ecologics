@@ -49,6 +49,7 @@ public class Ecologics {
     public static void commonSetup() {
         registerWoodTypes();
         registerBrewingRecipes();
+        registerFurnaceFuels();
         registerCompostables();
         registerStrippables();
         registerFlammables();
@@ -67,6 +68,10 @@ public class Ecologics {
         CommonPlatformHelper.registerBrewingRecipe(ModPotions.SLIDING.get(), Items.REDSTONE, ModPotions.LONG_SLIDING.get());
     }
 
+    public static void registerFurnaceFuels() {
+    	CommonPlatformHelper.registerFurnaceFuel(ModItems.COCONUT_HUSK.get(), 100);
+    }
+    
     public static void registerCompostables() {
         CommonPlatformHelper.registerCompostable(0.3F, ModItems.COCONUT_SLICE.get());
         CommonPlatformHelper.registerCompostable(0.65F, ModItems.COCONUT_HUSK.get());

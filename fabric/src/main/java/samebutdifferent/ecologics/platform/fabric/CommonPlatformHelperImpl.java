@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -130,6 +131,10 @@ public class CommonPlatformHelperImpl {
 
     public static WoodType registerWoodType(WoodType woodType) {
         return WoodTypeAccessor.invokeRegister(woodType);
+    }
+    
+    public static void registerFurnaceFuel(ItemLike item, int burnTime) {
+        FuelRegistry.INSTANCE.add(item, burnTime);
     }
 
     public static void registerCompostable(float chance, ItemLike item) {

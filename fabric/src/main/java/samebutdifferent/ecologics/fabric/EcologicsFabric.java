@@ -45,9 +45,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
@@ -257,13 +254,6 @@ public class EcologicsFabric implements ModInitializer {
                     (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DESERT),
                     GenerationStep.Decoration.VEGETAL_DECORATION,
                     getPlacedFeatureKey("prickly_pear")
-            );
-        }
-        if (config.desert.generateDesertRuins) {
-            BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DESERT),
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    getPlacedFeatureKey("desert_ruin")
             );
         }
     }

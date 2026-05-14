@@ -23,9 +23,11 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -81,7 +83,6 @@ public class EcologicsForge {
         bus.addListener(this::registerCreativeTabs);
         bus.addListener(this::setup);
         bus.addListener(this::assignItemsToTab);
-
     }
 
     public void registerEntityAttributes(EntityAttributeCreationEvent event) {
@@ -100,6 +101,13 @@ public class EcologicsForge {
     	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
     		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG.get()); }).build());
     	});
+    }
+    
+    @SubscribeEvent
+    public static void registerFurnaceFuels(FurnaceFuelBurnTimeEvent event) {
+    	if (event.getItemStack().getItem() == ModItems.COCONUT_HUSK.get()) {
+    		event.setBurnTime(100);
+    	}
     }
 
     private void assignItemsToTab(BuildCreativeModeTabContentsEvent event) {
@@ -179,7 +187,7 @@ public class EcologicsForge {
 	        event.accept(ModBlocks.COCONUT_SEEDLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.WALNUT_SAPLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	
-	        event.accept(ModBlocks.COCONUT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+	        event.accept(ModItems.COCONUT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.SEASHELL.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.SEASHELL_BLOCK.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 	        event.accept(ModBlocks.SEASHELL_TILES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
