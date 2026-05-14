@@ -3,12 +3,14 @@ package samebutdifferent.ecologics.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -16,12 +18,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.block.grower.ModAzaleaTreeGrower;
 
-public class AzaleaFlowerBlock extends BushBlock implements BonemealableBlock {
+public class AzaleaFlowerBlock extends FlowerBlock implements BonemealableBlock {
     private static final ModAzaleaTreeGrower TREE_GROWER = new ModAzaleaTreeGrower();
     protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
 
     public AzaleaFlowerBlock() {
-        super(Properties.of().instabreak().noCollission().sound(SoundType.GRASS).offsetType(OffsetType.XZ));
+        super(MobEffects.CONFUSION, 15, Properties.of().instabreak().noCollission().sound(SoundType.GRASS).offsetType(OffsetType.XZ));
     }
 
     @Override
