@@ -8,7 +8,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
@@ -53,11 +52,10 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootTable;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModStructurePieces;
 import samebutdifferent.ecologics.worldgen.structure.DesertRuinStructure;
-import net.minecraft.world.level.levelgen.structure.structures.OceanRuinPieces;
+import samebutdifferent.ecologics.worldgen.structure.structures.DesertRuinPieces.DesertRuinPiece;
 
 public class DesertRuinPieces {
 
@@ -73,7 +71,7 @@ public class DesertRuinPieces {
     }
     
     public static void addPieces(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePieceAccessor structurePieceAccessor, RandomSource random, DesertRuinStructure structure) {
-        DesertRuinPieces.addPiece(structureTemplateManager, pos, rotation, structurePieceAccessor, random, structure, 0.9F);
+        DesertRuinPieces.addPiece(structureTemplateManager, pos, rotation, structurePieceAccessor, random, structure, 0.95F);
         if (random.nextFloat() <= 0.4F) {
             DesertRuinPieces.addClusterRuins(structureTemplateManager, random, rotation, pos, structure, structurePieceAccessor);
         }
@@ -146,8 +144,7 @@ public class DesertRuinPieces {
             tag.putFloat("Integrity", this.integrity);
         }
 
-        @SuppressWarnings("deprecation")
-		@Override
+        @Override
         protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box) {
             Husk husk;
             if ("chest".equals(name)) {
@@ -156,7 +153,7 @@ public class DesertRuinPieces {
                 if (blockEntity instanceof ChestBlockEntity) {
                     ((ChestBlockEntity)blockEntity).setLootTable(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_COMMON, random.nextLong());
                 }
-            } else if ("drowned".equals(name) && (husk = EntityType.HUSK.create(level.getLevel())) != null) {
+            } else if ("husk".equals(name) && (husk = EntityType.HUSK.create(level.getLevel())) != null) {
             	husk.setPersistenceRequired();
             	husk.moveTo(pos, 0.0f, 0.0f);
             	husk.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), MobSpawnType.STRUCTURE, null, null);
@@ -190,7 +187,7 @@ public class DesertRuinPieces {
                 BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(m, o, n);
                 BlockState blockState = level.getBlockState(mutableBlockPos);
                 FluidState fluidState = level.getFluidState(mutableBlockPos);
-                while ((blockState.isAir()) && o > level.getMinBuildHeight() + 1) {
+                while ((blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && o > level.getMinBuildHeight() + 1) {
                     mutableBlockPos.set(m, --o, n);
                     blockState = level.getBlockState(mutableBlockPos);
                     fluidState = level.getFluidState(mutableBlockPos);
@@ -203,6 +200,7 @@ public class DesertRuinPieces {
             if (k - j > 2 && l > p - 2) {
                 i = j + 1;
             }
+            i--;
             return i;
         }
 		
