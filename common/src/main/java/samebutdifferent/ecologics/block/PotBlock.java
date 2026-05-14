@@ -1,5 +1,7 @@
 package samebutdifferent.ecologics.block;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -20,29 +22,32 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 
-public class PotBlock extends BaseEntityBlock {
+public class PotBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     protected static final VoxelShape SHAPE = Shapes.or(Block.box(3, 13, 3, 13, 15, 13), Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12));
     public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 5);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public PotBlock(Properties properties) {
         super(properties.pushReaction(PushReaction.DESTROY));
-        this.stateDefinition.any().setValue(CHISEL, 0).setValue(POWERED, false);
+        this.stateDefinition.any().setValue(CHISEL, 0).setValue(POWERED, false).setValue(WATERLOGGED, false);
     }
 
     @Override
@@ -67,7 +72,7 @@ public class PotBlock extends BaseEntityBlock {
             ItemStack itemstack = pPlayer.getItemInHand(pHand);
             if (!itemstack.isEmpty()) {
                 if (!pLevel.isClientSide && potBlockEntity.addItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack)) {
-                    pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_PLACE, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F);
+                    pLevel.playSound(null, pPos, SoundEvents.DECORATED_POT_PLACE, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F);
                     return InteractionResult.SUCCESS;
                 }
                 return InteractionResult.CONSUME;
@@ -98,7 +103,9 @@ public class PotBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return super.getStateForPlacement(pContext).setValue(POWERED, false);
+        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
+        boolean flag = fluidstate.getType() == Fluids.WATER;
+        return super.getStateForPlacement(pContext).setValue(POWERED, false).setValue(WATERLOGGED, flag);
     }
 
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
@@ -153,6 +160,11 @@ public class PotBlock extends BaseEntityBlock {
         return false;
     }
 
+    @Override
+    public FluidState getFluidState(BlockState pState) {
+        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+    }
+    
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
@@ -166,6 +178,6 @@ public class PotBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(CHISEL, POWERED);
+        pBuilder.add(CHISEL, POWERED, WATERLOGGED);
     }
 }
