@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "flowering_azalea_log",
+  "ingredients": [
+    {
+      "item": "ecologics:azalea_log"
+    },
+    {
+      "item": "ecologics:azalea_flower"
+    }
+  ],
+  "result": {
+    "item": "ecologics:flowering_azalea_log"
+  }
+}
