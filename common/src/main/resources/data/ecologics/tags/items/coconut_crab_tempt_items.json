@@ -1,0 +1,10 @@
+{
+  "values": [
+    {"id": "#c:foods/fruit", "required": false},
+    {"id": "#c:foods/nut", "required": false},
+    {"id": "#forge:foods/fruit", "required": false},
+    {"id": "#forge:foods/nut", "required": false},
+    "ecologics:coconut_slice",
+    "ecologics:crab_meat"
+  ]
+}
