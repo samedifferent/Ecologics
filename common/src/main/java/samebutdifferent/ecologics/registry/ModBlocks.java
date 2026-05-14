@@ -36,7 +36,7 @@ public class ModBlocks {
     public static final Supplier<ModCeilingHangingSignBlock> COCONUT_HANGING_SIGN = CommonPlatformHelper.registerBlock("coconut_hanging_sign", () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.COCONUT));
     public static final Supplier<ModWallHangingSignBlock> COCONUT_WALL_HANGING_SIGN = CommonPlatformHelper.registerBlock("coconut_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(COCONUT_HANGING_SIGN.get()), ModWoodType.COCONUT));
     public static final Supplier<HangingCoconutBlock> HANGING_COCONUT = CommonPlatformHelper.registerBlock("hanging_coconut", HangingCoconutBlock::new);
-    public static final Supplier<CoconutBlock> COCONUT = registerBlock("coconut", CoconutBlock::new);
+    public static final Supplier<CoconutBlock> COCONUT = CommonPlatformHelper.registerBlock("coconut", CoconutBlock::new);
     public static final Supplier<SaplingBlock> COCONUT_SEEDLING = registerBlock("coconut_seedling", CoconutSaplingBlock::new);
     public static final Supplier<FlowerPotBlock> POTTED_COCONUT_SEEDLING = CommonPlatformHelper.registerBlock("potted_coconut_seedling", () -> new FlowerPotBlock(ModBlocks.COCONUT_SEEDLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion()));
     public static final Supplier<SeashellBlock> SEASHELL = registerBlock("seashell", SeashellBlock::new);

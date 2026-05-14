@@ -4,6 +4,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import samebutdifferent.ecologics.entity.ModBoat;
+import samebutdifferent.ecologics.item.CoconutBlockItem;
 import samebutdifferent.ecologics.item.CoconutSliceItem;
 import samebutdifferent.ecologics.item.ModBoatItem;
 import samebutdifferent.ecologics.item.PricklyPearItem;
@@ -28,6 +29,7 @@ public class ModItems {
     public static final Supplier<RecordItem> MUSIC_DISC_COCONUT = CommonPlatformHelper.registerRecordItem("music_disc_coconut", 10, ModSoundEvents.MUSIC_DISC_COCONUT, new Item.Properties().stacksTo(1).rarity(Rarity.RARE));
     public static final Supplier<Item> COCONUT_SIGN = CommonPlatformHelper.registerItem("coconut_sign", () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.COCONUT_SIGN.get(), ModBlocks.COCONUT_WALL_SIGN.get()));
     public static final Supplier<Item> COCONUT_HANGING_SIGN = CommonPlatformHelper.registerItem("coconut_hanging_sign", () -> new HangingSignItem(ModBlocks.COCONUT_HANGING_SIGN.get(), ModBlocks.COCONUT_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final Supplier<Item> COCONUT = CommonPlatformHelper.registerItem("coconut", () -> new CoconutBlockItem(ModBlocks.COCONUT.get(), new Item.Properties()));
     public static final Supplier<Item> PRICKLY_PEAR = CommonPlatformHelper.registerItem("prickly_pear", PricklyPearItem::new);
     public static final Supplier<Item> COOKED_PRICKLY_PEAR = CommonPlatformHelper.registerItem("cooked_prickly_pear", () -> new Item(new Item.Properties().food(Foods.APPLE)));
     public static final Supplier<Item> PENGUIN_FEATHER = CommonPlatformHelper.registerItem("penguin_feather", () -> new Item(new Item.Properties()));

@@ -2,19 +2,58 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "ecologics:coconut"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "tag": "minecraft:axes"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:match_tool",
+                    "predicate": {
+                      "enchantments": [
+                        {
+                          "enchantment": "minecraft:silk_touch",
+                          "levels": {
+                            "min": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": 2.0,
+                  "function": "minecraft:set_count"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
+                }
+              ],
+              "name": "ecologics:coconut_slice"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "ecologics:coconut"
+            }
+          ]
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "ecologics:blocks/coconut"
 }
