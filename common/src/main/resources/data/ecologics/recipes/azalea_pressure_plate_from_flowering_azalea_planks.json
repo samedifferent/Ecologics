@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_pressure_plate",
+  "key": {
+    "#": {
+      "item": "ecologics:flowering_azalea_planks"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "item": "ecologics:azalea_pressure_plate"
+  }
+}
