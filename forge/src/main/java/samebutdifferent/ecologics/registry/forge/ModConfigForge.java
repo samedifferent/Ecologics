@@ -35,7 +35,7 @@ public class ModConfigForge {
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Lush Caves Update").push(CATEGORY_LUSH_CAVES);
-        REPLACE_AZALEA_TREE = COMMON_BUILDER.comment("Vanilla Azalea trees will have azalea logs instead of oak logs").define("replaceAzaleaTree", true);
+        REPLACE_AZALEA_TREE = COMMON_BUILDER.comment("Vanilla Azalea trees will have azalea logs instead of oak logs when grown. Note that you will still need to override add_rooted_azalea_tree.json and remove_rooted_azalea_tree.json within data/ecologics/forge/biome_modifier to change the naturally generated trees.").define("replaceAzaleaTree", true);
         COMMON_BUILDER.pop();
 
         COMMON_CONFIG = COMMON_BUILDER.build();
