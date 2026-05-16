@@ -36,6 +36,7 @@ import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -49,6 +50,7 @@ import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.fabric.ModConfigFabric;
@@ -73,118 +75,13 @@ public class EcologicsFabric implements ModInitializer {
 
     private void registerCreativeTab() {
     	Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB.location(), FabricItemGroup.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG.get()); } ).build());
+    	ModCreativeModeTabContents.populateTabDatabase();
     }
     
     private static void assignItemsToTab(FabricItemGroupEntries entries) {
-        entries.accept(ModBlocks.COCONUT_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.STRIPPED_COCONUT_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.STRIPPED_COCONUT_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_PLANKS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_STAIRS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_SLAB.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_FENCE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_FENCE_GATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_DOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_TRAPDOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_BUTTON.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_PRESSURE_PLATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-            
-        entries.accept(ModBlocks.WALNUT_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.STRIPPED_WALNUT_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.STRIPPED_WALNUT_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_PLANKS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_STAIRS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_SLAB.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_FENCE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_FENCE_GATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_DOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_TRAPDOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_BUTTON.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_PRESSURE_PLATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-            
-        entries.accept(ModBlocks.AZALEA_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.STRIPPED_AZALEA_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.STRIPPED_AZALEA_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_PLANKS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_STAIRS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_SLAB.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_FENCE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_FENCE_GATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_DOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_TRAPDOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_BUTTON.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.AZALEA_PRESSURE_PLATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-
-        entries.accept(ModBlocks.FLOWERING_AZALEA_LOG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.FLOWERING_AZALEA_WOOD.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.FLOWERING_AZALEA_PLANKS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.FLOWERING_AZALEA_STAIRS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.FLOWERING_AZALEA_SLAB.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.FLOWERING_AZALEA_FENCE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.FLOWERING_AZALEA_FENCE_GATE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.FLOWERING_AZALEA_DOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.FLOWERING_AZALEA_TRAPDOOR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-            
-        entries.accept(ModItems.COCONUT_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.COCONUT_HANGING_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.WALNUT_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.WALNUT_HANGING_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.AZALEA_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.AZALEA_HANGING_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.FLOWERING_AZALEA_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.FLOWERING_AZALEA_HANGING_SIGN.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-            
-        entries.accept(ModItems.COCONUT_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.COCONUT_CHEST_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.WALNUT_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.WALNUT_CHEST_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.AZALEA_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.AZALEA_CHEST_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.FLOWERING_AZALEA_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.FLOWERING_AZALEA_CHEST_BOAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-            
-        entries.accept(ModBlocks.COCONUT_LEAVES.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_LEAVES.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.COCONUT_SEEDLING.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.WALNUT_SAPLING.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-            
-        entries.accept(ModBlocks.COCONUT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SEASHELL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SEASHELL_BLOCK.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SEASHELL_TILES.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SEASHELL_TILE_STAIRS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SEASHELL_TILE_SLAB.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SEASHELL_TILE_WALL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.POT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.THIN_ICE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.ICE_BRICKS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.ICE_BRICK_STAIRS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.ICE_BRICK_SLAB.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.ICE_BRICK_WALL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SNOW_BRICKS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SNOW_BRICK_STAIRS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SNOW_BRICK_SLAB.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SNOW_BRICK_WALL.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-
-        entries.accept(ModBlocks.AZALEA_FLOWER.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModBlocks.SURFACE_MOSS.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.COCONUT_SLICE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.COCONUT_HUSK.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.CRAB_CLAW.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.CRAB_MEAT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.TROPICAL_STEW.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.COCONUT_CRAB_SPAWN_EGG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.PENGUIN_SPAWN_EGG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.SQUIRREL_SPAWN_EGG.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.SANDCASTLE.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.MUSIC_DISC_COCONUT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.PRICKLY_PEAR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.COOKED_PRICKLY_PEAR.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.PENGUIN_FEATHER.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ModItems.WALNUT.get(), TabVisibility.PARENT_AND_SEARCH_TABS);
+        for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
+        	entries.accept(entry.asItem().getDefaultInstance(), TabVisibility.PARENT_AND_SEARCH_TABS);
+        }
     }
     
     public void registerEntityAttributes() {

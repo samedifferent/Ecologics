@@ -1,5 +1,8 @@
 package samebutdifferent.ecologics.forge;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -14,16 +17,17 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -44,14 +48,10 @@ import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.platform.forge.CommonPlatformHelperImpl;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModItems;
-import samebutdifferent.ecologics.registry.ModStructurePieces;
-import samebutdifferent.ecologics.registry.ModStructures;
 import samebutdifferent.ecologics.registry.forge.ModConfigForge;
 import samebutdifferent.ecologics.registry.forge.ModGlobalLootModifiers;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Mod(Ecologics.MOD_ID)
 @Mod.EventBusSubscriber(modid = Ecologics.MOD_ID)
@@ -100,6 +100,7 @@ public class EcologicsForge {
     private void registerCreativeTabs(RegisterEvent event) {
     	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
     		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG.get()); }).build());
+    		ModCreativeModeTabContents.populateTabDatabase();
     	});
     }
     
@@ -112,117 +113,10 @@ public class EcologicsForge {
 
     private void assignItemsToTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == TAB) {
-	        event.accept(ModBlocks.COCONUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_COCONUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_COCONUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_PLANKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_FENCE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_FENCE_GATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_DOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_TRAPDOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_BUTTON.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_PRESSURE_PLATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModBlocks.WALNUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_WALNUT_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_WALNUT_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_PLANKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_FENCE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_FENCE_GATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_DOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_TRAPDOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_BUTTON.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_PRESSURE_PLATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModBlocks.AZALEA_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_AZALEA_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.STRIPPED_AZALEA_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_PLANKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_FENCE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_FENCE_GATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_DOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_TRAPDOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_BUTTON.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.AZALEA_PRESSURE_PLATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModBlocks.FLOWERING_AZALEA_LOG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_WOOD.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_PLANKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_FENCE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_FENCE_GATE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_DOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.FLOWERING_AZALEA_TRAPDOOR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModItems.COCONUT_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.COCONUT_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.WALNUT_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.WALNUT_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.AZALEA_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.AZALEA_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.FLOWERING_AZALEA_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.FLOWERING_AZALEA_HANGING_SIGN.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-
-	        event.accept(ModItems.COCONUT_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.COCONUT_CHEST_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.WALNUT_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.WALNUT_CHEST_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.AZALEA_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.AZALEA_CHEST_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.FLOWERING_AZALEA_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.FLOWERING_AZALEA_CHEST_BOAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModBlocks.COCONUT_LEAVES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_LEAVES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.COCONUT_SEEDLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.WALNUT_SAPLING.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModItems.COCONUT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SEASHELL.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SEASHELL_BLOCK.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SEASHELL_TILES.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SEASHELL_TILE_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SEASHELL_TILE_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SEASHELL_TILE_WALL.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.POT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.THIN_ICE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.ICE_BRICKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.ICE_BRICK_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.ICE_BRICK_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.ICE_BRICK_WALL.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SNOW_BRICKS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SNOW_BRICK_STAIRS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SNOW_BRICK_SLAB.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SNOW_BRICK_WALL.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	
-	        event.accept(ModBlocks.AZALEA_FLOWER.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModBlocks.SURFACE_MOSS.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.COCONUT_SLICE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.COCONUT_HUSK.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.CRAB_CLAW.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.CRAB_MEAT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.TROPICAL_STEW.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.COCONUT_CRAB_SPAWN_EGG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.PENGUIN_SPAWN_EGG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.SQUIRREL_SPAWN_EGG.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.SANDCASTLE.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.MUSIC_DISC_COCONUT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.PRICKLY_PEAR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.COOKED_PRICKLY_PEAR.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.PENGUIN_FEATHER.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-	        event.accept(ModItems.WALNUT.get(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+	        for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
+	        	event.accept(entry.asItem().getDefaultInstance(), TabVisibility.PARENT_AND_SEARCH_TABS);
+	        }
         }
-
     }
 
     @SubscribeEvent
