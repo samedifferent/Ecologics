@@ -101,7 +101,7 @@ public class ModBlocks {
     public static final Supplier<PressurePlateBlock> AZALEA_PRESSURE_PLATE = registerBlock("azalea_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), BlockSetType.OAK));
     public static final Supplier<AzaleaFlowerBlock> AZALEA_FLOWER = registerBlock("azalea_flower", AzaleaFlowerBlock::new);
     public static final Supplier<SurfaceMossBlock> SURFACE_MOSS = registerBlock("surface_moss", SurfaceMossBlock::new);
-    public static final Supplier<MossLayerBlock> MOSS_LAYER = CommonPlatformHelper.registerBlock("moss_layer", MossLayerBlock::new);
+    public static final Supplier<MossLayerBlock> MOSS_LAYER = registerBlock("moss_layer", MossLayerBlock::new);
     public static final Supplier<FlowerPotBlock> POTTED_AZALEA_FLOWER = CommonPlatformHelper.registerBlock("potted_azalea_flower", () -> new FlowerPotBlock(ModBlocks.AZALEA_FLOWER.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion()));
     public static final Supplier<ModStandingSignBlock> AZALEA_SIGN = CommonPlatformHelper.registerBlock("azalea_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD), ModWoodType.AZALEA));
     public static final Supplier<ModWallSignBlock> AZALEA_WALL_SIGN = CommonPlatformHelper.registerBlock("azalea_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(AZALEA_SIGN.get()), ModWoodType.AZALEA));
