@@ -104,6 +104,7 @@ public class ModCreativeModeTabContents
 
         addToList(ModBlocks.AZALEA_FLOWER);
         addToList(ModBlocks.SURFACE_MOSS);
+        addToList(ModBlocks.MOSS_LAYER);
         addToList(ModItems.COCONUT_SLICE);
         addToList(ModItems.COCONUT_HUSK);
         addToList(ModItems.CRAB_CLAW);
