@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "#": {
       "item": "ecologics:surface_moss"
@@ -11,6 +12,7 @@
     "###"
   ],
   "result": {
+    "count": 1, 
     "id": "minecraft:moss_block"
   }
 }

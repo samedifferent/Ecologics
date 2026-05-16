@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "ecologics:coconut_slice"
@@ -9,6 +10,7 @@
     }
   ],
   "result": {
+    "count": 1, 
     "id": "ecologics:tropical_stew"
   }
 }

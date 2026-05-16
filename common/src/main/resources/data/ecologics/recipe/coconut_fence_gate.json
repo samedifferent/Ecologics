@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "group": "wooden_fence_gate",
   "key": {
     "#": {
@@ -14,6 +15,7 @@
     "#W#"
   ],
   "result": {
+    "count": 1, 
     "id": "ecologics:coconut_fence_gate"
   }
 }

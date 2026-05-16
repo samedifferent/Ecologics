@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "ecologics:coconut_husk"
@@ -24,6 +25,7 @@
     }
   ],
   "result": {
+    "count": 1, 
     "id": "minecraft:beetroot_soup"
   }
 }

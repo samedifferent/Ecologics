@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "ecologics:seashell_tiles"
   },
-  "result": { 
+  "result": {
     "count": 1,
     "id": "ecologics:seashell_tile_wall"
   }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "group": "chest_boat",
   "ingredients": [
     {
@@ -10,6 +11,7 @@
     }
   ],
   "result": {
+    "count": 1, 
     "id": "ecologics:flowering_azalea_chest_boat"
   }
 }

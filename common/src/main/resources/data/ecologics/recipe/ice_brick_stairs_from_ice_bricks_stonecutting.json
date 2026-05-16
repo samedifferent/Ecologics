@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "ecologics:ice_bricks"
   },
-  "result": { 
+  "result": {
     "count": 1,
     "id": "ecologics:ice_brick_stairs"
   }

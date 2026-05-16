@@ -1,8 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
-      "item": "minecraft:terracotta"
+      "tag": "minecraft:terracotta"
     },
     "$": {
       "item": "minecraft:brick"
@@ -14,6 +15,7 @@
     "#$#"
   ],
   "result": {
+    "count": 1, 
     "id": "ecologics:pot"
   }
 }

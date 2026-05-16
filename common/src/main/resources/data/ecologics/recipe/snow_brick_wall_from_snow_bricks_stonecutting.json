@@ -3,8 +3,8 @@
   "ingredient": {
     "item": "ecologics:snow_bricks"
   },
-  "result": { 
+  "result": {
     "count": 1,
-    "id": "ecologics:snow_brick_wall"
+    "id": "ecologics:seashell_tile_wall"
   }
 }

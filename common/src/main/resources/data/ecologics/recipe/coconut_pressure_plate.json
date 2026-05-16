@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
     "#": {
@@ -10,6 +11,7 @@
     "##"
   ],
   "result": {
+    "count": 1, 
     "id": "ecologics:coconut_pressure_plate"
   }
 }

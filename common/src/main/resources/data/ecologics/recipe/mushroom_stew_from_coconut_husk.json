@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "minecraft:brown_mushroom"
@@ -12,6 +13,7 @@
     }
   ],
   "result": {
+    "count": 1, 
     "id": "minecraft:mushroom_stew"
   }
 }

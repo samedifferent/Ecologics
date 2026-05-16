@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "A": {
       "item": "minecraft:sand"
@@ -17,6 +18,7 @@
     "AAA"
   ],
   "result": {
+    "count": 1, 
     "id": "ecologics:sandcastle"
   }
 }
