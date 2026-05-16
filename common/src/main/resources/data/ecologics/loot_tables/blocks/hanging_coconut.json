@@ -14,32 +14,41 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch",
-                        "levels": {
-                          "min": 1
+                    "tag": "minecraft:axes"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:match_tool",
+                    "predicate": {
+                      "enchantments": [
+                        {
+                          "enchantment": "minecraft:silk_touch",
+                          "levels": {
+                            "min": 1
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
                 }
               ],
-              "name": "ecologics:coconut"
-            },
-            {
-              "type": "minecraft:item",
               "functions": [
                 {
-                  "function": "minecraft:set_count",
+                  "add": false,
                   "count": 2.0,
-                  "add": false
+                  "function": "minecraft:set_count"
                 },
                 {
                   "function": "minecraft:explosion_decay"
                 }
               ],
               "name": "ecologics:coconut_slice"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "ecologics:coconut"
             }
           ]
         }
