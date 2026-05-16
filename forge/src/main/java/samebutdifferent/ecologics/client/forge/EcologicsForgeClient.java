@@ -11,11 +11,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import samebutdifferent.ecologics.Ecologics;
@@ -38,6 +40,12 @@ public class EcologicsForgeClient {
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         event.getBlockColors().register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ? BiomeColors.getAverageFoliageColor(pLevel, pPos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES.get());
+        if (ModList.get().isLoaded("biomemoss")) {
+            event.getBlockColors().register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.getDefaultColor(), ModBlocks.MOSS_LAYER.get(), ModBlocks.SURFACE_MOSS.get());  	
+        }
+        else {
+            event.getBlockColors().register((state, level, pos, tintIndex) -> 0x70922D, ModBlocks.SURFACE_MOSS.get()); 	        	
+        }
     }
 
     @SubscribeEvent
@@ -46,6 +54,9 @@ public class EcologicsForgeClient {
             BlockState blockstate = ((BlockItem)pStack.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, null, null, pTintIndex);
         }, ModBlocks.COCONUT_LEAVES.get());
+        if (ModList.get().isLoaded("biomemoss")) {
+        	event.getItemColors().register((pStack, pTintIndex) -> GrassColor.get(0.8D, 0.4D), ModBlocks.MOSS_LAYER.get());
+        }
     }
 
     @SubscribeEvent
