@@ -155,6 +155,13 @@ public class EcologicsFabric implements ModInitializer {
                     getPlacedFeatureKey("prickly_pear")
             );
         }
+        if (config.nether.generateNetherGoldOreVeins) {
+            BiomeModifications.addFeature(
+                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.NETHER_WASTES),
+                    GenerationStep.Decoration.UNDERGROUND_ORES,
+                    getPlacedFeatureKey("ore_vein_nether_gold")
+            );
+        }
     }
 
     public void replaceFeatures() {
