@@ -6,7 +6,7 @@
   "mixins": [
     "BlockEntityTypeMixin",
     "CactusBlockMixin",
-    "LootContextBuilderMixin",
+    "MatchToolMixin",
     "PotionBrewingAccessor",
     "SheepMixin",
     "SpawnPlacementsAccessor",

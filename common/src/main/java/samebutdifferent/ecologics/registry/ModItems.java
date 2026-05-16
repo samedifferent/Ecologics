@@ -3,6 +3,7 @@ package samebutdifferent.ecologics.registry;
 import java.util.ArrayList;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
@@ -54,7 +55,7 @@ public class ModItems
     public static final Item WALNUT = registerItem("walnut", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.0F).fast().build())));
     
     // Miscellaneous
-    public static final Item CRAB_CLAW = registerItem("crab_claw", new ShearsItem(new Item.Properties().durability(50)));
+    public static final Item CRAB_CLAW = registerItem("crab_claw", new ShearsItem(new Item.Properties().durability(50).component(DataComponents.TOOL, ShearsItem.createToolProperties())));
     public static final Item COCONUT = registerItem("coconut", new CoconutBlockItem(ModBlocks.COCONUT, new Item.Properties()));
     public static final Item COCONUT_HUSK = registerItem("coconut_husk", new Item(new Item.Properties()));
     public static final Item PENGUIN_FEATHER = registerItem("penguin_feather", new Item(new Item.Properties()));
