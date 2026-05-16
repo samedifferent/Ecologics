@@ -7,11 +7,14 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.LoadingModList;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import samebutdifferent.ecologics.Ecologics;
@@ -35,15 +38,25 @@ public class EcologicsNeoForgeClient {
 
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
-        event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ? BiomeColors.getAverageFoliageColor(pLevel, pPos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
+        event.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
+        if (ModList.get().isLoaded("biomemoss")) {
+            event.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.getDefaultColor(), ModBlocks.MOSS_LAYER, ModBlocks.SURFACE_MOSS);
+        }
+        else {
+            event.register((state, level, pos, tintIndex) -> 0x70922D, ModBlocks.SURFACE_MOSS);        	
+        }
     }
 
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        event.register((pStack, pTintIndex) -> {
+        event.register((pStack, tintIndex) -> {
             BlockState blockstate = ((BlockItem)pStack.getItem()).getBlock().defaultBlockState();
-            return event.getBlockColors().getColor(blockstate, null, null, pTintIndex);
+            return event.getBlockColors().getColor(blockstate, null, null, tintIndex);
         }, ModBlocks.COCONUT_LEAVES);
+        if (ModList.get().isLoaded("biomemoss")) {
+            event.register((pStack, tintIndex) -> GrassColor.get(0.8D, 0.4D), ModBlocks.MOSS_LAYER);
+        }
+
     }
 
     @SubscribeEvent

@@ -3,12 +3,14 @@ package samebutdifferent.ecologics.client.fabric;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.GrassColor;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.client.EcologicsClient;
 import samebutdifferent.ecologics.client.model.CamelModel;
@@ -36,7 +38,12 @@ public class EcologicsFabricClient implements ClientModInitializer {
 
         ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.COCONUT_LEAVES);
-        // BlockEntityRenderers.register(ModBlockEntityTypes.SIGN, SignRenderer::new);
-        // BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
+        if (FabricLoader.getInstance().isModLoaded("biomemoss")) {
+            ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.getDefaultColor(), ModBlocks.MOSS_LAYER, ModBlocks.SURFACE_MOSS);
+            ColorProviderRegistry.ITEM.register((stack, tintIndex) -> GrassColor.get(0.8D, 0.4D), ModBlocks.MOSS_LAYER);
+        }
+        else {
+        	ColorProviderRegistry.BLOCK.register((state, level, pos, tintIndex) -> 0x70922D, ModBlocks.SURFACE_MOSS);        	
+        }
     }
 }
