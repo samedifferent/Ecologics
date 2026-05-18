@@ -2,27 +2,24 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'fabric-loom' version '1.13-SNAPSHOT' apply false
-    id 'net.neoforged.moddev' version '2.0.123' apply false
+    id 'net.neoforged.moddev' version '2.0.141' apply false
     id 'org.spongepowered.gradle.vanilla' version '0.2.+' apply false
-    id "io.github.pacifistmc.forgix" version "2.+"
 }
 
 base {
     archivesName = "${mod_id}-${minecraft_version}"
 }
 
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
-    withSourcesJar()
-    withJavadocJar()
-}
-
-forgix {
-    // Currently doesn't work right.
-    autoRun = false
-    destinationDirectory = layout.projectDirectory.dir("build/forgix")
-    archiveClassifier = "NeoFab"
-    archiveVersion = rootProject.version
+allprojects {
+    java {
+        toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+        withSourcesJar()
+        withJavadocJar()
+    }
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        options.release = 21
+    }
 }
 
 repositories {
