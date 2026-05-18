@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Function;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -67,7 +68,7 @@ public class ModItems
     public static final Item WALNUT = registerItem("walnut", Item::new, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.0F).build(), Consumable.builder().consumeSeconds(1.6F).animation(ItemUseAnimation.EAT).sound(SoundEvents.GENERIC_EAT).hasConsumeParticles(true).build()));
     
     // Miscellaneous
-    public static final Item CRAB_CLAW = registerItem("crab_claw", ShearsItem::new, new Item.Properties().durability(50));
+    public static final Item CRAB_CLAW = registerItem("crab_claw", ShearsItem::new, new Item.Properties().durability(50).component(DataComponents.TOOL, ShearsItem.createToolProperties()));
     public static final Item COCONUT_HUSK = registerItem("coconut_husk", Item::new, new Item.Properties());
     public static final Item PENGUIN_FEATHER = registerItem("penguin_feather", Item::new, new Item.Properties());
     public static final Item SANDCASTLE = registerItem("sandcastle", SandcastleBlockItem::new, new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
@@ -98,6 +99,5 @@ public class ModItems
     public static final Item WALNUT_CHEST_BOAT = registerItem("walnut_chest_boat", properties -> new BoatItem(ModEntityTypes.WALNUT_CHEST_BOAT, properties), new Item.Properties().stacksTo(1));
     public static final Item AZALEA_CHEST_BOAT = registerItem("azalea_chest_boat", properties -> new BoatItem(ModEntityTypes.AZALEA_CHEST_BOAT, properties), new Item.Properties().stacksTo(1));
     public static final Item FLOWERING_AZALEA_CHEST_BOAT = registerItem("flowering_azalea_chest_boat", properties -> new BoatItem(ModEntityTypes.FLOWERING_AZALEA_CHEST_BOAT, properties), new Item.Properties().stacksTo(1));
-    
 
 }
