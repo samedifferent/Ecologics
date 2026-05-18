@@ -98,6 +98,7 @@ public class EcologicsNeoForge
 
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+        	ModConfigNeoForge.updateConfig();
             Ecologics.commonSetup();
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);

@@ -33,7 +33,7 @@ public class ModConfigNeoForge
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Lush Caves Update").push(CATEGORY_LUSH_CAVES);
-        REPLACE_AZALEA_TREE = COMMON_BUILDER.comment("Vanilla Azalea trees will have azalea logs instead of oak logs").define("replaceAzaleaTree", true);
+        REPLACE_AZALEA_TREE = COMMON_BUILDER.comment("Vanilla Azalea trees will have azalea logs instead of oak logs. Note that this currently only applies to bonemealed trees. You'll need to override the JSON files for naturally generated Azalea.").define("replaceAzaleaTree", true);
         COMMON_BUILDER.pop();
         
         COMMON_BUILDER.comment("Plains").push(CATEGORY_PLAINS);
@@ -53,7 +53,7 @@ public class ModConfigNeoForge
     	updateConfig();
     }
     
-    private static void updateConfig() {
+    public static void updateConfig() {
     	ConfigCommon.setCoconutCrabSpawnChance(ModConfigNeoForge.COCONUT_CRAB_SPAWN_CHANCE.get());
     	ConfigCommon.setPricklyPearGrowthChance(ModConfigNeoForge.PRICKLY_PEAR_GROWTH_CHANCE.get());
     	ConfigCommon.setReplaceAzaleaTree(ModConfigNeoForge.REPLACE_AZALEA_TREE.get());
