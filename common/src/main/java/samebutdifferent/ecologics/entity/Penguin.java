@@ -35,6 +35,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.BreathAirGoal;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -96,6 +97,7 @@ public class Penguin extends Animal {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
+        this.goalSelector.addGoal(1, new BreathAirGoal(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, itemstack -> itemstack.is(ModTags.ItemTags.PENGUIN_FOOD), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
