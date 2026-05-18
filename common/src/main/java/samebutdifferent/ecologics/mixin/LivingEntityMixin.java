@@ -13,29 +13,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import samebutdifferent.ecologics.registry.ModMobEffects;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity {
+public abstract class LivingEntityMixin extends Entity 
+{
     public LivingEntityMixin(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    //TODO: Update this.
-    @ModifyVariable(method = "travelInAir", at = @At(value = "STORE"),
-        slice = @Slice(
-                from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getBlockPosBelowThatAffectsMyMovement()Lnet/minecraft/core/BlockPos;"),
-                to = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;handleRelativeFrictionAndCalculateMovement(Lnet/minecraft/world/phys/Vec3;F)Lnet/minecraft/world/phys/Vec3;")
-        ),
-        ordinal = 0
-    )
+    @ModifyVariable(method = "travelInAir", at = @At(value = "STORE"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getBlockPosBelowThatAffectsMyMovement()Lnet/minecraft/core/BlockPos;"), to = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;handleRelativeFrictionAndCalculateMovement(Lnet/minecraft/world/phys/Vec3;F)Lnet/minecraft/world/phys/Vec3;")), ordinal = 0)
     private float modifyFriction(float f) {
-        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY) && living.onGround()) {
+        if (((Object) this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY) && living.onGround()) {
             return 0.98F;
         }
         return f;
     }
 
     @Inject(method = "getBlockSpeedFactor", at = @At("HEAD"), cancellable = true)
-    private void onGetBlockSpeedFactor(CallbackInfoReturnable<Float> cir) {
-        if (((Object)this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY) && living.onGround()) {
+	private void onGetBlockSpeedFactor(CallbackInfoReturnable<Float> cir) {
+        if (((Object) this) instanceof LivingEntity living && living.hasEffect(ModMobEffects.SLIPPERY) && living.onGround()) {
             cir.setReturnValue(1.02F);
         }
     }
