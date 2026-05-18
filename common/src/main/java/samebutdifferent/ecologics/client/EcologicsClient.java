@@ -57,7 +57,7 @@ public class EcologicsClient
     	BLOCK_RENDERS.put(ModBlocks.POTTED_COCONUT_SEEDLING, ChunkSectionLayer.CUTOUT);
     	BLOCK_RENDERS.put(ModBlocks.POTTED_WALNUT_SAPLING, ChunkSectionLayer.CUTOUT);
     	BLOCK_RENDERS.put(ModBlocks.PRICKLY_PEAR, ChunkSectionLayer.CUTOUT);
-    	BLOCK_RENDERS.put(ModBlocks.THIN_ICE, ChunkSectionLayer.CUTOUT);
+    	BLOCK_RENDERS.put(ModBlocks.THIN_ICE, ChunkSectionLayer.TRANSLUCENT);
     	BLOCK_RENDERS.put(ModBlocks.SANDCASTLE, ChunkSectionLayer.CUTOUT);
     	BLOCK_RENDERS.put(ModBlocks.SURFACE_MOSS, ChunkSectionLayer.CUTOUT);
     	
