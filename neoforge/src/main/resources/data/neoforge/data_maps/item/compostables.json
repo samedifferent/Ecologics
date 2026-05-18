@@ -6,6 +6,12 @@
     "ecologics:coconut_husk": {
         "chance": 0.65
     },
+    "ecologics:prickly_pear": {
+        "chance": 0.65
+    },
+    "ecologics:cooked_prickly_pear": {
+        "chance": 0.65
+    },
     "ecologics:coconut_leaves": {
         "chance": 0.3
     },
