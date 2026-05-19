@@ -32,6 +32,8 @@ public class PenguinRenderer extends AgeableMobRenderer<Penguin, PenguinRenderSt
 	
 	public void extractRenderState(Penguin $$0, PenguinRenderState $$1, float $$2) {
 		super.extractRenderState($$0, $$1, $$2);
+		$$1.swimmingAnimationProgress = $$0.getSwimmingAnimationProgress($$2);
+		$$1.slidingAnimationProgress = $$0.getSlidingAnimationProgress($$2);
 		$$1.isPregnant = $$0.isPregnant();
 	}
 }
