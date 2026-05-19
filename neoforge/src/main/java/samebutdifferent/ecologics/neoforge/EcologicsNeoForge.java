@@ -31,7 +31,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -100,6 +99,7 @@ public class EcologicsNeoForge
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
+            ModConfigNeoForge.updateConfig();
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
@@ -110,18 +110,18 @@ public class EcologicsNeoForge
     }
 
     private void registerModContent(RegisterEvent event) {
-    	event.register(Registries.SOUND_EVENT, helper -> { ModSoundEvents.init(); });
-    	event.register(Registries.BLOCK, helper -> { ModBlocks.init(); });
-    	event.register(Registries.ITEM, helper -> { ModItems.init(); });
-    	event.register(Registries.ENTITY_TYPE, helper -> { ModEntityTypes.init(); });
-    	event.register(Registries.BLOCK_ENTITY_TYPE, helper -> { ModBlockEntityTypes.init(); });
-    	event.register(Registries.FEATURE, helper -> { ModFeatures.init(); });
-    	event.register(Registries.TRUNK_PLACER_TYPE, helper -> { ModTrunkPlacerTypes.init(); });
-    	event.register(Registries.FOLIAGE_PLACER_TYPE, helper -> { ModFoliagePlacerTypes.init(); });
-    	event.register(Registries.STRUCTURE_TYPE, helper -> { ModStructures.init(); });
-    	event.register(Registries.STRUCTURE_PIECE, helper -> { ModStructurePieces.init(); });
-    	event.register(Registries.MOB_EFFECT, helper -> { ModMobEffects.init(); });
-    	event.register(Registries.POTION, helper -> { ModPotions.init(); });
+    	event.register(Registries.SOUND_EVENT, _ -> { ModSoundEvents.init(); });
+    	event.register(Registries.BLOCK, _ -> { ModBlocks.init(); });
+    	event.register(Registries.ITEM, _ -> { ModItems.init(); });
+    	event.register(Registries.ENTITY_TYPE, _ -> { ModEntityTypes.init(); });
+    	event.register(Registries.BLOCK_ENTITY_TYPE, _ -> { ModBlockEntityTypes.init(); });
+    	event.register(Registries.FEATURE, _ -> { ModFeatures.init(); });
+    	event.register(Registries.TRUNK_PLACER_TYPE, _ -> { ModTrunkPlacerTypes.init(); });
+    	event.register(Registries.FOLIAGE_PLACER_TYPE, _ -> { ModFoliagePlacerTypes.init(); });
+    	event.register(Registries.STRUCTURE_TYPE, _ -> { ModStructures.init(); });
+    	event.register(Registries.STRUCTURE_PIECE, _ -> { ModStructurePieces.init(); });
+    	event.register(Registries.MOB_EFFECT, _ -> { ModMobEffects.init(); });
+    	event.register(Registries.POTION, _ -> { ModPotions.init(); });
     	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
     		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
     		ModCreativeModeTabContents.populateTabDatabase();
@@ -150,7 +150,6 @@ public class EcologicsNeoForge
             if (level.getBlockState(pos.above()).is(Blocks.CACTUS) && level.getBlockState(pos.below()).is(Blocks.CACTUS)) {
                 if (level.isEmptyBlock(pos.above(2)) && level.getRandom().nextFloat() <= ConfigCommon.getPricklyPearGrowthChance()) {
                     level.setBlock(pos.above(2), ModBlocks.PRICKLY_PEAR.defaultBlockState(), 2);
-                    level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 }
             }
         }
@@ -200,28 +199,4 @@ public class EcologicsNeoForge
         	builder.addMix(potion, (Item)pair.getA(), pair.getB());
         });
     }
-    
-
-    
-    /*@SubscribeEvent
-    public static void onMissingBlockMappings(MissingMappingsEvent event) {
-        for (var mapping : event.getAllMappings(BuiltInRegistries.BLOCK.getRegistryKey())) {
-            if (mapping.getKey().equals(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_husk"))) {
-                Identifier remapped = Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling");
-                if (BuiltInRegistries.BLOCK.containsKey(remapped)) {
-                    mapping.remap(BuiltInRegistries.BLOCK.get(remapped));
-                } else {
-                    mapping.warn();
-                }
-            }
-            if (mapping.getKey().equals(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "potted_coconut_husk"))) {
-                Identifier remapped = Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "potted_coconut_seedling");
-                if (BuiltInRegistries.BLOCK.containsKey(remapped)) {
-                    mapping.remap(BuiltInRegistries.BLOCK.get(remapped));
-                } else {
-                    mapping.warn();
-                }
-            }
-        }
-    }*/
 }

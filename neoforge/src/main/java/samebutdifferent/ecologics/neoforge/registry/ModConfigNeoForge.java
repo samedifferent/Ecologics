@@ -53,7 +53,7 @@ public class ModConfigNeoForge
     	updateConfig();
     }
     
-    private static void updateConfig() {
+    public static void updateConfig() {
     	ConfigCommon.setCoconutCrabSpawnChance(ModConfigNeoForge.COCONUT_CRAB_SPAWN_CHANCE.get());
     	ConfigCommon.setPricklyPearGrowthChance(ModConfigNeoForge.PRICKLY_PEAR_GROWTH_CHANCE.get());
     	ConfigCommon.setReplaceAzaleaTree(ModConfigNeoForge.REPLACE_AZALEA_TREE.get());

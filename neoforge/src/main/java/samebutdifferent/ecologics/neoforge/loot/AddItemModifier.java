@@ -24,8 +24,8 @@ public class AddItemModifier extends LootModifier
     public static final Supplier<MapCodec<AddItemModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(inst -> codecStart(inst).and(ResourceKey.codec(Registries.ITEM).fieldOf("item").forGetter(m -> m.itemKey)).apply(inst, AddItemModifier::new)));
     private final ResourceKey<Item> itemKey;
 
-    protected AddItemModifier(LootItemCondition[] conditionsIn, ResourceKey<Item> resourceKey) {
-        super(conditionsIn);
+    protected AddItemModifier(LootItemCondition[] conditionsIn, int priority, ResourceKey<Item> resourceKey) {
+        super(conditionsIn, priority);
         this.itemKey = resourceKey;
     }
 

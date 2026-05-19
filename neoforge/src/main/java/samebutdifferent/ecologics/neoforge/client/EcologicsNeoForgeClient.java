@@ -20,7 +20,6 @@ import java.util.List;
 @EventBusSubscriber(modid = Ecologics.MOD_ID, value = Dist.CLIENT)
 public class EcologicsNeoForgeClient 
 {
-    @SuppressWarnings("deprecation")
 	@SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
         EcologicsClient.init();
