@@ -13,9 +13,14 @@ public class ModTags {
         public static final TagKey<Item> COCONUT_CRAB_FOOD = tag("coconut_crab_food");
         public static final TagKey<Item> PENGUIN_FOOD = tag("penguin_food");
         public static final TagKey<Item> SQUIRREL_FOOD = tag("squirrel_food");
+        public static final TagKey<Item> SHEARS = tag("c", "shears");
 
         private static TagKey<Item> tag(String name) {
             return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, name));
+        }
+        
+        private static TagKey<Item> tag(String namespace, String name) {
+            return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(namespace, name));
         }
     }
 
