@@ -80,7 +80,7 @@ public class PotBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
         if (blockEntity instanceof PotBlockEntity potBlockEntity) {
             if (!itemstack.isEmpty()) {
                 if (!pLevel.isClientSide() && potBlockEntity.addItem(pPlayer.getAbilities().instabuild ? itemstack.copy() : itemstack)) {
-                    pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_PLACE, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F);
+                    pLevel.playSound(null, pPos, SoundEvents.DECORATED_POT_INSERT, SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.4F);
                     return InteractionResult.SUCCESS;
                 }
                 return InteractionResult.CONSUME;
