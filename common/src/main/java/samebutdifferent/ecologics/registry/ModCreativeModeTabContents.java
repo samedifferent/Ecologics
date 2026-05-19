@@ -73,7 +73,6 @@ public class ModCreativeModeTabContents
         addToList(ModBlocks.COCONUT_SHELF);
         addToList(ModBlocks.WALNUT_SHELF);
         addToList(ModBlocks.AZALEA_SHELF);
-        // addToList(ModBlocks.FLOWERING_AZALEA_SHELF);
         
         addToList(ModItems.COCONUT_BOAT);
         addToList(ModItems.COCONUT_CHEST_BOAT);
@@ -109,6 +108,8 @@ public class ModCreativeModeTabContents
 
         addToList(ModBlocks.AZALEA_FLOWER);
         addToList(ModBlocks.SURFACE_MOSS);
+        addToList(ModBlocks.MOSS_LAYER);
+        addToList(ModBlocks.PALE_MOSS_LAYER);
         addToList(ModItems.COCONUT_SLICE);
         addToList(ModItems.COCONUT_HUSK);
         addToList(ModItems.CRAB_CLAW);
