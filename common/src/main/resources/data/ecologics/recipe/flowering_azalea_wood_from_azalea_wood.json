@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "flowering_azalea_log",
+  "ingredients": [
+    "ecologics:azalea_wood",
+    "ecologics:azalea_flower"
+  ],
+  "result": {
+    "count": 1, 
+    "id": "ecologics:flowering_azalea_wood"
+  }
+}
