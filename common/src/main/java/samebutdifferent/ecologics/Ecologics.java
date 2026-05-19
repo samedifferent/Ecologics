@@ -75,6 +75,8 @@ public class Ecologics
     public static void registerCompostables() {
     	COMPOSTABLES.put(ModItems.COCONUT_SLICE, 0.3F);
     	COMPOSTABLES.put(ModItems.COCONUT_HUSK, 0.65F);
+    	COMPOSTABLES.put(ModItems.PRICKLY_PEAR, 0.65F);
+    	COMPOSTABLES.put(ModItems.COOKED_PRICKLY_PEAR, 0.65F);
     	COMPOSTABLES.put(ModBlocks.COCONUT_LEAVES, 0.3F);
     	COMPOSTABLES.put(ModBlocks.COCONUT_SEEDLING, 0.3F);
     	COMPOSTABLES.put(ModBlocks.WALNUT_LEAVES, 0.3F);
