@@ -4,7 +4,7 @@ plugins {
 }
 
 base {
-    archivesName = "${rootProject.mod_name}-Fabric-${minecraft_version}"
+    archivesName = "${rootProject.mod_name}-Fabric"
 }
 
 var commonAW = project(":common").file("src/main/resources/ecologics.accesswidener")
@@ -26,6 +26,26 @@ repositories {
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.terraformersmc.com/releases" }
 	maven { url "https://cursemaven.com" } 
+}
+loom {
+    def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
+    if (aw.exists()) {
+        accessWidenerPath.set(aw)
+    }
+    runs {
+        client {
+            client()
+            setConfigName('Fabric Client')
+            ideConfigGenerated(true)
+            runDir('runs/client')
+        }
+        server {
+            server()
+            setConfigName('Fabric Server')
+            ideConfigGenerated(true)
+            runDir('runs/server')
+        }
+    }
 }
 
 tasks.withType(AbstractTestTask).configureEach {

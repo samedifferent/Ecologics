@@ -1,9 +1,11 @@
 plugins {
+    id 'java'
+    id 'eclipse'
     id 'net.neoforged.moddev'
 }
 
 base {
-    archivesName = "${rootProject.mod_name}-NeoForge-${minecraft_version}"
+    archivesName = "${rootProject.mod_name}-NeoForge"
 }
 
 neoForge {
