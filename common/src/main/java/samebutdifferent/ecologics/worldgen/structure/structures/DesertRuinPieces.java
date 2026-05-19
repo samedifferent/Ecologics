@@ -72,7 +72,7 @@ public class DesertRuinPieces {
     }
     
     public static void addPieces(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePieceAccessor structurePieceAccessor, RandomSource random, DesertRuinStructure structure) {
-        DesertRuinPieces.addPiece(structureTemplateManager, pos, rotation, structurePieceAccessor, random, structure, 0.9F);
+        DesertRuinPieces.addPiece(structureTemplateManager, pos, rotation, structurePieceAccessor, random, structure, 0.96F);
         if (random.nextFloat() <= 0.4F) {
             DesertRuinPieces.addClusterRuins(structureTemplateManager, random, rotation, pos, structure, structurePieceAccessor);
         }
@@ -177,31 +177,32 @@ public class DesertRuinPieces {
         }
 
         private int getHeight(BlockPos templatePos, BlockGetter level, BlockPos pos) {
-            int i = templatePos.getY();
+            int y = templatePos.getY();
             int j = 512;
-            int k = i - 1;
-            int l = 0;
+            int k = y - 1;
+            int count = 0;
             for (BlockPos blockPos : BlockPos.betweenClosed(templatePos, pos)) {
-                int m = blockPos.getX();
-                int n = blockPos.getZ();
-                int o = templatePos.getY() - 1;
-                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(m, o, n);
+                int genX = blockPos.getX();
+                int genZ = blockPos.getZ();
+                int genY = templatePos.getY() - 1;
+                BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos(genX, genY, genZ);
                 BlockState blockState = level.getBlockState(mutableBlockPos);
                 FluidState fluidState = level.getFluidState(mutableBlockPos);
-                while ((blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE)) && o > level.getMinY() + 1) {
-                    mutableBlockPos.set(m, --o, n);
+                while ((blockState.isAir() || fluidState.is(FluidTags.WATER) || blockState.is(BlockTags.ICE) || blockState.is(BlockTags.REPLACEABLE)) && genY > level.getMinY() + 1) {
+                    mutableBlockPos.set(genX, --genY, genZ);
                     blockState = level.getBlockState(mutableBlockPos);
                     fluidState = level.getFluidState(mutableBlockPos);
                 }
-                j = Math.min(j, o);
-                if (o >= k - 2) continue;
-                ++l;
+                j = Math.min(j, genY);
+                if (genY >= k - 2) continue;
+                ++count;
             }
             int p = Math.abs(templatePos.getX() - pos.getX());
-            if (k - j > 2 && l > p - 2) {
-                i = j + 1;
+            if (k - j > 2 && count > p - 2) {
+                y = j;
             }
-            return i;
+            y--; // Push it down one block so the ruins generate flush to the sand.
+            return y;
         }
 		
     }
