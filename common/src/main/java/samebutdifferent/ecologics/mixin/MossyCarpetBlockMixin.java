@@ -14,6 +14,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraft.world.phys.BlockHitResult;
+import samebutdifferent.ecologics.block.MossLayerBlock;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModTags.ItemTags;
 
@@ -55,36 +57,51 @@ public class MossyCarpetBlockMixin extends Block {
     }
     
     @Override
-    public InteractionResult useItemOn(ItemStack item, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (ItemStack.isSameItem(Items.PALE_MOSS_CARPET.getDefaultInstance(), item) && (pPlayer.getInBlockState() != pState)) {
-            if (pState.is(Blocks.PALE_MOSS_CARPET)) {
-                if (!pLevel.isClientSide()) pLevel.setBlockAndUpdate(pPos, ModBlocks.PALE_MOSS_LAYER.defaultBlockState());
-                if (!pPlayer.isCreative()) item.shrink(1);
+    public InteractionResult useItemOn(ItemStack item, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (ItemStack.isSameItem(Items.PALE_MOSS_CARPET.getDefaultInstance(), item)) {
+            if (state.is(Blocks.PALE_MOSS_CARPET)) {
+                if (!level.isClientSide()) level.setBlockAndUpdate(pos, ModBlocks.PALE_MOSS_LAYER.defaultBlockState().setValue(MossLayerBlock.LAYERS, 2));
+                if (!player.isCreative()) item.shrink(1);
             }
-            pLevel.playSound(pPlayer, pPos, SoundEvents.MOSS_CARPET_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(player, pos, SoundEvents.MOSS_CARPET_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
             return InteractionResult.SUCCESS;
         }
-        if (item.is(ItemTags.SHEARS) && (pPlayer.getInBlockState() != pState)) {
-            if (pState.is(Blocks.PALE_MOSS_CARPET)) {
-            	if (!hasSideGrowth(pState)) {
+        if (item.is(ItemTags.SHEARS) && (player.getInBlockState() != state)) {
+            if (state.is(Blocks.PALE_MOSS_CARPET)) {
+            	if (!hasSideGrowth(state)) {
             		return InteractionResult.CONSUME;
             	}
-                if (!pLevel.isClientSide()) {
-                	if (pState.getValue(MossyCarpetBlock.BASE)) {
-                		pLevel.setBlock(pPos, Blocks.PALE_MOSS_CARPET.defaultBlockState().setValue(NO_GROWTH, true), 2);
+                if (!level.isClientSide()) {
+                	if (state.getValue(MossyCarpetBlock.BASE)) {
+                		level.setBlock(pos, Blocks.PALE_MOSS_CARPET.defaultBlockState().setValue(NO_GROWTH, true), 2);
                 	}
                 	else {
-                		pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), 2);
+                		level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
                 	}
-                    if (!pPlayer.isCreative()) {
-                    	item.hurtAndBreak(1, pPlayer, pHand);
+                    if (!player.isCreative()) {
+                    	item.hurtAndBreak(1, player, hand);
                     }
                 }
-                pLevel.playSound(pPlayer, pPos, SoundEvents.SHEARS_SNIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.playSound(player, pos, SoundEvents.SHEARS_SNIP, SoundSource.BLOCKS, 1.0F, 1.0F);
                 return InteractionResult.SUCCESS;
             }
         }
-        return InteractionResult.CONSUME;
+        return super.useItemOn(item, state, level, pos, player, hand, hit);
+    }
+    
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    	BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
+    	if (blockstate.is(ModBlocks.PALE_MOSS_LAYER)) {
+            int layers = blockstate.getValue(MossLayerBlock.LAYERS);
+            if (layers + 1 < 8) {
+            	return blockstate.setValue(MossLayerBlock.LAYERS, Integer.valueOf(Math.min(8, layers + 1)));
+            }
+            else {
+            	return blockstate.getBlock() == ModBlocks.PALE_MOSS_LAYER ? Blocks.PALE_MOSS_BLOCK.defaultBlockState() : Blocks.MOSS_BLOCK.defaultBlockState();
+            }
+    	}
+    	return super.getStateForPlacement(context);
     }
     
     private boolean hasSideGrowth(BlockState state) {

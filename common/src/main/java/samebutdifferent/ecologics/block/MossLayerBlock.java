@@ -31,12 +31,15 @@ public class MossLayerBlock extends SnowLayerBlock
 {
     public MossLayerBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(LAYERS, 2));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(LAYERS, Integer.valueOf(1)));
     }
 
     @Override
     public InteractionResult useItemOn(ItemStack item, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if ((state.getValue(LAYERS) < 8) && isMatchingItem(item, state) && (player.getInBlockState() != state)) {
+    	if (state.getValue(LAYERS) < 8 && isMatchingItem(item, state)) {
+    		return super.useItemOn(item, state, level, pos, player, hand, hit);
+    	}
+        /*if ((state.getValue(LAYERS) < 8) && isMatchingItem(item, state) && (player.getInBlockState() != state || player.blockPosition() != pos)) {
             if (state.is(this) && !level.isClientSide()) {
                 if (state.getValue(LAYERS) < 7) {
                     level.setBlockAndUpdate(pos, this.defaultBlockState().setValue(LAYERS, state.getValue(LAYERS) + 1));
@@ -49,7 +52,7 @@ public class MossLayerBlock extends SnowLayerBlock
             }
             level.playSound(player, pos, SoundEvents.MOSS_CARPET_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
             return InteractionResult.SUCCESS;
-        }
+        }*/
         if ((state.getValue(LAYERS) > 1) && item.is(ItemTags.HOES) && (player.getInBlockState() != state)) {
             if (state.is(this) && !level.isClientSide()) {
                 level.setBlockAndUpdate(pos, this.defaultBlockState().setValue(LAYERS, state.getValue(LAYERS) - 1));
@@ -73,7 +76,18 @@ public class MossLayerBlock extends SnowLayerBlock
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return super.getStateForPlacement(context).setValue(LAYERS, 1);
+        BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
+        if (isMatchingItem(context.getItemInHand(), blockstate)) {
+            int layers = blockstate.getValue(LAYERS);
+            if (layers + 1 < 8) {
+            	return blockstate.setValue(LAYERS, Integer.valueOf(Math.min(8, layers + 1)));
+            }
+            else {
+            	return blockstate.getBlock() == ModBlocks.PALE_MOSS_LAYER ? Blocks.PALE_MOSS_BLOCK.defaultBlockState() : Blocks.MOSS_BLOCK.defaultBlockState();
+            }
+        } else {
+            return super.getStateForPlacement(context);
+        }
     }
     
     @Override
@@ -97,12 +111,12 @@ public class MossLayerBlock extends SnowLayerBlock
     }
 
     @Override
-    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
-        int layers = state.getValue(LAYERS);
-        if (useContext.getItemInHand().is(this.asItem()) && layers < 8) {
-            return useContext.getClickedFace() == Direction.UP;
+    protected boolean canBeReplaced(BlockState $$0, BlockPlaceContext $$1) {
+        int $$2 = $$0.getValue(LAYERS);
+        if (!isMatchingItem($$1.getItemInHand(), $$0) || $$2 >= 8) {
+            return $$2 == 1;
         } else {
-            return layers == 1;
+            return $$1.replacingClickedOnBlock() ? $$1.getClickedFace() == Direction.UP : true;
         }
     }
     
