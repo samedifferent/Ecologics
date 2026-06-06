@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.function.Function;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.UntintedParticleLeavesBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
@@ -110,7 +113,7 @@ public class ModBlocks
     public static final Block STRIPPED_COCONUT_LOG = registerBlock("stripped_coconut_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG), true);
     public static final Block COCONUT_WOOD = registerBlock("coconut_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG), true);
     public static final Block STRIPPED_COCONUT_WOOD = registerBlock("stripped_coconut_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG), true);
-    public static final Block COCONUT_LEAVES = registerBlock("coconut_leaves", properties -> new CoconutLeavesBlock(0F, null, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false), true);
+    public static final Block COCONUT_LEAVES = registerBlock("coconut_leaves", properties -> new CoconutLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, -9399763), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false), true);
     public static final Block COCONUT_PLANKS = registerBlock("coconut_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), true);
     public static final Block COCONUT_SLAB = registerBlock("coconut_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), true);
     public static final Block COCONUT_STAIRS = registerBlock("coconut_stairs", properties -> new StairBlock(COCONUT_PLANKS.defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), true);
@@ -133,7 +136,7 @@ public class ModBlocks
     public static final Block STRIPPED_WALNUT_LOG = registerBlock("stripped_walnut_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG), true);
     public static final Block WALNUT_WOOD = registerBlock("walnut_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG), true);
     public static final Block STRIPPED_WALNUT_WOOD = registerBlock("stripped_walnut_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG), true);
-    public static final Block WALNUT_LEAVES = registerBlock("walnut_leaves", properties -> new CoconutLeavesBlock(0F, null, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false), true);
+    public static final Block WALNUT_LEAVES = registerBlock("walnut_leaves", properties -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0x9C813B), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false), true);
     public static final Block WALNUT_PLANKS = registerBlock("walnut_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), true);
     public static final Block WALNUT_SLAB = registerBlock("walnut_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), true);
     public static final Block WALNUT_STAIRS = registerBlock("walnut_stairs", properties -> new StairBlock(WALNUT_PLANKS.defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), true);
