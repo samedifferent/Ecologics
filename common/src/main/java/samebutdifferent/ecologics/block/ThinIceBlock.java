@@ -35,7 +35,7 @@ public class ThinIceBlock extends IceBlock {
 
     @Override
     public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
-    	Holder<Enchantment> ffholder = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).listElements().filter(ench -> ench.is(Enchantments.FEATHER_FALLING)).findFirst().get();
+    	Holder<Enchantment> ffholder = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FEATHER_FALLING);
         if (fallDistance > 1 && entity instanceof LivingEntity && EnchantmentHelper.getEnchantmentLevel(ffholder, (LivingEntity)entity) == 0) {
             level.playSound(null, pos, ModSoundEvents.THIN_ICE_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + level.getRandom().nextFloat() * 0.2F);
             replaceIfThinIce(pos, 3, level);
