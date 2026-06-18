@@ -98,7 +98,7 @@ processResources {
     filesMatching(['pack.mcmeta', 'fabric.mod.json', '*.mixins.json']) {
         expand jsonExpandProps
     }
-
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     inputs.properties(expandProps)
 }
 
