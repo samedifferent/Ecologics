@@ -1,6 +1,6 @@
 {
-	"values": [
-		"#minecraft:sand",
-		"#minecraft:dirt"
-	]
+  "values": [
+    "#minecraft:sand",
+    "#minecraft:supports_vegetation"
+  ]
 }
