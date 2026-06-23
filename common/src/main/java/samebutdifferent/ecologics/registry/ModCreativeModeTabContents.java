@@ -10,8 +10,8 @@ public class ModCreativeModeTabContents
 	
 	public static void populateTabDatabase() {
         addToList(ModBlocks.COCONUT_LOG);
-        addToList(ModBlocks.STRIPPED_COCONUT_LOG);
         addToList(ModBlocks.COCONUT_WOOD);
+        addToList(ModBlocks.STRIPPED_COCONUT_LOG);
         addToList(ModBlocks.STRIPPED_COCONUT_WOOD);
         addToList(ModBlocks.COCONUT_PLANKS);
         addToList(ModBlocks.COCONUT_STAIRS);
@@ -20,12 +20,12 @@ public class ModCreativeModeTabContents
         addToList(ModBlocks.COCONUT_FENCE_GATE);
         addToList(ModBlocks.COCONUT_DOOR);
         addToList(ModBlocks.COCONUT_TRAPDOOR);
-        addToList(ModBlocks.COCONUT_BUTTON);
         addToList(ModBlocks.COCONUT_PRESSURE_PLATE);
+        addToList(ModBlocks.COCONUT_BUTTON);
             
         addToList(ModBlocks.WALNUT_LOG);
-        addToList(ModBlocks.STRIPPED_WALNUT_LOG);
         addToList(ModBlocks.WALNUT_WOOD);
+        addToList(ModBlocks.STRIPPED_WALNUT_LOG);
         addToList(ModBlocks.STRIPPED_WALNUT_WOOD);
         addToList(ModBlocks.WALNUT_PLANKS);
         addToList(ModBlocks.WALNUT_STAIRS);
@@ -34,12 +34,12 @@ public class ModCreativeModeTabContents
         addToList(ModBlocks.WALNUT_FENCE_GATE);
         addToList(ModBlocks.WALNUT_DOOR);
         addToList(ModBlocks.WALNUT_TRAPDOOR);
-        addToList(ModBlocks.WALNUT_BUTTON);
         addToList(ModBlocks.WALNUT_PRESSURE_PLATE);
+        addToList(ModBlocks.WALNUT_BUTTON);
             
         addToList(ModBlocks.AZALEA_LOG);
-        addToList(ModBlocks.STRIPPED_AZALEA_LOG);
         addToList(ModBlocks.AZALEA_WOOD);
+        addToList(ModBlocks.STRIPPED_AZALEA_LOG);
         addToList(ModBlocks.STRIPPED_AZALEA_WOOD);
         addToList(ModBlocks.AZALEA_PLANKS);
         addToList(ModBlocks.AZALEA_STAIRS);
@@ -48,8 +48,8 @@ public class ModCreativeModeTabContents
         addToList(ModBlocks.AZALEA_FENCE_GATE);
         addToList(ModBlocks.AZALEA_DOOR);
         addToList(ModBlocks.AZALEA_TRAPDOOR);
-        addToList(ModBlocks.AZALEA_BUTTON);
         addToList(ModBlocks.AZALEA_PRESSURE_PLATE);
+        addToList(ModBlocks.AZALEA_BUTTON);
 
         addToList(ModBlocks.FLOWERING_AZALEA_LOG);
         addToList(ModBlocks.FLOWERING_AZALEA_WOOD);
