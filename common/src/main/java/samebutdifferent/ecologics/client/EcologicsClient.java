@@ -1,8 +1,5 @@
 package samebutdifferent.ecologics.client;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
