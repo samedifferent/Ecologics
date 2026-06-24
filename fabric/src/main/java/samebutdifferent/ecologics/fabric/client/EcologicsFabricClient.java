@@ -18,8 +18,6 @@ public class EcologicsFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         EcologicsClient.init();
 
-        EcologicsClient.addSignTypes();
-
         ModelLayerRegistry.registerModelLayer(CoconutCrabModel.COCONUT_CRAB, CoconutCrabModel::createBodyLayer);
         ModelLayerRegistry.registerModelLayer(CoconutCrabModel.COCONUT_CRAB_BABY, CoconutCrabModel::createBaby);
         ModelLayerRegistry.registerModelLayer(SquirrelModel.SQUIRREL, SquirrelModel::createBodyLayer);
