@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -82,7 +82,7 @@ public class Penguin extends Animal {
     public Penguin(EntityType<? extends Animal> type, Level level) {
         super(type, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, true);
+        this.moveControl = new SmoothSwimmingMoveControl<>(this, 85, 10, 0.4F, 1.0F, true);
         this.lookControl = new PenguinLookControl(this, 20);
         this.setCanPickUpLoot(true);
     }

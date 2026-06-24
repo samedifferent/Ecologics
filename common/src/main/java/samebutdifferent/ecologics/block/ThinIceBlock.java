@@ -7,7 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -29,7 +29,7 @@ public class ThinIceBlock extends IceBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     
     public ThinIceBlock(BlockBehaviour.Properties properties) {
-        super(properties.isValidSpawn((state, blockGetter, pos, entityType) -> entityType.equals(EntityType.POLAR_BEAR) || entityType.equals(ModEntityTypes.PENGUIN)));
+        super(properties.isValidSpawn((state, blockGetter, pos, entityType) -> entityType.equals(EntityTypes.POLAR_BEAR) || entityType.equals(ModEntityTypes.PENGUIN)));
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
     }
 

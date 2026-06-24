@@ -17,7 +17,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.zombie.Husk;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
@@ -154,7 +154,7 @@ public class DesertRuinPieces {
                 if (blockEntity instanceof ChestBlockEntity) {
                     ((ChestBlockEntity)blockEntity).setLootTable(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_COMMON, random.nextLong());
                 }
-            } else if ("husk".equals(name) && (husk = EntityType.HUSK.create(level.getLevel(), EntitySpawnReason.STRUCTURE)) != null) {
+            } else if ("husk".equals(name) && (husk = EntityTypes.HUSK.create(level.getLevel(), EntitySpawnReason.STRUCTURE)) != null) {
             	husk.setPersistenceRequired();
             	husk.snapTo(pos, 0.0f, 0.0f);
             	husk.finalizeSpawn(level, level.getCurrentDifficultyAt(pos), EntitySpawnReason.STRUCTURE, null);

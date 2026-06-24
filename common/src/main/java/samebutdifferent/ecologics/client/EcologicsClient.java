@@ -1,18 +1,14 @@
 package samebutdifferent.ecologics.client;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.ShelfRenderer;
 import net.minecraft.client.renderer.blockentity.StandingSignRenderer;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import samebutdifferent.ecologics.Ecologics;
-import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.client.renderer.entity.CoconutCrabRenderer;
 import samebutdifferent.ecologics.client.renderer.entity.PenguinRenderer;
 import samebutdifferent.ecologics.client.renderer.entity.SquirrelRenderer;
@@ -49,15 +45,4 @@ public class EcologicsClient {
         BlockEntityRenderers.register(ModBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
         BlockEntityRenderers.register(ModBlockEntityTypes.SHELF, ShelfRenderer::new);
     }
-    
-    public static void addSignTypes() {
-        addSignType(ModWoodType.COCONUT);
-        addSignType(ModWoodType.WALNUT);
-        addSignType(ModWoodType.AZALEA);
-        addSignType(ModWoodType.FLOWERING_AZALEA);
-    }
-    
-    private static void addSignType(WoodType woodType) {
-    	Sheets.SIGN_SPRITES.put(woodType, new SpriteId(Sheets.SIGN_SHEET, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "entity/signs/" + woodType.name().replace(Ecologics.MOD_ID + ":", ""))));
-	}
 }

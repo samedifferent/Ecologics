@@ -15,6 +15,7 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
 import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock 
+public class SurfaceMossBlock extends MultifaceSpreadeableBlock implements BonemealableBlock, SimpleWaterloggedBlock
 {
 	public static final MapCodec<SurfaceMossBlock> CODEC = SurfaceMossBlock.simpleCodec(SurfaceMossBlock::new);
     public static final IntegerProperty LAYERS = IntegerProperty.create("layers", 1, 3);
@@ -35,7 +36,7 @@ public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBloc
     }
     
 	@Override
-	protected MapCodec<? extends MultifaceBlock> codec() {
+	public MapCodec<? extends SurfaceMossBlock> codec() {
 		return CODEC;
 	}
     
@@ -86,10 +87,10 @@ public class SurfaceMossBlock extends MultifaceBlock implements BonemealableBloc
         return state.getFluidState().isEmpty();
     }
 
-    /*@Override
-    public MultifaceSpreader getMultifaceSpreader() {
+    @Override
+    public MultifaceSpreader getSpreader() {
         return this.spreader;
-    }*/
+    }
 
     @Nullable
     @Override

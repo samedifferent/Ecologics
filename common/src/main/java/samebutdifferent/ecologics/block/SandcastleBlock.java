@@ -12,7 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.player.Player;
@@ -132,7 +132,7 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
 
                 for(int i = 0; i < pState.getValue(EGGS_INSIDE); ++i) {
                     pLevel.levelEvent(2001, pPos, Block.getId(pState));
-                    Turtle turtle = EntityType.TURTLE.create(pLevel, EntitySpawnReason.BREEDING);
+                    Turtle turtle = EntityTypes.TURTLE.create(pLevel, EntitySpawnReason.BREEDING);
                     turtle.setAge(-24000);
                     turtle.setHomePos(pPos);
                     turtle.snapTo((double)pPos.getX() + 0.3D + (double)i * 0.2D, pPos.getY(), (double)pPos.getZ() + 0.3D, 0.0F, 0.0F);
