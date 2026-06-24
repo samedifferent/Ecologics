@@ -1,7 +1,124 @@
 {
   "variants": {
-    "": {
-      "model": "ecologics:block/walnut_hanging_sign"
+    "attached=false,rotation=0": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_0"
+    },
+    "attached=false,rotation=1": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_1"
+    },
+    "attached=false,rotation=10": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_2",
+      "y": 180
+    },
+    "attached=false,rotation=11": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_3",
+      "y": 180
+    },
+    "attached=false,rotation=12": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_0",
+      "y": 270
+    },
+    "attached=false,rotation=13": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_1",
+      "y": 270
+    },
+    "attached=false,rotation=14": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_2",
+      "y": 270
+    },
+    "attached=false,rotation=15": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_3",
+      "y": 270
+    },
+    "attached=false,rotation=2": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_2"
+    },
+    "attached=false,rotation=3": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_3"
+    },
+    "attached=false,rotation=4": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_0",
+      "y": 90
+    },
+    "attached=false,rotation=5": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_1",
+      "y": 90
+    },
+    "attached=false,rotation=6": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_2",
+      "y": 90
+    },
+    "attached=false,rotation=7": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_3",
+      "y": 90
+    },
+    "attached=false,rotation=8": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_0",
+      "y": 180
+    },
+    "attached=false,rotation=9": {
+      "model": "ecologics:block/walnut_hanging_sign_rot_1",
+      "y": 180
+    },
+    "attached=true,rotation=0": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_0"
+    },
+    "attached=true,rotation=1": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_1"
+    },
+    "attached=true,rotation=10": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_2",
+      "y": 180
+    },
+    "attached=true,rotation=11": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_3",
+      "y": 180
+    },
+    "attached=true,rotation=12": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_0",
+      "y": 270
+    },
+    "attached=true,rotation=13": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_1",
+      "y": 270
+    },
+    "attached=true,rotation=14": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_2",
+      "y": 270
+    },
+    "attached=true,rotation=15": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_3",
+      "y": 270
+    },
+    "attached=true,rotation=2": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_2"
+    },
+    "attached=true,rotation=3": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_3"
+    },
+    "attached=true,rotation=4": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_0",
+      "y": 90
+    },
+    "attached=true,rotation=5": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_1",
+      "y": 90
+    },
+    "attached=true,rotation=6": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_2",
+      "y": 90
+    },
+    "attached=true,rotation=7": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_3",
+      "y": 90
+    },
+    "attached=true,rotation=8": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_0",
+      "y": 180
+    },
+    "attached=true,rotation=9": {
+      "model": "ecologics:block/walnut_hanging_sign_attached_rot_1",
+      "y": 180
     }
   }
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_wall_sign",
+  "textures": {
+    "all": "ecologics:block/flowering_azalea_sign",
+    "particle": "ecologics:block/flowering_azalea_planks"
+  }
+}

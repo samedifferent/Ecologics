@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
-      "model": "ecologics:block/flowering_azalea_sign"
+    "facing=east": {
+      "model": "ecologics:block/flowering_azalea_wall_sign",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "ecologics:block/flowering_azalea_wall_sign",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "ecologics:block/flowering_azalea_wall_sign"
+    },
+    "facing=west": {
+      "model": "ecologics:block/flowering_azalea_wall_sign",
+      "y": 90
     }
   }
 }

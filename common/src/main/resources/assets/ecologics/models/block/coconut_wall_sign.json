@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_wall_sign",
+  "textures": {
+    "all": "ecologics:block/coconut_sign",
+    "particle": "ecologics:block/coconut_planks"
+  }
+}
