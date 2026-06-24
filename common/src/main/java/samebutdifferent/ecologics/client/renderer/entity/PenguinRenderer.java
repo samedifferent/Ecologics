@@ -11,6 +11,9 @@ import samebutdifferent.ecologics.entity.Penguin;
 
 @SuppressWarnings("deprecation")
 public class PenguinRenderer extends AgeableMobRenderer<Penguin, PenguinRenderState, PenguinModel> {
+	
+	private static final Identifier PENGUIN_LOCATION = Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/penguin.png");
+	private static final Identifier PENGUIN_BABY_LOCATION = Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/penguin_baby.png");
 
     public PenguinRenderer(EntityRendererProvider.Context context) {
         super(context, new PenguinModel(context.bakeLayer(PenguinModel.PENGUIN)), new PenguinModel(context.bakeLayer(PenguinModel.PENGUIN_BABY)), 0.4F);
@@ -19,10 +22,7 @@ public class PenguinRenderer extends AgeableMobRenderer<Penguin, PenguinRenderSt
 
     @Override
     public Identifier getTextureLocation(PenguinRenderState entity) {
-        if (entity.isBaby) {
-            return Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/baby_penguin.png");
-        }
-        return Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "textures/entity/penguin.png");
+    	return entity.isBaby ? PENGUIN_BABY_LOCATION : PENGUIN_LOCATION;
     }
 
 	@Override

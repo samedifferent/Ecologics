@@ -29,8 +29,6 @@ public class PenguinModel extends EntityModel<PenguinRenderState> {
     private final ModelPart egg;
     private final ModelPart leftFoot;
     private final ModelPart rightFoot;
-    //private float slidingAnimationProgress;
-    //private float swimmingAnimationProgress;
 
     public PenguinModel(ModelPart root) {
     	super(root);
@@ -61,12 +59,6 @@ public class PenguinModel extends EntityModel<PenguinRenderState> {
     public static LayerDefinition createBaby() {
     	return createBodyLayer().apply(BABY_TRANSFORMER);
     }
-    
-    /*public void prepareMobModel(Penguin entity, float walkAnimationPos, float walkAnimationSpeed, float partialTick) {
-        // super.prepareMobModel(entity, walkAnimationPos, walkAnimationSpeed, partialTick);
-        this.slidingAnimationProgress = entity.getSlidingAnimationProgress(partialTick);
-        this.swimmingAnimationProgress = entity.getSwimmingAnimationProgress(partialTick);
-    }*/
 
     @Override
     public void setupAnim(PenguinRenderState entity) { //, float walkAnimationPos, float walkAnimationSpeed, float ageInTicks, float netHeadYaw, float headPitch
@@ -77,7 +69,6 @@ public class PenguinModel extends EntityModel<PenguinRenderState> {
         float swingSlowdownFactor = 0.3F; // 10
 
         if (entity.swimmingAnimationProgress > 0) {
-//            this.body.setRotation((float) Math.toRadians(headPitch), (float) Math.toRadians(netHeadYaw), 0.0f);
             this.body.xRot += Mth.rotLerpRad(entity.swimmingAnimationProgress, this.body.xRot, (float) Math.toRadians(90)) - Mth.cos(0.7F * entity.ageInTicks) * (swingSlowdownFactor * 0.25F);
             this.body.y = Mth.lerp(entity.swimmingAnimationProgress, this.body.getInitialPose().y(), this.body.getInitialPose().y() + 7);
             this.body.y += -Mth.cos(0.7F * entity.ageInTicks) * (swingSlowdownFactor * 0.025F);
@@ -97,12 +88,12 @@ public class PenguinModel extends EntityModel<PenguinRenderState> {
             this.rightFlipper.zRot += (Math.toRadians(5) - Mth.cos((float) Math.toRadians(-80) + entity.ageInTicks)) *  (swingSlowdownFactor * 0.25F);
         } else if (entity.slidingAnimationProgress > 0) {
             this.body.xRot += Mth.rotLerpRad(entity.slidingAnimationProgress, this.body.xRot, (float) Math.toRadians(90));
-            this.body.y = Mth.lerp(entity.slidingAnimationProgress, this.body.getInitialPose().y(), this.body.getInitialPose().y() + 7);
+            this.body.y = Mth.lerp(entity.slidingAnimationProgress, this.body.getInitialPose().y(), this.body.getInitialPose().y() + (entity.isBaby ? 3 : 7));
             this.body.z += (-Mth.cos(2F * entity.walkAnimationPos)) * swingSlowdownFactor * entity.walkAnimationSpeed;
 
             this.head.xRot = Mth.lerp(entity.slidingAnimationProgress, entity.xRot * Mth.DEG_TO_RAD, 0);
             this.head.yRot = Mth.lerp(entity.slidingAnimationProgress, entity.yRot * Mth.DEG_TO_RAD, 0);
-            this.head.y = Mth.lerp(entity.slidingAnimationProgress, this.head.getInitialPose().y(), entity.isBaby ? 26 : 24);
+            this.head.y = Mth.lerp(entity.slidingAnimationProgress, this.head.getInitialPose().y(), 24);
             this.head.z = Mth.lerp(entity.slidingAnimationProgress, this.head.getInitialPose().z(), -4);
             this.head.y += -Mth.cos(2F * ((float)Math.toRadians(-80) + entity.walkAnimationPos)) * swingSlowdownFactor * entity.walkAnimationSpeed;
             this.head.z += -Mth.cos(2F * entity.walkAnimationPos) * swingSlowdownFactor * entity.walkAnimationSpeed;
