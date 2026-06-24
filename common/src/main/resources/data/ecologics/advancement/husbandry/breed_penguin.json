@@ -24,7 +24,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "ecologics:penguin"
+              "minecraft:entity_type": "ecologics:penguin"
             }
           }
         ]
