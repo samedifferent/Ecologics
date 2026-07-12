@@ -6,8 +6,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
@@ -23,6 +21,7 @@ import samebutdifferent.ecologics.entity.ModBoat;
 import samebutdifferent.ecologics.item.CoconutBlockItem;
 import samebutdifferent.ecologics.item.CoconutSliceItem;
 import samebutdifferent.ecologics.item.ModBoatItem;
+import samebutdifferent.ecologics.item.PricklyPearItem;
 import samebutdifferent.ecologics.item.SandcastleBlockItem;
 
 public class ModItems
@@ -46,14 +45,6 @@ public class ModItems
     
     public static final ArrayList<Pair<ResourceLocation, Item>> ITEMS = new ArrayList<>();
 
-    // Food
-    public static final Item COCONUT_SLICE = registerItem("coconut_slice", new CoconutSliceItem(new Item.Properties().food(Foods.SWEET_BERRIES)));
-    public static final Item CRAB_MEAT = registerItem("crab_meat", new Item(new Item.Properties().food(Foods.COOKED_RABBIT)));
-    public static final Item TROPICAL_STEW = registerItem("tropical_stew", new CoconutSliceItem(new Item.Properties().stacksTo(1).food(Foods.RABBIT_STEW)));
-    public static final Item PRICKLY_PEAR = registerItem("prickly_pear", new Item(new Item.Properties().food(Foods.APPLE))); //PricklyPearItem
-    public static final Item COOKED_PRICKLY_PEAR = registerItem("cooked_prickly_pear", new Item(new Item.Properties().food(Foods.APPLE)));
-    public static final Item WALNUT = registerItem("walnut", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.0F).fast().build())));
-    
     // Miscellaneous
     public static final Item CRAB_CLAW = registerItem("crab_claw", new ShearsItem(new Item.Properties().durability(50).component(DataComponents.TOOL, ShearsItem.createToolProperties())));
     public static final Item COCONUT = registerItem("coconut", new CoconutBlockItem(ModBlocks.COCONUT, new Item.Properties()));
@@ -61,6 +52,14 @@ public class ModItems
     public static final Item PENGUIN_FEATHER = registerItem("penguin_feather", new Item(new Item.Properties()));
     public static final Item SANDCASTLE = registerItem("sandcastle", new SandcastleBlockItem());
     public static final Item MUSIC_DISC_COCONUT = registerItem("music_disc_coconut", new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(ModJukeboxSongs.COCONUT)));
+    
+    // Food
+    public static final Item COCONUT_SLICE = registerItem("coconut_slice", new CoconutSliceItem(new Item.Properties().food(ModFoods.COCONUT_SLICE)));
+    public static final Item CRAB_MEAT = registerItem("crab_meat", new Item(new Item.Properties().food(ModFoods.CRAB_MEAT)));
+    public static final Item TROPICAL_STEW = registerItem("tropical_stew", new CoconutSliceItem(new Item.Properties().stacksTo(1).food(ModFoods.TROPICAL_STEW)));
+    public static final Item PRICKLY_PEAR = registerItem("prickly_pear", new PricklyPearItem(new Item.Properties().food(ModFoods.PRICKLY_PEAR)));
+    public static final Item COOKED_PRICKLY_PEAR = registerItem("cooked_prickly_pear", new PricklyPearItem(new Item.Properties().food(ModFoods.COOKED_PRICKLY_PEAR)));
+    public static final Item WALNUT = registerItem("walnut", new Item(new Item.Properties().food(ModFoods.WALNUT)));
     
     // Spawn Eggs
     //public static final Item CAMEL_SPAWN_EGG = registerItem("camel_spawn_egg", ModEntityTypes.CAMEL, 15714446, 5321501);
