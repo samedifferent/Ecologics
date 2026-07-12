@@ -16,6 +16,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
+import samebutdifferent.ecologics.block.ModCeilingHangingSignBlock;
+import samebutdifferent.ecologics.block.ModStandingSignBlock;
+import samebutdifferent.ecologics.block.ModWallHangingSignBlock;
+import samebutdifferent.ecologics.block.ModWallSignBlock;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
@@ -61,6 +65,7 @@ public class Ecologics
         registerStrippables();
         registerFlammables();
         registerSpawnPlacements();
+        fixSignDrops();
     }
 
     public static void registerWoodTypes() {
@@ -152,5 +157,25 @@ public class Ecologics
         //attributes.put(ModEntityTypes.CAMEL.get(), Camel.createAttributes());
         attributes.put(ModEntityTypes.PENGUIN, Penguin.createAttributes());
         attributes.put(ModEntityTypes.SQUIRREL, Squirrel.createAttributes());
+    }
+    
+    // Workaround for 1.21.1. This issue is only present on this specific Minecraft version and not on other versions.
+    public static void fixSignDrops() {
+    	((ModStandingSignBlock)ModBlocks.AZALEA_SIGN).fixLootTable("azalea_sign");
+    	((ModStandingSignBlock)ModBlocks.FLOWERING_AZALEA_SIGN).fixLootTable("flowering_azalea_sign");
+    	((ModStandingSignBlock)ModBlocks.COCONUT_SIGN).fixLootTable("coconut_sign");
+    	((ModStandingSignBlock)ModBlocks.WALNUT_SIGN).fixLootTable("walnut_sign");
+    	((ModWallSignBlock)ModBlocks.AZALEA_WALL_SIGN).fixLootTable("azalea_sign");
+    	((ModWallSignBlock)ModBlocks.FLOWERING_AZALEA_WALL_SIGN).fixLootTable("flowering_azalea_sign");
+    	((ModWallSignBlock)ModBlocks.COCONUT_WALL_SIGN).fixLootTable("coconut_sign");
+    	((ModWallSignBlock)ModBlocks.WALNUT_WALL_SIGN).fixLootTable("walnut_sign");
+    	((ModCeilingHangingSignBlock)ModBlocks.AZALEA_HANGING_SIGN).fixLootTable("azalea_hanging_sign");
+    	((ModCeilingHangingSignBlock)ModBlocks.FLOWERING_AZALEA_HANGING_SIGN).fixLootTable("flowering_azalea_hanging_sign");
+    	((ModCeilingHangingSignBlock)ModBlocks.COCONUT_HANGING_SIGN).fixLootTable("coconut_hanging_sign");
+    	((ModCeilingHangingSignBlock)ModBlocks.WALNUT_HANGING_SIGN).fixLootTable("walnut_hanging_sign");
+    	((ModWallHangingSignBlock)ModBlocks.AZALEA_WALL_HANGING_SIGN).fixLootTable("azalea_hanging_sign");
+    	((ModWallHangingSignBlock)ModBlocks.FLOWERING_AZALEA_WALL_HANGING_SIGN).fixLootTable("flowering_azalea_hanging_sign");
+    	((ModWallHangingSignBlock)ModBlocks.COCONUT_WALL_HANGING_SIGN).fixLootTable("coconut_hanging_sign");
+    	((ModWallHangingSignBlock)ModBlocks.WALNUT_WALL_HANGING_SIGN).fixLootTable("walnut_hanging_sign");
     }
 }
