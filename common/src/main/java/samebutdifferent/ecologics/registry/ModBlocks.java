@@ -95,14 +95,14 @@ public class ModBlocks
     public static final Block AZALEA_PRESSURE_PLATE = registerBlock("azalea_pressure_plate", new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)) {});
     public static final Block AZALEA_FLOWER = registerBlock("azalea_flower", new AzaleaFlowerBlock(Properties.of().instabreak().noCollission().sound(SoundType.GRASS).offsetType(OffsetType.XZ)));
     public static final Block POTTED_AZALEA_FLOWER = registerBlock("potted_azalea_flower", new FlowerPotBlock(ModBlocks.AZALEA_FLOWER, BlockBehaviour.Properties.of().instabreak().noOcclusion()), false);
-    public static final Block AZALEA_SIGN = registerBlock("azalea_sign", new ModStandingSignBlock(ModWoodType.AZALEA, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD)), false);
-    public static final Block AZALEA_WALL_SIGN = registerBlock("azalea_wall_sign", new ModWallSignBlock(ModWoodType.AZALEA, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(AZALEA_SIGN)), false);
-    public static final Block AZALEA_HANGING_SIGN = registerBlock("azalea_hanging_sign", new ModCeilingHangingSignBlock(ModWoodType.AZALEA, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD)), false);
-    public static final Block AZALEA_WALL_HANGING_SIGN = registerBlock("azalea_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.AZALEA, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(AZALEA_HANGING_SIGN)), false);
-    public static final Block FLOWERING_AZALEA_SIGN = registerBlock("flowering_azalea_sign", new ModStandingSignBlock(ModWoodType.FLOWERING_AZALEA, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD)), false);
-    public static final Block FLOWERING_AZALEA_WALL_SIGN = registerBlock("flowering_azalea_wall_sign", new ModWallSignBlock(ModWoodType.FLOWERING_AZALEA, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FLOWERING_AZALEA_SIGN)), false);
-    public static final Block FLOWERING_AZALEA_HANGING_SIGN = registerBlock("flowering_azalea_hanging_sign", new ModCeilingHangingSignBlock(ModWoodType.FLOWERING_AZALEA, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD)), false);
-    public static final Block FLOWERING_AZALEA_WALL_HANGING_SIGN = registerBlock("flowering_azalea_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.FLOWERING_AZALEA, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(FLOWERING_AZALEA_HANGING_SIGN)), false);
+    public static final Block AZALEA_SIGN = registerBlock("azalea_sign", new ModStandingSignBlock(ModWoodType.AZALEA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)), false);
+    public static final Block AZALEA_WALL_SIGN = registerBlock("azalea_wall_sign", new ModWallSignBlock(ModWoodType.AZALEA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN).dropsLike(AZALEA_SIGN)), false);
+    public static final Block AZALEA_HANGING_SIGN = registerBlock("azalea_hanging_sign", new ModCeilingHangingSignBlock(ModWoodType.AZALEA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)), false);
+    public static final Block AZALEA_WALL_HANGING_SIGN = registerBlock("azalea_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.AZALEA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).dropsLike(AZALEA_HANGING_SIGN)), false);
+    public static final Block FLOWERING_AZALEA_SIGN = registerBlock("flowering_azalea_sign", new ModStandingSignBlock(ModWoodType.FLOWERING_AZALEA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN).sound(SoundType.WOOD)), false);
+    public static final Block FLOWERING_AZALEA_WALL_SIGN = registerBlock("flowering_azalea_wall_sign", new ModWallSignBlock(ModWoodType.FLOWERING_AZALEA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN).dropsLike(FLOWERING_AZALEA_SIGN)), false);
+    public static final Block FLOWERING_AZALEA_HANGING_SIGN = registerBlock("flowering_azalea_hanging_sign", new ModCeilingHangingSignBlock(ModWoodType.FLOWERING_AZALEA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN).sound(SoundType.WOOD)), false);
+    public static final Block FLOWERING_AZALEA_WALL_HANGING_SIGN = registerBlock("flowering_azalea_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.FLOWERING_AZALEA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).dropsLike(FLOWERING_AZALEA_HANGING_SIGN)), false);
 
     // Coconut Woodset
     public static final Block COCONUT_LOG = registerBlock("coconut_log", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
@@ -119,10 +119,10 @@ public class ModBlocks
     public static final Block COCONUT_TRAPDOOR = registerBlock("coconut_trapdoor", new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)){});
     public static final Block COCONUT_BUTTON = registerBlock("coconut_button", new ButtonBlock(BlockSetType.OAK, 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON)) {});
     public static final Block COCONUT_PRESSURE_PLATE = registerBlock("coconut_pressure_plate", new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)) {});
-    public static final Block COCONUT_SIGN = registerBlock("coconut_sign", new ModStandingSignBlock(ModWoodType.COCONUT, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD)), false);
-    public static final Block COCONUT_WALL_SIGN = registerBlock("coconut_wall_sign", new ModWallSignBlock(ModWoodType.COCONUT, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(COCONUT_SIGN)), false);
-    public static final Block COCONUT_HANGING_SIGN = registerBlock("coconut_hanging_sign", new ModCeilingHangingSignBlock(ModWoodType.COCONUT, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD)), false);
-    public static final Block COCONUT_WALL_HANGING_SIGN = registerBlock("coconut_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.COCONUT, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(COCONUT_HANGING_SIGN)), false);
+    public static final Block COCONUT_SIGN = registerBlock("coconut_sign", new ModStandingSignBlock(ModWoodType.COCONUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)), false);
+    public static final Block COCONUT_WALL_SIGN = registerBlock("coconut_wall_sign", new ModWallSignBlock(ModWoodType.COCONUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN).dropsLike(COCONUT_SIGN)), false);
+    public static final Block COCONUT_HANGING_SIGN = registerBlock("coconut_hanging_sign", new ModCeilingHangingSignBlock(ModWoodType.COCONUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)), false);
+    public static final Block COCONUT_WALL_HANGING_SIGN = registerBlock("coconut_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.COCONUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).dropsLike(COCONUT_HANGING_SIGN)), false);
     public static final Block COCONUT_SEEDLING = registerBlock("coconut_seedling", new CoconutSaplingBlock(ModTreeGrower.COCONUT, Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
     public static final Block POTTED_COCONUT_SEEDLING = registerBlock("potted_coconut_seedling", new FlowerPotBlock(ModBlocks.COCONUT_SEEDLING, BlockBehaviour.Properties.of().instabreak().noOcclusion()), false);
     
@@ -141,10 +141,10 @@ public class ModBlocks
     public static final Block WALNUT_TRAPDOOR = registerBlock("walnut_trapdoor", new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)){});
     public static final Block WALNUT_BUTTON = registerBlock("walnut_button", new ButtonBlock(BlockSetType.OAK, 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON)) {});
     public static final Block WALNUT_PRESSURE_PLATE = registerBlock("walnut_pressure_plate", new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)) {});
-    public static final Block WALNUT_SIGN = registerBlock("walnut_sign", new ModStandingSignBlock(ModWoodType.WALNUT, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD)), false);
-    public static final Block WALNUT_WALL_SIGN = registerBlock("walnut_wall_sign", new ModWallSignBlock(ModWoodType.WALNUT, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(WALNUT_SIGN)), false);
-    public static final Block WALNUT_HANGING_SIGN = registerBlock("walnut_hanging_sign", new ModCeilingHangingSignBlock(ModWoodType.WALNUT, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD)), false);
-    public static final Block WALNUT_WALL_HANGING_SIGN = registerBlock("walnut_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.WALNUT, BlockBehaviour.Properties.of().noCollission().strength(1.0F).sound(SoundType.WOOD).dropsLike(WALNUT_HANGING_SIGN)), false);
+    public static final Block WALNUT_SIGN = registerBlock("walnut_sign", new ModStandingSignBlock(ModWoodType.WALNUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)), false);
+    public static final Block WALNUT_WALL_SIGN = registerBlock("walnut_wall_sign", new ModWallSignBlock(ModWoodType.WALNUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN).dropsLike(WALNUT_SIGN)), false);
+    public static final Block WALNUT_HANGING_SIGN = registerBlock("walnut_hanging_sign", new ModCeilingHangingSignBlock(ModWoodType.WALNUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)), false);
+    public static final Block WALNUT_WALL_HANGING_SIGN = registerBlock("walnut_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.WALNUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).dropsLike(WALNUT_HANGING_SIGN)), false);
     public static final Block WALNUT_SAPLING = registerBlock("walnut_sapling", new SaplingBlock(ModTreeGrower.WALNUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)){});
     public static final Block POTTED_WALNUT_SAPLING = registerBlock("potted_walnut_sapling", new FlowerPotBlock(ModBlocks.WALNUT_SAPLING, BlockBehaviour.Properties.of().instabreak().noOcclusion()), false);
     
@@ -176,10 +176,4 @@ public class ModBlocks
     public static final Block PRICKLY_PEAR = registerBlock("prickly_pear", new PricklyPearBlock(), false);
     public static final Block POT = registerBlock("pot", new PotBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(1.0F)));
     public static final Block THIN_ICE = registerBlock("thin_ice", new ThinIceBlock());
-    
-    /*public static <T extends Block T> registerBlock(String name, T> block) {
-        <T> toReturn = registerBlock(name, block);
-        registerItem(name, new BlockItem(toReturn, new Item.Properties()));
-        return toReturn;
-    }*/
 }
