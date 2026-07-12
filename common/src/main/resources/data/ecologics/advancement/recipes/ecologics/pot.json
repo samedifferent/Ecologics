@@ -4,9 +4,9 @@
     "has_terracotta": {
       "conditions": {
         "items": [
-          {
-            "tag": "minecraft:terracotta"
-          }
+		  {
+		    "items": "#minecraft:terracotta"
+		  }
         ]
       },
       "trigger": "minecraft:inventory_changed"
