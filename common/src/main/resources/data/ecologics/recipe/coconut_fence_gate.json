@@ -1,21 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "redstone",
-  "group": "wooden_fence_gate",
-  "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "W": {
-      "item": "ecologics:coconut_planks"
-    }
-  },
-  "pattern": [
-    "#W#",
-    "#W#"
-  ],
-  "result": {
-    "count": 1, 
-    "id": "ecologics:coconut_fence_gate"
-  }
+	"type": "minecraft:crafting_shaped",
+	"category": "redstone",
+	"group": "wooden_fence_gate",
+	"pattern": [
+		"#W#",
+		"#W#"
+	],
+	"key": {
+		"#": {
+			"tag": "c:rods/wooden"
+		},
+		"W": {
+			"item": "ecologics:coconut_planks"
+		}
+	},
+	"result": {
+		"count": 1,
+		"id": "ecologics:coconut_fence_gate"
+	}
 }

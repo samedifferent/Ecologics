@@ -1,24 +1,24 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "A": {
-      "item": "minecraft:sand"
-    },
-    "B": {
-      "item": "ecologics:seashell"
-    },
-    "C": {
-      "item": "minecraft:stick"
-    }
-  },
-  "pattern": [
-    " C ",
-    "ABA",
-    "AAA"
-  ],
-  "result": {
-    "count": 1, 
-    "id": "ecologics:sandcastle"
-  }
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		" C ",
+		"ABA",
+		"AAA"
+	],
+	"key": {
+		"C": {
+			"tag": "c:rods/wooden"
+		},
+		"A": {
+			"item": "minecraft:sand"
+		},
+		"B": {
+			"item": "ecologics:seashell"
+		}
+	},
+	"result": {
+		"count": 1,
+		"id": "ecologics:sandcastle"
+	}
 }
