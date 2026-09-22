@@ -13,7 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
@@ -33,16 +33,16 @@ public class SlantedTrunkPlacer extends TrunkPlacer
     }
 
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, RandomSource pRandom, int pFreeTreeHeight, BlockPos pPos, TreeConfiguration pConfig) {
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel pLevel, BiConsumer<BlockPos, BlockState> pBlockSetter, RandomSource pRandom, int pFreeTreeHeight, BlockPos pPos, TreeFeature tree) {
         Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(pRandom);
         BlockPos.MutableBlockPos mutableBlockPos = pPos.mutable();
-        placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos.relative(direction.getOpposite()), pConfig, (state) -> state.setValue(RotatedPillarBlock.AXIS, direction.getAxis()));
-        placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos.relative(pRandom.nextInt(2) == 0 ? direction.getClockWise() : direction.getCounterClockWise()), pConfig);
+        placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos.relative(direction.getOpposite()), tree, (state) -> state.setValue(RotatedPillarBlock.AXIS, direction.getAxis()));
+        placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos.relative(pRandom.nextInt(2) == 0 ? direction.getClockWise() : direction.getCounterClockWise()), tree);
         for (int i = 0; i < pFreeTreeHeight; i++) {
             if (pRandom.nextFloat() < 0.4F && i > 2) {
                 mutableBlockPos.move(direction);
             }
-            placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos, pConfig);
+            placeLog(pLevel, pBlockSetter, pRandom, mutableBlockPos, tree);
             mutableBlockPos.move(Direction.UP);
         }
 

@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "ecologics:maple_pancakes", "required": false}
+  ]
+}

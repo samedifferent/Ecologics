@@ -1,11 +1,9 @@
 {
   "type": "ecologics:add_item",
-  "conditions": [
-    {
-      "condition": "neoforge:loot_table_id",
-      "loot_table_id": "minecraft:chests/buried_treasure"
-    }
-  ],
+  "condition": {
+    "type": "neoforge:loot_table_id",
+    "loot_table_id": "minecraft:chests/buried_treasure"
+  },
   "item": "ecologics:music_disc_coconut",
   "priority": 1000
 }

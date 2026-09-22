@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+	"minecraft:wandering_trader/emerald_azalea_flower",
+    "minecraft:wandering_trader/emerald_coconut_seedling",
+    "minecraft:wandering_trader/emerald_maple_sapling",
+    "minecraft:wandering_trader/emerald_walnut_sapling"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": "minecraft:soil_beneath_tree",
+  "decorators": [],
+  "minimum_size": {
+    "type": "minecraft:two_layers_feature_size",
+    "limit": 1,
+    "lower_size": 0,
+    "upper_size": 1
+  },
+  "trunk_provider": {
+    "id": "ecologics:coconut_log",
+    "properties": {
+      "axis": "y"
+    }
+  },
+  "foliage_provider": {
+    "id": "ecologics:coconut_leaves",
+    "properties": {
+      "distance": "7",
+      "distance_9": "9",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "trunk_placer": {
+    "type": "ecologics:slanted_trunk_placer",
+    "base_height": 7,
+    "height_rand_a": 4,
+    "height_rand_b": 0
+  },
+  "foliage_placer": {
+    "type": "ecologics:coconut_foliage_placer",
+    "radius": 0,
+    "offset": 0
+  }
+}

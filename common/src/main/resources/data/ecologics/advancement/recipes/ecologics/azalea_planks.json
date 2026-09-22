@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:azalea_planks"
+        "recipes": "ecologics:azalea_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

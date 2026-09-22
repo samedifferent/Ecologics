@@ -35,9 +35,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
 import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraft.world.level.levelgen.structure.templatesystem.AlwaysTrueTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
@@ -71,14 +71,14 @@ public class DesertRuinPieces {
         return Util.getRandom(DESERT_RUINS, random);
     }
     
-    public static void addPieces(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePieceAccessor structurePieceAccessor, RandomSource random, DesertRuinStructure structure) {
+    public static void addPieces(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePiecesBuilder structurePieceAccessor, RandomSource random, DesertRuinStructure structure) {
         DesertRuinPieces.addPiece(structureTemplateManager, pos, rotation, structurePieceAccessor, random, structure, 0.96F);
         if (random.nextFloat() <= 0.4F) {
             DesertRuinPieces.addClusterRuins(structureTemplateManager, random, rotation, pos, structure, structurePieceAccessor);
         }
     }
 
-    private static void addClusterRuins(StructureTemplateManager structureTemplateManager, RandomSource random, Rotation rotation, BlockPos pos, DesertRuinStructure structure, StructurePieceAccessor structurePieceAccessor) {
+    private static void addClusterRuins(StructureTemplateManager structureTemplateManager, RandomSource random, Rotation rotation, BlockPos pos, DesertRuinStructure structure, StructurePiecesBuilder structurePieceAccessor) {
         BlockPos blockPos = new BlockPos(pos.getX(), 90, pos.getZ());
         BlockPos blockPos2 = StructureTemplate.transform(new BlockPos(15, 0, 15), Mirror.NONE, rotation, BlockPos.ZERO).offset(blockPos);
         BoundingBox boundingBox = BoundingBox.fromCorners(blockPos, blockPos2);
@@ -108,7 +108,7 @@ public class DesertRuinPieces {
         return list;
     }
 
-    private static void addPiece(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePieceAccessor structurePieceAccessor, RandomSource random, DesertRuinStructure structure, float integrity) {
+    private static void addPiece(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePiecesBuilder structurePieceAccessor, RandomSource random, DesertRuinStructure structure, float integrity) {
         Identifier Identifier = DesertRuinPieces.getRandomRuin(random);
         structurePieceAccessor.addPiece(new DesertRuinPiece(structureTemplateManager, Identifier, pos, rotation, integrity));
     }
@@ -123,7 +123,7 @@ public class DesertRuinPieces {
         }
         
         private DesertRuinPiece(StructureTemplateManager structureTemplateManager, CompoundTag genDepth, Rotation rotation, float integrity) {
-            super(ModStructurePieces.DESERT_RUIN, genDepth, structureTemplateManager, Identifier -> DesertRuinPiece.makeSettings(rotation, integrity));
+            super(ModStructurePieces.DESERT_RUIN, genDepth, structureTemplateManager, _ -> DesertRuinPiece.makeSettings(rotation, integrity));
             this.integrity = integrity;
         }
     	

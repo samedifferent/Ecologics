@@ -29,7 +29,7 @@ public class ThinIceBlock extends IceBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     
     public ThinIceBlock(BlockBehaviour.Properties properties) {
-        super(properties.isValidSpawn((state, blockGetter, pos, entityType) -> entityType.equals(EntityTypes.POLAR_BEAR) || entityType.equals(ModEntityTypes.PENGUIN)));
+        super(properties.isValidSpawn((_, _, _, entityType) -> entityType.equals(EntityTypes.POLAR_BEAR) || entityType.equals(ModEntityTypes.PENGUIN)));
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
     }
 
@@ -77,7 +77,7 @@ public class ThinIceBlock extends IceBlock {
         		return true;
         	}
             BlockState blockstate = level.getBlockState(pos.below());
-            if (blockstate.blocksMotion() || blockstate.liquid()) {
+            if (blockstate.canOcclude() || blockstate.liquid()) {
                 level.setBlockAndUpdate(pos, IceBlock.meltsInto());
             }
             level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);

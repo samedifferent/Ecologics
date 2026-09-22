@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:ice"
-            ]
+            "items": "minecraft:ice"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:ice_bricks"
+        "recipes": "ecologics:ice_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

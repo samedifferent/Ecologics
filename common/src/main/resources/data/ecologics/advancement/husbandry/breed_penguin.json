@@ -1,4 +1,5 @@
 {
+  "parent": "minecraft:husbandry/breed_an_animal",
   "display": {
     "icon": {
       "id": "ecologics:penguin_feather"
@@ -14,20 +15,17 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "minecraft:husbandry/breed_an_animal",
   "criteria": {
     "bred": {
       "trigger": "minecraft:bred_animals",
       "conditions": {
-        "child": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "ecologics:penguin"
-            }
+        "child": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "ecologics:penguin"
           }
-        ]
+        }
       }
     },
     "feather": {

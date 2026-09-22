@@ -2,59 +2,59 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "predicates": {
-                      "minecraft:enchantments": [
-                        {
-                          "enchantments": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
-                        }
-                      ]
+              "name": "ecologics:coconut",
+              "condition": {
+                "type": "minecraft:match_tool",
+                "predicate": {
+                  "components": {
+                    "minecraft:enchantments": {
+                      "minecraft:silk_touch": 1
                     }
                   }
                 }
-              ],
-              "name": "ecologics:coconut"
+              }
             },
             {
               "type": "minecraft:item",
-              "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count": 2.0,
-                  "add": false
-                },
-                {
-                  "function": "minecraft:explosion_decay"
+              "name": "ecologics:coconut_slice",
+              "condition": {
+                "type": "minecraft:match_tool",
+                "predicate": {
+                  "items": "#minecraft:axes"
                 }
-              ],
-              "name": "ecologics:coconut_slice"
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 2
+              }
+            },
+            {
+              "type": "minecraft:item",
+              "name": "ecologics:coconut"
             }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "ecologics:hanging_coconut",
-          "properties": {
-            "age": "2"
+          ],
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "ecologics:hanging_coconut",
+            "state": {
+              "age": {
+                "min": "2",
+                "max": "2"
+              }
+            }
           }
         }
-      ]
+      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }

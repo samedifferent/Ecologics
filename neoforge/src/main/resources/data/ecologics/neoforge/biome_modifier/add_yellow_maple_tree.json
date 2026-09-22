@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": ["minecraft:dappled_forest"],
+  "features": "ecologics:yellow_maple",
+  "step": "vegetal_decoration"
+}

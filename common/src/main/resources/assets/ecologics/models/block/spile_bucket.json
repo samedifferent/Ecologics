@@ -1,0 +1,93 @@
+{
+  "texture_size": 16,
+  "textures": {
+    "particle": "ecologics:block/spile_bucket",
+    "bucket": "ecologics:block/spile_bucket"
+  },
+  "elements": [
+    {
+      "name": "bucket_outer_walls",
+      "from": [4.0, 4.0, 8.0],
+      "to": [12.0, 12.0, 16.0],
+      "faces": {
+        "north": { "uv": [0.0, 8.0, 8.0, 16.0], "texture": "#bucket" },
+        "south": { "uv": [0.0, 8.0, 8.0, 16.0], "texture": "#bucket" },
+        "west":  { "uv": [0.0, 8.0, 8.0, 16.0], "texture": "#bucket" },
+        "east":  { "uv": [0.0, 8.0, 8.0, 16.0], "texture": "#bucket" },
+        "down":  { "uv": [8.0, 8.0, 16.0, 16.0], "texture": "#bucket" }
+      }
+    },
+    {
+      "name": "bucket_inner_north",
+      "from": [4.0, 4.01, 9.0],
+      "to": [12.0, 12.0, 9.0],
+      "faces": {
+        "south": { "uv": [8.0, 0.0, 16.0, 7.0], "texture": "#bucket" }
+      }
+    },
+    {
+      "name": "bucket_inner_south",
+      "from": [4.0, 4.01, 15.0],
+      "to": [12.0, 12.0, 15.0],
+      "faces": {
+        "north": { "uv": [8.0, 0.0, 16.0, 7.0], "texture": "#bucket" }
+      }
+    },
+    {
+      "name": "bucket_inner_west",
+      "from": [5.0, 4.01, 8.0],
+      "to": [5.0, 12.0, 16.0],
+      "faces": {
+        "east": { "uv": [8.0, 0.0, 16.0, 7.0], "texture": "#bucket" }
+      }
+    },
+    {
+      "name": "bucket_inner_east",
+      "from": [11, 4.01, 8.0],
+      "to": [11, 12.0, 16.0],
+      "faces": {
+        "west": { "uv": [8.0, 0.0, 16.0, 7.0], "texture": "#bucket" }
+      }
+    },
+    {
+      "name": "bucket_inner_floor",
+      "from": [4.99, 5.0, 8.99],
+      "to": [11.01, 5.0, 15.01],
+      "faces": {
+        "up": { "uv": [1.0, 1.0, 7.0, 7.0], "texture": "#bucket" }
+      }
+    },
+	{
+	  "name": "bucket_rim_north",
+	  "from": [4.0, 12.0, 8.0],
+      "to": [12.0, 12.0, 9.0],
+      "faces": {
+        "up": { "uv": [0.0, 0.0, 8.0, 1.0], "texture": "#bucket" }
+      }
+    },
+	{
+	    "name": "bucket_rim_south",
+	    "from": [4.0, 12.0, 15.0],
+	    "to": [12.0, 12.0, 16.0],
+	    "faces": {
+	        "up": { "uv": [0.0, 7.0, 8.0, 8.0], "texture": "#bucket" }
+	    }
+	},
+	{
+	    "name": "bucket_rim_left",
+	    "from": [4.0, 12.0, 9.0],
+	    "to": [5.0, 12.0, 15.0],
+	    "faces": {
+	        "up": { "uv": [0.0, 1.0, 1.0, 7.0], "texture": "#bucket" }
+	    }
+	},
+	{
+	    "name": "bucket_rim_right",
+	    "from": [11.0, 12.0, 9.0],
+	    "to": [12.0, 12.0, 15.0],
+	    "faces": {
+	        "up": { "uv": [7.0, 1.0, 8.0, 7.0], "texture": "#bucket" }
+	    }
+	}
+  ]
+}

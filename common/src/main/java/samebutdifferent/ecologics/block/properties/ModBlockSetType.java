@@ -9,4 +9,5 @@ public class ModBlockSetType
 	public static final BlockSetType WALNUT = new BlockSetType(Ecologics.MOD_ID + ":walnut");
 	public static final BlockSetType AZALEA = new BlockSetType(Ecologics.MOD_ID + ":azalea");
 	public static final BlockSetType FLOWERING_AZALEA = new BlockSetType(Ecologics.MOD_ID + ":flowering_azalea");
+	public static final BlockSetType MAPLE = new BlockSetType(Ecologics.MOD_ID + ":maple");
 }

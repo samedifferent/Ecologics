@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:walnut_planks"
+        "recipes": "ecologics:walnut_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

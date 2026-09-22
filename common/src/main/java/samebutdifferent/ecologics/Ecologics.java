@@ -6,30 +6,30 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import oshi.util.tuples.Pair;
+import samebutdifferent.ecologics.block.grower.ModTreeGrower;
+import samebutdifferent.ecologics.block.interaction.MapleSapCauldronInteraction;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModCompat;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModFeatures;
 import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModMobEffects;
+import samebutdifferent.ecologics.registry.ModParticleTypes;
 import samebutdifferent.ecologics.registry.ModPotions;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModStructures;
+import samebutdifferent.ecologics.registry.ModTreeDecoratorTypes;
 import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
 import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 
@@ -38,10 +38,10 @@ public class Ecologics
     public static final String MOD_ID = "ecologics";
     public static final Logger LOGGER = LogManager.getLogger();
 
-	public static final Map<Holder<Potion>, Pair<ItemLike, Holder<Potion>>> BREWING_RECIPES = new HashMap<>();
-	public static final Map<ItemLike, Float> COMPOSTABLES = new HashMap<>();
-	public static final Map<Block, Block> STRIPPABLES = new HashMap<>();
 	public static final Map<Block, Pair<Integer, Integer>> FLAMMABLES = new HashMap<>();
+	
+	public static ModCompat farmersDelight = null;
+    public static ModCompat rusticDelight = null;
 	
     public static void init() {
         ModBlocks.init();
@@ -54,45 +54,17 @@ public class Ecologics
         ModStructurePieces.init();
         ModTrunkPlacerTypes.init();
         ModFoliagePlacerTypes.init();
+        ModTreeDecoratorTypes.init();
+        ModParticleTypes.init();
         ModMobEffects.init();
         ModPotions.init();
     }
 
     public static void commonSetup() {
         ModWoodType.init();
-        registerBrewingRecipes();
-        registerCompostables();
-        registerStrippables();
+        ModTreeGrower.init();
         registerFlammables();
-        // registerSpawnPlacements();
-    }
-
-    public static void registerBrewingRecipes() {
-    	BREWING_RECIPES.put(Potions.AWKWARD, new Pair<>(ModItems.PENGUIN_FEATHER, ModPotions.SLIDING));
-    	BREWING_RECIPES.put(ModPotions.SLIDING, new Pair<>(Items.REDSTONE, ModPotions.LONG_SLIDING));
-    }
-
-    public static void registerCompostables() {
-    	COMPOSTABLES.put(ModItems.COCONUT_SLICE, 0.3F);
-    	COMPOSTABLES.put(ModItems.COCONUT_HUSK, 0.65F);
-    	COMPOSTABLES.put(ModItems.PRICKLY_PEAR, 0.65F);
-    	COMPOSTABLES.put(ModItems.COOKED_PRICKLY_PEAR, 0.65F);
-    	COMPOSTABLES.put(ModBlocks.COCONUT_LEAVES, 0.3F);
-    	COMPOSTABLES.put(ModBlocks.COCONUT_SEEDLING, 0.3F);
-    	COMPOSTABLES.put(ModBlocks.WALNUT_LEAVES, 0.3F);
-    	COMPOSTABLES.put(ModBlocks.WALNUT_SAPLING, 0.3F);
-    	COMPOSTABLES.put(ModBlocks.AZALEA_FLOWER, 0.65F);
-    }
-
-    public static void registerStrippables() {
-    	STRIPPABLES.put(ModBlocks.COCONUT_LOG, ModBlocks.STRIPPED_COCONUT_LOG);
-    	STRIPPABLES.put(ModBlocks.COCONUT_WOOD, ModBlocks.STRIPPED_COCONUT_WOOD);
-    	STRIPPABLES.put(ModBlocks.WALNUT_LOG, ModBlocks.STRIPPED_WALNUT_LOG);
-    	STRIPPABLES.put(ModBlocks.WALNUT_WOOD, ModBlocks.STRIPPED_WALNUT_WOOD);
-    	STRIPPABLES.put(ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG);
-    	STRIPPABLES.put(ModBlocks.FLOWERING_AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG);
-    	STRIPPABLES.put(ModBlocks.FLOWERING_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD);
-    	STRIPPABLES.put(ModBlocks.AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD);
+        MapleSapCauldronInteraction.registerCauldronInteractions();
     }
 
     public static void registerFlammables() {

@@ -1,0 +1,11 @@
+{
+  "gives": {
+    "id": "ecologics:coconut_seedling"
+  },
+  "max_uses": 8,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 5,
+    "id": "minecraft:emerald"
+  }
+}

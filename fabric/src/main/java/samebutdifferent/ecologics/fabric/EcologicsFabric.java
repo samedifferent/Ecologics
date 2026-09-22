@@ -12,8 +12,10 @@ import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTabOutput;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.registry.*;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -40,7 +42,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
@@ -52,20 +54,24 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
+import samebutdifferent.ecologics.block.interaction.MapleSapCauldronInteraction;
 import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.fabric.integration.RusticDelightCompat;
+import samebutdifferent.ecologics.fabric.integration.farmersdelight.FarmersDelightCompat;
 import samebutdifferent.ecologics.fabric.registry.ModConfigFabric;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
-import samebutdifferent.ecologics.registry.ModItems;
 
-public class EcologicsFabric implements ModInitializer {
+public class EcologicsFabric implements ModInitializer 
+{
     private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab")); //FabricItemGroup.builder(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab")).icon(() -> new ItemStack(ModBlocks.COCONUT_LOG.get())).build();
-
+    
     @Override
     public void onInitialize() {
         AutoConfig.register(ModConfigFabric.class, GsonConfigSerializer::new);
+        registerAdditionalModSupport();
         Ecologics.init();
         registerEntityAttributes();
         registerEvents();
@@ -73,32 +79,35 @@ public class EcologicsFabric implements ModInitializer {
         replaceFeatures();
         addSpawns();
         Ecologics.commonSetup();
+        registerBlockTransforms();
         registerCreativeTab();
-        registerFurnaceFuels();
+        MapleSapCauldronInteraction.registerCauldronInteractions();
         CreativeModeTabEvents.modifyOutputEvent(TAB).register(EcologicsFabric::assignItemsToTab);
         // Iterate.
-        Ecologics.BREWING_RECIPES.forEach((potion, pair) -> { // A: Ingredient, B: Output
-            FabricPotionBrewingBuilder.BUILD.register(builder -> builder.registerPotionRecipe(potion, Ingredient.of(pair.getA()), pair.getB()));
-        });
         Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
         	FlammableBlockRegistry.getInstance(Blocks.FIRE).add(block, pair.getA(), pair.getB());
         });
-        Ecologics.COMPOSTABLES.forEach((item, chance) -> {
-        	CompostableRegistry.INSTANCE.add(item, chance);
-        });
-        Ecologics.STRIPPABLES.forEach(StrippableBlockRegistry::register);
         updateConfig();
     }
 
+    private void registerAdditionalModSupport() {
+    	if (FabricLoader.getInstance().isModLoaded("farmersdelight")) {
+    		Ecologics.farmersDelight = new FarmersDelightCompat();
+    	}
+    	if (FabricLoader.getInstance().isModLoaded("rusticdelight")) {
+    		Ecologics.rusticDelight = new RusticDelightCompat();
+    	}
+    }
+    
     private void registerCreativeTab() {
     	Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB.identifier(), FabricCreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); } ).build());
     	ModCreativeModeTabContents.populateTabDatabase();
-    }
-    
-    private void registerFurnaceFuels() {
-        FuelValueEvents.BUILD.register((builder, context) -> {
-            builder.add(ModItems.COCONUT_HUSK, 100);
-        });
+    	if (FabricLoader.getInstance().isModLoaded("farmersdelight")) {
+    		Ecologics.farmersDelight.registerCreativeTabContent();
+    	}
+    	if (FabricLoader.getInstance().isModLoaded("rusticdelight")) {
+    		Ecologics.rusticDelight.registerCreativeTabContent();
+    	}
     }
 
     private static void assignItemsToTab(FabricCreativeModeTabOutput entries) {
@@ -113,6 +122,20 @@ public class EcologicsFabric implements ModInitializer {
         attributes.forEach(FabricDefaultAttributeRegistry::register);
     }
 
+    public void registerBlockTransforms() {
+    	BlockTransformerHelper.registerStripping(ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG);
+    	BlockTransformerHelper.registerStripping(ModBlocks.FLOWERING_AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_LOG);
+    	BlockTransformerHelper.registerStripping(ModBlocks.MAPLE_LOG, ModBlocks.STRIPPED_MAPLE_LOG);
+    	BlockTransformerHelper.registerStripping(ModBlocks.SAPPY_MAPLE_LOG, ModBlocks.STRIPPED_MAPLE_LOG);
+    	BlockTransformerHelper.registerStripping(ModBlocks.COCONUT_LOG, ModBlocks.STRIPPED_COCONUT_LOG);
+    	BlockTransformerHelper.registerStripping(ModBlocks.WALNUT_LOG, ModBlocks.STRIPPED_WALNUT_LOG);
+    	BlockTransformerHelper.registerStripping(ModBlocks.AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD);
+    	BlockTransformerHelper.registerStripping(ModBlocks.FLOWERING_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_WOOD);
+    	BlockTransformerHelper.registerStripping(ModBlocks.MAPLE_WOOD, ModBlocks.STRIPPED_MAPLE_WOOD);
+    	BlockTransformerHelper.registerStripping(ModBlocks.COCONUT_WOOD, ModBlocks.STRIPPED_COCONUT_WOOD);
+    	BlockTransformerHelper.registerStripping(ModBlocks.WALNUT_WOOD, ModBlocks.STRIPPED_WALNUT_WOOD);
+    }
+    
     public void registerEvents() {
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             BlockState state = world.getBlockState(hitResult.getBlockPos());
@@ -120,13 +143,13 @@ public class EcologicsFabric implements ModInitializer {
                 if (player.getMainHandItem().is(ItemTags.PICKAXES) && hand.equals(InteractionHand.MAIN_HAND)) {
                     world.setBlockAndUpdate(hitResult.getBlockPos(), state.cycle(PotBlock.CHISEL));
                     world.playSound(null, hitResult.getBlockPos(), SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
-                    player.swing(InteractionHand.MAIN_HAND);
+                    player.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, false);
                     player.getMainHandItem().hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 }
                 if (player.getOffhandItem().is(ItemTags.PICKAXES) && !(player.getMainHandItem().is(ItemTags.PICKAXES)) && hand.equals(InteractionHand.OFF_HAND)){
                     world.setBlockAndUpdate(hitResult.getBlockPos(), state.cycle(PotBlock.CHISEL));
                     world.playSound(null, hitResult.getBlockPos(), SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
-                    player.swing(InteractionHand.OFF_HAND);
+                    player.swing(InteractionHand.OFF_HAND, SwingAnimation.DEFAULT, false);
                     player.getOffhandItem().hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
                 }
             }
@@ -135,11 +158,11 @@ public class EcologicsFabric implements ModInitializer {
             if (stack.is(Items.SHEARS)) {
                 if (state.is(Blocks.FLOWERING_AZALEA)) {
                     FloweringAzaleaLogBlock.shearAzalea(world, player, hitResult.getBlockPos(), stack, hand, direction, Blocks.AZALEA.defaultBlockState());
-                    player.swing(hand, true);
+                    player.swing(hand, SwingAnimation.DEFAULT, true);
                 }
                 if (state.is(Blocks.FLOWERING_AZALEA_LEAVES)) {
                     FloweringAzaleaLogBlock.shearAzalea(world, player, hitResult.getBlockPos(), stack, hand, direction, Blocks.AZALEA_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, state.getValue(LeavesBlock.PERSISTENT)).setValue(LeavesBlock.DISTANCE, state.getValue(LeavesBlock.DISTANCE)));
-                    player.swing(hand, true);
+                    player.swing(hand, SwingAnimation.DEFAULT, true);
                 }
             }
             return InteractionResult.PASS;
@@ -150,31 +173,41 @@ public class EcologicsFabric implements ModInitializer {
         ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
         if (config.beach.generateCoconutTrees) {
             BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.BEACH),
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    getPlacedFeatureKey("coconut")
+                (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.BEACH),
+                GenerationStep.Decoration.VEGETAL_DECORATION,
+                getPlacedFeatureKey("coconut")
             );
         }
         if (config.beach.generateSeashells) {
             BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.BEACH),
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    getPlacedFeatureKey("seashell")
+                (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.BEACH),
+                GenerationStep.Decoration.VEGETAL_DECORATION,
+                getPlacedFeatureKey("seashell")
             );
         }
         if (config.snowy.generateThinIcePatches) {
             BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FROZEN_RIVER) || biomeSelector.getBiomeKey().equals(Biomes.FROZEN_OCEAN) || biomeSelector.getBiomeKey().equals(Biomes.SNOWY_PLAINS),
-                    GenerationStep.Decoration.TOP_LAYER_MODIFICATION,
-                    getPlacedFeatureKey("thin_ice_patch")
+                (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FROZEN_RIVER) || biomeSelector.getBiomeKey().equals(Biomes.FROZEN_OCEAN) || biomeSelector.getBiomeKey().equals(Biomes.SNOWY_PLAINS),
+                GenerationStep.Decoration.TOP_LAYER_MODIFICATION,
+                getPlacedFeatureKey("disk_thin_ice")
             );
         }
         if (config.desert.generatePricklyPears) {
             BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DESERT),
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    getPlacedFeatureKey("prickly_pear")
+                (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DESERT),
+                GenerationStep.Decoration.VEGETAL_DECORATION,
+                getPlacedFeatureKey("prickly_pear")
             );
+        }
+        if (config.maple.generateMapleTrees) {
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("red_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("orange_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("yellow_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("green_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("green_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_maple_tree"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_maple_tree"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_maple_tree"));
         }
     }
 

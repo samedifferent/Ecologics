@@ -5,21 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ecologics:coconut_husk"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_brown_mushroom": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "minecraft:brown_mushroom"
-            ]
+            "items": "ecologics:coconut_husk"
           }
         ]
       },
@@ -37,13 +23,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_red_mushroom": {
+    "has_mushrooms": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:red_mushroom"
-            ]
+            "items": "#minecraft:mushrooms"
           }
         ]
       },
@@ -51,7 +35,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:mushroom_stew_from_coconut_husk"
+        "recipes": "ecologics:mushroom_stew_from_coconut_husk"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -60,8 +44,7 @@
     [
       "has_mushroom_stew",
       "has_bowl",
-      "has_brown_mushroom",
-      "has_red_mushroom",
+      "has_mushrooms",
       "has_the_recipe"
     ]
   ],

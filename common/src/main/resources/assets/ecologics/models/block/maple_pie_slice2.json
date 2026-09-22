@@ -1,0 +1,9 @@
+{
+  "parent": "farmersdelight:block/template_pie_slice2",
+  "textures": {
+    "bottom": "farmersdelight:block/pie_bottom",
+    "inner": "ecologics:block/maple_pie_inner",
+    "side": "farmersdelight:block/pie_side",
+    "top": "ecologics:block/maple_pie_top"
+  }
+}

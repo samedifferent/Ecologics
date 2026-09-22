@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "sugar",
+  "ingredients": [
+    "ecologics:maple_syrup_bottle"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:sugar"
+  }
+}

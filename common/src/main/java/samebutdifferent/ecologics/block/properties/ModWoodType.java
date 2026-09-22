@@ -11,4 +11,5 @@ public class ModWoodType {
     public static final WoodType WALNUT = WoodType.register(new WoodType(Ecologics.MOD_ID + ":walnut", ModBlockSetType.WALNUT));
     public static final WoodType AZALEA = WoodType.register(new WoodType(Ecologics.MOD_ID + ":azalea", ModBlockSetType.AZALEA));
     public static final WoodType FLOWERING_AZALEA = WoodType.register(new WoodType(Ecologics.MOD_ID + ":flowering_azalea", ModBlockSetType.FLOWERING_AZALEA));
+    public static final WoodType MAPLE = WoodType.register(new WoodType(Ecologics.MOD_ID + ":maple", ModBlockSetType.MAPLE));
 }

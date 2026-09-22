@@ -2,8 +2,6 @@ package samebutdifferent.ecologics.block;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -41,22 +39,17 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import samebutdifferent.ecologics.block.entity.PotBlockEntity;
 
-public class PotBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-	public static final MapCodec<PotBlock> CODEC = PotBlock.simpleCodec(PotBlock::new);
+public class PotBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
+{
     protected static final VoxelShape SHAPE = Shapes.or(Block.box(3, 13, 3, 13, 15, 13), Block.box(2, 0, 2, 14, 9, 14), Block.box(4, 9, 4, 12, 14, 12));
     public static final IntegerProperty CHISEL = IntegerProperty.create("chisel", 0, 5);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public PotBlock(Properties properties) {
-        super(properties.pushReaction(PushReaction.DESTROY));
+        super(properties.pushReaction(PushReaction.POPPED));
         this.stateDefinition.any().setValue(CHISEL, 0).setValue(POWERED, false).setValue(WATERLOGGED, false);
     }
-    
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return CODEC;
-	}
 
     @SuppressWarnings("deprecation")
 	@Override

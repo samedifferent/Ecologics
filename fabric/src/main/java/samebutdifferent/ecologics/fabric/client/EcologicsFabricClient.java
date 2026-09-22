@@ -1,17 +1,21 @@
 package samebutdifferent.ecologics.fabric.client;
 
+import java.util.List;
+
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.client.model.object.boat.BoatModel;
 import samebutdifferent.ecologics.client.EcologicsClient;
+import samebutdifferent.ecologics.client.MapleSapCauldronTintSource;
+import samebutdifferent.ecologics.client.MapleSapParticle;
 import samebutdifferent.ecologics.client.model.CoconutCrabModel;
 import samebutdifferent.ecologics.client.model.PenguinModel;
 import samebutdifferent.ecologics.client.model.SquirrelModel;
 import samebutdifferent.ecologics.registry.ModBlocks;
-
-import java.util.List;
+import samebutdifferent.ecologics.registry.ModParticleTypes;
 
 public class EcologicsFabricClient implements ClientModInitializer {
     @Override
@@ -33,7 +37,15 @@ public class EcologicsFabricClient implements ClientModInitializer {
         ModelLayerRegistry.registerModelLayer(EcologicsClient.COCONUT_CHEST_BOAT, BoatModel::createChestBoatModel);
         ModelLayerRegistry.registerModelLayer(EcologicsClient.WALNUT_BOAT, BoatModel::createBoatModel);
         ModelLayerRegistry.registerModelLayer(EcologicsClient.WALNUT_CHEST_BOAT, BoatModel::createChestBoatModel);
+        ModelLayerRegistry.registerModelLayer(EcologicsClient.MAPLE_BOAT, BoatModel::createBoatModel);
+        ModelLayerRegistry.registerModelLayer(EcologicsClient.MAPLE_CHEST_BOAT, BoatModel::createChestBoatModel);
 
         BlockColorRegistry.register(List.of(BlockTintSources.foliage()), ModBlocks.COCONUT_LEAVES);
+        BlockColorRegistry.register(List.of(BlockTintSources.foliage()), ModBlocks.GREEN_MAPLE_LEAVES);
+        BlockColorRegistry.register(List.of(new MapleSapCauldronTintSource()), ModBlocks.MAPLE_SAP_CAULDRON);
+        BlockColorRegistry.register(List.of(BlockTintSources.constant(0xC0FFD6AD)), ModBlocks.SPILE);
+        
+        ParticleProviderRegistry.getInstance().register(ModParticleTypes.DRIPPING_MAPLE_SAP, MapleSapParticle.Provider::new);
+        ParticleProviderRegistry.getInstance().register(ModParticleTypes.FALLING_MAPLE_SAP, MapleSapParticle.Provider::new);
     }
 }

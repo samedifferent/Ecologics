@@ -30,16 +30,18 @@ public class ModBlockEntityTypes
 
     public static final BlockEntityType<ModSignBlockEntity> SIGN = registerBlockEntityType("sign", new BlockEntityType<>(ModSignBlockEntity::new,
         Set.of(ModBlocks.COCONUT_SIGN, ModBlocks.COCONUT_WALL_SIGN,
+        ModBlocks.MAPLE_SIGN, ModBlocks.MAPLE_WALL_SIGN,
         ModBlocks.WALNUT_SIGN, ModBlocks.WALNUT_WALL_SIGN,
         ModBlocks.AZALEA_SIGN, ModBlocks.AZALEA_WALL_SIGN,
         ModBlocks.FLOWERING_AZALEA_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_SIGN)
     ));
     public static final BlockEntityType<ModHangingSignBlockEntity> HANGING_SIGN = registerBlockEntityType("hanging_sign", new BlockEntityType<>(ModHangingSignBlockEntity::new,
 		Set.of(ModBlocks.COCONUT_HANGING_SIGN, ModBlocks.COCONUT_WALL_HANGING_SIGN,
+		ModBlocks.MAPLE_HANGING_SIGN, ModBlocks.MAPLE_WALL_HANGING_SIGN,
         ModBlocks.WALNUT_HANGING_SIGN, ModBlocks.WALNUT_WALL_HANGING_SIGN,
         ModBlocks.AZALEA_HANGING_SIGN, ModBlocks.AZALEA_WALL_HANGING_SIGN,
         ModBlocks.FLOWERING_AZALEA_HANGING_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_HANGING_SIGN)
     ));
-    public static final BlockEntityType<ModShelfBlockEntity> SHELF = registerBlockEntityType("shelf", new BlockEntityType<>(ModShelfBlockEntity::new,Set.of(ModBlocks.AZALEA_SHELF, ModBlocks.COCONUT_SHELF, ModBlocks.WALNUT_SHELF)));
+    public static final BlockEntityType<ModShelfBlockEntity> SHELF = registerBlockEntityType("shelf", new BlockEntityType<>(ModShelfBlockEntity::new,Set.of(ModBlocks.AZALEA_SHELF, ModBlocks.COCONUT_SHELF, ModBlocks.MAPLE_SHELF, ModBlocks.WALNUT_SHELF)));
     public static final BlockEntityType<PotBlockEntity> POT = registerBlockEntityType("pot", new BlockEntityType<>(PotBlockEntity::new, Set.of(ModBlocks.POT)));
 }

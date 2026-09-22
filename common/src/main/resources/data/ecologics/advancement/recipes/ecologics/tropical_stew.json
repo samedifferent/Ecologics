@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ecologics:crab_meat"
-            ]
+            "items": "ecologics:crab_meat"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:tropical_stew"
+        "recipes": "ecologics:tropical_stew"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

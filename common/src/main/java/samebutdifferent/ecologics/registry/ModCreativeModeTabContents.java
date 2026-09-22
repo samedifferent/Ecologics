@@ -22,7 +22,22 @@ public class ModCreativeModeTabContents
         addToList(ModBlocks.COCONUT_TRAPDOOR);
         addToList(ModBlocks.COCONUT_PRESSURE_PLATE);
         addToList(ModBlocks.COCONUT_BUTTON);
-            
+
+        addToList(ModBlocks.MAPLE_LOG);
+        addToList(ModBlocks.SAPPY_MAPLE_LOG);
+        addToList(ModBlocks.MAPLE_WOOD);
+        addToList(ModBlocks.STRIPPED_MAPLE_LOG);
+        addToList(ModBlocks.STRIPPED_MAPLE_WOOD);
+        addToList(ModBlocks.MAPLE_PLANKS);
+        addToList(ModBlocks.MAPLE_STAIRS);
+        addToList(ModBlocks.MAPLE_SLAB);
+        addToList(ModBlocks.MAPLE_FENCE);
+        addToList(ModBlocks.MAPLE_FENCE_GATE);
+        addToList(ModBlocks.MAPLE_DOOR);
+        addToList(ModBlocks.MAPLE_TRAPDOOR);
+        addToList(ModBlocks.MAPLE_PRESSURE_PLATE);
+        addToList(ModBlocks.MAPLE_BUTTON);
+        
         addToList(ModBlocks.WALNUT_LOG);
         addToList(ModBlocks.WALNUT_WOOD);
         addToList(ModBlocks.STRIPPED_WALNUT_LOG);
@@ -63,6 +78,8 @@ public class ModCreativeModeTabContents
             
         addToList(ModItems.COCONUT_SIGN);
         addToList(ModItems.COCONUT_HANGING_SIGN);
+        addToList(ModItems.MAPLE_SIGN);
+        addToList(ModItems.MAPLE_HANGING_SIGN);
         addToList(ModItems.WALNUT_SIGN);
         addToList(ModItems.WALNUT_HANGING_SIGN);
         addToList(ModItems.AZALEA_SIGN);
@@ -71,11 +88,14 @@ public class ModCreativeModeTabContents
         addToList(ModItems.FLOWERING_AZALEA_HANGING_SIGN);
 
         addToList(ModBlocks.COCONUT_SHELF);
+        addToList(ModBlocks.MAPLE_SHELF);
         addToList(ModBlocks.WALNUT_SHELF);
         addToList(ModBlocks.AZALEA_SHELF);
         
         addToList(ModItems.COCONUT_BOAT);
         addToList(ModItems.COCONUT_CHEST_BOAT);
+        addToList(ModItems.MAPLE_BOAT);
+        addToList(ModItems.MAPLE_CHEST_BOAT);
         addToList(ModItems.WALNUT_BOAT);
         addToList(ModItems.WALNUT_CHEST_BOAT);
         addToList(ModItems.AZALEA_BOAT);
@@ -85,8 +105,13 @@ public class ModCreativeModeTabContents
             
         addToList(ModBlocks.COCONUT_LEAVES);
         addToList(ModBlocks.WALNUT_LEAVES);
+        addToList(ModBlocks.RED_MAPLE_LEAVES);
+        addToList(ModBlocks.ORANGE_MAPLE_LEAVES);
+        addToList(ModBlocks.YELLOW_MAPLE_LEAVES);
+        addToList(ModBlocks.GREEN_MAPLE_LEAVES);
         addToList(ModBlocks.COCONUT_SEEDLING);
         addToList(ModBlocks.WALNUT_SAPLING);
+        addToList(ModBlocks.MAPLE_SAPLING);
             
         addToList(ModBlocks.COCONUT);
         addToList(ModBlocks.SEASHELL);
@@ -115,6 +140,10 @@ public class ModCreativeModeTabContents
         addToList(ModItems.CRAB_CLAW);
         addToList(ModItems.CRAB_MEAT);
         addToList(ModItems.TROPICAL_STEW);
+        addToList(ModItems.MAPLE_SAP_BUCKET);
+        addToList(ModItems.MAPLE_SYRUP_BOTTLE);
+        addToList(ModItems.MAPLE_COOKIE);
+        addToList(ModItems.MAPLE_PIE);
         addToList(ModItems.COCONUT_CRAB_SPAWN_EGG);
         addToList(ModItems.PENGUIN_SPAWN_EGG);
         addToList(ModItems.SQUIRREL_SPAWN_EGG);
@@ -124,9 +153,10 @@ public class ModCreativeModeTabContents
         addToList(ModItems.COOKED_PRICKLY_PEAR);
         addToList(ModItems.PENGUIN_FEATHER);
         addToList(ModItems.WALNUT);
+        addToList(ModBlocks.SPILE);
 	}
 	
-	private static void addToList(ItemLike item) {
+	public static void addToList(ItemLike item) {
 		TAB_ITEMS.add(item);
 	}
 }

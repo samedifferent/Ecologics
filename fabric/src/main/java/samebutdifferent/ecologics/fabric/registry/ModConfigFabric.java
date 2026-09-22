@@ -25,6 +25,10 @@ public class ModConfigFabric implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public LushCaves lushCaves = new LushCaves();
 
+    @ConfigEntry.Gui.CollapsibleObject
+    public Maple maple = new Maple();
+
+    
     public static class Beach {
         @Comment("How often (in percentage) should Coconut Crabs spawn when a coconut breaks? Set it to 0.0 to disable this.")
         public double coconutCrabSpawnChance = 0.2;
@@ -64,5 +68,10 @@ public class ModConfigFabric implements ConfigData {
         public boolean replaceAzaleaTree = true;
         @Comment("Generate surface moss in lush cave biomes")
         public boolean generateSurfaceMoss = true;
+    }
+    
+    public static class Maple {
+        @Comment("Generate maple trees in Dappled Forest biomes")
+        public boolean generateMapleTrees = true;
     }
 }

@@ -1,0 +1,27 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mods_loaded",
+      "values": [ "farmersdelight" ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "ecologics:maple_pie"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 4,
+        "id": "ecologics:maple_pie_slice"
+      }
+    }
+  ],
+  "tool": "#c:tools/knife"
+}

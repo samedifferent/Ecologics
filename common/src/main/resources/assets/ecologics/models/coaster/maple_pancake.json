@@ -1,0 +1,6 @@
+{
+	"parent": "rusticdelight:coaster/pancake",
+	"textures": {
+		"pancake": "ecologics:block/coaster/maple_pancake"
+	}
+}
