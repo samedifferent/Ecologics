@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": "minecraft:soil_beneath_tree",
+  "decorators": [],
+  "minimum_size": {
+    "type": "minecraft:two_layers_feature_size",
+    "limit": 1,
+    "lower_size": 0,
+    "upper_size": 1
+  },
+  "trunk_provider": {
+    "id": "ecologics:walnut_log",
+    "properties": {
+      "axis": "y"
+    }
+  },
+  "foliage_provider": {
+    "id": "ecologics:walnut_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "trunk_placer": {
+    "type": "minecraft:straight_trunk_placer",
+    "base_height": 3,
+    "height_rand_a": 1,
+    "height_rand_b": 1
+  },
+  "foliage_placer": {
+    "type": "minecraft:random_spread_foliage_placer",
+    "radius": 3,
+    "offset": 0,
+    "foliage_height": 3,
+    "leaf_placement_attempts": 200
+  }
+}

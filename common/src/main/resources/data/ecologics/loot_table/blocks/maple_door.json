@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "ecologics:maple_door",
+            "state": {
+              "half": "lower"
+            }
+          },
+          "name": "ecologics:maple_door"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "ecologics:blocks/maple_door"
+}

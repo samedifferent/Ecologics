@@ -20,12 +20,15 @@ dependencies {
     implementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
         exclude module: "fabric-api"
     }
+	implementation "maven.modrinth:7vxePowz:hTNvMewX"
+    implementation "maven.modrinth:foa4fGIH:ietejMuZ"
     implementation project(":common")
 }
 repositories {
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.terraformersmc.com/releases" }
 	maven { url "https://cursemaven.com" } 
+	maven { url "https://api.modrinth.com/maven" }
 }
 loom {
     def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")

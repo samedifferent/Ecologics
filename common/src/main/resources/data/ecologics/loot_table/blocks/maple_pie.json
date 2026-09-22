@@ -1,0 +1,94 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mods_loaded",
+      "values": [ "farmersdelight" ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "ecologics:maple_pie",
+                "state": {
+                  "bites": "0"
+                }
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 4
+              },
+              "name": "ecologics:maple_pie_slice"
+            },
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "ecologics:maple_pie",
+                "state": {
+                  "bites": "1"
+                }
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 3
+              },
+              "name": "ecologics:maple_pie_slice"
+            },
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "ecologics:maple_pie",
+                "state": {
+                  "bites": "2"
+                }
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 2
+              },
+              "name": "ecologics:maple_pie_slice"
+            },
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "ecologics:maple_pie",
+                "state": {
+                  "bites": "3"
+                }
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 1
+              },
+              "name": "ecologics:maple_pie_slice"
+            }
+          ],
+          "condition": {
+            "type": "minecraft:match_tool",
+            "predicate": {
+              "items": "#farmersdelight:tools/knives"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "random_sequence": "ecologics:blocks/maple_pie"
+}

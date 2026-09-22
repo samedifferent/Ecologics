@@ -52,7 +52,7 @@ public class MossLayerBlock extends SnowLayerBlock
                     item.hurtAndBreak(1, player, hand);
                 }
             }
-            level.playSound(player, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.CONSUME;

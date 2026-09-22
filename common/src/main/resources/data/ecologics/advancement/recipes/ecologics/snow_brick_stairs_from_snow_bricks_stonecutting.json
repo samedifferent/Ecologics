@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ecologics:snow_bricks"
-            ]
+            "items": "ecologics:snow_bricks"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:snow_brick_stairs_from_snow_bricks_stonecutting"
+        "recipes": "ecologics:snow_brick_stairs_from_snow_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

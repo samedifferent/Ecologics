@@ -32,12 +32,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
-        "state": {
-          "Name": "ecologics:coconut_seedling",
-          "Properties": {
-            "stage": "0"
-          }
-        }
+        "state": "ecologics:coconut_seedling"
       }
     },
     {

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "side": "ecologics:block/maple_log",
+    "end": "ecologics:block/maple_log_top"
+  }
+}

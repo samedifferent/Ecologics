@@ -6,6 +6,9 @@
     "ecologics:prickly_pear",
     "ecologics:cooked_prickly_pear",
     "ecologics:crab_meat",
-    "ecologics:tropical_stew"
+    "ecologics:tropical_stew",
+    "ecologics:maple_syrup_bottle",
+	"ecologics:maple_cookie",
+    "ecologics:maple_pie"
   ]
 }

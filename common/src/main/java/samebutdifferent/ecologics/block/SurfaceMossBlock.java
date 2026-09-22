@@ -2,8 +2,6 @@ package samebutdifferent.ecologics.block;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.MultifaceSpreadeableBlock;
@@ -26,7 +25,6 @@ import net.minecraft.world.level.material.Fluids;
 
 public class SurfaceMossBlock extends MultifaceSpreadeableBlock implements BonemealableBlock, SimpleWaterloggedBlock
 {
-	public static final MapCodec<SurfaceMossBlock> CODEC = SurfaceMossBlock.simpleCodec(SurfaceMossBlock::new);
     public static final IntegerProperty LAYERS = IntegerProperty.create("layers", 1, 3);
     private final MultifaceSpreader spreader = new MultifaceSpreader(this);
 
@@ -34,11 +32,6 @@ public class SurfaceMossBlock extends MultifaceSpreadeableBlock implements Bonem
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(LAYERS, 1));
     }
-    
-	@Override
-	public MapCodec<? extends SurfaceMossBlock> codec() {
-		return CODEC;
-	}
     
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -60,17 +53,17 @@ public class SurfaceMossBlock extends MultifaceSpreadeableBlock implements Bonem
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return Direction.stream().anyMatch(direction -> this.spreader.canSpreadInAnyDirection(state, level, pos, direction.getOpposite()));
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+    public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+    public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState, BonemealSource source) {
         this.spreader.spreadFromRandomFaceTowardRandomDirection(blockState, serverLevel, blockPos, randomSource);
     }
 

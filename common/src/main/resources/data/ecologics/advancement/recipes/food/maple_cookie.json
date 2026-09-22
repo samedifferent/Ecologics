@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_maple_syrup": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ecologics:maple_syrup_bottle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "ecologics:maple_cookie"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_maple_syrup"
+    ]
+  ],
+  "rewards": {
+	"recipes": [
+      "ecologics:maple_cookie"
+    ]
+  }
+}

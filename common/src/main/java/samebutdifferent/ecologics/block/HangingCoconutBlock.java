@@ -1,7 +1,5 @@
 package samebutdifferent.ecologics.block;
 
-import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -20,6 +18,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,7 +38,6 @@ import samebutdifferent.ecologics.registry.ModSoundEvents;
 
 public class HangingCoconutBlock extends FallingBlock implements BonemealableBlock 
 {
-	public static final MapCodec<HangingCoconutBlock> CODEC = HangingCoconutBlock.simpleCodec(HangingCoconutBlock::new);
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     protected static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{Block.box(4.0D, 6.0D, 4.0D, 12.0D, 14.0D, 12.0D), Block.box(3.0D, 4.0D, 3.0D, 13.0D, 14.0D, 13.0D), Block.box(2.0D, 2.0D, 2.0D, 14.0D, 14.0D, 14.0D)};
@@ -48,11 +46,6 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0).setValue(PERSISTENT, false));
     }
-    
-	@Override
-	protected MapCodec<? extends FallingBlock> codec() {
-		return CODEC;
-	}
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
@@ -94,17 +87,17 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return state.getValue(AGE) < 2;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         level.setBlock(pos, state.setValue(AGE, state.getValue(AGE) + 1), 2);
     }
 

@@ -1,5 +1,6 @@
 package samebutdifferent.ecologics.item;
 
+import net.minecraft.util.Prediction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -23,7 +24,7 @@ public class CoconutSliceItem extends Item
                 if (!player.getAbilities().instabuild) {
                     if (!mainHandStack.isEmpty()) {
                         if (!player.getInventory().add(coconutHuskStack.copy())) {
-                            player.drop(coconutHuskStack, false);
+                            player.drop(coconutHuskStack, false, Prediction.PREDICTED);
                         }
                     }
                 }

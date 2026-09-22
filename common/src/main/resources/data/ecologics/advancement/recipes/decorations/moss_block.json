@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ecologics:surface_moss"
-            ]
+            "items": "ecologics:surface_moss"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:moss_block"
+        "recipes": "ecologics:moss_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

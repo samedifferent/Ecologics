@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cooked_rabbit"
-            ]
+            "items": "minecraft:cooked_rabbit"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:rabbit_stew_from_red_mushroom_and_coconut_husk"
+        "recipes": "ecologics:rabbit_stew_from_red_mushroom_and_coconut_husk"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

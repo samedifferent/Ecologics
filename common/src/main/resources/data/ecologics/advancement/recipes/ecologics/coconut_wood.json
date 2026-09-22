@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ecologics:coconut_log"
-            ]
+            "items": "ecologics:coconut_log"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:coconut_wood"
+        "recipes": "ecologics:coconut_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ecologics:azalea_planks"
-            ]
+            "items": "ecologics:azalea_planks"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:azalea_trapdoor"
+        "recipes": "ecologics:azalea_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

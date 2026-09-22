@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:spile"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "ecologics:maple_sap_bucket",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "ecologics:spile",
+                "state": {
+                  "has_bucket": "true",
+                  "fullness": "3"
+                }
+              }
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:bucket",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "ecologics:spile",
+                "state": {
+                  "has_bucket": "true"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
+    }
+  ]
+}

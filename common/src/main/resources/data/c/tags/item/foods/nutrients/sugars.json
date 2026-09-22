@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "ecologics:maple_syrup_bottle",
+    "ecologics:maple_cookie",
+    "ecologics:maple_pie",
+    {"id": "ecologics:maple_pancake", "required": false }
+  ]
+}

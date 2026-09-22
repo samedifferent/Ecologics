@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "ecologics:maple_cookie",
+	{"id": "ecologics:maple_pie_slice", "required": false}
+  ]
+}

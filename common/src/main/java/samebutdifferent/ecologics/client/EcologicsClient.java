@@ -24,6 +24,8 @@ public class EcologicsClient {
     public static final ModelLayerLocation COCONUT_CHEST_BOAT = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "chest_boat/coconut"), "main");
     public static final ModelLayerLocation WALNUT_BOAT = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "boat/walnut"), "main");
     public static final ModelLayerLocation WALNUT_CHEST_BOAT = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "chest_boat/walnut"), "main");
+    public static final ModelLayerLocation MAPLE_BOAT = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "boat/maple"), "main");
+    public static final ModelLayerLocation MAPLE_CHEST_BOAT = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "chest_boat/maple"), "main");
 	
     public static void init() {
         // Entity Renderers
@@ -39,6 +41,8 @@ public class EcologicsClient {
     	EntityRenderers.register(ModEntityTypes.COCONUT_CHEST_BOAT, context -> new BoatRenderer(context, COCONUT_CHEST_BOAT));
     	EntityRenderers.register(ModEntityTypes.WALNUT_BOAT, context -> new BoatRenderer(context, WALNUT_BOAT));
     	EntityRenderers.register(ModEntityTypes.WALNUT_CHEST_BOAT, context -> new BoatRenderer(context, WALNUT_CHEST_BOAT));
+    	EntityRenderers.register(ModEntityTypes.MAPLE_BOAT, context -> new BoatRenderer(context, MAPLE_BOAT));
+    	EntityRenderers.register(ModEntityTypes.MAPLE_CHEST_BOAT, context -> new BoatRenderer(context, MAPLE_CHEST_BOAT));
 
         // Block Entity Renderers
         BlockEntityRenderers.register(ModBlockEntityTypes.SIGN, StandingSignRenderer::new);

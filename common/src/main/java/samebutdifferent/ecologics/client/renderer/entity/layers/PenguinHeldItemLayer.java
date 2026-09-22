@@ -22,8 +22,8 @@ public class PenguinHeldItemLayer extends RenderLayer<PenguinRenderState, Pengui
     	poseStack.pushPose();
         this.getParentModel().head.translateAndRotate(poseStack);
         poseStack.translate(0.1f, -0.05f, -0.2f);
-        poseStack.mulPose(Axis.XP.rotationDegrees(90f));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(135f));
+        poseStack.rotateDegrees(Axis.XP, 90F);
+        poseStack.rotateDegrees(Axis.ZP, 135F);
         ItemStackRenderState itemStackRenderState = penguin.heldItem;
         itemStackRenderState.submit(poseStack, nodeCollector, packedLight, OverlayTexture.NO_OVERLAY, penguin.outlineColor);
         poseStack.popPose();

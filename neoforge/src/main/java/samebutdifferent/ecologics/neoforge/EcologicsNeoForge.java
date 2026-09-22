@@ -23,15 +23,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerPotBlock;
+//import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -43,7 +42,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
+import net.neoforged.neoforge.event.RegisterCauldronInteractionEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation;
@@ -53,6 +52,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
+import samebutdifferent.ecologics.block.interaction.MapleSapCauldronInteraction;
 import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.neoforge.mixin.FireBlockAccessor;
@@ -66,9 +66,11 @@ import samebutdifferent.ecologics.registry.ModFeatures;
 import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModMobEffects;
+import samebutdifferent.ecologics.registry.ModParticleTypes;
 import samebutdifferent.ecologics.registry.ModPotions;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModStructures;
+import samebutdifferent.ecologics.registry.ModTreeDecoratorTypes;
 import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
 import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 
@@ -100,9 +102,9 @@ public class EcologicsNeoForge
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
             ModConfigNeoForge.updateConfig();
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
+            //((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
+            //((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
+            //((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
             Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
             	((FireBlockAccessor)Blocks.FIRE).invokeSetFlammable(block, pair.getA(), pair.getB());
             });
@@ -118,10 +120,12 @@ public class EcologicsNeoForge
     	event.register(Registries.FEATURE, _ -> { ModFeatures.init(); });
     	event.register(Registries.TRUNK_PLACER_TYPE, _ -> { ModTrunkPlacerTypes.init(); });
     	event.register(Registries.FOLIAGE_PLACER_TYPE, _ -> { ModFoliagePlacerTypes.init(); });
+        event.register(Registries.TREE_DECORATOR_TYPE, _ -> { ModTreeDecoratorTypes.init(); });
     	event.register(Registries.STRUCTURE_TYPE, _ -> { ModStructures.init(); });
     	event.register(Registries.STRUCTURE_PIECE, _ -> { ModStructurePieces.init(); });
     	event.register(Registries.MOB_EFFECT, _ -> { ModMobEffects.init(); });
     	event.register(Registries.POTION, _ -> { ModPotions.init(); });
+        event.register(Registries.PARTICLE_TYPE, _ -> { ModParticleTypes.init(); });
     	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
     		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
     		ModCreativeModeTabContents.populateTabDatabase();
@@ -166,13 +170,13 @@ public class EcologicsNeoForge
             if (player.getMainHandItem().is(ItemTags.PICKAXES) && hand.equals(InteractionHand.MAIN_HAND)){
                 level.setBlockAndUpdate(pos, state.cycle(PotBlock.CHISEL));
                 level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-                player.swing(InteractionHand.MAIN_HAND);
+                player.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, false);
                 player.getMainHandItem().hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
             }
             if (player.getOffhandItem().is(ItemTags.PICKAXES) && !(player.getMainHandItem().is(ItemTags.PICKAXES)) && hand.equals(InteractionHand.OFF_HAND)){
                 level.setBlockAndUpdate(pos, state.cycle(PotBlock.CHISEL));
                 level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
-                player.swing(InteractionHand.OFF_HAND);
+                player.swing(InteractionHand.OFF_HAND, SwingAnimation.DEFAULT, false);
                 player.getOffhandItem().hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
             }
         }
@@ -182,21 +186,18 @@ public class EcologicsNeoForge
             if (stack.is(Items.SHEARS)) {
                 if (state.is(Blocks.FLOWERING_AZALEA)) {
                     FloweringAzaleaLogBlock.shearAzalea(level, player, pos, stack, hand, direction, Blocks.AZALEA.defaultBlockState());
-                    player.swing(hand, true);
+                    player.swing(hand, SwingAnimation.DEFAULT, true);
                 }
                 if (state.is(Blocks.FLOWERING_AZALEA_LEAVES)) {
                     FloweringAzaleaLogBlock.shearAzalea(level, player, pos, stack, hand, direction, Blocks.AZALEA_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, state.getValue(LeavesBlock.PERSISTENT)).setValue(LeavesBlock.DISTANCE, state.getValue(LeavesBlock.DISTANCE)));
-                    player.swing(hand, true);
+                    player.swing(hand, SwingAnimation.DEFAULT, true);
                 }
             }
         }
     }
-
+    
     @SubscribeEvent
-    public static void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
-        PotionBrewing.Builder builder = event.getBuilder();
-        Ecologics.BREWING_RECIPES.forEach((potion, pair) -> { // A: Ingredient, B: Output
-        	builder.addMix(potion, (Item)pair.getA(), pair.getB());
-        });
+    public static void onRegisterCauldronInteractions(RegisterCauldronInteractionEvent.Dispatcher event) {
+        event.register(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "maple_sap"), MapleSapCauldronInteraction.MAPLE_SAP_CAULDRON_INTERACTIONS);
     }
 }

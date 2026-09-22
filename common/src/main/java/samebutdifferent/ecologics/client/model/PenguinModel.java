@@ -42,6 +42,7 @@ public class PenguinModel extends EntityModel<PenguinRenderState> {
         this.rightFoot = this.body.getChild("rightFoot");
     }
 
+    @SuppressWarnings("unused")
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();

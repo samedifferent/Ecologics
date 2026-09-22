@@ -1,4 +1,5 @@
 {
+  "parent": "minecraft:husbandry/breed_an_animal",
   "display": {
     "icon": {
       "id": "ecologics:sandcastle"
@@ -14,23 +15,20 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "minecraft:husbandry/breed_an_animal",
   "criteria": {
     "sandcastle": {
       "trigger": "minecraft:placed_block",
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:block_state_property",
-            "block": "ecologics:sandcastle",
-            "properties": {
-              "eggs_inside": {
-                "min": "1",
-                "max": "4"
-              }
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "ecologics:sandcastle",
+          "state": {
+            "eggs_inside": {
+              "min": "1",
+              "max": "4"
             }
           }
-        ]
+        }
       }
     }
   },

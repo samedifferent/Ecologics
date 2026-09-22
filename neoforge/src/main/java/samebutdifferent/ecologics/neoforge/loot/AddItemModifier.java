@@ -1,5 +1,6 @@
 package samebutdifferent.ecologics.neoforge.loot;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import org.jetbrains.annotations.NotNull;
@@ -9,6 +10,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -24,7 +26,7 @@ public class AddItemModifier extends LootModifier
     public static final Supplier<MapCodec<AddItemModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(inst -> codecStart(inst).and(ResourceKey.codec(Registries.ITEM).fieldOf("item").forGetter(m -> m.itemKey)).apply(inst, AddItemModifier::new)));
     private final ResourceKey<Item> itemKey;
 
-    protected AddItemModifier(LootItemCondition[] conditionsIn, int priority, ResourceKey<Item> resourceKey) {
+    protected AddItemModifier(Optional<Holder<LootItemCondition>> conditionsIn, int priority, ResourceKey<Item> resourceKey) {
         super(conditionsIn, priority);
         this.itemKey = resourceKey;
     }

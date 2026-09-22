@@ -5,6 +5,6 @@
     "minecraft:frozen_river",
     "minecraft:snowy_plains"
   ],
-  "features": "ecologics:thin_ice_patch",
+  "features": "ecologics:disk_thin_ice",
   "step": "top_layer_modification"
 }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ecologics:seashell_block"
-            ]
+            "items": "ecologics:seashell_block"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:seashell"
+        "recipes": "ecologics:seashell"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

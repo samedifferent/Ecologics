@@ -13,6 +13,7 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.UntintedParticleLeavesBlock;
+import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -23,7 +24,7 @@ public class CoconutLeavesBlock extends UntintedParticleLeavesBlock {
     public static final IntegerProperty DISTANCE_9 = IntegerProperty.create("distance_9", 1, 9);
 
     public CoconutLeavesBlock(float leafParticleChance, ParticleOptions particleOptions, Properties properties) {
-        super(leafParticleChance, particleOptions, properties);
+        super(leafParticleChance, particleOptions, AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE_9, 9).setValue(PERSISTENT, false).setValue(DISTANCE, 7).setValue(WATERLOGGED, false));
     }
 

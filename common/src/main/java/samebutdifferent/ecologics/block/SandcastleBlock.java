@@ -2,11 +2,10 @@ package samebutdifferent.ecologics.block;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -36,7 +35,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SandcastleBlock extends HorizontalDirectionalBlock 
 {
-	public static final MapCodec<SandcastleBlock> CODEC = SandcastleBlock.simpleCodec(SandcastleBlock::new);
     private static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D);
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
     public static final IntegerProperty EGGS_INSIDE = IntegerProperty.create("eggs_inside", 0, 4);
@@ -45,11 +43,6 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(EGGS_INSIDE, 0).setValue(HATCH, 0));
     }
-
-	@Override
-	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-		return CODEC;
-	}
     
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -83,7 +76,7 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
                 if (pState.getValue(EGGS_INSIDE) > 0) {
                     pLevel.setBlockAndUpdate(pPos, Blocks.TURTLE_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, pState.getValue(EGGS_INSIDE)).setValue(TurtleEggBlock.HATCH, pState.getValue(HATCH)));
                 } else {
-                    pLevel.destroyBlock(pPos, false);
+                    pLevel.destroyBlock(pPos, true);
                 }
             }
 
@@ -153,7 +146,7 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
     }
 
     @Override
-    public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pBlockEntity, ItemStack pTool) {
+    public void playerDestroy(ServerLevel pLevel, ServerPlayer pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pBlockEntity, ItemStack pTool) {
         super.playerDestroy(pLevel, pPlayer, pPos, pState, pBlockEntity, pTool);
         if (pState.getValue(EGGS_INSIDE) > 0) {
             pLevel.setBlockAndUpdate(pPos, Blocks.TURTLE_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, pState.getValue(EGGS_INSIDE)).setValue(TurtleEggBlock.HATCH, pState.getValue(HATCH)));

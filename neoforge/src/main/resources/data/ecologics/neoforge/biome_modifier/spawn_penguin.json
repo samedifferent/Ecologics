@@ -5,10 +5,13 @@
     "minecraft:frozen_river",
     "minecraft:snowy_plains"
   ],
-  "spawners": {
-    "type": "ecologics:penguin",
-    "weight": 2,
-    "minCount": 4,
-    "maxCount": 5
-  }
+  "spawners": [
+    {
+      "type": "ecologics:penguin",
+      "weight": 2,
+	  "count": 4,
+      "minCount": 4,
+      "maxCount": 5
+    }
+  ]
 }

@@ -25,7 +25,7 @@ public class MatchToolMixin {
 	
 	@Inject(at = @At("RETURN"), method = "test(Lnet/minecraft/world/level/storage/loot/LootContext;)Z", cancellable = true)
 	private void injectTest(LootContext context, CallbackInfoReturnable<Boolean> cir) {
-		ItemInstance item = context.getOptionalParameter(LootContextParams.TOOL);
+		ItemInstance item = context.getOptional(LootContextParams.TOOL);
 		if (item != null && item.is(ModItems.CRAB_CLAW)) {
 			cir.setReturnValue(this.predicate.get().test(Items.SHEARS.getDefaultInstance()));
 		}

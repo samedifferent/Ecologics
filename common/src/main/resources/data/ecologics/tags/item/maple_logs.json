@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "ecologics:maple_log",
+	"ecologics:sappy_maple_log",
+    "ecologics:stripped_maple_log",
+    "ecologics:maple_wood",
+    "ecologics:stripped_maple_wood"
+  ]
+}

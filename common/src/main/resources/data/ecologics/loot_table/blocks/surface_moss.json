@@ -1,71 +1,67 @@
 {
   "type": "minecraft:block",
   "pools": [
-      {
-        "bonus_rolls": 0.0,
-        "conditions": [
-          {
-            "condition": "minecraft:match_tool",
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "ecologics:surface_moss",
+                "state": {
+                  "layers": "1"
+                }
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 1
+              },
+              "name": "ecologics:surface_moss"
+            },
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "ecologics:surface_moss",
+                "state": {
+                  "layers": "2"
+                }
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 2
+              },
+              "name": "ecologics:surface_moss"
+            },
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "ecologics:surface_moss",
+                "state": {
+                  "layers": "3"
+                }
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 3
+              },
+              "name": "ecologics:surface_moss"
+            }
+          ],
+          "condition": {
+            "type": "minecraft:match_tool",
             "predicate": {
               "items": "#c:shears"
             }
           }
-        ],
-        "entries": [
-          {
-            "type": "minecraft:item",
-            "functions": [
-              {
-                "add": false,
-                "conditions": [
-                  {
-                    "block": "ecologics:surface_moss",
-                    "condition": "minecraft:block_state_property",
-                    "properties": {
-                      "layers": "1"
-                    }
-                  }
-                ],
-                "count": 1.0,
-                "function": "minecraft:set_count"
-              },
-              {
-                "add": false,
-                "conditions": [
-                  {
-                    "block": "ecologics:surface_moss",
-                    "condition": "minecraft:block_state_property",
-                    "properties": {
-                      "layers": "2"
-                    }
-                  }
-                ],
-                "count": 2.0,
-                "function": "minecraft:set_count"
-              },
-              {
-                "add": false,
-                "conditions": [
-                  {
-                    "block": "ecologics:surface_moss",
-                    "condition": "minecraft:block_state_property",
-                    "properties": {
-                      "layers": "3"
-                    }
-                  }
-                ],
-                "count": 3.0,
-                "function": "minecraft:set_count"
-              },
-              {
-                "function": "minecraft:explosion_decay"
-              }
-            ],
-            "name": "ecologics:surface_moss"
-          }
-        ],
-        "rolls": 1.0
-      }
-    ],
+        }
+      ]
+    }
+  ],
   "random_sequence": "ecologics:blocks/surface_moss"
 }

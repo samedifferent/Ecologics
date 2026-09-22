@@ -1,0 +1,176 @@
+[
+  {
+    "block_state_provider": {
+      "type": "minecraft:rule_based",
+      "rules": [
+        {
+          "if_true": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "ecologics:azalea_wood"
+          },
+          "then": {
+            "type": "minecraft:copy_properties",
+            "source": {
+              "id": "ecologics:stripped_azalea_wood",
+              "properties": {
+                "axis": "y"
+              }
+            }
+          }
+        },
+        {
+          "if_true": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "ecologics:azalea_log"
+          },
+          "then": {
+            "type": "minecraft:copy_properties",
+            "source": {
+              "id": "ecologics:stripped_azalea_log",
+              "properties": {
+                "axis": "y"
+              }
+            }
+          }
+        },
+		{
+		  "if_true": {
+		    "type": "minecraft:matching_blocks",
+		    "blocks": "ecologics:flowering_azalea_wood"
+		  },
+		  "then": {
+		    "type": "minecraft:copy_properties",
+		    "source": {
+		      "id": "ecologics:stripped_azalea_wood",
+		      "properties": {
+		        "axis": "y"
+		      }
+		    }
+		  }
+		},
+		{
+		  "if_true": {
+		    "type": "minecraft:matching_blocks",
+		    "blocks": "ecologics:flowering_azalea_log"
+		  },
+		  "then": {
+		    "type": "minecraft:copy_properties",
+		    "source": {
+		      "id": "ecologics:stripped_azalea_log",
+		      "properties": {
+		        "axis": "y"
+		      }
+		    }
+		  }
+		},
+		{
+		  "if_true": {
+		    "type": "minecraft:matching_blocks",
+		    "blocks": "ecologics:coconut_wood"
+		  },
+		  "then": {
+		    "type": "minecraft:copy_properties",
+		    "source": {
+		      "id": "ecologics:stripped_coconut_wood",
+		      "properties": {
+		        "axis": "y"
+		      }
+		    }
+		  }
+		},
+		{
+		  "if_true": {
+		    "type": "minecraft:matching_blocks",
+		    "blocks": "ecologics:coconut_log"
+		  },
+		  "then": {
+		    "type": "minecraft:copy_properties",
+		    "source": {
+		      "id": "ecologics:stripped_coconut_log",
+		      "properties": {
+		        "axis": "y"
+		      }
+		    }
+		  }
+		},
+		{
+		  "if_true": {
+		    "type": "minecraft:matching_blocks",
+		    "blocks": "ecologics:maple_wood"
+		  },
+		  "then": {
+		    "type": "minecraft:copy_properties",
+		    "source": {
+		      "id": "ecologics:stripped_maple_wood",
+		      "properties": {
+		        "axis": "y"
+		      }
+		    }
+		  }
+		},
+		{
+		  "if_true": {
+		    "type": "minecraft:matching_blocks",
+		    "blocks": "ecologics:maple_log"
+		  },
+		  "then": {
+		    "type": "minecraft:copy_properties",
+		    "source": {
+		      "id": "ecologics:stripped_maple_log",
+		      "properties": {
+		        "axis": "y"
+		      }
+		    }
+		  }
+		},
+		{
+		  "if_true": {
+		    "type": "minecraft:matching_blocks",
+		    "blocks": "ecologics:sappy_maple_log"
+		  },
+		  "then": {
+		    "type": "minecraft:copy_properties",
+		    "source": {
+		      "id": "ecologics:stripped_maple_log",
+		      "properties": {
+		        "axis": "y"
+		      }
+		    }
+		  }
+		},
+		{
+		  "if_true": {
+		    "type": "minecraft:matching_blocks",
+		    "blocks": "ecologics:walnut_wood"
+		  },
+		  "then": {
+		    "type": "minecraft:copy_properties",
+		    "source": {
+		      "id": "ecologics:stripped_walnut_wood",
+		      "properties": {
+		        "axis": "y"
+		      }
+		    }
+		  }
+		},
+		{
+		  "if_true": {
+		    "type": "minecraft:matching_blocks",
+		    "blocks": "ecologics:walnut_log"
+		  },
+		  "then": {
+		    "type": "minecraft:copy_properties",
+		    "source": {
+		      "id": "ecologics:stripped_walnut_log",
+		      "properties": {
+		        "axis": "y"
+		      }
+		    }
+		  }
+		}
+	  ]
+	},
+    "item_damage_per_use": 1,
+    "sound": "minecraft:item.axe.strip"
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "weight": 2,
+        "data": {
+          "id": "ecologics:prickly_pear",
+          "properties": {
+            "age": "0"
+          }
+        }
+      },
+      {
+        "weight": 2,
+        "data": {
+          "id": "ecologics:prickly_pear",
+          "properties": {
+            "age": "1"
+          }
+        }
+      },
+      {
+        "weight": 1,
+        "data": {
+          "id": "ecologics:prickly_pear",
+          "properties": {
+            "age": "2"
+          }
+        }
+      },
+      {
+        "weight": 1,
+        "data": {
+          "id": "ecologics:prickly_pear",
+          "properties": {
+            "age": "3"
+          }
+        }
+      }
+    ]
+  }
+}

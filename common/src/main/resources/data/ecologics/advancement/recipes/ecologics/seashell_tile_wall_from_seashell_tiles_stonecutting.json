@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "ecologics:seashell_tiles"
-            ]
+            "items": "ecologics:seashell_tiles"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ecologics:seashell_tile_wall_from_seashell_tiles_stonecutting"
+        "recipes": "ecologics:seashell_tile_wall_from_seashell_tiles_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
