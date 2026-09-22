@@ -1,21 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "group": "wooden_fence",
-  "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "W": {
-      "item": "ecologics:walnut_planks"
-    }
-  },
-  "pattern": [
-    "W#W",
-    "W#W"
-  ],
-  "result": {
-    "count": 3,
-    "id": "ecologics:walnut_fence"
-  }
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"group": "wooden_fence",
+	"pattern": [
+		"W#W",
+		"W#W"
+	],
+	"key": {
+		"W": {
+			"item": "ecologics:walnut_planks"
+		},
+		"#": {
+			"tag": "c:rods/wooden"
+		}
+	},
+	"result": {
+		"count": 3,
+		"id": "ecologics:walnut_fence"
+	}
 }
