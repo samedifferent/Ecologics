@@ -22,7 +22,7 @@ body:
       description: What Mod Loader are you running?
       options:
         - Fabric
-        - Forge
+        - NeoForge
     validations:
       required: true
   - type: input
