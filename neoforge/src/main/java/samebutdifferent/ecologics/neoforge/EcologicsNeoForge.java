@@ -2,7 +2,6 @@ package samebutdifferent.ecologics.neoforge;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -30,13 +29,13 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-//import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
@@ -55,8 +54,11 @@ import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.block.interaction.MapleSapCauldronInteraction;
 import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Penguin;
-import samebutdifferent.ecologics.neoforge.mixin.FireBlockAccessor;
+import samebutdifferent.ecologics.entity.data.CamelChestDataHelper;
+import samebutdifferent.ecologics.neoforge.integration.farmersdelight.FarmersDelightCompat;
+import samebutdifferent.ecologics.neoforge.registry.CamelChestDataHelperNeoForge;
 import samebutdifferent.ecologics.neoforge.registry.ModConfigNeoForge;
+import samebutdifferent.ecologics.neoforge.registry.ModDataAttachments;
 import samebutdifferent.ecologics.neoforge.registry.ModGlobalLootModifiers;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
@@ -81,9 +83,10 @@ public class EcologicsNeoForge
 	private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab"));
 		
     public EcologicsNeoForge(IEventBus bus, ModContainer container) {
-        container.registerConfig(ModConfig.Type.COMMON, ModConfigNeoForge.COMMON_CONFIG);
+        container.registerConfig(ModConfig.Type.STARTUP, ModConfigNeoForge.COMMON_CONFIG);
 
         ModGlobalLootModifiers.GLM.register(bus);
+        ModDataAttachments.ATTACHMENTS.register(bus);
 
         bus.addListener(this::registerEntityAttributes);
         bus.addListener(this::registerModContent);
@@ -102,16 +105,14 @@ public class EcologicsNeoForge
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
             ModConfigNeoForge.updateConfig();
-            //((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
-            //((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
-            //((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
-            Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
-            	((FireBlockAccessor)Blocks.FIRE).invokeSetFlammable(block, pair.getA(), pair.getB());
-            });
+            CamelChestDataHelper.registerHandler(new CamelChestDataHelperNeoForge());
         });
     }
 
     private void registerModContent(RegisterEvent event) {
+        if (ModList.get().isLoaded("farmersdelight") && Ecologics.farmersDelight == null) {
+            Ecologics.farmersDelight = new FarmersDelightCompat();
+        }
     	event.register(Registries.SOUND_EVENT, _ -> { ModSoundEvents.init(); });
     	event.register(Registries.BLOCK, _ -> { ModBlocks.init(); });
     	event.register(Registries.ITEM, _ -> { ModItems.init(); });
@@ -129,6 +130,9 @@ public class EcologicsNeoForge
     	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
     		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
     		ModCreativeModeTabContents.populateTabDatabase();
+            if (Ecologics.farmersDelight != null) {
+                Ecologics.farmersDelight.registerCreativeTabContent();
+            }
     	});
     }
 

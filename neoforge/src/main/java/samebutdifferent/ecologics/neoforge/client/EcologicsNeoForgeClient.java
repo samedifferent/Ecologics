@@ -26,7 +26,7 @@ public class EcologicsNeoForgeClient
 {
 	@SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
-        EcologicsClient.init();
+        event.enqueueWork(EcologicsClient::init);
     }
 
     @SubscribeEvent

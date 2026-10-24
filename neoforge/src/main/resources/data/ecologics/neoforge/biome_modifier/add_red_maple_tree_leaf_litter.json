@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": ["minecraft:dappled_forest"],
+  "features": "ecologics:red_maple_leaf_litter",
+  "step": "vegetal_decoration"
+}
