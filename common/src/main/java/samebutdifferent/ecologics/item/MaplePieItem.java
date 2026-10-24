@@ -8,6 +8,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
@@ -24,13 +25,12 @@ public class MaplePieItem extends BlockItem
     
     @Override
     public Block getBlock() {
-        return ModBlocks.MAPLE_PIE; // Workaround.
+        return Ecologics.farmersDelight != null ? ModBlocks.MAPLE_PIE : Blocks.CAKE; // Include a fallback.
     }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        Ecologics.LOGGER.info("Attempting to use pie.");
-        if (Ecologics.farmersDelight != null && this.getBlock() != null) {
+        if (Ecologics.farmersDelight != null) {
             InteractionResult result = this.place(new BlockPlaceContext(context));
             if (result.consumesAction()) {
                 return context.getLevel().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "ecologics:azalea_wood",
+    "ecologics:flowering_azalea_wood",
+    "ecologics:coconut_wood",
+    "ecologics:maple_wood",
+    "ecologics:walnut_wood"
+  ]
+}

@@ -9,7 +9,6 @@ import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -24,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
+import samebutdifferent.ecologics.registry.ModTags;
 
 public class ThinIceBlock extends IceBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
@@ -36,7 +36,7 @@ public class ThinIceBlock extends IceBlock {
     @Override
     public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
     	Holder<Enchantment> ffholder = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FEATHER_FALLING);
-        if (fallDistance > 1 && entity instanceof LivingEntity && EnchantmentHelper.getEnchantmentLevel(ffholder, (LivingEntity)entity) == 0) {
+        if (fallDistance > 1 && entity instanceof LivingEntity && entity.is(ModTags.EntityTypeTags.BREAKS_THIN_ICE) && EnchantmentHelper.getEnchantmentLevel(ffholder, (LivingEntity)entity) == 0) {
             level.playSound(null, pos, ModSoundEvents.THIN_ICE_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + level.getRandom().nextFloat() * 0.2F);
             replaceIfThinIce(pos, 3, level);
             replaceIfThinIce(pos.north(), 2, level);
@@ -59,7 +59,7 @@ public class ThinIceBlock extends IceBlock {
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        if (entity instanceof Player && state.getValue(AGE) > 0) {
+        if (entity instanceof LivingEntity && entity.is(ModTags.EntityTypeTags.BREAKS_THIN_ICE) && state.getValue(AGE) > 0) {
             this.crack(state, level, pos);
         }
     }

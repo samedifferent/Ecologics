@@ -171,6 +171,9 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
     
     // Log depletion mechanic
     private void depleteLogSap(ServerLevel level, BlockPos logPos, BlockState sappyLogState) {
+        if (!sappyLogState.is(ModBlocks.SAPPY_MAPLE_LOG)) {
+            return;
+        }
         if (sappyLogState.hasProperty(BlockStateProperties.AXIS)) {
             Axis activeAxis = sappyLogState.getValue(BlockStateProperties.AXIS);
             level.setBlock(logPos, ModBlocks.MAPLE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, activeAxis), 3);

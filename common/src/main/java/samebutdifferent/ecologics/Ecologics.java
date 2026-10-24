@@ -38,11 +38,11 @@ public class Ecologics
     public static final String MOD_ID = "ecologics";
     public static final Logger LOGGER = LogManager.getLogger();
 
-	public static final Map<Block, Pair<Integer, Integer>> FLAMMABLES = new HashMap<>();
-	
-	public static ModCompat farmersDelight = null;
+    public static final Map<Block, Pair<Integer, Integer>> FLAMMABLES = new HashMap<>();
+    
+    public static ModCompat farmersDelight = null;
     public static ModCompat rusticDelight = null;
-	
+    
     public static void init() {
         ModBlocks.init();
         ModItems.init();
@@ -69,45 +69,60 @@ public class Ecologics
 
     public static void registerFlammables() {
         // COCONUT
-    	FLAMMABLES.put(ModBlocks.COCONUT_PLANKS, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.COCONUT_SLAB, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.COCONUT_FENCE_GATE, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.COCONUT_FENCE, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.COCONUT_STAIRS, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.COCONUT_LOG, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.STRIPPED_COCONUT_LOG, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.STRIPPED_COCONUT_WOOD, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.COCONUT_WOOD, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.COCONUT_LEAVES, new Pair<>(30, 60));
+        FLAMMABLES.put(ModBlocks.COCONUT_PLANKS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.COCONUT_SLAB, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.COCONUT_FENCE_GATE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.COCONUT_FENCE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.COCONUT_STAIRS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.COCONUT_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.COCONUT_WOOD, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.STRIPPED_COCONUT_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.STRIPPED_COCONUT_WOOD, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.COCONUT_LEAVES, new Pair<>(30, 60));
         // WALNUT
-    	FLAMMABLES.put(ModBlocks.WALNUT_PLANKS, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.WALNUT_SLAB, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.WALNUT_FENCE_GATE, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.WALNUT_FENCE, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.WALNUT_STAIRS, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.WALNUT_LOG, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.STRIPPED_WALNUT_LOG, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.STRIPPED_WALNUT_WOOD, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.WALNUT_WOOD, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.WALNUT_LEAVES, new Pair<>(30, 60));
+        FLAMMABLES.put(ModBlocks.WALNUT_PLANKS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.WALNUT_SLAB, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.WALNUT_FENCE_GATE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.WALNUT_FENCE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.WALNUT_STAIRS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.WALNUT_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.WALNUT_WOOD, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.STRIPPED_WALNUT_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.STRIPPED_WALNUT_WOOD, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.WALNUT_LEAVES, new Pair<>(30, 60));
+        // MAPLE
+        FLAMMABLES.put(ModBlocks.MAPLE_PLANKS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.MAPLE_SLAB, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.MAPLE_FENCE_GATE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.MAPLE_FENCE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.MAPLE_STAIRS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.MAPLE_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.SAPPY_MAPLE_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.MAPLE_WOOD, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.STRIPPED_MAPLE_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.STRIPPED_MAPLE_WOOD, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.RED_MAPLE_LEAVES, new Pair<>(30, 60));
+        FLAMMABLES.put(ModBlocks.ORANGE_MAPLE_LEAVES, new Pair<>(30, 60));
+        FLAMMABLES.put(ModBlocks.YELLOW_MAPLE_LEAVES, new Pair<>(30, 60));
+        FLAMMABLES.put(ModBlocks.GREEN_MAPLE_LEAVES, new Pair<>(30, 60));
         // AZALEA
-    	FLAMMABLES.put(ModBlocks.AZALEA_PLANKS, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.AZALEA_SLAB, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.AZALEA_FENCE_GATE, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.AZALEA_FENCE, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.AZALEA_STAIRS, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.AZALEA_LOG, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.STRIPPED_AZALEA_LOG, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.STRIPPED_AZALEA_WOOD, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.AZALEA_WOOD, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.AZALEA_PLANKS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.AZALEA_SLAB, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.AZALEA_FENCE_GATE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.AZALEA_FENCE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.AZALEA_STAIRS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.AZALEA_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.AZALEA_WOOD, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.STRIPPED_AZALEA_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.STRIPPED_AZALEA_WOOD, new Pair<>(5, 5));
         // FLOWERING_AZALEA
-    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_PLANKS, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_SLAB, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_FENCE_GATE, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_FENCE, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_STAIRS, new Pair<>(5, 20));
-    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_LOG, new Pair<>(5, 5));
-    	FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_WOOD, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_PLANKS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_SLAB, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_FENCE_GATE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_FENCE, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_STAIRS, new Pair<>(5, 20));
+        FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_LOG, new Pair<>(5, 5));
+        FLAMMABLES.put(ModBlocks.FLOWERING_AZALEA_WOOD, new Pair<>(5, 5));
     }
 
     public static void registerEntityAttributes(Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> attributes) {

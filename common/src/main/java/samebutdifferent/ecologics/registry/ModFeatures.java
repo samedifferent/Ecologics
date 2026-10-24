@@ -19,4 +19,6 @@ public class ModFeatures
     public static final ResourceKey<Feature> ORANGE_MAPLE = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "orange_maple_tree"));
     public static final ResourceKey<Feature> YELLOW_MAPLE = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "yellow_maple_tree"));
     public static final ResourceKey<Feature> GREEN_MAPLE = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "green_maple_tree"));
+    
+    public static final ResourceKey<Feature> MAPLE_BEES = ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "maple_tree_bees"));
 }

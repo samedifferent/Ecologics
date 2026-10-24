@@ -17,9 +17,6 @@ Simple vanilla biome updates, with fun mobs, blocks, and more!
 [[mixins]]
 config = "ecologics-common.mixins.json"
 
-[[mixins]]
-config = "ecologics-neoforge.mixins.json"
-
 [[dependencies.ecologics]]
 modId = "neoforge"
 type = "required"

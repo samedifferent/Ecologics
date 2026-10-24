@@ -203,11 +203,11 @@ public class ModBlocks
     public static final Block SEASHELL_TILE_WALL = registerBlock("seashell_tile_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(SEASHELL_BLOCK), DEFAULT_BLOCK_ITEM_PROPERTIES);
 
     // Snow & Ice Bricks
-    public static final Block ICE_BRICKS = registerBlock("ice_bricks", Block::new, BlockBehaviour.Properties.of().friction(0.98F).strength(0.5F).sound(SoundType.GLASS).noOcclusion(), DEFAULT_BLOCK_ITEM_PROPERTIES);
+    public static final Block ICE_BRICKS = registerBlock("ice_bricks", Block::new, BlockBehaviour.Properties.of().friction(0.98F).strength(0.5F).sound(SoundType.GLASS).mapColor(MapColor.ICE).noOcclusion(), DEFAULT_BLOCK_ITEM_PROPERTIES);
     public static final Block ICE_BRICK_STAIRS = registerBlock("ice_brick_stairs", properties -> new StairBlock(ICE_BRICKS.defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(ICE_BRICKS), DEFAULT_BLOCK_ITEM_PROPERTIES);
     public static final Block ICE_BRICK_SLAB = registerBlock("ice_brick_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(ICE_BRICKS), DEFAULT_BLOCK_ITEM_PROPERTIES);
     public static final Block ICE_BRICK_WALL = registerBlock("ice_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(ICE_BRICKS), DEFAULT_BLOCK_ITEM_PROPERTIES);
-    public static final Block SNOW_BRICKS = registerBlock("snow_bricks", Block::new, BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.SNOW), DEFAULT_BLOCK_ITEM_PROPERTIES);
+    public static final Block SNOW_BRICKS = registerBlock("snow_bricks", Block::new, BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.SNOW).mapColor(MapColor.SNOW), DEFAULT_BLOCK_ITEM_PROPERTIES);
     public static final Block SNOW_BRICK_STAIRS = registerBlock("snow_brick_stairs", properties -> new StairBlock(SNOW_BRICKS.defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(SNOW_BRICKS), DEFAULT_BLOCK_ITEM_PROPERTIES);
     public static final Block SNOW_BRICK_SLAB = registerBlock("snow_brick_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(SNOW_BRICKS), DEFAULT_BLOCK_ITEM_PROPERTIES);
     public static final Block SNOW_BRICK_WALL = registerBlock("snow_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(SNOW_BRICKS), DEFAULT_BLOCK_ITEM_PROPERTIES);
@@ -222,7 +222,7 @@ public class ModBlocks
     public static final Block SANDCASTLE = registerBlock("sandcastle", SandcastleBlock::new, Properties.of().mapColor(MapColor.SAND).strength(0.7F).sound(SoundType.SAND).pushReaction(PushReaction.POPPED).noOcclusion().randomTicks(), null);
     public static final Block PRICKLY_PEAR = registerBlock("prickly_pear", PricklyPearBlock::new, Properties.of().noCollision().randomTicks().pushReaction(PushReaction.POPPED).instabreak().sound(SoundType.HONEY_BLOCK), null);
     public static final Block POT = registerBlock("pot", PotBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(1.0F), DEFAULT_BLOCK_ITEM_PROPERTIES);
-    public static final Block THIN_ICE = registerBlock("thin_ice", ThinIceBlock::new, Properties.of().friction(0.98F).strength(0.5F).sound(SoundType.GLASS).mapColor(MapColor.ICE).noOcclusion(), DEFAULT_BLOCK_ITEM_PROPERTIES);
+    public static final Block THIN_ICE = registerBlock("thin_ice", ThinIceBlock::new, Properties.of().friction(0.98F).strength(0.5F).sound(SoundType.GLASS).mapColor(MapColor.ICE).noOcclusion().randomTicks(), DEFAULT_BLOCK_ITEM_PROPERTIES);
     
     public static final Block SPILE = registerBlock("spile", SpileBlock::new, BlockBehaviour.Properties.of().randomTicks().strength(1.0F, 3.0F).pushReaction(PushReaction.POPPED).sound(SoundType.METAL).noOcclusion(), DEFAULT_BLOCK_ITEM_PROPERTIES);
     public static final Block MAPLE_SAP_CAULDRON = registerBlock("maple_sap_cauldron", properties -> new MapleSapCauldronBlock(properties, MapleSapCauldronInteraction.MAPLE_SAP_CAULDRON_INTERACTIONS), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON).randomTicks(), null);

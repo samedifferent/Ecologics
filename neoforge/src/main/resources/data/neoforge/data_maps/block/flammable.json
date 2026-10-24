@@ -1,0 +1,220 @@
+{
+  "values": {
+    "ecologics:azalea_fence": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:azalea_fence_gate": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:azalea_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:azalea_planks": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:azalea_shelf": {
+      "burn_odds": 20,
+      "ignite_odds": 30
+    },
+    "ecologics:azalea_slab": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:azalea_stairs": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:azalea_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:coconut_fence": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:coconut_fence_gate": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:coconut_leaves": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "ecologics:coconut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:coconut_planks": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:coconut_shelf": {
+      "burn_odds": 20,
+      "ignite_odds": 30
+    },
+    "ecologics:coconut_slab": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:coconut_stairs": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:coconut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:flowering_azalea_fence": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:flowering_azalea_fence_gate": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:flowering_azalea_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:flowering_azalea_planks": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:flowering_azalea_slab": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:flowering_azalea_stairs": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:flowering_azalea_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:green_maple_leaves": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "ecologics:maple_fence": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:maple_fence_gate": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:maple_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:sappy_maple_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:maple_planks": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:maple_shelf": {
+      "burn_odds": 20,
+      "ignite_odds": 30
+    },
+    "ecologics:maple_slab": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:maple_stairs": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:maple_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:orange_maple_leaves": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "ecologics:red_maple_leaves": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "ecologics:stripped_azalea_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:stripped_azalea_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:stripped_coconut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:stripped_coconut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:stripped_maple_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:stripped_maple_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:stripped_walnut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:stripped_walnut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:walnut_fence": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:walnut_fence_gate": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:walnut_leaves": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "ecologics:walnut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:walnut_planks": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:walnut_shelf": {
+      "burn_odds": 20,
+      "ignite_odds": 30
+    },
+    "ecologics:walnut_slab": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:walnut_stairs": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "ecologics:walnut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "ecologics:yellow_maple_leaves": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    }
+  }
+}

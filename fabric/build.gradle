@@ -4,7 +4,7 @@ plugins {
 }
 
 base {
-    archivesName = "${rootProject.mod_name}-Fabric"
+    archivesName = "${rootProject.mod_name}-Fabric-${rootProject.minecraft_version}"
 }
 
 var commonAW = project(":common").file("src/main/resources/ecologics.accesswidener")
