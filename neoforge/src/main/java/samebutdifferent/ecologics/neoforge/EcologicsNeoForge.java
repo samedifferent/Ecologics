@@ -31,13 +31,13 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
@@ -55,8 +55,12 @@ import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.entity.data.CamelChestDataHelper;
+import samebutdifferent.ecologics.neoforge.integration.farmersdelight.FarmersDelightCompat;
 import samebutdifferent.ecologics.neoforge.mixin.FireBlockAccessor;
+import samebutdifferent.ecologics.neoforge.registry.CamelChestDataHelperNeoForge;
 import samebutdifferent.ecologics.neoforge.registry.ModConfigNeoForge;
+import samebutdifferent.ecologics.neoforge.registry.ModDataAttachments;
 import samebutdifferent.ecologics.neoforge.registry.ModGlobalLootModifiers;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
@@ -66,9 +70,11 @@ import samebutdifferent.ecologics.registry.ModFeatures;
 import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModMobEffects;
+import samebutdifferent.ecologics.registry.ModParticleTypes;
 import samebutdifferent.ecologics.registry.ModPotions;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModStructures;
+import samebutdifferent.ecologics.registry.ModTreeDecoratorTypes;
 import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
 import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 
@@ -76,12 +82,13 @@ import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 @EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class EcologicsNeoForge 
 {
-	private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab"));
-		
+    private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab"));
+        
     public EcologicsNeoForge(IEventBus bus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, ModConfigNeoForge.COMMON_CONFIG);
 
         ModGlobalLootModifiers.GLM.register(bus);
+        ModDataAttachments.ATTACHMENTS.register(bus);
 
         bus.addListener(this::registerEntityAttributes);
         bus.addListener(this::registerModContent);
@@ -100,45 +107,51 @@ public class EcologicsNeoForge
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
             ModConfigNeoForge.updateConfig();
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
-            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
             Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
-            	((FireBlockAccessor)Blocks.FIRE).invokeSetFlammable(block, pair.getA(), pair.getB());
+                ((FireBlockAccessor)Blocks.FIRE).invokeSetFlammable(block, pair.getA(), pair.getB());
             });
+            CamelChestDataHelper.registerHandler(new CamelChestDataHelperNeoForge());
         });
     }
 
     private void registerModContent(RegisterEvent event) {
-    	event.register(Registries.SOUND_EVENT, _ -> { ModSoundEvents.init(); });
-    	event.register(Registries.BLOCK, _ -> { ModBlocks.init(); });
-    	event.register(Registries.ITEM, _ -> { ModItems.init(); });
-    	event.register(Registries.ENTITY_TYPE, _ -> { ModEntityTypes.init(); });
-    	event.register(Registries.BLOCK_ENTITY_TYPE, _ -> { ModBlockEntityTypes.init(); });
-    	event.register(Registries.FEATURE, _ -> { ModFeatures.init(); });
-    	event.register(Registries.TRUNK_PLACER_TYPE, _ -> { ModTrunkPlacerTypes.init(); });
-    	event.register(Registries.FOLIAGE_PLACER_TYPE, _ -> { ModFoliagePlacerTypes.init(); });
-    	event.register(Registries.STRUCTURE_TYPE, _ -> { ModStructures.init(); });
-    	event.register(Registries.STRUCTURE_PIECE, _ -> { ModStructurePieces.init(); });
-    	event.register(Registries.MOB_EFFECT, _ -> { ModMobEffects.init(); });
-    	event.register(Registries.POTION, _ -> { ModPotions.init(); });
-    	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
-    		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
-    		ModCreativeModeTabContents.populateTabDatabase();
-    	});
+        if (ModList.get().isLoaded("farmersdelight") && Ecologics.farmersDelight == null) {
+            Ecologics.farmersDelight = new FarmersDelightCompat();
+        }
+        event.register(Registries.SOUND_EVENT, _ -> { ModSoundEvents.init(); });
+        event.register(Registries.BLOCK, _ -> { ModBlocks.init(); });
+        event.register(Registries.ITEM, _ -> { ModItems.init(); });
+        event.register(Registries.ENTITY_TYPE, _ -> { ModEntityTypes.init(); });
+        event.register(Registries.BLOCK_ENTITY_TYPE, _ -> { ModBlockEntityTypes.init(); });
+        event.register(Registries.FEATURE, _ -> { ModFeatures.init(); });
+        event.register(Registries.TRUNK_PLACER_TYPE, _ -> { ModTrunkPlacerTypes.init(); });
+        event.register(Registries.FOLIAGE_PLACER_TYPE, _ -> { ModFoliagePlacerTypes.init(); });
+        event.register(Registries.TREE_DECORATOR_TYPE, _ -> { ModTreeDecoratorTypes.init(); });
+        event.register(Registries.STRUCTURE_TYPE, _ -> { ModStructures.init(); });
+        event.register(Registries.STRUCTURE_PIECE, _ -> { ModStructurePieces.init(); });
+        event.register(Registries.MOB_EFFECT, _ -> { ModMobEffects.init(); });
+        event.register(Registries.POTION, _ -> { ModPotions.init(); });
+        event.register(Registries.PARTICLE_TYPE, _ -> { ModParticleTypes.init(); });
+        event.register(Registries.CREATIVE_MODE_TAB, helper -> {
+            helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
+            ModCreativeModeTabContents.populateTabDatabase();
+            if (Ecologics.farmersDelight != null) {
+                Ecologics.farmersDelight.registerCreativeTabContent();
+            }
+        });
     }
 
     private void assignItemsToTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == TAB) {
-	        for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
-	        	event.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
-	        }
+            for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
+                event.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
         }
     }
     
     private void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
-    	event.register(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules, Operation.OR);
-    	event.register(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, Operation.OR);
+        event.register(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules, Operation.OR);
+        event.register(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, Operation.OR);
     }
 
     @SubscribeEvent
@@ -196,7 +209,7 @@ public class EcologicsNeoForge
     public static void registerBrewingRecipes(RegisterBrewingRecipesEvent event) {
         PotionBrewing.Builder builder = event.getBuilder();
         Ecologics.BREWING_RECIPES.forEach((potion, pair) -> { // A: Ingredient, B: Output
-        	builder.addMix(potion, (Item)pair.getA(), pair.getB());
+            builder.addMix(potion, (Item)pair.getA(), pair.getB());
         });
     }
 }

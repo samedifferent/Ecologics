@@ -8,7 +8,7 @@ modId = "ecologics"
 version = "${version}"
 displayName = "Ecologics"
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/ecologics"
-logoFile = "icon.png"
+iconFile = "icon.png"
 authors = "SameButDifferent, Zero_DSRS_VX, Drigonis, Crispytwig, Irishjevil, Foquito Azul"
 description = '''
 Simple vanilla biome updates, with fun mobs, blocks, and more!
@@ -23,7 +23,7 @@ config = "ecologics-neoforge.mixins.json"
 [[dependencies.ecologics]]
 modId = "neoforge"
 type = "required"
-versionRange = "[26.2,)"
+versionRange = "[26.2.0.57,)"
 ordering = "NONE"
 side = "BOTH"
 

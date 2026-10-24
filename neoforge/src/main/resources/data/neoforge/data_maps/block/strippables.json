@@ -18,6 +18,15 @@
     "ecologics:coconut_wood": {
       "stripped_block": "ecologics:stripped_coconut_wood"
     },
+    "ecologics:maple_log": {
+      "stripped_block": "ecologics:stripped_maple_log"
+    },
+    "ecologics:sappy_maple_log": {
+      "stripped_block": "ecologics:stripped_maple_log"
+    },
+    "ecologics:maple_wood": {
+      "stripped_block": "ecologics:stripped_maple_wood"
+    },
     "ecologics:walnut_log": {
       "stripped_block": "ecologics:stripped_walnut_log"
     },
