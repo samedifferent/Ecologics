@@ -52,6 +52,30 @@
           }
         }
       }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:inverted",
+        "term": {
+          "type": "minecraft:match_tool",
+          "predicate": {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "minecraft:silk_touch"
+                }
+              ]
+            }
+          }
+        }
+      }
     }
   ],
   "random_sequence": "ecologics:blocks/sandcastle"

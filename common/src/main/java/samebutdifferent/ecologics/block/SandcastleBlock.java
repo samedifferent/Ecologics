@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -74,12 +75,14 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
             if (!pLevel.isClientSide() && pLevel.getRandom().nextInt(chance) == 0) {
                 pLevel.playSound(null, pPos, SoundEvents.SAND_FALL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 if (pState.getValue(EGGS_INSIDE) > 0) {
+                    if (((ServerLevel)pLevel).getGameRules().get(GameRules.BLOCK_DROPS)) {
+                        Block.dropResources(pState, pLevel, pPos);
+                    }
                     pLevel.setBlockAndUpdate(pPos, Blocks.TURTLE_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, pState.getValue(EGGS_INSIDE)).setValue(TurtleEggBlock.HATCH, pState.getValue(HATCH)));
                 } else {
                     pLevel.destroyBlock(pPos, true);
                 }
             }
-
         }
     }
 
