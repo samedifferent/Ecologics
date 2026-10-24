@@ -50,7 +50,7 @@ public class PotBlock extends BaseEntityBlock implements SimpleWaterloggedBlock 
 
     public PotBlock(Properties properties) {
         super(properties.pushReaction(PushReaction.DESTROY));
-        this.stateDefinition.any().setValue(CHISEL, 0).setValue(POWERED, false).setValue(WATERLOGGED, false);
+        this.registerDefaultState(this.stateDefinition.any().setValue(CHISEL, 0).setValue(POWERED, false).setValue(WATERLOGGED, false));
     }
     
 	@Override
