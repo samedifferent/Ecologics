@@ -4,7 +4,7 @@ plugins {
 }
 
 base {
-    archivesName = "${rootProject.mod_name}-Fabric"
+    archivesName = "${rootProject.mod_name}-Fabric-${rootProject.minecraft_version}"
 }
 
 var commonAW = project(":common").file("src/main/resources/ecologics.accesswidener")
@@ -14,18 +14,21 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-	api include("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_fabric_version}") {
+    api include("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_fabric_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
     implementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
         exclude module: "fabric-api"
     }
+    implementation "maven.modrinth:7vxePowz:WgtdZQuc"
+    implementation "maven.modrinth:foa4fGIH:kVLLFl6q"
     implementation project(":common")
 }
 repositories {
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.terraformersmc.com/releases" }
-	maven { url "https://cursemaven.com" } 
+    maven { url "https://cursemaven.com" } 
+    maven { url "https://api.modrinth.com/maven" }
 }
 loom {
     def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")

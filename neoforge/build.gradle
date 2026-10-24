@@ -5,7 +5,7 @@ plugins {
 }
 
 base {
-    archivesName = "${rootProject.mod_name}-NeoForge"
+    archivesName = "${rootProject.mod_name}-NeoForge-${rootProject.minecraft_version}"
 }
 
 neoForge {
@@ -42,8 +42,13 @@ neoForge {
     }
 }
 
+repositories {
+    maven { url "https://cursemaven.com" } 
+}
+
 dependencies {
     implementation project(":common")
+    implementation "curse.maven:farmers-delight-26-neo-ver-1699768:9236195"
 }
 
 TaskCollection.metaClass.excludingNeoTasks = { ->
