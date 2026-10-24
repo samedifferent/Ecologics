@@ -1,0 +1,244 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mods_loaded",
+      "values": [ "rusticdelight" ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "rusticdelight"
+    }
+  ],
+  "type": "minecraft:block",
+  "modifier": {
+    "type": "minecraft:explosion_decay"
+  },
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "ecologics:maple_pancakes",
+        "state": {
+          "servings": "0"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancakes"
+        }
+      ],
+      "rolls": 6
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "1"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 5
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "2"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 4
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "3"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 3
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "4"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 2
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "5"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "6"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 6
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "7"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 7
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "8"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 8
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "9"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 9
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "10"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 10
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "ecologics:maple_pancakes",
+          "properties": {
+            "servings": "11"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ecologics:maple_pancake"
+        }
+      ],
+      "rolls": 11
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bowl"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "ecologics:blocks/maple_pancakes"
+}

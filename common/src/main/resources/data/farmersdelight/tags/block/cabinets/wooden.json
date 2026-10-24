@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "ecologics:azalea_cabinet", "required": false},
+    {"id": "ecologics:flowering_azalea_cabinet", "required": false},
+    {"id": "ecologics:coconut_cabinet", "required": false},
+    {"id": "ecologics:maple_cabinet", "required": false},
+    {"id": "ecologics:walnut_cabinet", "required": false}
+  ]
+}

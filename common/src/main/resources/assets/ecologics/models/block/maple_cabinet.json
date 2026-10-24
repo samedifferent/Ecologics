@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "ecologics:block/farmersdelight/maple_cabinet_front",
+    "side": "ecologics:block/farmersdelight/maple_cabinet_side",
+    "top": "ecologics:block/farmersdelight/maple_cabinet_top"
+  }
+}
