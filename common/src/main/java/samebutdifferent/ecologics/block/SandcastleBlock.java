@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -85,8 +86,10 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
                 } else {
                     pLevel.destroyBlock(pPos, false);
                 }
+                if (((ServerLevel)pLevel).getGameRules().get(GameRules.BLOCK_DROPS)) {
+                    Block.dropResources(pState, pLevel, pPos);
+                }
             }
-
         }
     }
 
