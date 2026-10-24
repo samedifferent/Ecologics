@@ -28,10 +28,12 @@
     }
   ],
   "tool": {
-    "fabric:type": "fabric:any",
-    "ingredients": [
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "hoe_dig",
+    "neoforge:ingredient_type": "neoforge:compound",
+    "children": [
       {
-        "fabric:type": "farmersdelight:item_ability",
+        "neoforge:ingredient_type": "farmersdelight:item_ability",
         "action": "hoe_dig"
       },
       "#minecraft:hoes"

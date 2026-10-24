@@ -4,6 +4,7 @@
     "ecologics:maple_syrup_bottle",
     "ecologics:maple_cookie",
     "ecologics:maple_pie",
+    {"id": "ecologics:maple_pie_slice", "required": false },
     {"id": "ecologics:maple_pancake", "required": false }
   ]
 }
