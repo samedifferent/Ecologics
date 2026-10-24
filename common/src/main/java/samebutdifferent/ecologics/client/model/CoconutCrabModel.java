@@ -49,7 +49,8 @@ public class CoconutCrabModel extends EntityModel<CoconutCrabRenderState> {
         this.leftClaw = this.root.getChild("leftClaw");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    @SuppressWarnings("unused")
+	public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
         PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create().texOffs(0, 24).addBox(-3.5F, -9.0F, -4.0F, 7.0F, 5.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
