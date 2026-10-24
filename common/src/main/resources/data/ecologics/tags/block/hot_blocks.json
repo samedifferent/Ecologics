@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+	"#minecraft:fire",
+	"minecraft:magma_block",
+    "minecraft:lava",
+	"minecraft:lava_cauldron",
+	"#ecologics:conditionally_hot_blocks",
+    {"id": "#farmersdelight:heat_source", "required": false},
+    {"id": "#supplementaries:fire_sources", "required": false},
+	{"id": "create:blaze_burner", "required": false},
+    {"id": "ntm:heater", "required": false}
+  ]
+}

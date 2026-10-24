@@ -1,0 +1,30 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mods_loaded",
+      "values": [ "rusticdelight" ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "rusticdelight"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": "minecraft:bowl",
+    "M": "rusticdelight:batter",
+    "T": "ecologics:maple_syrup_bottle",
+    "X": "minecraft:sugar",
+    "Y": "minecraft:sugar"
+  },
+  "pattern": [
+    " T ",
+    "XMX",
+    "YBY"
+  ],
+  "result": {
+    "id": "ecologics:maple_pancakes"
+  }
+}

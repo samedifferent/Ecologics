@@ -1,0 +1,42 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mods_loaded",
+      "values": [ "farmersdelight" ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "ecologics:walnut_chest_boat"
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "ecologics:walnut_boat"
+      }
+    },
+    {
+      "item": {
+        "id": "minecraft:chest"
+      }
+    }
+  ],
+  "tool": {
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "hoe_dig",
+    "neoforge:ingredient_type": "neoforge:compound",
+    "children": [
+      {
+        "neoforge:ingredient_type": "farmersdelight:item_ability",
+        "action": "hoe_dig"
+      },
+      "#minecraft:hoes"
+    ]
+  }
+}

@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "ecologics:azalea_flower"
+            "items": [
+              "ecologics:azalea_flower"
+            ]
           }
         ]
       },

@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "ecologics:block/red_maple_leaves",
+	"tints": [
+	  {
+	    "type": "minecraft:constant",
+	    "value": 16777215
+	  }
+	]
+  }
+}

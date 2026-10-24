@@ -123,7 +123,7 @@ public class DesertRuinPieces {
         }
         
         private DesertRuinPiece(StructureTemplateManager structureTemplateManager, CompoundTag genDepth, Rotation rotation, float integrity) {
-            super(ModStructurePieces.DESERT_RUIN, genDepth, structureTemplateManager, Identifier -> DesertRuinPiece.makeSettings(rotation, integrity));
+            super(ModStructurePieces.DESERT_RUIN, genDepth, structureTemplateManager, _ -> DesertRuinPiece.makeSettings(rotation, integrity));
             this.integrity = integrity;
         }
     	

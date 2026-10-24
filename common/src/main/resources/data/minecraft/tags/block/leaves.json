@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "ecologics:coconut_leaves",
-    "ecologics:walnut_leaves"
+    "ecologics:walnut_leaves",
+    "ecologics:red_maple_leaves",
+    "ecologics:orange_maple_leaves",
+    "ecologics:yellow_maple_leaves",
+    "ecologics:green_maple_leaves"
   ]
 }

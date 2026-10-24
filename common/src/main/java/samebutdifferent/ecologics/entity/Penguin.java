@@ -107,7 +107,7 @@ public class Penguin extends Animal {
         this.goalSelector.addGoal(8, new PenguinRandomSwimmingGoal(this, 1.0D, 60));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, AbstractFish.class, 10, true, false, (mob, level) -> mob instanceof AbstractSchoolingFish));
+        this.targetSelector.addGoal(1, new PenguinAttackTargetGoal<>(this, AbstractFish.class, 10, true, false, (mob, _) -> mob instanceof AbstractSchoolingFish));
     }
 
     public static boolean checkPenguinSpawnRules(EntityType<Penguin> entityType, LevelAccessor levelAccessor, EntitySpawnReason spawnReason, BlockPos blockPos, RandomSource randomSource) {

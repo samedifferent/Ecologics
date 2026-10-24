@@ -1,0 +1,31 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mods_loaded",
+      "values": [ "farmersdelight" ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "maple_pie",
+  "key": {
+    "O": "farmersdelight:pie_crust",
+    "c": "minecraft:sugar",
+    "e": "#minecraft:eggs",
+    "s": "ecologics:maple_syrup_bottle"
+  },
+  "pattern": [
+    "cec",
+    "csc",
+    " O "
+  ],
+  "result": {
+    "count": 2,
+    "id": "ecologics:maple_pie"
+  }
+}
