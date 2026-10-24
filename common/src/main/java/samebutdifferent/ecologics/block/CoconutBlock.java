@@ -30,7 +30,7 @@ public class CoconutBlock extends Block implements SimpleWaterloggedBlock
 
     public CoconutBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.stateDefinition.any().setValue(WATERLOGGED, false);
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
     @Override
