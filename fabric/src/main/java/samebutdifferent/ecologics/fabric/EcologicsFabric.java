@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
@@ -53,12 +54,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.entity.data.CamelChestDataHelper;
+import samebutdifferent.ecologics.fabric.registry.CamelChestDataHelperFabric;
 import samebutdifferent.ecologics.fabric.registry.ModConfigFabric;
+import samebutdifferent.ecologics.fabric.registry.ModDataAttachments;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
@@ -79,10 +86,11 @@ public class EcologicsFabric implements ModInitializer {
         Ecologics.commonSetup();
         registerCreativeTab();
         registerFurnaceFuels();
+        ModDataAttachments.init();
         ItemGroupEvents.modifyEntriesEvent(TAB).register(EcologicsFabric::assignItemsToTab);
         // Iterate.
         Ecologics.BREWING_RECIPES.forEach((potion, pair) -> { // A: Ingredient, B: Output
-        	FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> builder.registerPotionRecipe(potion, Ingredient.of(pair.getA()), pair.getB()));
+            FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> builder.registerPotionRecipe(potion, Ingredient.of(pair.getA()), pair.getB()));
         });
         Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
         	FlammableBlockRegistry.getInstance(Blocks.FIRE).add(block, pair.getA(), pair.getB());
@@ -91,6 +99,8 @@ public class EcologicsFabric implements ModInitializer {
         	CompostingChanceRegistry.INSTANCE.add(item, chance);
         });
         Ecologics.STRIPPABLES.forEach(StrippableBlockRegistry::register);
+        CamelChestDataHelper.registerHandler(new CamelChestDataHelperFabric());
+        addChestLoot();
         updateConfig();
     }
 
@@ -99,15 +109,16 @@ public class EcologicsFabric implements ModInitializer {
     	ModCreativeModeTabContents.populateTabDatabase();
     }
     
-    private void registerFurnaceFuels() {
+    @SuppressWarnings("unused")
+	private void registerFurnaceFuels() {
         FuelRegistryEvents.BUILD.register((builder, context) -> {
             builder.add(ModItems.COCONUT_HUSK, 100);
         });
     }
-    
+
     private static void assignItemsToTab(FabricItemGroupEntries entries) {
         for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
-        	entries.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
+            entries.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }
     
@@ -180,6 +191,20 @@ public class EcologicsFabric implements ModInitializer {
                     getPlacedFeatureKey("prickly_pear")
             );
         }
+        if (config.maple.generateMapleTrees) {
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("green_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("maple_bees"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_maple_tree"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FLOWER_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("green_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FLOWER_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("maple_bees"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FLOWER_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_maple_tree"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("red_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("orange_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("yellow_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("green_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("maple_bees"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_maple_tree"));
+        }
     }
 
     public void replaceFeatures() {
@@ -215,6 +240,16 @@ public class EcologicsFabric implements ModInitializer {
         }
     }
 
+    @SuppressWarnings("unused")
+	public void addChestLoot() {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source, provider) -> {
+            if (source.isBuiltin() && BuiltInLootTables.BURIED_TREASURE.equals(key)) {
+                LootPool.Builder poolBuilder = LootPool.lootPool().add(LootItem.lootTableItem(ModItems.MUSIC_DISC_COCONUT));
+                tableBuilder.pool(poolBuilder.build());
+            }
+        });
+    }
+    
     private ResourceKey<PlacedFeature> getPlacedFeatureKey(String key) {
         return ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, key));
     }

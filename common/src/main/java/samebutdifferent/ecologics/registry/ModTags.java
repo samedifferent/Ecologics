@@ -25,6 +25,9 @@ public class ModTags {
     }
 
     public static class BlockTags {
+        public static final TagKey<Block> SAPPY_MAPLE_LOGS = tag("sappy_maple_logs");
+        public static final TagKey<Block> HOT_BLOCKS = tag("hot_blocks");
+        public static final TagKey<Block> CONDITIONALLY_HOT_BLOCKS = tag("conditionally_hot_blocks");
         public static final TagKey<Block> COCONUT_PLANTABLE_ON = tag("coconut_plantable_on");
         public static final TagKey<Block> PENGUINS_SPAWNABLE_ON = tag("penguins_spawnable_on");
 
@@ -34,6 +37,7 @@ public class ModTags {
     }
 
     public static class EntityTypeTags {
+        public static final TagKey<EntityType<?>> BREAKS_THIN_ICE = tag("breaks_thin_ice");
         public static final TagKey<EntityType<?>> PENGUIN_HUNT_TARGETS = tag("penguin_hunt_targets");
 
         private static TagKey<EntityType<?>> tag(String name) {

@@ -50,6 +50,7 @@ public class SquirrelModel extends EntityModel<SquirrelRenderState> {
         this.tail = this.body.getChild("tail");
     }
 
+    @SuppressWarnings("unused")
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();

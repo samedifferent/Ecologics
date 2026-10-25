@@ -56,7 +56,10 @@ import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.entity.data.CamelChestDataHelper;
+import samebutdifferent.ecologics.neoforge.registry.CamelChestDataHelperNeoForge;
 import samebutdifferent.ecologics.neoforge.registry.ModConfigNeoForge;
+import samebutdifferent.ecologics.neoforge.registry.ModDataAttachments;
 import samebutdifferent.ecologics.neoforge.registry.ModGlobalLootModifiers;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
@@ -66,9 +69,11 @@ import samebutdifferent.ecologics.registry.ModFeatures;
 import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModMobEffects;
+import samebutdifferent.ecologics.registry.ModParticleTypes;
 import samebutdifferent.ecologics.registry.ModPotions;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModStructures;
+import samebutdifferent.ecologics.registry.ModTreeDecoratorTypes;
 import samebutdifferent.ecologics.registry.ModTrunkPlacerTypes;
 import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 
@@ -82,7 +87,8 @@ public class EcologicsNeoForge
         container.registerConfig(ModConfig.Type.COMMON, ModConfigNeoForge.COMMON_CONFIG);
 
         ModGlobalLootModifiers.GLM.register(bus);
-
+        ModDataAttachments.ATTACHMENTS.register(bus);
+        
         bus.addListener(this::registerEntityAttributes);
         bus.addListener(this::registerModContent);
         bus.addListener(this::registerSpawnPlacements);
@@ -102,10 +108,12 @@ public class EcologicsNeoForge
             Ecologics.commonSetup();
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "maple_sapling"), () -> ModBlocks.POTTED_MAPLE_SAPLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_sapling"), () -> ModBlocks.POTTED_WALNUT_SAPLING);
             Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
             	((FireBlock)Blocks.FIRE).setFlammable(block, pair.getA(), pair.getB());
             });
+            CamelChestDataHelper.registerHandler(new CamelChestDataHelperNeoForge());
         });
     }
 
@@ -118,10 +126,12 @@ public class EcologicsNeoForge
     	event.register(Registries.FEATURE, helper -> { ModFeatures.init(); });
     	event.register(Registries.TRUNK_PLACER_TYPE, helper -> { ModTrunkPlacerTypes.init(); });
     	event.register(Registries.FOLIAGE_PLACER_TYPE, helper -> { ModFoliagePlacerTypes.init(); });
+    	event.register(Registries.TREE_DECORATOR_TYPE, helper -> { ModTreeDecoratorTypes.init(); });
     	event.register(Registries.STRUCTURE_TYPE, helper -> { ModStructures.init(); });
     	event.register(Registries.STRUCTURE_PIECE, helper -> { ModStructurePieces.init(); });
     	event.register(Registries.MOB_EFFECT, helper -> { ModMobEffects.init(); });
     	event.register(Registries.POTION, helper -> { ModPotions.init(); });
+    	event.register(Registries.PARTICLE_TYPE, helper -> { ModParticleTypes.init(); });
     	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
     		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
     		ModCreativeModeTabContents.populateTabDatabase();

@@ -10,13 +10,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.SignItem;
@@ -59,14 +58,6 @@ public class ModItems
     
     public static final ArrayList<Pair<Identifier, Item>> ITEMS = new ArrayList<>();
 
-    // Food
-    public static final Item COCONUT_SLICE = registerItem("coconut_slice", CoconutSliceItem::new, new Item.Properties().food(Foods.SWEET_BERRIES));
-    public static final Item CRAB_MEAT = registerItem("crab_meat", Item::new, new Item.Properties().food(Foods.COOKED_RABBIT));
-    public static final Item TROPICAL_STEW = registerItem("tropical_stew", CoconutSliceItem::new, new Item.Properties().stacksTo(1).food(Foods.RABBIT_STEW));
-    public static final Item PRICKLY_PEAR = registerItem("prickly_pear", PricklyPearItem::new, new Item.Properties().food(Foods.APPLE));
-    public static final Item COOKED_PRICKLY_PEAR = registerItem("cooked_prickly_pear", Item::new, new Item.Properties().food(Foods.APPLE));
-    public static final Item WALNUT = registerItem("walnut", Item::new, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.0F).build(), Consumable.builder().consumeSeconds(1.6F).animation(ItemUseAnimation.EAT).sound(SoundEvents.GENERIC_EAT).hasConsumeParticles(true).build()));
-    
     // Miscellaneous
     public static final Item CRAB_CLAW = registerItem("crab_claw", ShearsItem::new, new Item.Properties().durability(50).component(DataComponents.TOOL, ShearsItem.createToolProperties()));
     public static final Item COCONUT_HUSK = registerItem("coconut_husk", Item::new, new Item.Properties());
@@ -74,6 +65,18 @@ public class ModItems
     public static final Item SANDCASTLE = registerItem("sandcastle", SandcastleBlockItem::new, new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
     public static final Item COCONUT = registerItem("coconut", properties -> new CoconutBlockItem(ModBlocks.COCONUT, properties), new Item.Properties().useBlockDescriptionPrefix());
     public static final Item MUSIC_DISC_COCONUT = registerItem("music_disc_coconut", Item::new, new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(ModJukeboxSongs.COCONUT));
+    public static final Item MAPLE_SAP_BUCKET = registerItem("maple_sap_bucket", Item::new, new Item.Properties().stacksTo(1));
+
+    // Food
+    public static final Item COCONUT_SLICE = registerItem("coconut_slice", CoconutSliceItem::new, new Item.Properties().food(ModFoods.COCONUT_SLICE));
+    public static final Item CRAB_MEAT = registerItem("crab_meat", Item::new, new Item.Properties().food(ModFoods.CRAB_MEAT));
+    public static final Item TROPICAL_STEW = registerItem("tropical_stew", CoconutSliceItem::new, new Item.Properties().stacksTo(1).food(ModFoods.TROPICAL_STEW));
+    public static final Item PRICKLY_PEAR = registerItem("prickly_pear", PricklyPearItem::new, new Item.Properties().food(ModFoods.PRICKLY_PEAR));
+    public static final Item COOKED_PRICKLY_PEAR = registerItem("cooked_prickly_pear", Item::new, new Item.Properties().food(ModFoods.COOKED_PRICKLY_PEAR));
+    public static final Item WALNUT = registerItem("walnut", Item::new, new Item.Properties().food(ModFoods.WALNUT, Consumable.builder().consumeSeconds(1.6F).animation(ItemUseAnimation.EAT).sound(SoundEvents.GENERIC_EAT).hasConsumeParticles(true).build()));
+    public static final Item MAPLE_SYRUP_BOTTLE = registerItem("maple_syrup_bottle", Item::new, new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).food(ModFoods.MAPLE_SYRUP_BOTTLE, ModConsumables.MAPLE_SYRUP_BOTTLE).usingConvertsTo(Items.GLASS_BOTTLE));
+    public static final Item MAPLE_COOKIE = registerItem("maple_cookie", Item::new, new Item.Properties().food(ModFoods.MAPLE_COOKIE));
+    public static final Item MAPLE_PIE = registerItem("maple_pie", Item::new, new Item.Properties().food(ModFoods.MAPLE_PIE, ModConsumables.MAPLE_PIE));
     
     // Spawn Eggs
     public static final Item COCONUT_CRAB_SPAWN_EGG = registerItem("coconut_crab_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(ModEntityTypes.COCONUT_CRAB));
@@ -83,6 +86,8 @@ public class ModItems
     // Signs
     public static final Item COCONUT_SIGN = registerItem("coconut_sign", properties -> new SignItem(ModBlocks.COCONUT_SIGN, ModBlocks.COCONUT_WALL_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
     public static final Item COCONUT_HANGING_SIGN = registerItem("coconut_hanging_sign", properties -> new HangingSignItem(ModBlocks.COCONUT_HANGING_SIGN, ModBlocks.COCONUT_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item MAPLE_SIGN = registerItem("maple_sign", properties -> new SignItem(ModBlocks.MAPLE_SIGN, ModBlocks.MAPLE_WALL_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
+    public static final Item MAPLE_HANGING_SIGN = registerItem("maple_hanging_sign", properties -> new HangingSignItem(ModBlocks.MAPLE_HANGING_SIGN, ModBlocks.MAPLE_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
     public static final Item WALNUT_SIGN = registerItem("walnut_sign", properties -> new SignItem(ModBlocks.WALNUT_SIGN, ModBlocks.WALNUT_WALL_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
     public static final Item WALNUT_HANGING_SIGN = registerItem("walnut_hanging_sign", properties -> new HangingSignItem(ModBlocks.WALNUT_HANGING_SIGN, ModBlocks.WALNUT_WALL_HANGING_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
     public static final Item AZALEA_SIGN = registerItem("azalea_sign", properties -> new SignItem(ModBlocks.AZALEA_SIGN, ModBlocks.AZALEA_WALL_SIGN, properties), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
@@ -92,10 +97,12 @@ public class ModItems
     
     // Boats
     public static final Item COCONUT_BOAT = registerItem("coconut_boat", properties -> new BoatItem(ModEntityTypes.COCONUT_BOAT, properties), new Item.Properties().stacksTo(1));
+    public static final Item MAPLE_BOAT = registerItem("maple_boat", properties -> new BoatItem(ModEntityTypes.MAPLE_BOAT, properties), new Item.Properties().stacksTo(1));
     public static final Item WALNUT_BOAT = registerItem("walnut_boat", properties -> new BoatItem(ModEntityTypes.WALNUT_BOAT, properties), new Item.Properties().stacksTo(1));
     public static final Item AZALEA_BOAT = registerItem("azalea_boat", properties -> new BoatItem(ModEntityTypes.AZALEA_BOAT, properties), new Item.Properties().stacksTo(1));
     public static final Item FLOWERING_AZALEA_BOAT = registerItem("flowering_azalea_boat", properties -> new BoatItem(ModEntityTypes.FLOWERING_AZALEA_BOAT, properties), new Item.Properties().stacksTo(1));
     public static final Item COCONUT_CHEST_BOAT = registerItem("coconut_chest_boat", properties -> new BoatItem(ModEntityTypes.COCONUT_CHEST_BOAT, properties), new Item.Properties().stacksTo(1));
+    public static final Item MAPLE_CHEST_BOAT = registerItem("maple_chest_boat", properties -> new BoatItem(ModEntityTypes.MAPLE_CHEST_BOAT, properties), new Item.Properties().stacksTo(1));
     public static final Item WALNUT_CHEST_BOAT = registerItem("walnut_chest_boat", properties -> new BoatItem(ModEntityTypes.WALNUT_CHEST_BOAT, properties), new Item.Properties().stacksTo(1));
     public static final Item AZALEA_CHEST_BOAT = registerItem("azalea_chest_boat", properties -> new BoatItem(ModEntityTypes.AZALEA_CHEST_BOAT, properties), new Item.Properties().stacksTo(1));
     public static final Item FLOWERING_AZALEA_CHEST_BOAT = registerItem("flowering_azalea_chest_boat", properties -> new BoatItem(ModEntityTypes.FLOWERING_AZALEA_CHEST_BOAT, properties), new Item.Properties().stacksTo(1));

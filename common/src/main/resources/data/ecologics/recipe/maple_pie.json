@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ecologics:maple_syrup_bottle",
+    "minecraft:wheat",
+    "#minecraft:eggs"
+  ],
+  "result": {
+    "id": "ecologics:maple_pie"
+  }
+}

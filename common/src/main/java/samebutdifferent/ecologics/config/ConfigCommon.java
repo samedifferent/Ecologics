@@ -4,6 +4,7 @@ public class ConfigCommon
 {
 	private static double coconutCrabSpawnChance = 0.25F;
 	private static double pricklyPearGrowthChance = 0.4F;
+	private static boolean camelChestsEnabled = true;
 	private static boolean replaceAzaleaTree = true;
 	private static boolean foxesAttackSquirrels = true;
 	
@@ -21,6 +22,14 @@ public class ConfigCommon
 	
 	public static double getPricklyPearGrowthChance() {
 		return pricklyPearGrowthChance;
+	}
+	
+	public static void setCamelChestsEnabled(boolean newValue) {
+		camelChestsEnabled = newValue;
+	}
+	
+	public static boolean getCamelChestsEnabled() {
+		return camelChestsEnabled;
 	}
 	
 	public static void setReplaceAzaleaTree(boolean newValue) {

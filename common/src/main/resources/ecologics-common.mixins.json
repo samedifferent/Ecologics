@@ -5,12 +5,17 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AzaleaBlockMixin",
+    "CamelMixin",
     "FoxMixin",
     "CarpetBlockMixin",
     "MossyCarpetBlockMixin",
     "LivingEntityMixin"
   ],
   "client": [
+    "CamelModelMixin",
+    "CamelHuskRendererMixin",
+    "CamelRendererMixin",
+    "CamelRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -9,7 +9,8 @@ import samebutdifferent.ecologics.fabric.registry.ModConfigFabric;
 
 @Environment(EnvType.CLIENT)
 public class ModMenuIntegration implements ModMenuApi {
-    @Override
+    @SuppressWarnings("removal")
+	@Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return parent -> AutoConfig.getConfigScreen(ModConfigFabric.class, parent).get();
     }

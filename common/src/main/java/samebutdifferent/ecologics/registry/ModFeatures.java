@@ -44,4 +44,11 @@ public class ModFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> AZALEA_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_tree"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> COCONUT_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_tree"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> WALNUT_REGULAR = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "walnut_tree"));
+    
+    public static final ResourceKey<ConfiguredFeature<?, ?>> RED_MAPLE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "red_maple_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORANGE_MAPLE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "orange_maple_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> YELLOW_MAPLE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "yellow_maple_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GREEN_MAPLE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "green_maple_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MAPLE_BEES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "maple_tree_bees"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MAPLE_BEES_01 = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "maple_tree_bees_01"));
 }

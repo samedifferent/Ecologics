@@ -1,0 +1,62 @@
+{
+  "texture_size": 16,
+  "textures": {
+    "particle": "ecologics:block/spile",
+    "spile": "ecologics:block/spile"
+  },
+  "elements": [
+    {
+      "name": "spile_body",
+      "from": [6.5, 11, 11.0],
+      "to": [9.5, 14, 16.0],
+      "faces": {
+        "north": { "uv": [ 0.0,  3.0,  3.0,  6.0], "texture": "#spile" },
+        "south": { "uv": [11.0,  3.0, 14.0,  6.0], "texture": "#spile" },
+        "west":  { "uv": [ 3.0,  3.0,  8.0,  6.0], "texture": "#spile" },
+        "east":  { "uv": [11.0,  3.0, 16.0,  6.0], "texture": "#spile" },
+        "up":    { "uv": [ 3.0,  0.0,  8.0,  3.0], "rotation": 90, "texture": "#spile" },
+        "down":  { "uv": [ 8.0,  0.0, 13.0,  3.0], "rotation": 90, "texture": "#spile" }
+      }
+    },
+	{
+	    "name": "spile_inside_back",
+	    "from": [7.5, 12.0, 15.99],
+	    "to": [8.5, 13.0, 16.0],
+	    "faces": {
+	        "north": { "uv": [ 6.0,  6.0,  7.0,  7.0 ], "texture": "#spile" }
+	    }
+	},
+	{
+	    "name": "spile_inside_left_side",
+	    "from": [7.5, 12.0, 11.0],
+	    "to": [7.5, 13.0, 16.0],
+	    "faces": {
+	        "east": { "uv": [ 1.0,  7.0,  6.0,  8.0 ], "texture": "#spile" }
+	    }
+	},
+	{
+	    "name": "spile_inside_right_side",
+	    "from": [8.5, 12.0, 11.0],
+	    "to": [8.5, 13.0, 16.0],
+	    "faces": {
+	        "west": { "uv": [ 7.0,  7.0, 12.0,  8.0 ], "texture": "#spile" }
+	    }
+	},
+	{
+	    "name": "spile_inside_top",
+	    "from": [7.5, 13.0, 11.0],
+	    "to": [8.5, 13.0, 16.0],
+	    "faces": {
+	        "down": { "uv": [ 3.0,  6.0,  8.0, 7.0 ], "rotation": 90, "texture": "#spile" }
+	    }
+	},
+	{
+	    "name": "spile_inside_bottom",
+	    "from": [7.5, 12.0, 11.0],
+	    "to": [8.5, 12.0, 16.0],
+	    "faces": {
+	        "up": { "uv": [ 8.0,  6.0,  13.0, 7.0 ], "rotation": 90, "texture": "#spile" }
+	    }
+	}
+  ]
+}

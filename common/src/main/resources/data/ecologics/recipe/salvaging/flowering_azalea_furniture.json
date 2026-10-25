@@ -1,0 +1,45 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mods_loaded",
+      "values": [ "farmersdelight" ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    [
+      "ecologics:flowering_azalea_door",
+      "ecologics:flowering_azalea_trapdoor",
+      "ecologics:flowering_azalea_sign",
+      "ecologics:flowering_azalea_hanging_sign",
+      "ecologics:flowering_azalea_fence",
+      "ecologics:flowering_azalea_fence_gate",
+      "ecologics:flowering_azalea_boat",
+      "ecologics:flowering_azalea_cabinet"
+    ]
+  ],
+  "result": [
+    {
+      "chance": 0.75,
+      "item": {
+        "id": "ecologics:flowering_azalea_planks"
+      }
+    }
+  ],
+  "tool": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "fabric:type": "farmersdelight:item_ability",
+        "action": "axe_dig"
+      },
+      "#minecraft:axes"
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mods_loaded",
+      "values": [ "farmersdelight" ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    [
+      "ecologics:walnut_door",
+      "ecologics:walnut_trapdoor",
+      "ecologics:walnut_sign",
+      "ecologics:walnut_hanging_sign",
+      "ecologics:walnut_fence",
+      "ecologics:walnut_fence_gate",
+      "ecologics:walnut_pressure_plate",
+      "ecologics:walnut_button",
+      "ecologics:walnut_boat",
+      "ecologics:walnut_cabinet"
+    ]
+  ],
+  "result": [
+    {
+      "chance": 0.75,
+      "item": {
+        "id": "ecologics:walnut_planks"
+      }
+    }
+  ],
+  "tool": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "fabric:type": "farmersdelight:item_ability",
+        "action": "axe_dig"
+      },
+      "#minecraft:axes"
+    ]
+  }
+}

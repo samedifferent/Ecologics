@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "side": "ecologics:block/maple_planks",
+    "bottom": "ecologics:block/maple_planks",
+    "top": "ecologics:block/maple_planks"
+  }
+}

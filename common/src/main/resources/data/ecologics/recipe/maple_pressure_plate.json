@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_pressure_plate",
+  "key": {
+    "#": "ecologics:maple_planks"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "ecologics:maple_pressure_plate"
+  }
+}

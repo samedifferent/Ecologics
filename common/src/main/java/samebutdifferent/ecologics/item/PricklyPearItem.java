@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import samebutdifferent.ecologics.registry.ModItems;
 
 public class PricklyPearItem extends Item 
 {
@@ -20,7 +21,9 @@ public class PricklyPearItem extends Item
             if (player.hasEffect(MobEffects.WITHER)) {
                 player.removeEffect(MobEffects.WITHER);
             }
-            player.hurt(player.damageSources().cactus(), 1.0F);
+            if (this.equals(ModItems.PRICKLY_PEAR)) {
+                player.hurt(player.damageSources().cactus(), 1.0F);
+            }
         }
         return super.finishUsingItem(stack, level, livingEntity);
     }

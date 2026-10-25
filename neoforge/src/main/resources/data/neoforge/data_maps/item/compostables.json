@@ -24,6 +24,21 @@
     "ecologics:walnut_sapling": {
         "chance": 0.3
     },
+    "ecologics:red_maple_leaves": {
+        "chance": 0.3
+    },
+    "ecologics:orange_maple_leaves": {
+        "chance": 0.3
+    },
+    "ecologics:yellow_maple_leaves": {
+        "chance": 0.3
+    },
+    "ecologics:green_maple_leaves": {
+        "chance": 0.3
+    },
+    "ecologics:maple_sapling": {
+        "chance": 0.3
+    },
     "ecologics:azalea_flower": {
         "chance": 0.65
     }
