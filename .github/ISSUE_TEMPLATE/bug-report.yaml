@@ -23,6 +23,7 @@ body:
       options:
         - Fabric
         - Forge
+        - NeoForge
     validations:
       required: true
   - type: input
