@@ -37,6 +37,7 @@ import samebutdifferent.ecologics.block.CoconutLeavesBlock;
 import samebutdifferent.ecologics.block.CoconutSaplingBlock;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.HangingCoconutBlock;
+import samebutdifferent.ecologics.block.MapleSapCauldronBlock;
 import samebutdifferent.ecologics.block.ModCeilingHangingSignBlock;
 import samebutdifferent.ecologics.block.ModStandingSignBlock;
 import samebutdifferent.ecologics.block.ModWallHangingSignBlock;
@@ -46,6 +47,7 @@ import samebutdifferent.ecologics.block.PotBlock;
 import samebutdifferent.ecologics.block.PricklyPearBlock;
 import samebutdifferent.ecologics.block.SandcastleBlock;
 import samebutdifferent.ecologics.block.SeashellBlock;
+import samebutdifferent.ecologics.block.SpileBlock;
 import samebutdifferent.ecologics.block.SurfaceMossBlock;
 import samebutdifferent.ecologics.block.ThinIceBlock;
 import samebutdifferent.ecologics.block.grower.ModTreeGrower;
@@ -125,6 +127,32 @@ public class ModBlocks
     public static final Block COCONUT_WALL_HANGING_SIGN = registerBlock("coconut_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.COCONUT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).dropsLike(COCONUT_HANGING_SIGN)), false);
     public static final Block COCONUT_SEEDLING = registerBlock("coconut_seedling", new CoconutSaplingBlock(ModTreeGrower.COCONUT, Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
     public static final Block POTTED_COCONUT_SEEDLING = registerBlock("potted_coconut_seedling", new FlowerPotBlock(ModBlocks.COCONUT_SEEDLING, BlockBehaviour.Properties.of().instabreak().noOcclusion()), false);
+ 
+    // Maple Woodset
+    public static final Block MAPLE_LOG = registerBlock("maple_log", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+    public static final Block SAPPY_MAPLE_LOG = registerBlock("sappy_maple_log", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+    public static final Block STRIPPED_MAPLE_LOG = registerBlock("stripped_maple_log", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
+    public static final Block MAPLE_WOOD = registerBlock("maple_wood", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+    public static final Block STRIPPED_MAPLE_WOOD = registerBlock("stripped_maple_wood", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+    public static final Block RED_MAPLE_LEAVES = registerBlock("red_maple_leaves", new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false)));
+    public static final Block ORANGE_MAPLE_LEAVES = registerBlock("orange_maple_leaves", new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false)));
+    public static final Block YELLOW_MAPLE_LEAVES = registerBlock("yellow_maple_leaves", new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false)));
+    public static final Block GREEN_MAPLE_LEAVES = registerBlock("green_maple_leaves", new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isSuffocating((state, getter, pos) -> false).isViewBlocking((state, getter, pos) -> false)));
+    public static final Block MAPLE_PLANKS = registerBlock("maple_planks", new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+    public static final Block MAPLE_SLAB = registerBlock("maple_slab", new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+    public static final Block MAPLE_STAIRS = registerBlock("maple_stairs", new StairBlock(Blocks.OAK_PLANKS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+    public static final Block MAPLE_FENCE = registerBlock("maple_fence", new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+    public static final Block MAPLE_FENCE_GATE = registerBlock("maple_fence_gate", new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)){});
+    public static final Block MAPLE_DOOR = registerBlock("maple_door", new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)){});
+    public static final Block MAPLE_TRAPDOOR = registerBlock("maple_trapdoor", new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)){});
+    public static final Block MAPLE_BUTTON = registerBlock("maple_button", new ButtonBlock(BlockSetType.OAK, 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON)) {});
+    public static final Block MAPLE_PRESSURE_PLATE = registerBlock("maple_pressure_plate", new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)) {});
+    public static final Block MAPLE_SIGN = registerBlock("maple_sign", new ModStandingSignBlock(ModWoodType.MAPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)), false);
+    public static final Block MAPLE_WALL_SIGN = registerBlock("maple_wall_sign", new ModWallSignBlock(ModWoodType.MAPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN).dropsLike(MAPLE_SIGN)), false);
+    public static final Block MAPLE_HANGING_SIGN = registerBlock("maple_hanging_sign", new ModCeilingHangingSignBlock(ModWoodType.MAPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)), false);
+    public static final Block MAPLE_WALL_HANGING_SIGN = registerBlock("maple_wall_hanging_sign", new ModWallHangingSignBlock(ModWoodType.MAPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).dropsLike(MAPLE_HANGING_SIGN)), false);
+    public static final Block MAPLE_SAPLING = registerBlock("maple_sapling", new SaplingBlock(ModTreeGrower.MAPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)){});
+    public static final Block POTTED_MAPLE_SAPLING = registerBlock("potted_maple_sapling", new FlowerPotBlock(ModBlocks.MAPLE_SAPLING, BlockBehaviour.Properties.of().instabreak().noOcclusion()), false);
     
     // Walnut Woodset
     public static final Block WALNUT_LOG = registerBlock("walnut_log", new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
@@ -157,18 +185,18 @@ public class ModBlocks
     public static final Block SEASHELL_TILE_WALL = registerBlock("seashell_tile_wall", new WallBlock(BlockBehaviour.Properties.ofFullCopy(SEASHELL_BLOCK)));
 
     // Snow & Ice Bricks
-    public static final Block ICE_BRICKS = registerBlock("ice_bricks", new Block(BlockBehaviour.Properties.of().friction(0.98F).strength(0.5F).sound(SoundType.GLASS)));
+    public static final Block ICE_BRICKS = registerBlock("ice_bricks", new Block(BlockBehaviour.Properties.of().mapColor(MapColor.ICE).friction(0.98F).strength(0.5F).sound(SoundType.GLASS).noOcclusion()));
     public static final Block ICE_BRICK_STAIRS = registerBlock("ice_brick_stairs", new StairBlock(ICE_BRICKS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(ICE_BRICKS)));
     public static final Block ICE_BRICK_SLAB = registerBlock("ice_brick_slab", new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ICE_BRICKS)));
     public static final Block ICE_BRICK_WALL = registerBlock("ice_brick_wall", new WallBlock(BlockBehaviour.Properties.ofFullCopy(ICE_BRICKS)));
-    public static final Block SNOW_BRICKS = registerBlock("snow_bricks", new Block(BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.SNOW)));
+    public static final Block SNOW_BRICKS = registerBlock("snow_bricks", new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.5F).sound(SoundType.SNOW)));
     public static final Block SNOW_BRICK_STAIRS = registerBlock("snow_brick_stairs", new StairBlock(SNOW_BRICKS.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(SNOW_BRICKS)));
     public static final Block SNOW_BRICK_SLAB = registerBlock("snow_brick_slab", new SlabBlock(BlockBehaviour.Properties.ofFullCopy(SNOW_BRICKS)));
     public static final Block SNOW_BRICK_WALL = registerBlock("snow_brick_wall", new WallBlock(BlockBehaviour.Properties.ofFullCopy(SNOW_BRICKS)));
 
     // Miscellaneous
     public static final Block SURFACE_MOSS = registerBlock("surface_moss", new SurfaceMossBlock(Properties.of().mapColor(MapColor.COLOR_GREEN).noCollission().strength(0.2F).pushReaction(PushReaction.DESTROY).sound(SoundType.MOSS_CARPET).noOcclusion()));
-    public static final Block MOSS_LAYER = registerBlock("moss_layer", new MossLayerBlock());
+    public static final Block MOSS_LAYER = registerBlock("moss_layer", new MossLayerBlock(MapColor.COLOR_GREEN));
 
     public static final Block HANGING_COCONUT = registerBlock("hanging_coconut", new HangingCoconutBlock(Properties.of().randomTicks().strength(2.0F, 3.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.WOOD).noOcclusion()), false);
     public static final Block COCONUT = registerBlock("coconut", new CoconutBlock(), false);
@@ -176,4 +204,8 @@ public class ModBlocks
     public static final Block PRICKLY_PEAR = registerBlock("prickly_pear", new PricklyPearBlock(), false);
     public static final Block POT = registerBlock("pot", new PotBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(1.0F)));
     public static final Block THIN_ICE = registerBlock("thin_ice", new ThinIceBlock());
+    
+    public static final Block SPILE = registerBlock("spile", new SpileBlock(BlockBehaviour.Properties.of().randomTicks().strength(1.0F, 3.0F).pushReaction(PushReaction.DESTROY).sound(SoundType.METAL).noOcclusion()), true);
+    public static final Block MAPLE_SAP_CAULDRON = registerBlock("maple_sap_cauldron", new MapleSapCauldronBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON).randomTicks()), false);
+    public static Block MAPLE_PIE; // This will be declared on modloader-side.
 }

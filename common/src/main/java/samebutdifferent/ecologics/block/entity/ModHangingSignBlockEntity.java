@@ -11,7 +11,7 @@ public class ModHangingSignBlockEntity extends HangingSignBlockEntity
 	public ModHangingSignBlockEntity(BlockPos blockPos, BlockState blockState) {
 		super(blockPos, blockState);
 	}
-
+	
     @Override
     public BlockEntityType<?> getType() {
         return ModBlockEntityTypes.HANGING_SIGN;

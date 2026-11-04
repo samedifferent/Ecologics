@@ -31,17 +31,33 @@
             },
             {
               "type": "minecraft:item",
-              "functions": [
+              "conditions": [
                 {
-                  "function": "minecraft:set_count",
-                  "count": 2.0,
-                  "add": false
-                },
-                {
-                  "function": "minecraft:explosion_decay"
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "#minecraft:axes"
+                  }
                 }
               ],
-              "name": "ecologics:coconut_slice"
+              "name": "ecologics:coconut_slice",
+              "functions": [
+                {
+                  "add": false,
+                  "count": 2.0,
+                  "function": "minecraft:set_count"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "ecologics:coconut_slice",
+              "functions": [
+                {
+                  "add": false,
+                  "count": 2.0,
+                  "function": "minecraft:set_count"
+                }
+              ]
             }
           ]
         }
@@ -56,5 +72,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "ecologics:blocks/hanging_coconut"
 }

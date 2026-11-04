@@ -1,0 +1,7 @@
+{
+  "values": [
+    "ecologics:sappy_maple_log",
+    {"id": "autumnity:sappy_maple_log", "required": false},
+	{"id": "autumnity:sappy_maple_wood", "required": false}
+  ]
+}

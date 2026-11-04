@@ -76,7 +76,8 @@ public class ModBoat extends Boat {
         COCONUT("coconut", () -> ModItems.COCONUT_BOAT, () -> ModItems.COCONUT_CHEST_BOAT),
         WALNUT("walnut", () -> ModItems.WALNUT_BOAT, () -> ModItems.WALNUT_CHEST_BOAT),
         AZALEA("azalea", () -> ModItems.AZALEA_BOAT, () -> ModItems.AZALEA_CHEST_BOAT),
-        FLOWERING_AZALEA("flowering_azalea", () -> ModItems.FLOWERING_AZALEA_BOAT, () -> ModItems.FLOWERING_AZALEA_CHEST_BOAT);
+        FLOWERING_AZALEA("flowering_azalea", () -> ModItems.FLOWERING_AZALEA_BOAT, () -> ModItems.FLOWERING_AZALEA_CHEST_BOAT),
+        MAPLE("maple", () -> ModItems.MAPLE_BOAT, () -> ModItems.MAPLE_CHEST_BOAT);
 
         private final String name;
         private final Supplier<Item> item;

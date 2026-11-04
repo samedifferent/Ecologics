@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "ecologics:azalea_shelf", "required": false},
+    {"id": "ecologics:coconut_shelf", "required": false},
+    {"id": "ecologics:maple_shelf", "required": false},
+    {"id": "ecologics:walnut_shelf", "required": false}
+  ]
+}

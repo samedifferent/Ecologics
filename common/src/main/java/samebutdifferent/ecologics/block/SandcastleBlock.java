@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -77,15 +78,17 @@ public class SandcastleBlock extends HorizontalDirectionalBlock
 
     private void destroySandcastle(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, int chance) {
         if (this.canBreakSandcastle(pEntity)) {
-            if (!pLevel.isClientSide && pLevel.random.nextInt(chance) == 0) {
+            if (!pLevel.isClientSide() && pLevel.random.nextInt(chance) == 0) {
                 pLevel.playSound(null, pPos, SoundEvents.SAND_FALL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 if (pState.getValue(EGGS_INSIDE) > 0) {
                     pLevel.setBlockAndUpdate(pPos, Blocks.TURTLE_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, pState.getValue(EGGS_INSIDE)).setValue(TurtleEggBlock.HATCH, pState.getValue(HATCH)));
                 } else {
                     pLevel.destroyBlock(pPos, false);
                 }
+                if (((ServerLevel)pLevel).getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
+                    Block.dropResources(pState, pLevel, pPos);
+                }
             }
-
         }
     }
 

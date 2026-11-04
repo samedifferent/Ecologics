@@ -4,6 +4,10 @@ import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -13,6 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -20,17 +25,26 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
+import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.registry.ModBlocks;
 
-public class MossLayerBlock extends SnowLayerBlock {
-    public MossLayerBlock() {
-        super(Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1F).sound(SoundType.MOSS_CARPET));
+public class MossLayerBlock extends SnowLayerBlock 
+{
+	public static final ResourceKey<Block> PALE_MOSS_CARPET = ResourceKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("pale_moss_carpet"));
+	public static final ResourceKey<Block> PALE_MOSS_BLOCK = ResourceKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("pale_moss_block"));
+	public static final ResourceKey<Block> PALE_MOSS_LAYER = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "pale_moss_layer"));
+	public static final ResourceKey<Item> PALE_MOSS_CARPET_ITEM = ResourceKey.create(Registries.ITEM, ResourceLocation.withDefaultNamespace("pale_moss_carpet"));
+	public static final ResourceKey<Item> PALE_MOSS_LAYER_ITEM = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "pale_moss_layer"));
+	
+    public MossLayerBlock(MapColor mapColour) {
+        super(Properties.of().mapColor(mapColour).strength(0.1F).sound(SoundType.MOSS_CARPET));
         this.registerDefaultState(this.getStateDefinition().any().setValue(LAYERS, Integer.valueOf(1)));
     }
 
@@ -44,7 +58,7 @@ public class MossLayerBlock extends SnowLayerBlock {
                 level.setBlockAndUpdate(pos, this.defaultBlockState().setValue(LAYERS, state.getValue(LAYERS) - 1));
                 if (level.getGameRules().getRule(GameRules.RULE_DOBLOCKDROPS).get()) {
                 	Direction dir = hit.getDirection();
-	                ItemEntity itementity = new ItemEntity(level, (double) pos.getX() + 0.5D + (double) dir.getStepX() * 0.65D, (double) pos.getY() + 0.1D, (double) pos.getZ() + 0.5D + (double) dir.getStepZ() * 0.65D, new ItemStack(Blocks.MOSS_CARPET.asItem()));
+	                ItemEntity itementity = new ItemEntity(level, (double) pos.getX() + 0.5D + (double) dir.getStepX() * 0.65D, (double) pos.getY() + 0.1D, (double) pos.getZ() + 0.5D + (double) dir.getStepZ() * 0.65D, new ItemStack(state.is(PALE_MOSS_LAYER) ? BuiltInRegistries.ITEM.get(PALE_MOSS_CARPET_ITEM) : Blocks.MOSS_CARPET.asItem()));
 	                itementity.setDeltaMovement(0.05D * (double) dir.getStepX() + level.random.nextDouble() * 0.02D, 0.05D, 0.05D * (double) dir.getStepZ() + level.random.nextDouble() * 0.02D);
 	                level.addFreshEntity(itementity);
                 }
@@ -55,7 +69,7 @@ public class MossLayerBlock extends SnowLayerBlock {
             level.playSound(player, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
             return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
-        return ItemInteractionResult.CONSUME;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Nullable
@@ -68,7 +82,7 @@ public class MossLayerBlock extends SnowLayerBlock {
             	return blockstate.setValue(LAYERS, Integer.valueOf(Math.min(8, layers + 1)));
             }
             else {
-            	return Blocks.MOSS_BLOCK.defaultBlockState();
+            	return blockstate.is(PALE_MOSS_LAYER) ? BuiltInRegistries.BLOCK.get(PALE_MOSS_BLOCK).defaultBlockState() : Blocks.MOSS_BLOCK.defaultBlockState();
             }
         } else {
             return super.getStateForPlacement(context);
@@ -108,6 +122,9 @@ public class MossLayerBlock extends SnowLayerBlock {
     private static boolean isMatchingItem(ItemStack item, BlockState blockState) {
         if ((item.getItem() == Items.MOSS_CARPET || item.getItem() == ModBlocks.MOSS_LAYER.asItem()) && blockState.getBlock() == ModBlocks.MOSS_LAYER) {
      	   return true;
+        }
+        if (Ecologics.vanillaBackport != null && (item.getItem() == BuiltInRegistries.ITEM.get(PALE_MOSS_CARPET_ITEM) || item.getItem() == BuiltInRegistries.ITEM.get(PALE_MOSS_LAYER_ITEM)) && blockState.getBlock() == BuiltInRegistries.BLOCK.get(PALE_MOSS_LAYER)) {
+      	   return true;
         }
         return false;
     }

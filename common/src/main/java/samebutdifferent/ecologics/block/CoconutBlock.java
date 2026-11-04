@@ -28,7 +28,7 @@ public class CoconutBlock extends Block implements SimpleWaterloggedBlock {
 
     public CoconutBlock() {
         super(Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion());
-        this.stateDefinition.any().setValue(WATERLOGGED, false);
+        this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, false));
     }
 
     @Override

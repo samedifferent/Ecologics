@@ -12,6 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -29,10 +30,11 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.CoconutCrab;
-import samebutdifferent.ecologics.platform.ConfigPlatformHelper;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 
 public class HangingCoconutBlock extends FallingBlock implements BonemealableBlock 
@@ -45,6 +47,11 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
     public HangingCoconutBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0).setValue(PERSISTENT, false));
+    }
+    
+    @Override
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+    	return ModItems.COCONUT.getDefaultInstance();
     }
     
 	@Override
@@ -154,16 +161,20 @@ public class HangingCoconutBlock extends FallingBlock implements BonemealableBlo
 
     @Override
     public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
+    	if (level.isClientSide()) {
+    		return;
+    	}
         if ((level.getRandom().nextFloat() < 0.25F || level.getFluidState(pos).getType() == Fluids.FLOWING_WATER || level.getFluidState(pos).getType() == Fluids.WATER) && FallingBlock.isFree(level.getBlockState(pos))) {
             boolean waterfilled = level.getBlockState(pos).getBlock() == Blocks.WATER;
             level.setBlock(pos, ModBlocks.COCONUT.defaultBlockState().setValue(CoconutBlock.WATERLOGGED, waterfilled), UPDATE_ALL);
             return;
         }
         level.playSound(null, pos, ModSoundEvents.COCONUT_SMASH, SoundSource.BLOCKS, 0.7f, 0.9f + level.getRandom().nextFloat() * 0.2f);
-        if (level.random.nextFloat() <= ConfigPlatformHelper.coconutCrabSpawnChance()) {
+        if (level.random.nextFloat() <= ConfigCommon.getCoconutCrabSpawnChance()) {
             CoconutCrab coconutCrab = ModEntityTypes.COCONUT_CRAB.create(level);
             coconutCrab.setPos(pos.getX(), pos.getY(), pos.getZ());
             level.addFreshEntity(coconutCrab);
+            return;
         } else {
             Block.dropResources(fallingBlock.getBlockState(), level, pos);
         }

@@ -28,12 +28,14 @@ public class ModBlockEntityTypes
 
     public static final BlockEntityType<ModSignBlockEntity> SIGN = registerBlockEntityType("sign", BlockEntityType.Builder.of(ModSignBlockEntity::new,
             ModBlocks.COCONUT_SIGN, ModBlocks.COCONUT_WALL_SIGN,
+            ModBlocks.MAPLE_SIGN, ModBlocks.MAPLE_WALL_SIGN,
             ModBlocks.WALNUT_SIGN, ModBlocks.WALNUT_WALL_SIGN,
             ModBlocks.AZALEA_SIGN, ModBlocks.AZALEA_WALL_SIGN,
             ModBlocks.FLOWERING_AZALEA_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_SIGN
     ).build(null));
     public static final BlockEntityType<ModHangingSignBlockEntity> HANGING_SIGN = registerBlockEntityType("hanging_sign", BlockEntityType.Builder.of(ModHangingSignBlockEntity::new,
             ModBlocks.COCONUT_HANGING_SIGN, ModBlocks.COCONUT_WALL_HANGING_SIGN,
+            ModBlocks.MAPLE_HANGING_SIGN, ModBlocks.MAPLE_WALL_HANGING_SIGN,
             ModBlocks.WALNUT_HANGING_SIGN, ModBlocks.WALNUT_WALL_HANGING_SIGN,
             ModBlocks.AZALEA_HANGING_SIGN, ModBlocks.AZALEA_WALL_HANGING_SIGN,
             ModBlocks.FLOWERING_AZALEA_HANGING_SIGN, ModBlocks.FLOWERING_AZALEA_WALL_HANGING_SIGN

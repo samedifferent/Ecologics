@@ -1,0 +1,184 @@
+{
+  "variants": {
+    "facing=east,servings=0": {
+      "model": "ecologics:block/maple_pancakes_stack_6",
+      "y": 90
+    },
+    "facing=east,servings=1": {
+      "model": "ecologics:block/maple_pancakes_stack_5",
+      "y": 90
+    },
+    "facing=east,servings=10": {
+      "model": "ecologics:block/maple_pancakes_stack_11",
+      "y": 90
+    },
+    "facing=east,servings=11": {
+      "model": "ecologics:block/maple_pancakes_stack_12",
+      "y": 90
+    },
+    "facing=east,servings=2": {
+      "model": "ecologics:block/maple_pancakes_stack_4",
+      "y": 90
+    },
+    "facing=east,servings=3": {
+      "model": "ecologics:block/maple_pancakes_stack_3",
+      "y": 90
+    },
+    "facing=east,servings=4": {
+      "model": "ecologics:block/maple_pancakes_stack_2",
+      "y": 90
+    },
+    "facing=east,servings=5": {
+      "model": "ecologics:block/maple_pancakes_stack_1",
+      "y": 90
+    },
+    "facing=east,servings=6": {
+      "model": "ecologics:block/maple_pancakes_stack_7",
+      "y": 90
+    },
+    "facing=east,servings=7": {
+      "model": "ecologics:block/maple_pancakes_stack_8",
+      "y": 90
+    },
+    "facing=east,servings=8": {
+      "model": "ecologics:block/maple_pancakes_stack_9",
+      "y": 90
+    },
+    "facing=east,servings=9": {
+      "model": "ecologics:block/maple_pancakes_stack_10",
+      "y": 90
+    },
+    "facing=north,servings=0": {
+      "model": "ecologics:block/maple_pancakes_stack_6"
+    },
+    "facing=north,servings=1": {
+      "model": "ecologics:block/maple_pancakes_stack_5"
+    },
+    "facing=north,servings=10": {
+      "model": "ecologics:block/maple_pancakes_stack_11"
+    },
+    "facing=north,servings=11": {
+      "model": "ecologics:block/maple_pancakes_stack_12"
+    },
+    "facing=north,servings=2": {
+      "model": "ecologics:block/maple_pancakes_stack_4"
+    },
+    "facing=north,servings=3": {
+      "model": "ecologics:block/maple_pancakes_stack_3"
+    },
+    "facing=north,servings=4": {
+      "model": "ecologics:block/maple_pancakes_stack_2"
+    },
+    "facing=north,servings=5": {
+      "model": "ecologics:block/maple_pancakes_stack_1"
+    },
+    "facing=north,servings=6": {
+      "model": "ecologics:block/maple_pancakes_stack_7"
+    },
+    "facing=north,servings=7": {
+      "model": "ecologics:block/maple_pancakes_stack_8"
+    },
+    "facing=north,servings=8": {
+      "model": "ecologics:block/maple_pancakes_stack_9"
+    },
+    "facing=north,servings=9": {
+      "model": "ecologics:block/maple_pancakes_stack_10"
+    },
+    "facing=south,servings=0": {
+      "model": "ecologics:block/maple_pancakes_stack_6",
+      "y": 180
+    },
+    "facing=south,servings=1": {
+      "model": "ecologics:block/maple_pancakes_stack_5",
+      "y": 180
+    },
+    "facing=south,servings=10": {
+      "model": "ecologics:block/maple_pancakes_stack_11",
+      "y": 180
+    },
+    "facing=south,servings=11": {
+      "model": "ecologics:block/maple_pancakes_stack_12",
+      "y": 180
+    },
+    "facing=south,servings=2": {
+      "model": "ecologics:block/maple_pancakes_stack_4",
+      "y": 180
+    },
+    "facing=south,servings=3": {
+      "model": "ecologics:block/maple_pancakes_stack_3",
+      "y": 180
+    },
+    "facing=south,servings=4": {
+      "model": "ecologics:block/maple_pancakes_stack_2",
+      "y": 180
+    },
+    "facing=south,servings=5": {
+      "model": "ecologics:block/maple_pancakes_stack_1",
+      "y": 180
+    },
+    "facing=south,servings=6": {
+      "model": "ecologics:block/maple_pancakes_stack_7",
+      "y": 180
+    },
+    "facing=south,servings=7": {
+      "model": "ecologics:block/maple_pancakes_stack_8",
+      "y": 180
+    },
+    "facing=south,servings=8": {
+      "model": "ecologics:block/maple_pancakes_stack_9",
+      "y": 180
+    },
+    "facing=south,servings=9": {
+      "model": "ecologics:block/maple_pancakes_stack_10",
+      "y": 180
+    },
+    "facing=west,servings=0": {
+      "model": "ecologics:block/maple_pancakes_stack_6",
+      "y": 270
+    },
+    "facing=west,servings=1": {
+      "model": "ecologics:block/maple_pancakes_stack_5",
+      "y": 270
+    },
+    "facing=west,servings=10": {
+      "model": "ecologics:block/maple_pancakes_stack_11",
+      "y": 270
+    },
+    "facing=west,servings=11": {
+      "model": "ecologics:block/maple_pancakes_stack_12",
+      "y": 270
+    },
+    "facing=west,servings=2": {
+      "model": "ecologics:block/maple_pancakes_stack_4",
+      "y": 270
+    },
+    "facing=west,servings=3": {
+      "model": "ecologics:block/maple_pancakes_stack_3",
+      "y": 270
+    },
+    "facing=west,servings=4": {
+      "model": "ecologics:block/maple_pancakes_stack_2",
+      "y": 270
+    },
+    "facing=west,servings=5": {
+      "model": "ecologics:block/maple_pancakes_stack_1",
+      "y": 270
+    },
+    "facing=west,servings=6": {
+      "model": "ecologics:block/maple_pancakes_stack_7",
+      "y": 270
+    },
+    "facing=west,servings=7": {
+      "model": "ecologics:block/maple_pancakes_stack_8",
+      "y": 270
+    },
+    "facing=west,servings=8": {
+      "model": "ecologics:block/maple_pancakes_stack_9",
+      "y": 270
+    },
+    "facing=west,servings=9": {
+      "model": "ecologics:block/maple_pancakes_stack_10",
+      "y": 270
+    }
+  }
+}

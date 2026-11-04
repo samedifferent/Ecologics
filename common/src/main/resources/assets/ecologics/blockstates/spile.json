@@ -1,0 +1,84 @@
+{
+  "multipart": [
+    {
+      "when": { "facing": "north" },
+      "apply": { "model": "ecologics:block/spile", "y": 0 }
+    },
+    {
+      "when": { "facing": "east" },
+      "apply": { "model": "ecologics:block/spile", "y": 90 }
+    },
+    {
+      "when": { "facing": "south" },
+      "apply": { "model": "ecologics:block/spile", "y": 180 }
+    },
+    {
+      "when": { "facing": "west" },
+      "apply": { "model": "ecologics:block/spile", "y": 270 }
+    },
+    {
+      "when": { "facing": "north", "has_bucket": true },
+      "apply": { "model": "ecologics:block/spile_bucket", "y": 0 }
+    },
+    {
+      "when": { "facing": "east", "has_bucket": true },
+      "apply": { "model": "ecologics:block/spile_bucket", "y": 90 }
+    },
+    {
+      "when": { "facing": "south", "has_bucket": true },
+      "apply": { "model": "ecologics:block/spile_bucket", "y": 180 }
+    },
+    {
+      "when": { "facing": "west", "has_bucket": true },
+      "apply": { "model": "ecologics:block/spile_bucket", "y": 270 }
+    },
+    {
+      "when": { "facing": "north", "has_bucket": true, "fullness": 1 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_1", "y": 0 }
+    },
+    {
+      "when": { "facing": "east", "has_bucket": true, "fullness": 1 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_1", "y": 90 }
+    },
+    {
+      "when": { "facing": "south", "has_bucket": true, "fullness": 1 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_1", "y": 180 }
+    },
+    {
+      "when": { "facing": "west", "has_bucket": true, "fullness": 1 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_1", "y": 270 }
+    },
+    {
+      "when": { "facing": "north", "has_bucket": true, "fullness": 2 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_2", "y": 0 }
+    },
+    {
+      "when": { "facing": "east", "has_bucket": true, "fullness": 2 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_2", "y": 90 }
+    },
+    {
+      "when": { "facing": "south", "has_bucket": true, "fullness": 2 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_2", "y": 180 }
+    },
+    {
+      "when": { "facing": "west", "has_bucket": true, "fullness": 2 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_2", "y": 270 }
+    },
+    {
+      "when": { "facing": "north", "has_bucket": true, "fullness": 3 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_3", "y": 0 }
+    },
+    {
+      "when": { "facing": "east", "has_bucket": true, "fullness": 3 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_3", "y": 90 }
+    },
+    {
+      "when": { "facing": "south", "has_bucket": true, "fullness": 3 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_3", "y": 180 }
+    },
+    {
+      "when": { "facing": "west", "has_bucket": true, "fullness": 3 },
+      "apply": { "model": "ecologics:block/spile_bucket_fluid_3", "y": 270 }
+    }
+  ]
+}

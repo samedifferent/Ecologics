@@ -2,15 +2,18 @@
   "required": true,
   "minVersion": "0.8",
   "package": "samebutdifferent.ecologics.mixin",
-  "plugin": "samebutdifferent.ecologics.mixin.MixinConfig",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AzaleaBlockMixin",
-    "FoxMixin",
     "CarpetBlockMixin",
+    "DispenserBlockMixin",
+    "CamelMixin",
+    "FoxMixin",
     "LivingEntityMixin"
   ],
   "client": [
+    "CamelModelMixin",
+    "CamelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

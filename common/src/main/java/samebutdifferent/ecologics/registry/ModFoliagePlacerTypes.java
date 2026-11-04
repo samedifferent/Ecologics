@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import oshi.util.tuples.Pair;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.worldgen.feature.foliageplacers.CoconutFoliagePlacer;
 
-public class ModFoliagePlacerTypes
+public class ModFoliagePlacerTypes<P extends FoliagePlacer>
 {
     public static void init() {
     	for (Pair<ResourceLocation, FoliagePlacerType<?>> registry : FOLIAGE_PLACERS) {
@@ -18,7 +19,7 @@ public class ModFoliagePlacerTypes
     	}
     }
     
-    public static FoliagePlacerType registerFoliagePlacerType(String name, FoliagePlacerType<?> foliage) {
+    public static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliagePlacerType(String name, FoliagePlacerType<P> foliage) {
     	FOLIAGE_PLACERS.add(new Pair<>(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, name), foliage));
     	return foliage;
     }

@@ -1,8 +1,6 @@
 package samebutdifferent.ecologics.client.model;
 
 import com.google.common.collect.ImmutableList;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.ModelUtils;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -14,7 +12,6 @@ import net.minecraft.util.Mth;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.Penguin;
 
-@Environment(EnvType.CLIENT)
 public class PenguinModel extends AgeableListModel<Penguin> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "penguin"), "main");
     private final ModelPart body;

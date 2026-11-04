@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_body",
+  "textures": {
+    "all": "ecologics:block/coconut_shelf",
+    "particle": "ecologics:block/stripped_coconut_log"
+  }
+}

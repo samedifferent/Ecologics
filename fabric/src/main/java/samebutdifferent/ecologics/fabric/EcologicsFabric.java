@@ -12,8 +12,16 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.fabricmc.fabric.impl.object.builder.TradeOfferInternals.WanderingTraderOffersBuilderImpl;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -31,35 +39,59 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import oshi.util.tuples.Quartet;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
+import samebutdifferent.ecologics.config.ConfigCommon;
+import samebutdifferent.ecologics.entity.Penguin;
+import samebutdifferent.ecologics.entity.data.CamelChestDataHelper;
+import samebutdifferent.ecologics.fabric.integration.RusticDelightCompat;
+import samebutdifferent.ecologics.fabric.integration.farmersdelight.FarmersDelightCompat;
+import samebutdifferent.ecologics.fabric.integration.vanillabackport.VanillaBackportCompat;
+import samebutdifferent.ecologics.fabric.registry.CamelChestDataHelperFabric;
+import samebutdifferent.ecologics.fabric.registry.ModConfigFabric;
+import samebutdifferent.ecologics.fabric.registry.ModDataAttachments;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
+import samebutdifferent.ecologics.registry.ModFoods;
 import samebutdifferent.ecologics.registry.ModItems;
-import samebutdifferent.ecologics.registry.fabric.ModConfigFabric;
 
-public class EcologicsFabric implements ModInitializer {
-    private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "tab")); //FabricItemGroup.builder(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "tab")).icon(() -> new ItemStack(ModBlocks.COCONUT_LOG.get())).build();
-
+public class EcologicsFabric implements ModInitializer 
+{
     @Override
     public void onInitialize() {
         AutoConfig.register(ModConfigFabric.class, GsonConfigSerializer::new);
+        updateConfig();
+        registerAdditionalModSupport();
+        ModFoods.init();
         Ecologics.init();
+        ModDataAttachments.init();
         registerEntityAttributes();
         registerEvents();
         addFeatures();
@@ -68,21 +100,72 @@ public class EcologicsFabric implements ModInitializer {
         Ecologics.commonSetup();
         registerCreativeTab();
         registerFurnaceFuels();
-        ItemGroupEvents.modifyEntriesEvent(TAB).register(EcologicsFabric::assignItemsToTab);
+        addChestLoot();
+        addWanderingTrades();
+        Ecologics.BREWING_RECIPES.forEach((potion, pair) -> { FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> builder.registerPotionRecipe(potion, Ingredient.of(pair.getA()), pair.getB())); });
+        Ecologics.FLAMMABLES.forEach((block, pair) -> { FlammableBlockRegistry.getInstance(Blocks.FIRE).add(block, pair.getA(), pair.getB()); });
+        Ecologics.COMPOSTABLES.forEach((item, chance) -> { CompostingChanceRegistry.INSTANCE.add(item, chance); });
+        Ecologics.STRIPPABLES.forEach(StrippableBlockRegistry::register);
+        CamelChestDataHelper.registerHandler(new CamelChestDataHelperFabric());
+        setupCreativeTabs();
+    }
+    
+    private void registerAdditionalModSupport() {
+        if (FabricLoader.getInstance().isModLoaded("farmersdelight")) {
+            Ecologics.farmersDelight = new FarmersDelightCompat();
+        }
+        if (FabricLoader.getInstance().isModLoaded("rusticdelight")) {
+            Ecologics.rusticDelight = new RusticDelightCompat();
+        }
+        if (FabricLoader.getInstance().isModLoaded("vanillabackport")) {
+            Ecologics.vanillaBackport = new VanillaBackportCompat();
+        }
     }
 
     private void registerCreativeTab() {
-    	Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB.location(), FabricItemGroup.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); } ).build());
-    	ModCreativeModeTabContents.populateTabDatabase();
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ModCreativeModeTabContents.ECOLOGICS_TAB.location(), FabricItemGroup.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); } ).build());
+        ModCreativeModeTabContents.populateTabDatabase();
+        if (FabricLoader.getInstance().isModLoaded("farmersdelight")) {
+            Ecologics.farmersDelight.registerCreativeTabContent();
+        }
+        if (FabricLoader.getInstance().isModLoaded("rusticdelight")) {
+            Ecologics.rusticDelight.registerCreativeTabContent();
+        }
+        if (FabricLoader.getInstance().isModLoaded("vanillabackport")) {
+            Ecologics.vanillaBackport.registerCreativeTabContent();
+        }
     }
     
     private void registerFurnaceFuels() {
-    	FuelRegistry.INSTANCE.add(ModItems.COCONUT_HUSK, 100);
+        FuelRegistry.INSTANCE.add(ModItems.COCONUT_HUSK, 100);
     }
     
-    private static void assignItemsToTab(FabricItemGroupEntries entries) {
-        for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
-        	entries.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
+    public static void setupCreativeTabs() {
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.BUILDING_BLOCKS));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.NATURAL_BLOCKS));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.FUNCTIONAL_BLOCKS));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> assignItemsToTab(entries, CreativeModeTabs.TOOLS_AND_UTILITIES));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> assignItemsToTab(entries, CreativeModeTabs.COMBAT));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.FOOD_AND_DRINKS));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.INGREDIENTS));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.SPAWN_EGGS));
+        ItemGroupEvents.modifyEntriesEvent(ModCreativeModeTabContents.ECOLOGICS_TAB).register(entries -> assignItemsToTab(entries, ModCreativeModeTabContents.ECOLOGICS_TAB));
+    }
+    
+    private static void assignItemsToTab(FabricItemGroupEntries entries, ResourceKey<CreativeModeTab> tab) {
+        for (Quartet<ItemLike, ResourceKey<CreativeModeTab>, ModCreativeModeTabContents.Operation, ItemLike> entry : ModCreativeModeTabContents.TAB_ITEMS) {
+            if (entry.getB() != tab) {
+                continue;
+            }
+            if (entry.getC() == ModCreativeModeTabContents.Operation.INSERT) {
+                entries.accept(entry.getA(), TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.BEFORE) {
+                entries.addBefore(entry.getD(), entry.getA());
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.AFTER) {
+                entries.addAfter(entry.getD(), entry.getA());
+            }
         }
     }
     
@@ -128,39 +211,26 @@ public class EcologicsFabric implements ModInitializer {
     public void addFeatures() {
         ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
         if (config.beach.generateCoconutTrees) {
-            BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.BEACH),
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    getPlacedFeatureKey("coconut")
-            );
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.BEACH), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("coconut"));
         }
         if (config.beach.generateSeashells) {
-            BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.BEACH),
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    getPlacedFeatureKey("seashell")
-            );
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.BEACH), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("seashell"));
         }
         if (config.snowy.generateThinIcePatches) {
-            BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FROZEN_RIVER) || biomeSelector.getBiomeKey().equals(Biomes.FROZEN_OCEAN) || biomeSelector.getBiomeKey().equals(Biomes.SNOWY_PLAINS),
-                    GenerationStep.Decoration.TOP_LAYER_MODIFICATION,
-                    getPlacedFeatureKey("thin_ice_patch")
-            );
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FROZEN_RIVER) || biomeSelector.getBiomeKey().equals(Biomes.FROZEN_OCEAN) || biomeSelector.getBiomeKey().equals(Biomes.SNOWY_PLAINS), GenerationStep.Decoration.TOP_LAYER_MODIFICATION, getPlacedFeatureKey("thin_ice_patch"));
         }
         if (config.desert.generatePricklyPears) {
-            BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DESERT),
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    getPlacedFeatureKey("prickly_pear")
-            );
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.DESERT), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("prickly_pear"));
         }
         if (config.nether.generateNetherGoldOreVeins) {
-            BiomeModifications.addFeature(
-                    (biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.NETHER_WASTES),
-                    GenerationStep.Decoration.UNDERGROUND_ORES,
-                    getPlacedFeatureKey("ore_vein_nether_gold")
-            );
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.NETHER_WASTES), GenerationStep.Decoration.UNDERGROUND_ORES, getPlacedFeatureKey("ore_vein_nether_gold"));
+        }
+        if (config.maple.generateMapleTrees) {
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST) || biomeSelector.getBiomeKey().equals(Biomes.FLOWER_FOREST) || biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("maple_bees"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST) || biomeSelector.getBiomeKey().equals(Biomes.FLOWER_FOREST) || biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("green_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("red_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("orange_maple"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("yellow_maple"));
         }
     }
 
@@ -185,6 +255,8 @@ public class EcologicsFabric implements ModInitializer {
     }
 
     public void addSpawns() {
+        SpawnPlacements.register(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
         ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
         if (config.snowy.spawnPenguins) {
             BiomeModifications.addSpawn((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FROZEN_RIVER) || biomeSelector.getBiomeKey().equals(Biomes.FROZEN_OCEAN) || biomeSelector.getBiomeKey().equals(Biomes.SNOWY_PLAINS), MobCategory.CREATURE, ModEntityTypes.PENGUIN, 2, 4, 5);
@@ -196,8 +268,57 @@ public class EcologicsFabric implements ModInitializer {
             BiomeModifications.addSpawn((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.PLAINS), MobCategory.CREATURE, ModEntityTypes.SQUIRREL, 10, 2, 3);
         }
     }
+    
+    @SuppressWarnings("unused")
+    private void addWanderingTrades() {
+        TradeOfferHelper.registerWanderingTraderOffers(1, factory -> {
+            factory.add((entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 1), new ItemStack(ModBlocks.AZALEA_FLOWER, 1), 12, 1, 0.05F));
+            factory.add((entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 5), new ItemStack(ModBlocks.COCONUT_SEEDLING, 1), 8, 1, 0.05F));
+            factory.add((entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 5), new ItemStack(ModBlocks.WALNUT_SAPLING, 1), 8, 1, 0.05F));
+            factory.add((entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 5), new ItemStack(ModBlocks.MAPLE_SAPLING, 1), 8, 1, 0.05F));
+        });
+        TradeOfferHelper.registerWanderingTraderOffers(1, factory -> {
+        	factory.add((entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 2), new ItemStack(ModBlocks.SEASHELL, 1), 8, 1, 0.05F));
+        });
+        TradeOfferHelper.registerRebalancedWanderingTraderOffers(factory -> {
+            factory.addOffersToPool(WanderingTraderOffersBuilderImpl.BUY_ITEMS_POOL, ((entity, random) -> new MerchantOffer(new ItemCost(ModItems.WALNUT, 4), new ItemStack(Items.EMERALD, 1), 3, 1, 0.05F)));
 
+            factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_COMMON_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 1), new ItemStack(ModBlocks.AZALEA_FLOWER, 1), 12, 1, 0.05F));
+            factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_COMMON_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 5), new ItemStack(ModBlocks.COCONUT_SEEDLING, 1), 8, 1, 0.05F));
+            factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_COMMON_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 5), new ItemStack(ModBlocks.WALNUT_SAPLING, 1), 8, 1, 0.05F));
+            factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_COMMON_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 5), new ItemStack(ModBlocks.MAPLE_SAPLING, 1), 8, 1, 0.05F));
+            
+        	factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 2), new ItemStack(ModBlocks.SEASHELL, 1), 8, 1, 0.05F));
+        	factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 1), new ItemStack(ModBlocks.AZALEA_LOG, 8), 4, 1, 0.05F));
+        	factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 1), new ItemStack(ModBlocks.FLOWERING_AZALEA_LOG, 8), 4, 1, 0.05F));
+        	factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 1), new ItemStack(ModBlocks.COCONUT_LOG, 8), 4, 1, 0.05F));
+        	factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 1), new ItemStack(ModBlocks.WALNUT_LOG, 8), 4, 1, 0.05F));
+        	factory.addOffersToPool(WanderingTraderOffersBuilderImpl.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> new MerchantOffer(new ItemCost(Items.EMERALD, 1), new ItemStack(ModBlocks.MAPLE_LOG, 8), 4, 1, 0.05F));
+        });
+    }
+
+    @SuppressWarnings("unused")
+    public void addChestLoot() {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source, provider) -> {
+            if (source.isBuiltin() && BuiltInLootTables.BURIED_TREASURE.equals(key)) {
+                LootPool.Builder poolBuilder = LootPool.lootPool().add(LootItem.lootTableItem(ModItems.MUSIC_DISC_COCONUT));
+                tableBuilder.pool(poolBuilder.build());
+            }
+        });
+    }
+    
     private ResourceKey<PlacedFeature> getPlacedFeatureKey(String key) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, key));
+    }
+    
+    public static void updateConfig() {
+        ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
+        ConfigCommon.setCoconutCrabSpawnChance(config.beach.coconutCrabSpawnChance);
+        ConfigCommon.setPricklyPearGrowthChance(config.desert.pricklyPearGrowthChance);
+        ConfigCommon.setCamelChestsEnabled(config.desert.camelChestsEnabled);
+        ConfigCommon.setReplaceAzaleaTree(config.lushCaves.replaceAzaleaTree);
+        ConfigCommon.setFoxesAttackSquirrels(config.plains.foxesAttackSquirrels);
+        ConfigCommon.setMapleSapDepletionChance(config.maple.mapleSapDepletionChance);
+        ConfigCommon.setUseVanillaTabs(config.misc.useVanillaCreativeTabs);
     }
 }

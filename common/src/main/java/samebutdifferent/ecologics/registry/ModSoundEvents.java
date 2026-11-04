@@ -36,4 +36,5 @@ public class ModSoundEvents
     public static final SoundEvent SQUIRREL_AMBIENT = registerSoundEvent("squirrel_ambient", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.squirrel.ambient")));
     public static final SoundEvent SQUIRREL_DEATH = registerSoundEvent("squirrel_death", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.squirrel.death")));
     public static final SoundEvent SQUIRREL_HURT = registerSoundEvent("squirrel_hurt", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.squirrel.hurt")));
+    public static final SoundEvent CAMEL_CHEST = registerSoundEvent("camel_chest", SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "entity.camel.chest")));
 }

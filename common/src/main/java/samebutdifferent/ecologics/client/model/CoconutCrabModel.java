@@ -1,7 +1,5 @@
 package samebutdifferent.ecologics.client.model;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.AgeableHierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -17,7 +15,6 @@ import net.minecraft.util.Mth;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.entity.CoconutCrab;
 
-@Environment(EnvType.CLIENT)
 public class CoconutCrabModel extends AgeableHierarchicalModel<CoconutCrab> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_crab"), "main");
     private final ModelPart root;

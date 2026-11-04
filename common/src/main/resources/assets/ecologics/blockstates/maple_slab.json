@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ecologics:block/maple_slab"
+    },
+    "type=top": {
+      "model": "ecologics:block/maple_slab_top"
+    },
+    "type=double": {
+      "model": "ecologics:block/maple_planks"
+    }
+  }
+}

@@ -111,6 +111,7 @@
   "entity.ecologics.penguin": "ペンギン",
   "entity.ecologics.squirrel": "リス",
   "entity.ecologics.boat": "ボート",
+  "entity.ecologics.chest_boat": "チェスト付きのボート",
   "effect.ecologics.slippery": "低摩擦",
   "effect.ecologics.slippery.description": "このステータス効果を受けると、どのブロック上にいても氷の上で歩いているかのように滑るようになります",
   "item.ecologics.coconut_crab_spawn_egg": "ヤシガニのスポーンエッグ",

@@ -50,8 +50,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.entity.ai.navigation.BetterWallClimberNavigation;
-import samebutdifferent.ecologics.platform.ConfigPlatformHelper;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModSoundEvents;
 import samebutdifferent.ecologics.registry.ModTags;
@@ -85,7 +85,7 @@ public class Squirrel extends Animal {
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        if (ConfigPlatformHelper.foxesAttackSquirrels()) {
+        if (ConfigCommon.getFoxesAttackSquirrels()) {
         	this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Fox.class, 6.0F, 1.1D, 1.3D));
         }
     }

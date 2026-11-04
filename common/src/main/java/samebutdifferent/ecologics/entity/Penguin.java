@@ -329,15 +329,15 @@ public class Penguin extends Animal {
         return ModSoundEvents.PENGUIN_DEATH;
     }
 
-    // ANIMATION
-    private boolean babyIsNearAdult() {
+    // ANIMATION, Not used.
+    /*private boolean babyIsNearAdult() {
         if (this.isBaby()) {
             for(Penguin penguin : this.level().getEntitiesOfClass(Penguin.class, this.getBoundingBox().inflate(2.0D, 5.0D, 2.0D))) {
                 return !penguin.isBaby();
             }
         }
         return false;
-    }
+    }*/
 
     @Override
     public void tick() {

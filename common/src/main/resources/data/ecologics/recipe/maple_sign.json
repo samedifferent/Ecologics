@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "wooden_sign",
+  "key": {
+    "#": {
+      "item": "ecologics:maple_planks"
+    },
+    "X": {
+      "tag": "c:rods/wooden"
+	}
+  },
+  "pattern": [
+    "###",
+    "###",
+    " X "
+  ],
+  "result": {
+    "count": 3,
+    "id": "ecologics:maple_sign"
+  }
+}

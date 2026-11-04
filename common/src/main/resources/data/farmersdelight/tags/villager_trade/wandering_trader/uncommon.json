@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+	"minecraft:wandering_trader/emerald_azalea_log",
+	"minecraft:wandering_trader/emerald_coconut_log",
+	"minecraft:wandering_trader/emerald_maple_log",
+	"minecraft:wandering_trader/emerald_walnut_log",
+    "minecraft:wandering_trader/emerald_seashell"
+  ]
+}

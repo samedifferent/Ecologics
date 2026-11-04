@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "ecologics:block/farmersdelight/flowering_azalea_cabinet_front_open",
+    "side": "ecologics:block/farmersdelight/flowering_azalea_cabinet_side",
+    "top": "ecologics:block/farmersdelight/flowering_azalea_cabinet_top"
+  }
+}

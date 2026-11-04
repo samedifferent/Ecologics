@@ -25,19 +25,19 @@
       "samebutdifferent.ecologics.fabric.EcologicsFabric"
     ],
     "client": [
-      "samebutdifferent.ecologics.client.fabric.EcologicsFabricClient"
+      "samebutdifferent.ecologics.fabric.client.EcologicsFabricClient"
     ],
     "modmenu": [
-      "samebutdifferent.ecologics.integration.fabric.ModMenuIntegration"
+      "samebutdifferent.ecologics.fabric.integration.ModMenuIntegration"
     ]
   },
   "mixins": [
-    "ecologics.mixins.json",
+    "ecologics-fabric.mixins.json",
     "ecologics-common.mixins.json"
   ],
   "accessWidener": "ecologics.accesswidener",
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.21.1"
+    "minecraft": "1.21.1"
   }
 }

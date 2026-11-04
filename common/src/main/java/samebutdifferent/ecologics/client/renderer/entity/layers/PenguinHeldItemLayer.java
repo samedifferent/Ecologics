@@ -2,8 +2,6 @@ package samebutdifferent.ecologics.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -14,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import samebutdifferent.ecologics.client.model.PenguinModel;
 import samebutdifferent.ecologics.entity.Penguin;
 
-@Environment(EnvType.CLIENT)
 public class PenguinHeldItemLayer extends RenderLayer<Penguin, PenguinModel> {
     private final ItemInHandRenderer itemInHandRenderer;
 

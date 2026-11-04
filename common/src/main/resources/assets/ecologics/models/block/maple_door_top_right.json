@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/door_top_right",
+  "textures": {
+    "top": "ecologics:block/maple_door_top"
+  }
+}
