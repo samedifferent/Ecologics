@@ -8,16 +8,16 @@ import samebutdifferent.ecologics.entity.data.CamelChestDataHolder;
 
 @Mixin(CamelRenderState.class)
 public class CamelRenderStateMixin implements CamelChestDataHolder {
-	@Unique
-	public boolean hasChest;
+    @Unique
+    public boolean hasChest;
 
-	@Override
-	public boolean hasChest() {
-		return this.hasChest;
-	}
+    @Override
+    public boolean hasChest() {
+        return this.hasChest;
+    }
 
-	@Override
-	public void setChest(boolean newValue) {
-		this.hasChest = newValue;
-	}
+    @Override
+    public void setChest(boolean newValue) {
+        this.hasChest = newValue;
+    }
 }

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -15,7 +16,11 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DispenserBlock;
 import oshi.util.tuples.Pair;
+import samebutdifferent.ecologics.block.interaction.BucketSpileDispenseItemBehaviour;
+import samebutdifferent.ecologics.block.interaction.GlassBottleSyrupDispenseItemBehaviour;
+import samebutdifferent.ecologics.block.interaction.MapleSapBucketDispenseItemBehaviour;
 import samebutdifferent.ecologics.block.interaction.MapleSapCauldronInteraction;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 import samebutdifferent.ecologics.entity.CoconutCrab;
@@ -23,6 +28,7 @@ import samebutdifferent.ecologics.entity.Penguin;
 import samebutdifferent.ecologics.entity.Squirrel;
 import samebutdifferent.ecologics.registry.ModBlockEntityTypes;
 import samebutdifferent.ecologics.registry.ModBlocks;
+import samebutdifferent.ecologics.registry.ModCompat;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModFeatures;
 import samebutdifferent.ecologics.registry.ModFoliagePlacerTypes;
@@ -45,6 +51,9 @@ public class Ecologics
     public static final Map<ItemLike, Float> COMPOSTABLES = new HashMap<>();
     public static final Map<Block, Block> STRIPPABLES = new HashMap<>();
     public static final Map<Block, Pair<Integer, Integer>> FLAMMABLES = new HashMap<>();
+    
+    public static ModCompat farmersDelight = null;
+    public static ModCompat rusticDelight = null;
     
     public static void init() {
         ModBlocks.init();
@@ -69,7 +78,7 @@ public class Ecologics
         registerCompostables();
         registerStrippables();
         registerFlammables();
-        // registerSpawnPlacements();
+        registerDispenserBehaviour();
         MapleSapCauldronInteraction.registerCauldronInteractions();
     }
 
@@ -170,5 +179,13 @@ public class Ecologics
         attributes.put(ModEntityTypes.COCONUT_CRAB, CoconutCrab.createAttributes());
         attributes.put(ModEntityTypes.PENGUIN, Penguin.createAttributes());
         attributes.put(ModEntityTypes.SQUIRREL, Squirrel.createAttributes());
+    }
+    
+    public static void registerDispenserBehaviour() {
+        DispenseItemBehavior vanillaBucketBehaviour = DispenserBlock.DISPENSER_REGISTRY.get(Items.BUCKET);
+        DispenseItemBehavior vanillaBottleBehaviour = DispenserBlock.DISPENSER_REGISTRY.get(Items.GLASS_BOTTLE);
+        DispenserBlock.registerBehavior(Items.BUCKET, new BucketSpileDispenseItemBehaviour(vanillaBucketBehaviour));
+        DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new GlassBottleSyrupDispenseItemBehaviour(vanillaBottleBehaviour));
+        DispenserBlock.registerBehavior(ModItems.MAPLE_SAP_BUCKET, new MapleSapBucketDispenseItemBehaviour());
     }
 }

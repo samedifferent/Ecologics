@@ -1,6 +1,6 @@
 plugins {
-    id 'java'
-    id 'fabric-loom'
+    id "java"
+    id "fabric-loom"
 }
 
 base {
@@ -23,6 +23,8 @@ dependencies {
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}", {
         exclude module: "fabric-api"
     }
+    modImplementation "curse.maven:farmers-delight-refabricated-993166:8678748"
+    modImplementation "curse.maven:rustic-delight-1106612:8548304"
     implementation project(":common")
 }
 repositories {
@@ -72,6 +74,10 @@ tasks.withType(JavaCompile).configureEach {
 }
 tasks.withType(Javadoc).configureEach {
     source(project(":common").sourceSets.main.allJava)
+}
+
+tasks.withType(AbstractTestTask).configureEach {
+    failOnNoDiscoveredTests = false
 }
 
 processResources {

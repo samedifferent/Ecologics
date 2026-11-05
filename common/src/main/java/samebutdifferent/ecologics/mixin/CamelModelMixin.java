@@ -21,7 +21,7 @@ import samebutdifferent.ecologics.entity.data.CamelChestDataHolder;
 
 @Mixin(CamelModel.class)
 public class CamelModelMixin extends EntityModel<CamelRenderState> {
-	
+    
     protected CamelModelMixin(ModelPart $$0) {
         super($$0);
     }
@@ -29,27 +29,29 @@ public class CamelModelMixin extends EntityModel<CamelRenderState> {
     @Final @Unique
     private ModelPart body;
     @Final @Unique
-	private ModelPart leftChest;
+    private ModelPart leftChest;
     @Final @Unique
     private ModelPart rightChest;
     
     @Inject(method = "<init>(Lnet/minecraft/client/model/geom/ModelPart;)V", at = @At(value = "TAIL"))
     private void injectConstructor(ModelPart $$0, CallbackInfo ci) {
-    	this.body = $$0.getChild("body");
-    	this.leftChest = this.body.getChild("left_chest");
-    	this.rightChest = this.body.getChild("right_chest");
+        this.body = $$0.getChild("body");
+        this.leftChest = this.body.getChild("left_chest");
+        this.rightChest = this.body.getChild("right_chest");
     }
     
     @Inject(method = "createBodyMesh()Lnet/minecraft/client/model/geom/builders/MeshDefinition;", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private static void injectCreateBodyMesh(CallbackInfoReturnable<MeshDefinition> cir, MeshDefinition meshDef, PartDefinition root, PartDefinition body) {
-    	CubeListBuilder clb = CubeListBuilder.create().texOffs(94, 0).addBox(0.0F, 0.0F, 0.0F, 8.0F, 8.0F, 3.0F);
+        CubeListBuilder clb = CubeListBuilder.create().texOffs(94, 0).addBox(0.0F, 0.0F, 0.0F, 8.0F, 8.0F, 3.0F);
         body.addOrReplaceChild("left_chest", clb, PartPose.offsetAndRotation(9.0F, -9.0F, -7.0F, 0.0F, (float) (-Math.PI / 2), 0.0F));
         body.addOrReplaceChild("right_chest", clb, PartPose.offsetAndRotation(-9.0F, -9.0F, 1.0F, 0.0F, (float) (Math.PI / 2), 0.0F));
     }
     
-	@Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/CamelRenderState;)V", at = @At(value = "TAIL"))
+    @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/CamelRenderState;)V", at = @At(value = "TAIL"))
     private void setupAnim(CamelRenderState state, CallbackInfo ci) {
-        this.leftChest.visible = ((CamelChestDataHolder)(Object)state).hasChest();
-        this.rightChest.visible = ((CamelChestDataHolder)(Object)state).hasChest();
+        if (!state.isBaby && this.leftChest != null && this.rightChest != null) {
+            this.leftChest.visible = ((CamelChestDataHolder)(Object)state).hasChest();
+            this.rightChest.visible = ((CamelChestDataHolder)(Object)state).hasChest();
+        }
     }
 }

@@ -40,7 +40,7 @@ public abstract class CarpetBlockMixin extends Block {
             level.playSound(player, pos, SoundEvents.MOSS_CARPET_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.CONSUME;
+        return super.useItemOn(item, state, level, pos, player, hand, hit);
     }
     
     @Override
@@ -57,13 +57,4 @@ public abstract class CarpetBlockMixin extends Block {
     	}
     	return super.getStateForPlacement(context);
     }
-    
-    /*@Inject(method = "getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;", at = @At("HEAD"), cancellable = true)
-    private void injectGetState(BlockPlaceContext context, CallbackInfoReturnable<BlockState> cir) {
-    	BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
-    	if (blockstate.is(ModBlocks.MOSS_LAYER)) {
-            int layers = blockstate.getValue(MossLayerBlock.LAYERS);
-            cir.setReturnValue((blockstate).setValue(MossLayerBlock.LAYERS, Integer.valueOf(Math.min(8, layers + 1))));
-    	}
-    }*/
 }

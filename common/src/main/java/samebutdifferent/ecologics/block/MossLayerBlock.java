@@ -39,20 +39,6 @@ public class MossLayerBlock extends SnowLayerBlock
     	if (state.getValue(LAYERS) < 8 && isMatchingItem(item, state)) {
     		return super.useItemOn(item, state, level, pos, player, hand, hit);
     	}
-        /*if ((state.getValue(LAYERS) < 8) && isMatchingItem(item, state) && (player.getInBlockState() != state || player.blockPosition() != pos)) {
-            if (state.is(this) && !level.isClientSide()) {
-                if (state.getValue(LAYERS) < 7) {
-                    level.setBlockAndUpdate(pos, this.defaultBlockState().setValue(LAYERS, state.getValue(LAYERS) + 1));
-                } else {
-                    level.setBlockAndUpdate(pos, state.getBlock() == ModBlocks.PALE_MOSS_LAYER ? Blocks.PALE_MOSS_BLOCK.defaultBlockState() : Blocks.MOSS_BLOCK.defaultBlockState());
-                }
-                if (!player.isCreative()) {
-                    item.shrink(1);
-                }
-            }
-            level.playSound(player, pos, SoundEvents.MOSS_CARPET_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            return InteractionResult.SUCCESS;
-        }*/
         if ((state.getValue(LAYERS) > 1) && item.is(ItemTags.HOES) && (player.getInBlockState() != state)) {
             if (state.is(this) && !level.isClientSide()) {
                 level.setBlockAndUpdate(pos, this.defaultBlockState().setValue(LAYERS, state.getValue(LAYERS) - 1));
@@ -69,7 +55,7 @@ public class MossLayerBlock extends SnowLayerBlock
             level.playSound(player, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.CONSUME;
+        return super.useItemOn(item, state, level, pos, player, hand, hit);
     }
 
 

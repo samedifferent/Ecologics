@@ -11,26 +11,14 @@ import net.minecraft.resources.Identifier;
 import samebutdifferent.ecologics.entity.data.CamelChestDataHolder;
 
 @Mixin(CamelHuskRenderer.class)
-public class CamelHuskRendererMixin implements CamelChestDataHolder {
+public class CamelHuskRendererMixin {
 
-	private static final Identifier CAMEL_HUSK_CHEST_LOCATION = Identifier.withDefaultNamespace("textures/entity/camel/camel_husk_chest.png");
-	
-	private boolean hasChest;
+    private static final Identifier CAMEL_HUSK_CHEST_LOCATION = Identifier.withDefaultNamespace("textures/entity/camel/camel_husk_chest.png");
 
-	@Inject(method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/CamelRenderState;)Lnet/minecraft/resources/Identifier;", at = @At(value = "RETURN"), cancellable = true)
-	private void injectTextureLocation(CamelRenderState state, CallbackInfoReturnable<Identifier> cir) {
-		if (((CamelChestDataHolder)state).hasChest()) {
-			cir.setReturnValue(CAMEL_HUSK_CHEST_LOCATION);
-		}
-	}
-	
-	@Override
-	public boolean hasChest() {
-		return this.hasChest;
-	}
-
-	@Override
-	public void setChest(boolean hasChest) {
-		this.hasChest = hasChest;
-	}
+    @Inject(method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/CamelRenderState;)Lnet/minecraft/resources/Identifier;", at = @At(value = "RETURN"), cancellable = true)
+    private void injectTextureLocation(CamelRenderState state, CallbackInfoReturnable<Identifier> cir) {
+        if (((CamelChestDataHolder)state).hasChest()) {
+            cir.setReturnValue(CAMEL_HUSK_CHEST_LOCATION);
+        }
+    }
 }

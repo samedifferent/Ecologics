@@ -27,6 +27,7 @@ import oshi.util.tuples.Triplet;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.item.CoconutBlockItem;
 import samebutdifferent.ecologics.item.CoconutSliceItem;
+import samebutdifferent.ecologics.item.MaplePieItem;
 import samebutdifferent.ecologics.item.PricklyPearItem;
 import samebutdifferent.ecologics.item.SandcastleBlockItem;
 
@@ -76,7 +77,7 @@ public class ModItems
     public static final Item WALNUT = registerItem("walnut", Item::new, new Item.Properties().food(ModFoods.WALNUT, Consumable.builder().consumeSeconds(1.6F).animation(ItemUseAnimation.EAT).sound(SoundEvents.GENERIC_EAT).hasConsumeParticles(true).build()));
     public static final Item MAPLE_SYRUP_BOTTLE = registerItem("maple_syrup_bottle", Item::new, new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).food(ModFoods.MAPLE_SYRUP_BOTTLE, ModConsumables.MAPLE_SYRUP_BOTTLE).usingConvertsTo(Items.GLASS_BOTTLE));
     public static final Item MAPLE_COOKIE = registerItem("maple_cookie", Item::new, new Item.Properties().food(ModFoods.MAPLE_COOKIE));
-    public static final Item MAPLE_PIE = registerItem("maple_pie", Item::new, new Item.Properties().food(ModFoods.MAPLE_PIE, ModConsumables.MAPLE_PIE));
+    public static final Item MAPLE_PIE = registerItem("maple_pie", properties -> new MaplePieItem(ModBlocks.MAPLE_PIE, properties), new Item.Properties().food(ModFoods.MAPLE_PIE, ModConsumables.MAPLE_PIE));
     
     // Spawn Eggs
     public static final Item COCONUT_CRAB_SPAWN_EGG = registerItem("coconut_crab_spawn_egg", SpawnEggItem::new, new Item.Properties().spawnEgg(ModEntityTypes.COCONUT_CRAB));
