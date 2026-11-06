@@ -2,10 +2,15 @@ package samebutdifferent.ecologics.fabric.registry;
 
 //import blue.endless.jankson.Comment;
 import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.event.ConfigSerializeEvent.Load;
+import me.shedaniel.autoconfig.event.ConfigSerializeEvent.Save;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
+import net.minecraft.world.InteractionResult;
 import samebutdifferent.ecologics.Ecologics;
+import samebutdifferent.ecologics.fabric.EcologicsFabric;
 
 @Config(name = Ecologics.MOD_ID)
 public class ModConfigFabric implements ConfigData {
@@ -27,10 +32,12 @@ public class ModConfigFabric implements ConfigData {
 
     @ConfigEntry.Gui.CollapsibleObject
     public Maple maple = new Maple();
-
+    
+    @ConfigEntry.Gui.CollapsibleObject
+    public Misc misc = new Misc();
     
     public static class Beach {
-        @Comment("How often (in percentage) should Coconut Crabs spawn when a coconut breaks? Set it to 0.0 to disable this.")
+        @Comment("How often should Coconut Crabs spawn when a coconut breaks? Set it to 0.0 to disable this. (Range: 0.0 ~ 1.0 inclusive)")
         public double coconutCrabSpawnChance = 0.2;
         @Comment("Generate coconut trees on beaches")
         public boolean generateCoconutTrees = true;
@@ -39,10 +46,14 @@ public class ModConfigFabric implements ConfigData {
     }
 
     public static class Desert {
+        @Comment("Should vanilla Camels spawn in the desert biome? This is a backport of the change from Spring to Life.")
+        public boolean spawnCamels = true;
+        @Comment("Should you be able to place Chests on vanilla Camels? Disable for compatibility with certain camel mods.")
+        public boolean camelChestsEnabled = true;
         @Comment("Should prickly pears generate naturally on top of cacti during worldgen?")
         public boolean generatePricklyPears = true;
-        @Comment("How often (in percentage) should prickly pears grow when a cactus reaches full height? Set it to 0.0 to disable this.")
-        public double pricklyPearGrowthChance = 0.4;
+        @Comment("How often should prickly pears grow when a cactus reaches full height? Set it to 0.0 to disable this. (Range: 0.0 ~ 1.0 inclusive)")
+        public double pricklyPearGrowthChance = 1.0;
         @Comment("Generate ruins in deserts")
         public boolean generateDesertRuins = true;
     }
@@ -71,7 +82,31 @@ public class ModConfigFabric implements ConfigData {
     }
     
     public static class Maple {
-        @Comment("Generate maple trees in Dappled Forest biomes")
+        @Comment("Generate Maple trees in certain forest biomes")
         public boolean generateMapleTrees = true;
+
+        @Comment("The probability that Sappy Maple Logs will deplete when the bucket hanging from Spile completely fills up. (Range: 0.0 ~ 1.0 inclusive)")
+        public double mapleSapDepletionChance = 0.2D;
+    }
+    
+    public static class Misc {
+        @Comment("Add Ecologics blocks and items to vanilla creative tabs")
+        public boolean useVanillaCreativeTabs = true;
+    }
+    
+    public static class SaveEvent implements Save<ConfigData> {
+        @Override
+        public InteractionResult onSave(ConfigHolder<ConfigData> arg0, ConfigData arg1) {
+            EcologicsFabric.updateConfig();
+            return InteractionResult.SUCCESS;
+        }
+    }
+    
+    public static class LoadEvent implements Load<ConfigData> {
+        @Override
+        public InteractionResult onLoad(ConfigHolder<ConfigData> arg0, ConfigData arg1) {
+            EcologicsFabric.updateConfig();
+            return InteractionResult.SUCCESS;
+        }
     }
 }

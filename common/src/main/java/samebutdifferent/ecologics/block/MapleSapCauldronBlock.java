@@ -1,7 +1,8 @@
 package samebutdifferent.ecologics.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.cauldron.CauldronInteraction.Dispatcher;
+import net.minecraft.core.Direction;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,8 +28,8 @@ public class MapleSapCauldronBlock extends AbstractCauldronBlock
 {
 	public static final IntegerProperty LEVEL = IntegerProperty.create("level", 1, 3);
 	
-	public MapleSapCauldronBlock(Properties properties, Dispatcher interactions) {
-		super(properties, interactions);
+	public MapleSapCauldronBlock(final BlockBehaviour.Properties properties, CauldronInteraction.Dispatcher dispatcher) {
+		super(properties, dispatcher);
 		this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, 3));
 	}
 	
@@ -116,4 +118,16 @@ public class MapleSapCauldronBlock extends AbstractCauldronBlock
 		return level.getBlockState(pos.below()).is(ModTags.BlockTags.HOT_BLOCKS);
 	}
 
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+    
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction dir) {
+        if (!state.hasProperty(LEVEL)) {
+            return 0;
+        }
+        return state.getValue(LEVEL);
+    }
 }
