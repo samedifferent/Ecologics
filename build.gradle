@@ -1,22 +1,13 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT' apply false
-    id 'net.neoforged.moddev' version '2.0.147' apply false
+    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT' apply false
+    id 'net.neoforged.moddev' version '2.0.148' apply false
     id 'org.spongepowered.gradle.vanilla' version '0.3.2' apply false
-	id "io.github.pacifistmc.forgix" version "2.+"
 }
 
 base {
     archivesName = "${mod_id}-${minecraft_version}"
-}
-
-forgix {
-    destinationDirectory = layout.projectDirectory.dir("build/forgix")
-    archiveClassifier = "NeoFab-${minecraft_version}-${version}"
-    archiveVersion = ""
-    fabric()
-    neoforge()
 }
 
 allprojects {
@@ -112,6 +103,37 @@ publishing {
     repositories {
         maven {
             url System.getenv('local_maven_url')
+        }
+    }
+}
+
+tasks.register('mergeJars', Jar) {
+    group = 'build'
+    description = 'Builds and merges Fabric and NeoForge JARs into a multi-loader JAR that runs on both loaders.'
+
+    archiveBaseName = "${mod_name}-NeoFab-${minecraft_version}"
+    destinationDirectory = layout.buildDirectory.dir("neofab")
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    def fabricJar = project(':fabric').tasks.named('jar')
+    def neoForgeJar = project(':neoforge').tasks.named('jar')
+    dependsOn(fabricJar, neoForgeJar)
+
+    from(neoForgeJar.map { zipTree(it.archiveFile) })
+    from(fabricJar.map { zipTree(it.archiveFile) })
+
+    doFirst {
+        def neoJarFile = neoForgeJar.get().archiveFile.get().asFile
+        if (neoJarFile.exists()) {
+            java.util.jar.JarFile jar = new java.util.jar.JarFile(neoJarFile)
+            def neoManifest = jar.manifest
+            if (neoManifest != null) {
+                neoManifest.mainAttributes.each { key, value ->
+                    manifest.attributes((key.toString()): value.toString())
+                }
+            }
+            jar.close()
         }
     }
 }
