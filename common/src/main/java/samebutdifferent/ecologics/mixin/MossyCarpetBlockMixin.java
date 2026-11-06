@@ -33,27 +33,27 @@ import samebutdifferent.ecologics.registry.ModTags.ItemTags;
 @Mixin(MossyCarpetBlock.class)
 public class MossyCarpetBlockMixin extends Block {
 
-	private static final BooleanProperty NO_GROWTH = BooleanProperty.create("no_growth");
-	
+    private static final BooleanProperty NO_GROWTH = BooleanProperty.create("no_growth");
+    
     public MossyCarpetBlockMixin(Properties properties) {
         super(properties);
     }
     
     @Inject(method = "<init>(Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V", at = @At("TAIL"))
     private void injectConstructor(BlockBehaviour.Properties properties, CallbackInfo callback) {
-    	this.registerDefaultState(this.getStateDefinition().any().setValue(NO_GROWTH, Boolean.valueOf(false)));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(NO_GROWTH, Boolean.valueOf(false)));
     }
     
     @Inject(method = "createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V", at = @At("TAIL"))
     private void injectBlockStateProperties(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo callback) {
-    	builder.add(NO_GROWTH);
+        builder.add(NO_GROWTH);
     }
     
     @Inject(method = "getUpdatedState(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Z)Lnet/minecraft/world/level/block/state/BlockState;", at = @At(value = "HEAD"), cancellable = true)
     private static void injectGetUpdatedState(BlockState state, BlockGetter getter, BlockPos pos, boolean $$3, CallbackInfoReturnable<BlockState> cir) {
-    	if (state.hasProperty(NO_GROWTH) && state.getValue(NO_GROWTH)) {
-    		cir.setReturnValue(state);
-    	}
+        if (state.hasProperty(NO_GROWTH) && state.getValue(NO_GROWTH)) {
+            cir.setReturnValue(state);
+        }
     }
     
     @Override
@@ -68,18 +68,18 @@ public class MossyCarpetBlockMixin extends Block {
         }
         if (item.is(ItemTags.SHEARS) && (player.getInBlockState() != state)) {
             if (state.is(Blocks.PALE_MOSS_CARPET)) {
-            	if (!hasSideGrowth(state)) {
-            		return InteractionResult.CONSUME;
-            	}
+                if (!hasSideGrowth(state)) {
+                    return InteractionResult.CONSUME;
+                }
                 if (!level.isClientSide()) {
-                	if (state.getValue(MossyCarpetBlock.BASE)) {
-                		level.setBlock(pos, Blocks.PALE_MOSS_CARPET.defaultBlockState().setValue(NO_GROWTH, true), 2);
-                	}
-                	else {
-                		level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
-                	}
+                    if (state.getValue(MossyCarpetBlock.BASE)) {
+                        level.setBlock(pos, Blocks.PALE_MOSS_CARPET.defaultBlockState().setValue(NO_GROWTH, true), 2);
+                    }
+                    else {
+                        level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+                    }
                     if (!player.isCreative()) {
-                    	item.hurtAndBreak(1, player, hand);
+                        item.hurtAndBreak(1, player, hand);
                     }
                 }
                 level.playSound(player, pos, SoundEvents.SHEARS_SNIP, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -91,35 +91,35 @@ public class MossyCarpetBlockMixin extends Block {
     
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-    	BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
-    	if (blockstate.is(ModBlocks.PALE_MOSS_LAYER)) {
+        BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
+        if (blockstate.is(ModBlocks.PALE_MOSS_LAYER)) {
             int layers = blockstate.getValue(MossLayerBlock.LAYERS);
             if (layers + 1 < 8) {
-            	return blockstate.setValue(MossLayerBlock.LAYERS, Integer.valueOf(Math.min(8, layers + 1)));
+                return blockstate.setValue(MossLayerBlock.LAYERS, Integer.valueOf(Math.min(8, layers + 1)));
             }
             else {
-            	return blockstate.getBlock() == ModBlocks.PALE_MOSS_LAYER ? Blocks.PALE_MOSS_BLOCK.defaultBlockState() : Blocks.MOSS_BLOCK.defaultBlockState();
+                return blockstate.getBlock() == ModBlocks.PALE_MOSS_LAYER ? Blocks.PALE_MOSS_BLOCK.defaultBlockState() : Blocks.MOSS_BLOCK.defaultBlockState();
             }
-    	}
-    	return super.getStateForPlacement(context);
+        }
+        return super.getStateForPlacement(context);
     }
     
     private boolean hasSideGrowth(BlockState state) {
-    	if (!(state.hasProperty(MossyCarpetBlock.NORTH) && state.hasProperty(MossyCarpetBlock.SOUTH) && state.hasProperty(MossyCarpetBlock.WEST) && state.hasProperty(MossyCarpetBlock.EAST))) {
-    		return false;
-    	}
-    	if (state.getValue(MossyCarpetBlock.NORTH) != WallSide.NONE) {
-    		return true;
-    	}
-    	if (state.getValue(MossyCarpetBlock.SOUTH) != WallSide.NONE) {
-    		return true;
-    	}
-    	if (state.getValue(MossyCarpetBlock.WEST) != WallSide.NONE) {
-    		return true;
-    	}
-    	if (state.getValue(MossyCarpetBlock.EAST) != WallSide.NONE) {
-    		return true;
-    	}
-    	return false;
+        if (!(state.hasProperty(MossyCarpetBlock.NORTH) && state.hasProperty(MossyCarpetBlock.SOUTH) && state.hasProperty(MossyCarpetBlock.WEST) && state.hasProperty(MossyCarpetBlock.EAST))) {
+            return false;
+        }
+        if (state.getValue(MossyCarpetBlock.NORTH) != WallSide.NONE) {
+            return true;
+        }
+        if (state.getValue(MossyCarpetBlock.SOUTH) != WallSide.NONE) {
+            return true;
+        }
+        if (state.getValue(MossyCarpetBlock.WEST) != WallSide.NONE) {
+            return true;
+        }
+        if (state.getValue(MossyCarpetBlock.EAST) != WallSide.NONE) {
+            return true;
+        }
+        return false;
     }
 }

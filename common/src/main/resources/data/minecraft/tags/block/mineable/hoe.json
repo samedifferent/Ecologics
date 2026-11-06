@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-	"ecologics:moss_layer",
-	"ecologics:pale_moss_layer",
+    "ecologics:moss_layer",
+    "ecologics:pale_moss_layer",
     "ecologics:coconut_leaves",
     "ecologics:walnut_leaves",
     "ecologics:red_maple_leaves",

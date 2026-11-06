@@ -12,6 +12,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.CamelRenderState;
 import samebutdifferent.ecologics.entity.data.CamelChestDataHolder;
 
+
 @Mixin(CamelModel.class)
 public class CamelModelMixin 
 {

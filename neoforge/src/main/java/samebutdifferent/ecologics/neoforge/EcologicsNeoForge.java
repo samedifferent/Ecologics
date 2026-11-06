@@ -51,6 +51,7 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operatio
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
+import oshi.util.tuples.Quartet;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
@@ -84,7 +85,7 @@ import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 public class EcologicsNeoForge 
 {
     private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab"));
-        
+    
     public EcologicsNeoForge(IEventBus bus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, ModConfigNeoForge.COMMON_CONFIG);
 
@@ -107,7 +108,7 @@ public class EcologicsNeoForge
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
-            ModConfigNeoForge.updateConfig();
+            ModConfigNeoForge.updateConfigs();
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "azalea_flower"), () -> ModBlocks.POTTED_AZALEA_FLOWER);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "coconut_seedling"), () -> ModBlocks.POTTED_COCONUT_SEEDLING);
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "maple_sapling"), () -> ModBlocks.POTTED_MAPLE_SAPLING);
@@ -147,9 +148,18 @@ public class EcologicsNeoForge
     }
 
     private void assignItemsToTab(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == TAB) {
-            for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
-                event.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
+        for (Quartet<ItemLike, ResourceKey<CreativeModeTab>, ModCreativeModeTabContents.Operation, ItemLike> entry : ModCreativeModeTabContents.TAB_ITEMS) {
+            if (entry.getB() != event.getTabKey()) {
+                continue;
+            }
+            if (entry.getC() == ModCreativeModeTabContents.Operation.INSERT) {
+                event.accept(entry.getA(), TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.BEFORE) {
+                event.insertBefore(entry.getD().asItem().getDefaultInstance(), entry.getA().asItem().getDefaultInstance(), TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.AFTER) {
+                event.insertAfter(entry.getD().asItem().getDefaultInstance(), entry.getA().asItem().getDefaultInstance(), TabVisibility.PARENT_AND_SEARCH_TABS);
             }
         }
     }

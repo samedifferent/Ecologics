@@ -36,6 +36,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModParticleTypes;
@@ -43,11 +44,11 @@ import samebutdifferent.ecologics.registry.ModTags;
 
 public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock
 {
-	public static final MapCodec<SpileBlock> CODEC = simpleCodec(SpileBlock::new);
-	public static final BooleanProperty HAS_BUCKET = BooleanProperty.create("has_bucket");
-	public static final IntegerProperty FULLNESS = IntegerProperty.create("fullness", 0, 3);
-	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	
+    public static final MapCodec<SpileBlock> CODEC = simpleCodec(SpileBlock::new);
+    public static final BooleanProperty HAS_BUCKET = BooleanProperty.create("has_bucket");
+    public static final IntegerProperty FULLNESS = IntegerProperty.create("fullness", 0, 3);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    
     // VoxelShapes mapped by facing direction: 3px wide (6.5 to 9.5), 3px high (6 to 9), 6px long extending from the log surface
     private static final VoxelShape SHAPE_NORTH_SPILE = Block.box(6.5D, 11.0D, 11.0D, 9.5D, 14.0D, 16.0D);
     private static final VoxelShape SHAPE_SOUTH_SPILE = Block.box(6.5D, 11.0D, 0.0D, 9.5D, 14.0D, 5.0D);
@@ -65,23 +66,23 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
     public static final VoxelShape SHAPE_SOUTH_COMBINED = Shapes.or(SHAPE_SOUTH_SPILE, SHAPE_SOUTH_BUCKET);;
     public static final VoxelShape SHAPE_WEST_COMBINED = Shapes.or(SHAPE_WEST_SPILE, SHAPE_WEST_BUCKET);;
     public static final VoxelShape SHAPE_EAST_COMBINED = Shapes.or(SHAPE_EAST_SPILE, SHAPE_EAST_BUCKET);;
-	
-	public SpileBlock(BlockBehaviour.Properties properties) {
-		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HAS_BUCKET, false).setValue(FULLNESS, 0).setValue(WATERLOGGED, false));
-	}
-	
-	@Override
-	protected MapCodec<? extends SpileBlock> codec() {
-		return CODEC;
-	}
-	
-	@Override
+    
+    public SpileBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HAS_BUCKET, false).setValue(FULLNESS, 0).setValue(WATERLOGGED, false));
+    }
+    
+    @Override
+    protected MapCodec<? extends SpileBlock> codec() {
+        return CODEC;
+    }
+    
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(FACING, HAS_BUCKET, FULLNESS, WATERLOGGED);
     }
-	
+    
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Boolean hasBucket = state.getValue(HAS_BUCKET);
@@ -100,19 +101,19 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
     
     @Override
     public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-    	if (stack.is(Items.BUCKET) && !state.getValue(HAS_BUCKET)) {
-    		if (!player.isCreative()) {
-    			stack.shrink(1);
-    		}
-    		level.setBlock(pos, state.setValue(HAS_BUCKET, true), 11);
-    		return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
-    	}
-    	return super.useItemOn(stack, state, level, pos, player, hand, result);
+        if (stack.is(Items.BUCKET) && !state.getValue(HAS_BUCKET)) {
+            if (!player.isCreative()) {
+                stack.shrink(1);
+            }
+            level.setBlock(pos, state.setValue(HAS_BUCKET, true), 11);
+            return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, result);
     }
     
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
-    	if (state.getValue(HAS_BUCKET)) {
+        if (state.getValue(HAS_BUCKET)) {
             ItemStack dropStack;
             if (state.getValue(FULLNESS) == 3) {
                 dropStack = new ItemStack(ModItems.MAPLE_SAP_BUCKET);
@@ -126,10 +127,10 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
             if (!player.getInventory().add(dropStack)) {
                 player.drop(dropStack, false);
             }
-        	level.setBlock(pos, state.setValue(HAS_BUCKET, false).setValue(FULLNESS, 0), 11);
-        	return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
-    	}
-    	return super.useWithoutItem(state, level, pos, player, result);
+            level.setBlock(pos, state.setValue(HAS_BUCKET, false).setValue(FULLNESS, 0), 11);
+            return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+        }
+        return super.useWithoutItem(state, level, pos, player, result);
     }
     
     @Override
@@ -144,7 +145,7 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
             level.setBlock(pos, state.setValue(FULLNESS, nextFullness), 3);
             // If the bucket just became completely full, roll a chance to deplete the log
             if (nextFullness == 3) {
-                if (random.nextFloat() < 0.20F) {
+                if (random.nextFloat() < ConfigCommon.getMapleSapleDepletionChance()) {
                     this.depleteLogSap(level, logPos, logState);
                 }
             }
@@ -158,7 +159,7 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
             if (!level.getBlockState(logPos).is(ModTags.BlockTags.SAPPY_MAPLE_LOGS)) {
                 return; // If the maple log is exhausted, don't play animations.
             }
-        	Direction direction = state.getValue(FACING);
+            Direction direction = state.getValue(FACING);
             // Establish baseline coordinates centered exactly at the block's middle
             double spawnX = pos.getX() + 0.5;
             double spawnY = pos.getY() + 0.68; // Adjusted to match the underside floor of your spile model
@@ -170,7 +171,7 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
                 case SOUTH -> spawnZ -= 0.16F;
                 case WEST  -> spawnX += 0.16F;
                 case EAST  -> spawnX -= 0.16F;
-		        default -> spawnX += 0;
+                default -> spawnX += 0;
             }
             level.addParticle(ModParticleTypes.DRIPPING_MAPLE_SAP, spawnX, spawnY, spawnZ, 0.0, 0.0, 0.0);
         }
@@ -178,9 +179,6 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
     
     // Log depletion mechanic
     private void depleteLogSap(ServerLevel level, BlockPos logPos, BlockState sappyLogState) {
-    	if (!sappyLogState.is(ModBlocks.SAPPY_MAPLE_LOG)) { // Avoid conflict with modded sappy logs that may result in weirdness.
-    		return;
-    	}
         if (sappyLogState.hasProperty(BlockStateProperties.AXIS)) {
             Axis activeAxis = sappyLogState.getValue(BlockStateProperties.AXIS);
             level.setBlock(logPos, ModBlocks.MAPLE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, activeAxis), 3);
@@ -196,11 +194,11 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
         BlockPos logPos = pos.relative(direction.getOpposite());
         return level.getBlockState(logPos).is(ModTags.BlockTags.SAPPY_MAPLE_LOGS) || level.getBlockState(logPos).is(BlockTags.LOGS);
     }
-	
+    
     @Override
     public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         if (state.getValue(WATERLOGGED)) {
-        	scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
         if (direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
@@ -225,5 +223,18 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
             }
         }
         return null; // Prevents placement if not clicked on a horizontal side of a sappy log
+    }
+    
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return state.hasProperty(HAS_BUCKET) && state.getValue(HAS_BUCKET);
+    }
+    
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction dir) {
+        if (!state.hasProperty(FULLNESS)) {
+            return 0;
+        }
+        return state.getValue(FULLNESS);
     }
 }

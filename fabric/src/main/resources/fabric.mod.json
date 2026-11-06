@@ -33,7 +33,7 @@
     ]
   },
   "mixins": [
-    "ecologics.mixins.json",
+    "ecologics-fabric.mixins.json",
     "ecologics-common.mixins.json"
   ],
   "accessWidener": "ecologics.accesswidener",

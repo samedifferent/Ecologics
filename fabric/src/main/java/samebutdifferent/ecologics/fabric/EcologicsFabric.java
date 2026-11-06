@@ -44,6 +44,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -58,6 +59,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import oshi.util.tuples.Quartet;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
@@ -74,15 +76,14 @@ import samebutdifferent.ecologics.registry.ModCreativeModeTabContents;
 import samebutdifferent.ecologics.registry.ModEntityTypes;
 import samebutdifferent.ecologics.registry.ModItems;
 
-public class EcologicsFabric implements ModInitializer {
-    private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab")); //FabricItemGroup.builder(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab")).icon(() -> new ItemStack(ModBlocks.COCONUT_LOG.get())).build();
-
+public class EcologicsFabric implements ModInitializer 
+{
     @Override
     public void onInitialize() {
         AutoConfig.register(ModConfigFabric.class, GsonConfigSerializer::new);
+        updateConfig();
         registerAdditionalModSupport();
         Ecologics.init();
-        ModDataAttachments.init();
         registerEntityAttributes();
         registerEvents();
         addFeatures();
@@ -91,13 +92,13 @@ public class EcologicsFabric implements ModInitializer {
         Ecologics.commonSetup();
         registerCreativeTab();
         registerFurnaceFuels();
-        CreativeModeTabEvents.modifyOutputEvent(TAB).register(EcologicsFabric::assignItemsToTab);
+        ModDataAttachments.init();
         // Iterate.
         Ecologics.BREWING_RECIPES.forEach((potion, pair) -> { // A: Ingredient, B: Output
-            FabricPotionBrewingBuilder.BUILD.register(builder -> builder.registerPotionRecipe(potion, Ingredient.of(pair.getA()), pair.getB()));
+        	FabricPotionBrewingBuilder.BUILD.register(builder -> builder.registerPotionRecipe(potion, Ingredient.of(pair.getA()), pair.getB()));
         });
         Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
-        	FlammableBlockRegistry.getInstance(Blocks.FIRE).add(block, pair.getA(), pair.getB());
+            FlammableBlockRegistry.getInstance(Blocks.FIRE).add(block, pair.getA(), pair.getB());
         });
         Ecologics.COMPOSTABLES.forEach((item, chance) -> {
         	CompostableRegistry.INSTANCE.add(item, chance);
@@ -105,7 +106,7 @@ public class EcologicsFabric implements ModInitializer {
         Ecologics.STRIPPABLES.forEach(StrippableBlockRegistry::register);
         CamelChestDataHelper.registerHandler(new CamelChestDataHelperFabric());
         addChestLoot();
-        updateConfig();
+        setupCreativeTabs();
     }
     
     private void registerAdditionalModSupport() {
@@ -118,8 +119,8 @@ public class EcologicsFabric implements ModInitializer {
     }
 
     private void registerCreativeTab() {
-    	Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB.identifier(), FabricCreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); } ).build());
-    	ModCreativeModeTabContents.populateTabDatabase();
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ModCreativeModeTabContents.ECOLOGICS_TAB.identifier(), FabricCreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); } ).build());
+        ModCreativeModeTabContents.populateTabDatabase();
         if (FabricLoader.getInstance().isModLoaded("farmersdelight")) {
             Ecologics.farmersDelight.registerCreativeTabContent();
         }
@@ -128,15 +129,39 @@ public class EcologicsFabric implements ModInitializer {
         }
     }
     
+    @SuppressWarnings("unused")
     private void registerFurnaceFuels() {
-        FuelValueEvents.BUILD.register((builder, _) -> {
+    	FuelValueEvents.BUILD.register((builder, context) -> {
             builder.add(ModItems.COCONUT_HUSK, 100);
         });
     }
 
-    private static void assignItemsToTab(FabricCreativeModeTabOutput entries) {
-        for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
-        	entries.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
+    public static void setupCreativeTabs() {
+    	CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.BUILDING_BLOCKS));
+    	CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.NATURAL_BLOCKS));
+    	CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.FUNCTIONAL_BLOCKS));
+    	CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> assignItemsToTab(entries, CreativeModeTabs.TOOLS_AND_UTILITIES));
+    	CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(entries -> assignItemsToTab(entries, CreativeModeTabs.COMBAT));
+    	CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.FOOD_AND_DRINKS));
+    	CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.INGREDIENTS));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(entries -> assignItemsToTab(entries, CreativeModeTabs.SPAWN_EGGS));
+        CreativeModeTabEvents.modifyOutputEvent(ModCreativeModeTabContents.ECOLOGICS_TAB).register(entries -> assignItemsToTab(entries, ModCreativeModeTabContents.ECOLOGICS_TAB));
+    }
+    
+    private static void assignItemsToTab(FabricCreativeModeTabOutput entries, ResourceKey<CreativeModeTab> tab) {
+        for (Quartet<ItemLike, ResourceKey<CreativeModeTab>, ModCreativeModeTabContents.Operation, ItemLike> entry : ModCreativeModeTabContents.TAB_ITEMS) {
+            if (entry.getB() != tab) {
+                continue;
+            }
+            if (entry.getC() == ModCreativeModeTabContents.Operation.INSERT) {
+                entries.accept(entry.getA(), TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.BEFORE) {
+                entries.insertBefore(entry.getD(), entry.getA());
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.AFTER) {
+                entries.insertAfter(entry.getD(), entry.getA());
+            }
         }
     }
     
@@ -212,13 +237,16 @@ public class EcologicsFabric implements ModInitializer {
         if (config.maple.generateMapleTrees) {
             BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("green_maple"));
             BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("maple_bees"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_maple_tree"));
             BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FLOWER_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("green_maple"));
             BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FLOWER_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("maple_bees"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FLOWER_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_maple_tree"));
             BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("red_maple"));
             BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("orange_maple"));
             BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("yellow_maple"));
             BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("green_maple"));
             BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("maple_bees"));
+            BiomeModifications.addFeature((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.WINDSWEPT_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, getPlacedFeatureKey("fallen_maple_tree"));
         }
     }
 
@@ -244,8 +272,8 @@ public class EcologicsFabric implements ModInitializer {
     }
 
     public void addSpawns() {
-    	SpawnPlacements.register(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
-    	SpawnPlacements.register(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
         ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
         if (config.snowy.spawnPenguins) {
             BiomeModifications.addSpawn((biomeSelector) -> biomeSelector.getBiomeKey().equals(Biomes.FROZEN_RIVER) || biomeSelector.getBiomeKey().equals(Biomes.FROZEN_OCEAN) || biomeSelector.getBiomeKey().equals(Biomes.SNOWY_PLAINS), MobCategory.CREATURE, ModEntityTypes.PENGUIN, 2, 4, 5);
@@ -255,8 +283,9 @@ public class EcologicsFabric implements ModInitializer {
         }
     }
 
+    @SuppressWarnings("unused")
     public void addChestLoot() {
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, _) -> {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source, provider) -> {
             if (source.isBuiltin() && BuiltInLootTables.BURIED_TREASURE.equals(key)) {
                 LootPool.Builder poolBuilder = LootPool.lootPool().add(LootItem.lootTableItem(ModItems.MUSIC_DISC_COCONUT));
                 tableBuilder.pool(poolBuilder.build());
@@ -269,10 +298,10 @@ public class EcologicsFabric implements ModInitializer {
     }
     
     public static void updateConfig() {
-    	ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
-    	ConfigCommon.setCoconutCrabSpawnChance(config.beach.coconutCrabSpawnChance);
-    	ConfigCommon.setPricklyPearGrowthChance(config.desert.pricklyPearGrowthChance);
-    	ConfigCommon.setReplaceAzaleaTree(config.lushCaves.replaceAzaleaTree);
-    	ConfigCommon.setFoxesAttackSquirrels(config.plains.foxesAttackSquirrels);
+        ModConfigFabric config = AutoConfig.getConfigHolder(ModConfigFabric.class).getConfig();
+        ConfigCommon.setCoconutCrabSpawnChance(config.beach.coconutCrabSpawnChance);
+        ConfigCommon.setPricklyPearGrowthChance(config.desert.pricklyPearGrowthChance);
+        ConfigCommon.setReplaceAzaleaTree(config.lushCaves.replaceAzaleaTree);
+        ConfigCommon.setFoxesAttackSquirrels(config.plains.foxesAttackSquirrels);
     }
 }

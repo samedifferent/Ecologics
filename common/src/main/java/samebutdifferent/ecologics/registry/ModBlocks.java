@@ -60,18 +60,18 @@ import samebutdifferent.ecologics.block.properties.ModBlockSetType;
 import samebutdifferent.ecologics.block.properties.ModWoodType;
 
 public class ModBlocks
-{	
+{    
     public static void init() {
-    	for (Triplet<Identifier, Block, Boolean> registry : BLOCKS) {
-    		Registry.register(BuiltInRegistries.BLOCK, registry.getA(), registry.getB());
-    	}
+        for (Triplet<Identifier, Block, Boolean> registry : BLOCKS) {
+            Registry.register(BuiltInRegistries.BLOCK, registry.getA(), registry.getB());
+        }
     }
     
     public static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties, boolean addItem) {
-    	ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, name));
-    	Block block = blockFactory.apply(properties.setId(blockKey));
-    	BLOCKS.add(new Triplet<>(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, name), block, addItem));
-    	return block;
+        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, name));
+        Block block = blockFactory.apply(properties.setId(blockKey));
+        BLOCKS.add(new Triplet<>(Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, name), block, addItem));
+        return block;
     }
     
     public static final ArrayList<Triplet<Identifier, Block, Boolean>> BLOCKS = new ArrayList<>();
