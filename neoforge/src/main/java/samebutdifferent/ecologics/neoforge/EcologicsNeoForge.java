@@ -50,6 +50,7 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operatio
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
+import oshi.util.tuples.Quartet;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
@@ -82,8 +83,6 @@ import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 @EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class EcologicsNeoForge 
 {
-    private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab"));
-        
     public EcologicsNeoForge(IEventBus bus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, ModConfigNeoForge.COMMON_CONFIG);
 
@@ -106,7 +105,7 @@ public class EcologicsNeoForge
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
-            ModConfigNeoForge.updateConfig();
+            ModConfigNeoForge.updateConfigs();
             Ecologics.FLAMMABLES.forEach((block, pair) -> { // A: Encouragement, B: Flammability
                 ((FireBlockAccessor)Blocks.FIRE).invokeSetFlammable(block, pair.getA(), pair.getB());
             });
@@ -133,7 +132,7 @@ public class EcologicsNeoForge
         event.register(Registries.POTION, _ -> { ModPotions.init(); });
         event.register(Registries.PARTICLE_TYPE, _ -> { ModParticleTypes.init(); });
         event.register(Registries.CREATIVE_MODE_TAB, helper -> {
-            helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
+            helper.register(ModCreativeModeTabContents.ECOLOGICS_TAB.identifier(), CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
             ModCreativeModeTabContents.populateTabDatabase();
             if (Ecologics.farmersDelight != null) {
                 Ecologics.farmersDelight.registerCreativeTabContent();
@@ -142,9 +141,18 @@ public class EcologicsNeoForge
     }
 
     private void assignItemsToTab(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == TAB) {
-            for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
-                event.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
+        for (Quartet<ItemLike, ResourceKey<CreativeModeTab>, ModCreativeModeTabContents.Operation, ItemLike> entry : ModCreativeModeTabContents.TAB_ITEMS) {
+            if (entry.getB() != event.getTabKey()) {
+                continue;
+            }
+            if (entry.getC() == ModCreativeModeTabContents.Operation.INSERT) {
+                event.accept(entry.getA(), TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.BEFORE) {
+                event.insertBefore(entry.getD().asItem().getDefaultInstance(), entry.getA().asItem().getDefaultInstance(), TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.AFTER) {
+                event.insertAfter(entry.getD().asItem().getDefaultInstance(), entry.getA().asItem().getDefaultInstance(), TabVisibility.PARENT_AND_SEARCH_TABS);
             }
         }
     }

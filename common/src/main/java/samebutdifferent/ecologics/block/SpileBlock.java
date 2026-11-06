@@ -36,6 +36,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import samebutdifferent.ecologics.config.ConfigCommon;
 import samebutdifferent.ecologics.registry.ModBlocks;
 import samebutdifferent.ecologics.registry.ModItems;
 import samebutdifferent.ecologics.registry.ModParticleTypes;
@@ -144,7 +145,7 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
             level.setBlock(pos, state.setValue(FULLNESS, nextFullness), 3);
             // If the bucket just became completely full, roll a chance to deplete the log
             if (nextFullness == 3) {
-                if (random.nextFloat() < 0.20F) {
+                if (random.nextFloat() < ConfigCommon.getMapleSapleDepletionChance()) {
                     this.depleteLogSap(level, logPos, logState);
                 }
             }
@@ -178,9 +179,6 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
     
     // Log depletion mechanic
     private void depleteLogSap(ServerLevel level, BlockPos logPos, BlockState sappyLogState) {
-        if (!sappyLogState.is(ModBlocks.SAPPY_MAPLE_LOG)) { // Avoid conflict with modded sappy logs that may result in weirdness.
-            return;
-        }
         if (sappyLogState.hasProperty(BlockStateProperties.AXIS)) {
             Axis activeAxis = sappyLogState.getValue(BlockStateProperties.AXIS);
             level.setBlock(logPos, ModBlocks.MAPLE_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, activeAxis), 3);
@@ -194,7 +192,7 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         Direction direction = state.getValue(FACING);
         BlockPos logPos = pos.relative(direction.getOpposite());
-        return level.getBlockState(logPos).is(ModBlocks.SAPPY_MAPLE_LOG) || level.getBlockState(logPos).is(BlockTags.LOGS);
+        return level.getBlockState(logPos).is(ModTags.BlockTags.SAPPY_MAPLE_LOGS) || level.getBlockState(logPos).is(BlockTags.LOGS);
     }
     
     @Override
@@ -219,11 +217,24 @@ public class SpileBlock extends HorizontalDirectionalBlock implements SimpleWate
         // Spiles can only be attached horizontally to the sides of logs
         if (clickedFace.getAxis().isHorizontal()) {
             BlockPos targetLogPos = context.getClickedPos().relative(clickedFace.getOpposite());
-            if (context.getLevel().getBlockState(targetLogPos).is(ModBlocks.SAPPY_MAPLE_LOG)) {
+            if (context.getLevel().getBlockState(targetLogPos).is(ModTags.BlockTags.SAPPY_MAPLE_LOGS)) {
                 FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
                 return this.defaultBlockState().setValue(FACING, clickedFace).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
             }
         }
         return null; // Prevents placement if not clicked on a horizontal side of a sappy log
+    }
+    
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return state.hasProperty(HAS_BUCKET) && state.getValue(HAS_BUCKET);
+    }
+    
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction dir) {
+        if (!state.hasProperty(FULLNESS)) {
+            return 0;
+        }
+        return state.getValue(FULLNESS);
     }
 }

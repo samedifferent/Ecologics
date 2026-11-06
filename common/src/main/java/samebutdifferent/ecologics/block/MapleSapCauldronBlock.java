@@ -3,6 +3,7 @@ package samebutdifferent.ecologics.block;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -125,4 +126,16 @@ public class MapleSapCauldronBlock extends AbstractCauldronBlock
 		return level.getBlockState(pos.below()).is(ModTags.BlockTags.HOT_BLOCKS);
 	}
 
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+    
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction dir) {
+        if (!state.hasProperty(LEVEL)) {
+            return 0;
+        }
+        return state.getValue(LEVEL);
+    }
 }
