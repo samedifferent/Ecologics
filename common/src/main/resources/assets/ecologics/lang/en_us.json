@@ -227,6 +227,8 @@
   "text.autoconfig.ecologics.option.snowy": "Snowy Biome",
   "text.autoconfig.ecologics.option.plains": "Plains Biome",
   "text.autoconfig.ecologics.option.lushCaves": "Lush Caves Biome",
+  "text.autoconfig.ecologics.option.maple": "Maple & Syrup",
+  "text.autoconfig.ecologics.option.misc": "Miscellaneous",
   "text.autoconfig.ecologics.option.beach.coconutCrabSpawnChance": "How often (in percentage) should Coconut Crabs spawn when a coconut breaks?",
   "text.autoconfig.ecologics.option.beach.generateCoconutTrees": "Generate coconut trees",
   "text.autoconfig.ecologics.option.beach.generateSeashells": "Generate seashells",
@@ -239,5 +241,8 @@
   "text.autoconfig.ecologics.option.plains.spawnSquirrels": "Spawn squirrels",
   "text.autoconfig.ecologics.option.plains.generateWalnutTrees": "Generate walnut trees",
   "text.autoconfig.ecologics.option.lushCaves.replaceAzaleaTree": "Replace oak logs on vanilla azalea trees with azalea logs",
-  "text.autoconfig.ecologics.option.lushCaves.generateSurfaceMoss": "Generate surface moss"
+  "text.autoconfig.ecologics.option.lushCaves.generateSurfaceMoss": "Generate surface moss",
+  "text.autoconfig.ecologics.option.maple.generateMapleTrees": "Generate maple trees",
+  "text.autoconfig.ecologics.option.maple.mapleSapDepletionChance": "Sappy Maple Log depletion probability",
+  "text.autoconfig.ecologics.option.misc.useVanillaCreativeTabs": "Ecologics Items in Vanilla Creative Tabs"
 }

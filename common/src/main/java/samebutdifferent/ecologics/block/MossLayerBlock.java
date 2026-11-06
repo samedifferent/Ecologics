@@ -55,7 +55,7 @@ public class MossLayerBlock extends SnowLayerBlock
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.CONSUME;
+        return super.useItemOn(item, state, level, pos, player, hand, hit);
     }
 
 

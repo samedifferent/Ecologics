@@ -19,8 +19,8 @@ public class CamelRendererMixin implements CamelChestDataHolder
         
     private boolean hasChest;
     
-    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/animal/camel/Camel;Lnet/minecraft/client/renderer/entity/state/CamelRenderState;F)V", at = @At(value = "TAIL"))
-    private void injectExtractRenderState(Camel entity, CamelRenderState state, float $$2, CallbackInfo ci) {
+    @Inject(method = "extractAdditionalState(Lnet/minecraft/world/entity/animal/camel/Camel;Lnet/minecraft/client/renderer/entity/state/CamelRenderState;F)V", at = @At(value = "TAIL"))
+    private static void injectExtractAdditionalState(Camel entity, CamelRenderState state, float $$2, CallbackInfo ci) {
         boolean hasChest = ((CamelChestDataHolder) entity).hasChest();
         ((CamelChestDataHolder) state).setChest(hasChest);
     }

@@ -48,6 +48,7 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operatio
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
+import oshi.util.tuples.Quartet;
 import samebutdifferent.ecologics.Ecologics;
 import samebutdifferent.ecologics.block.FloweringAzaleaLogBlock;
 import samebutdifferent.ecologics.block.PotBlock;
@@ -80,8 +81,6 @@ import samebutdifferent.ecologics.worldgen.structure.pieces.ModStructurePieces;
 @EventBusSubscriber(modid = Ecologics.MOD_ID)
 public class EcologicsNeoForge 
 {
-	private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(Ecologics.MOD_ID, "tab"));
-		
     public EcologicsNeoForge(IEventBus bus, ModContainer container) {
         container.registerConfig(ModConfig.Type.STARTUP, ModConfigNeoForge.COMMON_CONFIG);
 
@@ -104,7 +103,7 @@ public class EcologicsNeoForge
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Ecologics.commonSetup();
-            ModConfigNeoForge.updateConfig();
+            ModConfigNeoForge.updateConfigs();
             CamelChestDataHelper.registerHandler(new CamelChestDataHelperNeoForge());
         });
     }
@@ -113,40 +112,49 @@ public class EcologicsNeoForge
         if (ModList.get().isLoaded("farmersdelight") && Ecologics.farmersDelight == null) {
             Ecologics.farmersDelight = new FarmersDelightCompat();
         }
-    	event.register(Registries.SOUND_EVENT, _ -> { ModSoundEvents.init(); });
-    	event.register(Registries.BLOCK, _ -> { ModBlocks.init(); });
-    	event.register(Registries.ITEM, _ -> { ModItems.init(); });
-    	event.register(Registries.ENTITY_TYPE, _ -> { ModEntityTypes.init(); });
-    	event.register(Registries.BLOCK_ENTITY_TYPE, _ -> { ModBlockEntityTypes.init(); });
-    	event.register(Registries.FEATURE, _ -> { ModFeatures.init(); });
-    	event.register(Registries.TRUNK_PLACER_TYPE, _ -> { ModTrunkPlacerTypes.init(); });
-    	event.register(Registries.FOLIAGE_PLACER_TYPE, _ -> { ModFoliagePlacerTypes.init(); });
+        event.register(Registries.SOUND_EVENT, _ -> { ModSoundEvents.init(); });
+        event.register(Registries.BLOCK, _ -> { ModBlocks.init(); });
+        event.register(Registries.ITEM, _ -> { ModItems.init(); });
+        event.register(Registries.ENTITY_TYPE, _ -> { ModEntityTypes.init(); });
+        event.register(Registries.BLOCK_ENTITY_TYPE, _ -> { ModBlockEntityTypes.init(); });
+        event.register(Registries.FEATURE, _ -> { ModFeatures.init(); });
+        event.register(Registries.TRUNK_PLACER_TYPE, _ -> { ModTrunkPlacerTypes.init(); });
+        event.register(Registries.FOLIAGE_PLACER_TYPE, _ -> { ModFoliagePlacerTypes.init(); });
         event.register(Registries.TREE_DECORATOR_TYPE, _ -> { ModTreeDecoratorTypes.init(); });
-    	event.register(Registries.STRUCTURE_TYPE, _ -> { ModStructures.init(); });
-    	event.register(Registries.STRUCTURE_PIECE, _ -> { ModStructurePieces.init(); });
-    	event.register(Registries.MOB_EFFECT, _ -> { ModMobEffects.init(); });
-    	event.register(Registries.POTION, _ -> { ModPotions.init(); });
+        event.register(Registries.STRUCTURE_TYPE, _ -> { ModStructures.init(); });
+        event.register(Registries.STRUCTURE_PIECE, _ -> { ModStructurePieces.init(); });
+        event.register(Registries.MOB_EFFECT, _ -> { ModMobEffects.init(); });
+        event.register(Registries.POTION, _ -> { ModPotions.init(); });
         event.register(Registries.PARTICLE_TYPE, _ -> { ModParticleTypes.init(); });
-    	event.register(Registries.CREATIVE_MODE_TAB, helper -> {
-    		helper.register(TAB, CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
-    		ModCreativeModeTabContents.populateTabDatabase();
+        event.register(Registries.CREATIVE_MODE_TAB, helper -> {
+            helper.register(ModCreativeModeTabContents.ECOLOGICS_TAB.identifier(), CreativeModeTab.builder().title(Component.translatable("itemGroup.ecologics.tab")).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).icon(() -> { return new ItemStack(ModBlocks.COCONUT_LOG); }).build());
+            ModCreativeModeTabContents.populateTabDatabase();
             if (Ecologics.farmersDelight != null) {
                 Ecologics.farmersDelight.registerCreativeTabContent();
             }
-    	});
+        });
     }
 
     private void assignItemsToTab(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == TAB) {
-	        for (ItemLike entry : ModCreativeModeTabContents.TAB_ITEMS) {
-	        	event.accept(entry, TabVisibility.PARENT_AND_SEARCH_TABS);
-	        }
+        for (Quartet<ItemLike, ResourceKey<CreativeModeTab>, ModCreativeModeTabContents.Operation, ItemLike> entry : ModCreativeModeTabContents.TAB_ITEMS) {
+            if (entry.getB() != event.getTabKey()) {
+                continue;
+            }
+            if (entry.getC() == ModCreativeModeTabContents.Operation.INSERT) {
+                event.accept(entry.getA(), TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.BEFORE) {
+                event.insertBefore(entry.getD().asItem().getDefaultInstance(), entry.getA().asItem().getDefaultInstance(), TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            else if (entry.getC() == ModCreativeModeTabContents.Operation.AFTER) {
+                event.insertAfter(entry.getD().asItem().getDefaultInstance(), entry.getA().asItem().getDefaultInstance(), TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
         }
     }
     
     private void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
-    	event.register(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules, Operation.OR);
-    	event.register(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, Operation.OR);
+        event.register(ModEntityTypes.PENGUIN, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Penguin::checkPenguinSpawnRules, Operation.OR);
+        event.register(ModEntityTypes.SQUIRREL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, Operation.OR);
     }
 
     @SubscribeEvent

@@ -5,10 +5,11 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AzaleaBlockMixin",
-    "CamelMixin",
-    "FoxMixin",
     "CarpetBlockMixin",
     "MossyCarpetBlockMixin",
+    "DispenserBlockMixin",
+    "CamelMixin",
+    "FoxMixin",
     "LivingEntityMixin"
   ],
   "client": [
